@@ -1,0 +1,16 @@
+.footer{
+    @apply flex flex-col justify-center items-center py-12 bg-white
+
+}
+.links{
+    @apply mb-4
+}
+.link{
+    &:hover{
+        @apply text-blue-500
+    }
+    @apply text-lg mr-16 duration-500 transition-all
+}
+.copyright{
+    @apply mr-14
+}

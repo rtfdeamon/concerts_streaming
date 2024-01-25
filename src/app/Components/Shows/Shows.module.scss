@@ -10,23 +10,26 @@
 .concertCategories,
 .genres,
 .artists{
-    & span{
-        @apply rounded-full cursor-pointer border-2 py-2 px-4 mr-5 border-blue-400
+    & a{
+        @apply rounded-full cursor-pointer border-2 py-2 px-4 mr-5 border-blue-400 opacity-70 transition-all duration-500
     }
-    @apply flex justify-center flex-wrap text-xl
+    & a:hover{
+        @apply opacity-100
+    }
+    @apply flex justify-center flex-wrap text-xl mb-6
 }
 .concertCategories{
-    & span{
+    & a{
         @apply border-blue-400
     }
 }
 .genres{
-    & span{
-        @apply border-blue-400
+    & a{
+        @apply border-red-400
     }
 }
 .artists{
-    & span{
-        @apply  border-blue-400
+    & a{
+        @apply  border-slate-400
     }
 }

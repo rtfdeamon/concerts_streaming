@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './Shows.module.scss'
 
 export default function Shows() {
@@ -8,25 +9,25 @@ export default function Shows() {
         </h2>
         <span className={styles.subtitle}>Find a concert by your genre, artist or date</span>
         <div className={styles.concertCategories}>
-            <span>Live concerts</span>
-            <span>Scheduled concerts</span>
+            <Link href={'/live'}>Live concerts</Link>
+            <Link href={'/schedule'}>Scheduled concerts</Link>
         </div>
         <div className={styles.genres}>
-            <span>Country</span>
-            <span>Electronic</span>
-            <span>Funk</span>
-            <span>Hip hop</span>
-            <span>Jazz</span>
-            <span>Latin</span>
-            <span>Pop</span>
-            <span>Punk</span>
-            <span>Rock</span>
-            <span>Metal</span>
-            <span>R&B</span>
+            <Link href={'/live'}>Country</Link>
+            <Link href={'/live'}>Electronic</Link>
+            <Link href={'/live'}>Funk</Link>
+            <Link href={'/live'}>Hip hop</Link>
+            <Link href={'/live'}>Jazz</Link>
+            <Link href={'/live'}>Latin</Link>
+            <Link href={'/live'}>Pop</Link>
+            <Link href={'/live'}>Punk</Link>
+            <Link href={'/live'}>Rock</Link>
+            <Link href={'/live'}>Metal</Link>
+            <Link href={'/live'}>R&B</Link>
         </div>
         <div className={styles.artists}>
-            <span>All artists</span>
-            <span>Followed artists</span>
+            <Link href={'/artists'}>All artists</Link>
+            <Link href={'/followed'}>Followed artists</Link>
         </div>
     </section>
   )

@@ -84,6 +84,7 @@ body{
     min-height: 100vh;
     overflow-x: hidden;
     background: linear-gradient(to bottom left, #D7DFEA, #FFFFFF), #D7DFEA;
+    font-size: 18px;
 }
 .main{
     @apply max-w-[1500px] mx-auto p-10
