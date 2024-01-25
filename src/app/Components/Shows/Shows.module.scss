@@ -1,0 +1,32 @@
+.section{
+    @apply flex-col mt-8 py-4 px-9 flex justify-between bg-white rounded-md
+}
+.sectionTitle{
+    @apply text-3xl m-auto
+}
+.subtitle{
+    @apply text-xl m-auto text-slate-400 py-4
+}
+.concertCategories,
+.genres,
+.artists{
+    & span{
+        @apply rounded-full cursor-pointer border-2 py-2 px-4 mr-5 border-blue-400
+    }
+    @apply flex justify-center flex-wrap text-xl
+}
+.concertCategories{
+    & span{
+        @apply border-blue-400
+    }
+}
+.genres{
+    & span{
+        @apply border-blue-400
+    }
+}
+.artists{
+    & span{
+        @apply  border-blue-400
+    }
+}

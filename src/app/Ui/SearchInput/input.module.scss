@@ -1,0 +1,19 @@
+.inputHeader, .inputDefault{
+    & span{
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        transform: translate(50%, 65%);
+        background-image: url('../../../../public/search.svg');
+    }
+    & input{
+        @apply pl-10 py-6
+    }
+    @apply relative 
+}
+.inputHeader{
+    @apply w-[300px]
+}
+.inputDefault{
+    @apply w-[220px]
+}

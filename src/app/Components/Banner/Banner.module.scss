@@ -1,0 +1,21 @@
+
+.section{
+    @apply flex justify-between bg-white rounded-md
+}
+.promo{
+    & h1{
+       @apply text-3xl 
+    }
+    & .btn{
+        &:hover{
+            @apply bg-blue-700
+        }
+        @apply text-xl mt-8 p-8 bg-blue-500 duration-500 transition-all
+    }
+    @apply flex-col items-center justify-center text-center pl-16 flex
+}
+.bannerWrapper{
+    & img{
+        @apply rounded-lg
+    }
+}
