@@ -25,11 +25,12 @@
 }
 .genres{
     & a{
-        @apply border-red-400
+        @apply border-red-400 mb-6
     }
 }
 .artists{
     & a{
         @apply  border-slate-400
     }
+    @apply -mt-6
 }

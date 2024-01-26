@@ -24,6 +24,11 @@ export default function Shows() {
             <Link href={'/live'}>Rock</Link>
             <Link href={'/live'}>Metal</Link>
             <Link href={'/live'}>R&B</Link>
+            <Link href={'/live'}>Alternative</Link>
+            <Link href={'/live'}>Blues</Link>
+            <Link href={'/live'}>Classical</Link>
+            <Link href={'/live'}>Indie</Link>
+            <Link href={'/live'}>Other</Link>
         </div>
         <div className={styles.artists}>
             <Link href={'/artists'}>All artists</Link>

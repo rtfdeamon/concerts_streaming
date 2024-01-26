@@ -1,0 +1,39 @@
+.section{
+    @apply bg-white py-6 px-8 min-h-[450px]
+}
+.title{
+    @apply text-3xl text-center
+}
+.carousel{
+    @apply flex justify-center items-center w-full py-6 px-2
+}
+.carouselBlock{
+    @apply mx-auto w-[90%]
+}
+.carouselItem{
+    @apply flex justify-center pl-1
+}
+.carouselTagItem{
+    & div{
+        @apply border-0
+    }
+    @apply p-8
+}
+.cardLink{
+    & img{
+        @apply rounded-md
+    }
+    @apply flex-col items-center text-center w-[500px] h-[250px] justify-center px-6 rounded-lg
+}
+.cardText{
+    &:hover{
+        @apply text-blue-500
+    }
+    @apply block text-xl text-center mt-4 duration-500 transition-all
+}
+.section button{
+    & svg{
+        @apply w-[200px] h-[200px]
+    }
+    @apply border-0
+}

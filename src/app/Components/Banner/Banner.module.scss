@@ -1,18 +1,23 @@
 
 .section{
-    @apply flex justify-between bg-white rounded-md
+    background-image: url('../../../../public/banner.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @apply relative flex justify-between h-[70vh] bg-white rounded-md
 }
 .promo{
     & h1{
-       @apply text-3xl 
+        word-wrap: break-word;
+       @apply text-6xl font-bold text-white
     }
     & .btn{
         &:hover{
             @apply bg-blue-700
         }
-        @apply text-xl mt-8 p-8 bg-blue-500 duration-500 transition-all
+        @apply right-2 text-xl mt-8 p-8 bg-blue-500 duration-500 transition-all
     }
-    @apply flex-col items-center justify-center text-center pl-16 flex
+    @apply absolute top-[58%] left-4 flex-col items-start justify-center text-center pl-16 flex
 }
 .bannerWrapper{
     & img{
