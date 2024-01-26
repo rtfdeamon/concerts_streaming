@@ -1,15 +1,15 @@
 
 .section{
     background-image: url('../../../../public/banner.jpg');
-    background-position: center center;
+    background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
-    @apply relative flex justify-between h-[70vh] bg-white rounded-md
+    @apply relative flex justify-between h-[70vh] bg-white
 }
 .promo{
     & h1{
         word-wrap: break-word;
-       @apply text-6xl font-bold text-white
+       @apply text-5xl font-bold text-white
     }
     & .btn{
         &:hover{
@@ -17,10 +17,5 @@
         }
         @apply right-2 text-xl mt-8 p-8 bg-blue-500 duration-500 transition-all
     }
-    @apply absolute top-[58%] left-4 flex-col items-start justify-center text-center pl-16 flex
-}
-.bannerWrapper{
-    & img{
-        @apply rounded-lg
-    }
+    @apply absolute top-[40%] right-4 flex-col items-center justify-center text-center pl-16 flex
 }

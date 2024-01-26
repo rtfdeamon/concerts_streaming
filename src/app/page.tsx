@@ -10,8 +10,8 @@ export default function Home() {
     <>
       <Header />
       <TagsCarousel />
+      <Banner />
         <main className='main'>
-          <Banner />
           <Shows />
           <Recommendations />
         </main>
