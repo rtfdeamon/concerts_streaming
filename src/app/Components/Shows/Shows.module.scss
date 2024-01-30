@@ -9,18 +9,27 @@
 }
 .concertCategories,
 .genres,
-.artists{
-    & a{
-        @apply rounded-full cursor-pointer border-2 py-2 px-4 mr-5 border-blue-400 opacity-70 transition-all duration-500
+.artists,
+.dates{
+    & a, span{
+        @apply rounded-full cursor-pointer border-2 py-2 px-4 mr-5 border-blue-400 opacity-60 transition-all duration-500
     }
-    & a:hover{
+    & .spanActive{
+        @apply opacity-100 
+    }
+    & a:hover, span:hover{
         @apply opacity-100
     }
     @apply flex justify-center flex-wrap text-xl mb-6
 }
+.dates{
+    & span{
+        @apply border-blue-600
+    }
+}
 .concertCategories{
     & a{
-        @apply border-blue-400
+        @apply border-sky-400
     }
 }
 .genres{

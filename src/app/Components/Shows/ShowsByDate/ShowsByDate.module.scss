@@ -1,0 +1,21 @@
+.shows{
+    @apply flex flex-wrap items-center justify-evenly text-xl my-7
+}
+.wrapper{
+    @apply mb-6
+}
+.title{
+    @apply text-center text-2xl
+}
+.place{
+    @apply block text-center text-slate-400 m-1
+}
+.date{
+    & img{
+        @apply mr-6
+    }
+    @apply flex items-center justify-center
+}
+.img{
+    @apply block mx-auto my-4
+}

@@ -1,9 +1,18 @@
 .header{
-    @apply flex justify-between items-center py-5 px-10 border-b-2 border-blue-700 bg-white
+    @apply flex justify-between items-center text-xl py-5 px-10 border-b-2 border-blue-700 bg-white
 }
 .wrapper{
     & img{
         @apply mr-10
+    }
+    @apply flex items-center
+}
+.profileWrapper{
+    & a{
+        @apply mr-16 transition-all duration-500
+    }
+    & a:hover{
+        @apply text-blue-500
     }
     @apply flex items-center
 }

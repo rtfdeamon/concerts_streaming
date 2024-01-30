@@ -12,9 +12,6 @@ export default function Banner() {
             <h1>Enjoy your favourite musicians shows!</h1>
             <Button className={styles.btn}>Look for shows</Button>
         </div>
-        {/* <Link href={'/shows'} className={styles.bannerWrapper}>
-            <Image src={BannerImg} width={700} height={400} alt="banner"/>
-        </Link> */}
     </section>
   )
 }
