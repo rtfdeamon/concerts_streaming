@@ -19,3 +19,18 @@
 .img{
     @apply block mx-auto my-4
 }
+.paginate {
+    & ul {
+        & li{
+            &:first-child{
+                @apply absolute right-[70vw]
+            }
+            & a{
+                @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
+            }
+            transform: translate(80%, -20%);
+            @apply absolute
+        }
+        @apply flex justify-center absolute
+    }
+}

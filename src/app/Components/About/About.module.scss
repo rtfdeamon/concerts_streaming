@@ -1,0 +1,60 @@
+.section{
+    background-image: url('../../../../public/audio-lines.svg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: 500px 400px;
+    background-position: 20% 80%;
+    @apply px-14 py-20 bg-white rounded-md
+}
+.sectionWrapper{
+    @apply flex mx-auto justify-center 
+}
+.infoWrapper{
+    & h5{
+        &::before{
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            width: 85%;
+            height: 4px;
+            background: #3182EC;
+        }
+        @apply relative text-5xl mb-8
+    }
+    & h6{
+        @apply text-3xl mb-4
+    }
+    & h5, h6{
+        @apply  text-left
+    }
+    & p{
+        word-wrap: break-word;
+        @apply text-slate-400 max-w-[800px]
+    }
+}
+.iconsWrapper{
+    @apply flex flex-wrap w-[800px] justify-end
+}
+.iconWrapper{
+    &:nth-child(1), &:nth-child(2),
+    &:nth-child(3), &:nth-child(4){
+        @apply mb-16   
+    };
+    &:nth-child(1), &:nth-child(3), , &:nth-child(5){
+        @apply mr-16   
+    }
+    &:last-child{
+        @apply mb-24
+    }
+    & img{
+        @apply mb-5 mx-auto
+    }
+    @apply w-[350px]
+}
+.iconText{
+    & {
+        word-wrap: break-word;
+    }
+    @apply block max-w-[230px] mx-auto
+}

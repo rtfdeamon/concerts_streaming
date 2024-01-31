@@ -4,7 +4,7 @@
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
-    @apply relative flex justify-between h-[77vh] bg-white
+    @apply flex justify-between bg-white
 }
 .promo{
     & h1{
@@ -17,5 +17,5 @@
         }
         @apply right-2 text-xl mt-8 p-8 bg-blue-500 duration-500 transition-all
     }
-    @apply absolute top-[40%] right-4 flex-col items-center justify-center text-center pl-16 flex
+    @apply absolute top-[50%] right-[5vw] flex-col items-center justify-center text-center pl-16 flex
 }

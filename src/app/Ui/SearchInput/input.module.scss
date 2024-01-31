@@ -12,7 +12,10 @@
     @apply relative 
 }
 .inputHeader{
-    @apply w-[300px]
+    & input{
+        @apply  placeholder-white bg-transparent
+    }
+    @apply w-[300px] flex 
 }
 .inputDefault{
     @apply w-[220px]

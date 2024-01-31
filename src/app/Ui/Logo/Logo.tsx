@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import DarkLogo from '../../../../public/LogoDark.png'
+import Dark from '../../../../public/LogoLight.png'
 import LightLogo from '../../../../public/Logo.png'
 
 export default function Logo({variant} : {variant: string}) {
@@ -13,7 +13,7 @@ export default function Logo({variant} : {variant: string}) {
         </Link>
         :
         <Link href={process.env.FRONTEND_URL !}>
-          <Image src={DarkLogo} width={100} height={60} alt="logo"/>
+          <Image src={Dark} width={100} height={5} alt="logo"/>
         </Link>
       }
     </>

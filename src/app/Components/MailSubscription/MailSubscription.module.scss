@@ -1,0 +1,21 @@
+.form{
+    & h5{
+        @apply text-3xl text-center mb-12
+    }
+    @apply flex-col items-center mx-auto my-24 min-h-[200px]
+}
+.formWrapper{
+    @apply flex items-center mx-auto max-w-[50vw]
+}
+.input{
+    @apply h-[63px]
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex mx-auto right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
+}
+.error{
+    @apply block text-center text-red-600
+}

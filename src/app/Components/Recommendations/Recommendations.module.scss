@@ -1,39 +1,43 @@
 .section{
-    @apply bg-white py-6 px-8 min-h-[450px]
+    @apply bg-white py-6 px-8 min-h-[450px] rounded-md
 }
 .title{
-    @apply text-3xl text-center
+    @apply text-3xl text-center mb-24
 }
-.carousel{
-    @apply flex justify-center items-center w-full py-6 px-2
+.artistsWrapper{
+    @apply flex flex-wrap my-24 mb-20
 }
-.carouselBlock{
-    @apply mx-auto w-[90%]
+.artistWrapper{
+    @apply w-[450px] mb-[40px] flex flex-col
 }
-.carouselItem{
-    @apply flex justify-center pl-1
-}
-.carouselTagItem{
-    & div{
-        @apply border-0
-    }
-    @apply p-8
-}
-.cardLink{
-    & img{
-        @apply rounded-md
-    }
-    @apply flex-col items-center text-center w-[500px] h-[250px] justify-center px-6 rounded-lg
-}
-.cardText{
+.linkWrapper{
     &:hover{
         @apply text-blue-500
     }
-    @apply block text-xl text-center mt-4 duration-500 transition-all
+    & img{
+        @apply rounded-full w-[160px] h-[160px]
+    }
+    @apply flex justify-evenly text-center rounded-lg
+}
+.artistInfo{
+    @apply flex flex-col items-center justify-center w-[250px]
+}
+.artistName{
+    word-wrap: break-word;
+    @apply block max-w-[250px] mx-auto text-center text-2xl duration-500 transition-all my-4
+}
+.genre{
+    @apply text-slate-400 text-center
 }
 .section button{
     & svg{
         @apply w-[200px] h-[200px]
     }
     @apply border-0
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
 }

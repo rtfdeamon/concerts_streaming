@@ -12,5 +12,8 @@
     @apply text-lg mr-16 duration-500 transition-all
 }
 .copyright{
-    @apply mr-14
+    @apply mr-14 ml-5
+}
+.logoWrapper{
+    @apply flex items-center
 }

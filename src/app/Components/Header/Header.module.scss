@@ -1,5 +1,25 @@
 .header{
-    @apply flex justify-between items-center text-xl py-5 px-10 border-b-2 border-blue-700 bg-white
+        background-image: url('../../../../public/banner.jpg');
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: cover;
+        & a{
+            @apply mr-16 transition-all duration-500
+        }
+        & a:hover{
+            @apply text-blue-500
+        }
+        & input{
+            &::placeholder {
+                color: white;
+                opacity: 1; /* Firefox */
+              }
+        }
+        @apply flex flex-col h-[100vh] text-white
+        
+}
+.headerWrapper{
+    @apply flex justify-between items-center w-[1920px] mx-auto text-xl py-5 px-10 bg-transparent
 }
 .wrapper{
     & img{
@@ -7,12 +27,9 @@
     }
     @apply flex items-center
 }
+.events{
+    @apply flex justify-between items-center
+}
 .profileWrapper{
-    & a{
-        @apply mr-16 transition-all duration-500
-    }
-    & a:hover{
-        @apply text-blue-500
-    }
     @apply flex items-center
 }

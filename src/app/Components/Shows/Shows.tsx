@@ -61,6 +61,46 @@ export default function Shows() {
             place: 'Berlin',
             date: 'Feb 05 - 10:00 AM'
         },
+        {
+            title: 'Example 1',
+            place: 'Berlin',
+            date: 'Feb 05 - 10:00 AM'
+        },
+        {
+            title: 'Example 2',
+            place: 'Berlin',
+            date: 'Feb 05 - 10:00 AM'
+        },
+        {
+            title: 'Example 3',
+            place: 'Berlin',
+            date: 'Feb 05 - 10:00 AM'
+        },
+        {
+            title: 'Example 4',
+            place: 'Berlin',
+            date: 'Feb 05 - 10:00 AM'
+        },
+        {
+            title: 'Example 1',
+            place: 'Berlin',
+            date: 'Feb 05 - 10:00 AM'
+        },
+        {
+            title: 'Example 2',
+            place: 'Berlin',
+            date: 'Feb 05 - 10:00 AM'
+        },
+        {
+            title: 'Example 3',
+            place: 'Berlin',
+            date: 'Feb 05 - 10:00 AM'
+        },
+        {
+            title: 'Example 4',
+            place: 'Berlin',
+            date: 'Feb 05 - 10:00 AM'
+        }
       ]
       const todayIsOpenHandler = () => {
         setTodayIsOpen(!todayIsOpen);
