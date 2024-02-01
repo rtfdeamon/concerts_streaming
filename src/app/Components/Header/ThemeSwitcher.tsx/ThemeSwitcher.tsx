@@ -1,19 +1,13 @@
 'use client'
 import { useState, useEffect } from "react"
 import { Switch } from '@headlessui/react'
+import { useLocalStorage } from "@/app/hooks/useLocalStorage"
 import Image from "next/image"
 import Sun from '../../../../../public/sun.svg'
 import Moon from '../../../../../public/moon.svg'
 
 export default function ThemeSwitcher() {
-    const [enabled, setEnabled] = useState(false)
-    useEffect(() => {
-        enabled
-        ?
-            localStorage.setItem('theme', 'dark')
-        :
-            localStorage.setItem('theme', 'light')
-    }, [enabled])
+    const [enabled, setEnabled] = useLocalStorage('theme', false);
   return (
     <Switch
         checked={enabled}

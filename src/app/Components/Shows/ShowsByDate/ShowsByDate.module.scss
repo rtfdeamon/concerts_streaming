@@ -1,8 +1,8 @@
 .shows{
-    @apply flex flex-wrap items-center justify-evenly text-xl my-7
+    @apply flex flex-wrap items-center justify-center relative text-xl my-7
 }
 .wrapper{
-    @apply mb-6
+    @apply mb-6 mx-4
 }
 .title{
     @apply text-center text-2xl
@@ -23,7 +23,10 @@
     & ul {
         & li{
             &:first-child{
-                @apply absolute right-[70vw]
+                @apply absolute left-[-40px]
+            }
+            &:last-child{
+                @apply absolute right-[2px]
             }
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
@@ -31,6 +34,5 @@
             transform: translate(80%, -20%);
             @apply absolute
         }
-        @apply flex justify-center absolute
     }
 }
