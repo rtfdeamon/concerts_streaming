@@ -1,0 +1,24 @@
+.title{
+    @apply text-center text-3xl m-6 
+}
+.form{
+    @apply flex flex-col
+}
+.formWrapper{
+    @apply block w-72 m-auto 
+}
+.input{
+    @apply mb-5 mt-5 text-black
+}
+.link{
+    & a{
+        @apply ml-5 hover:text-slate-400 transition-all duration-500
+    }
+    @apply flex flex-row mt-5 text-center text-white w-[350px]
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply right-2 text-xl mt-4 p-8 bg-blue-500 duration-500 transition-all
+}

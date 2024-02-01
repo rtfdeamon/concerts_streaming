@@ -19,3 +19,37 @@
     }
     @apply absolute top-[50%] right-[5vw] flex-col items-center justify-center text-center pl-16 flex
 }
+body[theme = "dark"] .promo{
+    & h1{
+        @apply opacity-80
+    }
+    & .btn{
+        &:hover{
+            @apply bg-slate-400
+        }
+        @apply  bg-slate-600
+    }
+}
+@media screen and (max-width: 1280px){
+ .promo{
+    display: block;
+    margin: auto;
+    top: 50%;
+    width: 90vw;
+ }
+}
+@media screen and (max-width: 1024px){
+    .promo{
+        width: 95vw;
+        & h1{
+           @apply text-4xl
+        }
+    }
+   }
+   @media screen and (max-width: 620px){
+    .promo{
+        & h1{
+           @apply text-3xl
+        }
+    }
+   }

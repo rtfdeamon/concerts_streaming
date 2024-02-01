@@ -1,0 +1,7 @@
+// .loading{
+//     transform: translateX(-50%);
+//     transform: translateY(-50%)
+// }
+.loading{
+    @apply block w-screen h-screen text-center
+}

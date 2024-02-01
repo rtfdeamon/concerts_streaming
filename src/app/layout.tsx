@@ -1,6 +1,8 @@
+import RootProvider from "./store/RootProvider";
+
 import type { Metadata } from "next";
 import { Onest } from "next/font/google";
-import "./globals.css";
+import "./globals.scss";
 
 const inter = Onest({ subsets: ["latin"], weight: ['600', '500', '400', '100'] });
 
@@ -16,9 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
-      </body>
+      <RootProvider>
+          <body className={inter.className}>
+            {children}
+          </body>
+      </RootProvider>
     </html>
   );
 }

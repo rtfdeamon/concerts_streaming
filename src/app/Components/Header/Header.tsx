@@ -15,15 +15,12 @@ import {
   MenubarSub,
   MenubarSubTrigger,
   MenubarSubContent,
-  MenubarRadioItem,
-  MenubarCheckboxItem,
-  MenubarRadioGroup
 } from "@/shadComponents/ui/menubar"
 
 import styles from './Header.module.scss'
 import Link from 'next/link'
 
-export default function Header() {
+export default function Header({type, children}:{type: string, children?: React.ReactNode}) {
   const authed = false;
   return (
     <header className={styles.header}>
@@ -108,7 +105,7 @@ export default function Header() {
                 <ProfileDropdown />
                 :
                 <>
-                  <Link className={styles.link} href={'/signin'}>Sign in</Link>
+                  <Link className={styles.link} href={'/login'}>Login</Link>
                   <Link className={styles.link} href={'/signup'}>Sign up</Link>
                 </>
               }
@@ -116,7 +113,9 @@ export default function Header() {
           </div>
         </div>
         {/* <RegionSelector /> */}
-        <Banner />
+        {type === 'errorPage' && <h5 className={styles.error}>Sorry! Page does not exist 🥲</h5>}
+        {type === 'banner' &&  <Banner />}
+        {type === 'children' && children}
     </header>
   )
 }

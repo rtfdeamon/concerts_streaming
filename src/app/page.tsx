@@ -11,7 +11,7 @@ import Footer from './Components/Footer/Footer';
 export default function Home() {
   return (
     <>
-      <Header />
+      <Header type='banner'/>
       {/* <TargsCarousel />  */}
           <main className='main'>
             <Shows />

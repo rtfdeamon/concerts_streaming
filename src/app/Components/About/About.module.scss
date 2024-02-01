@@ -58,3 +58,11 @@
     }
     @apply block max-w-[230px] mx-auto
 }
+@media screen and (max-width: 1650px){
+    .iconWrapper{
+        &:nth-child(1), &:nth-child(3), &:nth-child(5){
+            @apply mr-8   
+        }
+        @apply w-[290px]
+    }
+}

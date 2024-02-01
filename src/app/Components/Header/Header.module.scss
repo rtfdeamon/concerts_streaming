@@ -18,8 +18,15 @@
         @apply flex flex-col h-[100vh] text-white
         
 }
+body[theme = "dark"] .header{
+    background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../../public/banner.jpg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
 .headerWrapper{
-    @apply flex justify-between items-center w-[1920px] mx-auto text-xl py-5 px-10 bg-transparent
+    @apply flex justify-between items-center w-[95vw] mx-auto text-xl py-5 px-10 bg-transparent
 }
 .wrapper{
     & img{
@@ -30,6 +37,51 @@
 .events{
     @apply flex justify-between items-center
 }
+body[theme = "dark"] .link {
+    opacity: 0.8;
+}
+body[theme = "dark"] .events button{
+    opacity: 0.8;
+}
 .profileWrapper{
     @apply flex items-center
+}
+.error{
+    @apply block mt-[40vh] text-5xl font-bold text-center
+}
+@media screen and (max-width:1550px) {
+    .header{
+        & a:first-child{
+            @apply mr-2
+        }
+    }
+    .events div{
+        @apply ml-4
+    }
+}
+@media screen and (max-width:1280px) {
+    .header{
+        & a:first-child{
+            @apply mr-10
+        }
+    }
+    .headerWrapper{
+        @apply w-[100vw] flex-wrap justify-center
+    }
+    .wrapper{
+        @apply w-[90vw] justify-center mb-5
+    }
+    .events{
+        @apply mr-24
+    }
+}
+@media screen and (max-width:850px) {
+    .events{
+        @apply mr-12
+    }
+}
+@media screen and (max-width:780px) {
+    .events{
+        @apply mb-5 w-[90vw] mr-0 justify-center
+    }
 }

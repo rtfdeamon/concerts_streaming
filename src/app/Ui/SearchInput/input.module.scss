@@ -11,6 +11,9 @@
     }
     @apply relative 
 }
+body[theme = "dark"] .inputHeader, .inputDefault{
+        @apply opacity-80
+}
 .inputHeader{
     & input{
         @apply  placeholder-white bg-transparent
@@ -19,4 +22,26 @@
 }
 .inputDefault{
     @apply w-[220px]
+}
+
+@media screen and (max-width: 1366px){
+    .inputHeader{
+        & input{
+            &::placeholder{
+                @apply truncate
+            }
+           @apply truncate
+        }   
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width: 1280px){
+    .inputHeader{
+        @apply w-[300px]
+    }
+}
+@media screen and (max-width: 850px){
+    .inputHeader{
+        @apply w-[250px]
+    }
 }

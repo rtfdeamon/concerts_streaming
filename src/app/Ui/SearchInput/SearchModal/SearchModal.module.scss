@@ -1,0 +1,27 @@
+.title{
+    @apply text-3xl text-center font-medium leading-6 text-gray-900
+}
+.searching{
+    @apply text-xl my-3
+}
+.artistsWrapper{
+    @apply flex flex-row overflow-x-auto overflow-y-hidden items-center text-center mb-8
+}
+.Title{
+    @apply text-2xl text-center mb-3
+}
+.artist{
+    &:hover {
+        @apply bg-slate-200
+    }
+    @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[200px] min-w-[200px]
+}
+.Image{
+    @apply rounded-full
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply block mx-auto my-auto right-2 text-xl w-[200px] h-[50px] bg-blue-500 duration-500 transition-all
+}

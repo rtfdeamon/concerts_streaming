@@ -1,7 +1,8 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -73,7 +74,11 @@
   body {
     @apply bg-background text-foreground;
   }
-}*,
+}
+
+@import './variables.scss';
+
+*,
 html,
 body {
     box-sizing: border-box;
@@ -85,6 +90,14 @@ body{
     overflow-x: hidden;
     background: linear-gradient(to bottom left, #D7DFEA, #FFFFFF), #D7DFEA;
     font-size: 18px;
+    transition: 1s all ease;
+}
+body[theme = "dark"]{
+  & h2,h3, h5, h6, span, a{
+    color: $dark-text;
+  }
+  transition: 1s all ease;
+  background: $dark-bg;
 }
 .main{
     @apply max-w-[1500px] mx-auto p-10

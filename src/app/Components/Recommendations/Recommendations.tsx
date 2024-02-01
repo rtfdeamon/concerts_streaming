@@ -14,7 +14,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Recommendations.module.scss'
 
+export interface IArtist {
+  artistName: string;
+  genre: string;
+}
+export interface IArtists {
+  artists: IArtist[]
+}
+
 export default function Recommendations() {
+
   const artists = [
     {
       artistName: 'Artist 1',
