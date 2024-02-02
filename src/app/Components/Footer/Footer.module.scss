@@ -17,3 +17,32 @@
 .logoWrapper{
     @apply flex items-center
 }
+
+@media screen and (max-width:576px) {
+    .link:not(:last-child){
+        @apply mr-8
+    }
+    .link:last-child{
+        @apply mr-0
+    }
+    .logoWrapper{
+        @apply flex-col items-center justify-center
+    }
+    .copyright{
+        @apply mx-0
+    }
+}
+@media screen and (max-width:420px) {
+    .link:not(:last-child){
+        @apply mr-8
+    }
+    .link:last-child{
+        @apply mr-0
+    }
+    .logoWrapper{
+        @apply flex-col items-center justify-center
+    }
+    .copyright{
+        @apply mx-0 max-w-[300px]
+    }
+}

@@ -45,3 +45,8 @@ body[theme = "dark"] .inputHeader, .inputDefault{
         @apply w-[250px]
     }
 }
+@media screen and (max-width: 768px){
+    .inputHeader{
+        @apply w-[300px] my-5
+    }
+}

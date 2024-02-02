@@ -5,7 +5,7 @@
     @apply text-xl my-3
 }
 .artistsWrapper{
-    @apply flex flex-row overflow-x-auto overflow-y-hidden items-center text-center mb-8
+    @apply flex flex-row overflow-x-auto overflow-y-hidden items-center text-center mb-8 z-[99]
 }
 .Title{
     @apply text-2xl text-center mb-3

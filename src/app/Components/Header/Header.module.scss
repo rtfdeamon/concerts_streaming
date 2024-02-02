@@ -15,7 +15,7 @@
                 opacity: 1; /* Firefox */
               }
         }
-        @apply flex flex-col h-[100vh] text-white
+        @apply relative flex flex-col h-[100vh] text-white
         
 }
 body[theme = "dark"] .header{
@@ -27,6 +27,19 @@ body[theme = "dark"] .header{
 }
 .headerWrapper{
     @apply flex justify-between items-center w-[95vw] mx-auto text-xl py-5 px-10 bg-transparent
+}
+.burger, .burgerClose{
+        position: absolute;
+        right: 40px;
+        top: 20px;
+        z-index: 100;
+}
+.headerMobileWrapper{
+    @apply absolute top-[-300vh] py-32 flex flex-col justify-start items-center bottom-0 right-0 left-0 transition-all duration-200
+}
+body[burgerIsActive = "close"] .headerMobileWrapper{
+    background: rgba(0,0,0, 0.85);
+    @apply top-[0px] z-50
 }
 .wrapper{
     & img{
@@ -80,8 +93,22 @@ body[theme = "dark"] .events button{
         @apply mr-12
     }
 }
-@media screen and (max-width:780px) {
+@media screen and (max-width:768px) {
+    .header{
+        & a:first-child{
+            @apply mr-0
+        }
+    }
+    .wrapper{
+        & img{
+            @apply mr-0
+        }
+        @apply flex-col items-center justify-center
+    }
     .events{
-        @apply mb-5 w-[90vw] mr-0 justify-center
+        @apply mb-10 w-[90vw] mr-0 justify-center
+    }
+    .profileWrapper a:first-child{
+        @apply mr-16
     }
 }

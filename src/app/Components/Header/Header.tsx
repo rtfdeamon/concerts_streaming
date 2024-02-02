@@ -1,3 +1,5 @@
+'use client'
+import { useEffect, useState } from 'react'
 import Logo from '../../Ui/Logo/Logo'
 import SearchInput from '@/app/Ui/SearchInput/SearchInput'
 import RegionSelector from './RegionSelector/RegionSelector'
@@ -16,15 +18,58 @@ import {
   MenubarSubTrigger,
   MenubarSubContent,
 } from "@/shadComponents/ui/menubar"
-
 import styles from './Header.module.scss'
+import Image from 'next/image'
 import Link from 'next/link'
+import X from '../../../../public/x.svg'
+import Menu from '../../../../public/menu.svg'
 
 export default function Header({type, children}:{type: string, children?: React.ReactNode}) {
+  const [isMobille, setIsMobile] = useState(false);
+  const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const authed = false;
+
+  const burgerHandler = () => {
+    setBurgerIsOpen(!burgerIsOpen)
+    if (burgerIsOpen){
+      document.body.setAttribute('burgerIsActive', 'open')
+    } else{
+      document.body.setAttribute('burgerIsActive', 'close')
+    }
+  }
+  
+  useEffect(() => {
+    if (window.innerWidth <= 768){
+      setIsMobile(true);
+    }
+  }, [])
   return (
     <header className={styles.header}>
-      <div className={styles.headerWrapper}>
+      {
+        isMobille && 
+        <div
+          onClick={() => burgerHandler()}
+          className={!burgerIsOpen ? styles.burger : styles.burgerClose}
+          >
+          {
+            burgerIsOpen ? 
+              <Image
+                className={styles.burgerActive}
+                src={X}
+                width={80}
+                height={80}
+                alt='Close burger' />
+            :
+              <Image
+                className={styles.burgerNonActive}
+                src={Menu}
+                width={80}
+                height={80}
+                alt='Open burger' />
+          }
+       </div>
+      }
+      <div className={!isMobille? styles.headerWrapper : styles.headerMobileWrapper}>
           <div className={styles.wrapper}>
               <Logo variant='light' />
               <SearchInput placeholder='Search for some artists or concerts' variant='header'/>

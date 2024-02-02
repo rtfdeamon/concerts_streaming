@@ -36,3 +36,91 @@
         }
     }
 }
+@media screen and (max-width:1480px) {
+    .wrapper{
+        @apply w-[280px]
+    }
+}
+@media screen and (max-width:1400px) {
+    .wrapper{
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width:1280px) {
+    .wrapper{
+        @apply w-[350px]
+    }
+    .paginate {
+        & ul {
+            & li{
+                transform: translate(80%, -300%);
+            }
+        }
+    }
+}
+@media screen and (max-width:940px) {
+    .wrapper{
+        @apply w-[320px]
+    }
+}
+@media screen and (max-width:860px) {
+    .wrapper{
+        @apply w-[300px]
+    }
+}
+@media screen and (max-width:820px) {
+    .wrapper{
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width:768px) {
+    .wrapper{
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width:768px) {
+    .wrapper{
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width:720px) {
+    .shows{
+        @apply my-3
+    }
+    .wrapper{
+        @apply w-[200px]
+    }
+    .date{
+        @apply text-base
+    }
+}
+@media screen and (max-width:620px) {
+    .wrapper{
+        @apply w-[180px]
+    }
+}
+@media screen and (max-width:576px) {
+    .wrapper{
+        @apply w-[150px]
+    }
+}
+@media screen and (max-width:476px) {
+    .wrapper{
+        @apply w-[130px]
+    }
+}
+@media screen and (max-width:440px) {
+    .wrapper{
+        @apply w-[300px]
+    }
+    .date{
+        @apply text-xl
+    }
+    .paginate {
+        & ul {
+            & li{
+                transform: translate(80%, -1400%);
+            }
+        }
+    }
+}

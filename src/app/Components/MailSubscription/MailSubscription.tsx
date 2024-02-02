@@ -23,7 +23,7 @@ export default function MailSubscription() {
     }
   return (
     <div className={styles.form}>
-        <h5>Subcribe to get newest information</h5>
+        <h5>Subscribe to get newest information</h5>
         <div className={styles.formWrapper}>
             <Input
                 onChange={(e) => onChangeHandler(e)}

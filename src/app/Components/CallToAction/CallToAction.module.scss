@@ -29,3 +29,27 @@
     }
     @apply flex mx-auto right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
 }
+@media screen and (max-width: 1280px) {
+    .content{
+        @apply max-w-[600px]
+    }
+}
+@media screen and (max-width: 1024px) {
+    .content{
+        @apply ml-14
+    }
+}
+@media screen and (max-width: 868px) {
+    .section{
+        & h6{
+            @apply text-center;
+        }
+        @apply flex-col pt-0
+    }
+    .spinner{
+        @apply mb-10
+    }
+    .content{
+        @apply ml-0
+    }
+}

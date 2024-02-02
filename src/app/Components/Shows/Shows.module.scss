@@ -46,3 +46,62 @@ body[theme = "dark"] .section{
     }
     @apply -mt-6
 }
+@media screen and (max-width:768px) {
+    .dates{
+        & span{
+            @apply my-2
+        }
+    }
+}
+@media screen and (max-width:720px) {
+    .genres{
+        a:nth-child(2n){
+            display: none;
+        }
+    }
+}
+@media screen and (max-width:576px) {
+    .concertCategories{
+        & a:last-child{
+            @apply mt-5
+        }
+    }
+    .sectionTitle{
+        @apply text-center
+    }
+    .subtitle{
+        @apply text-center
+    }
+}
+@media screen and (max-width:520px) {
+    .section{
+        @apply px-4
+    }
+}
+@media screen and (max-width:480px) {
+    .artists{
+        & a:first-child{
+            @apply mb-5
+        }
+    }
+    .dates{
+        & span{
+            @apply mr-3
+        }
+    }
+    .concertCategories{
+        & a{
+            @apply mr-0
+        }
+    }
+}
+@media screen and (max-width:440px) {
+    .section{
+        @apply px-8
+    }
+    .genres{
+        & a{
+            @apply mr-2
+        }
+    }
+}
