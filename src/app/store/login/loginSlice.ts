@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {ILogin} from '../../Components/Login/Login'
 
-export const login = createAsyncThunk<ILogin, any>(
+export const login = createAsyncThunk<string, ILogin>(
     '@@login/userLogin',
     async ({username, password}) => {
-        const res = await fetch(`${process.env.BACKEND_URL}/`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/auth/signin`, {
             method: 'POST',
             headers:{
                 'Content-type' : 'application/json'
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({user: username, password})
         })
         const data = await res.json();
         return data;
@@ -17,12 +17,12 @@ export const login = createAsyncThunk<ILogin, any>(
 )
 
 interface IInitialState {
-    state: any;
+    token: string;
     status: string;
     error: boolean
 }
 const initialState:IInitialState = {
-    state: [],
+    token: '',
     status: 'idle',
     error: false
 }
@@ -44,7 +44,7 @@ const loginSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.status = 'loaded';
                 state.error = false;
-                state.state = action.payload;
+                state.token = action.payload;
             })
     }
 })

@@ -1,8 +1,9 @@
 'use client'
 import React from "react"
+import { useState, useEffect } from "react"
 import { useForm, Resolver } from "react-hook-form"
 import { useRouter } from "next/navigation"
-import { useAppDispatch } from "@/app/hooks/rtkHooks"
+import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks"
 import { useLocalStorage } from "@/app/hooks/useLocalStorage"
 import { login } from "@/app/store/login/loginSlice"
 import { Input } from "@/shadComponents/ui/input"
@@ -35,8 +36,21 @@ export interface ILogin {
 
 
 export default function Login() {
+  const [error, setError] = useState(false);
   const dispatch = useAppDispatch()
     const router = useRouter();
+    const token = useAppSelector(state => state.login.token)
+    const authed = localStorage.getItem('authed')
+    if (authed){
+      router.push('/')
+    }
+    if (token !== '' && Object.values(token)[0] != 'Cannot to sign in'){
+      useLocalStorage('authed', true);
+      useLocalStorage('token', Object.values(token)[0]);
+      if (localStorage.getItem('token') === Object.values(token)[0] && localStorage.getItem('authed') === 'true'){
+        router.push('/')
+      }
+    }
     const {
         register,
         handleSubmit,
@@ -44,20 +58,20 @@ export default function Login() {
         } = useForm<ILogin>({ resolver })
     const onSubmit = handleSubmit(
         async (data: ILogin) => {
+          setError(false);
           const res = await dispatch(login(data))
-          if (res){
-              useLocalStorage('authed', true);
-          }
-          // console.log(res)
-          //   if(res.meta.requestStatus === 'fulfilled'){
-          //       router.push('/')
-          //   }
         }
     )
+    useEffect(() => {
+      if (Object.values(token)[0] != 'Cannot to sign in'){
+        setError(true);
+      }
+    }, [token])
   return (
     <>
       <div className={styles.formWrapper}>
         <h1 className={styles.title}>Log in</h1>
+        {error && <span className={styles.span}>Please, input correct username/password</span>}
           <form className={styles.form}
             onSubmit={onSubmit}
           >
@@ -65,17 +79,15 @@ export default function Login() {
               <span className={styles.span}>Username</span>
               <Input
                   className={styles.input}
-                  placeholder="Username"
                   type="text"
                   {...register("username", {pattern : {
                       value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
                       message: "Entered value does not match email format",
                   }})} />
-              {errors?.username && <p>{errors.username.message}</p>}
+              {errors?.username && <p className={styles.error}>{errors.username.message}</p>}
               <span className={styles.span}>Password</span>
               <Input
                   className={styles.input}
-                  placeholder="Password"
                   type="password"
                   {...register("password", {
                       required: "required",
@@ -84,7 +96,7 @@ export default function Login() {
                         message: "min length is 5",
                       },
                       })} />
-              {errors?.password && <p>{errors.password.message}</p>}
+              {errors?.password && <p className={styles.error}>{errors.password.message}</p>}
               <Button
                   className={styles.btn}
                   type="submit"

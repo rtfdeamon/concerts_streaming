@@ -50,13 +50,9 @@ export default function SignUp() {
     const onSubmit = handleSubmit(
         async (data: IRegister) => {
           const res = await dispatch(signUp(data))
-          if (res){
-            useLocalStorage('authed', true);
-           }
-          // console.log(res)
-          //   if(res.meta.requestStatus === 'fulfilled'){
-          //       router.push('/login')
-          //   }
+            if(res.meta.requestStatus === 'fulfilled'){
+                router.push('/login')
+            }
         }
     )
   return (
@@ -70,7 +66,6 @@ export default function SignUp() {
                 <span className={styles.span}>Email</span>
                 <Input
                   className={styles.input}
-                  placeholder="Email"
                   type="text"
                   {...register("email", {pattern : {
                       value: /\S+@\S+\.\S+/,
@@ -80,7 +75,6 @@ export default function SignUp() {
             <span className={styles.span}>Username</span>
             <Input
                 className={styles.input}
-                placeholder="Username"
                 type="text"
                 {...register("username", {pattern : {
                     value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
@@ -90,7 +84,6 @@ export default function SignUp() {
             <span className={styles.span}>Password</span>
             <Input
                 className={styles.input}
-                placeholder="Password"
                 type="password"
                 {...register("password", {
                     required: "required",

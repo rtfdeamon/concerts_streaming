@@ -27,7 +27,10 @@ import Menu from '../../../../public/menu.svg'
 export default function Header({type, children}:{type: string, children?: React.ReactNode}) {
   const [isMobille, setIsMobile] = useState(false);
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
-  const authed = false;
+  let authed
+  if (typeof window !== undefined) {
+    authed = localStorage.getItem('authed') 
+  }
 
   const burgerHandler = () => {
     setBurgerIsOpen(!burgerIsOpen)
