@@ -25,3 +25,28 @@
     }
     @apply block mx-auto my-auto right-2 text-xl w-[200px] h-[50px] bg-blue-500 duration-500 transition-all
 }
+
+@media screen and (max-width:768px) {
+    .artist{
+        @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[150px] min-w-[180px]
+    }
+    .Image{
+        @apply block w-[150px] h-[150px]
+    }
+}
+@media screen and (max-width:576px) {
+    .artist{
+        @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[140] min-w-[160px]
+    }
+    .Image{
+        @apply block w-[120px] h-[120px]
+    }
+}
+@media screen and (max-width:376px) {
+    .artist{
+        @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[120px] min-w-[120px]
+    }
+    .Image{
+        @apply block w-[80px] h-[80px]
+    }
+}

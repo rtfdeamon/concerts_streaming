@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useAppSelector } from '@/app/hooks/rtkHooks'
 import Logo from '../../Ui/Logo/Logo'
 import SearchInput from '@/app/Ui/SearchInput/SearchInput'
 import RegionSelector from './RegionSelector/RegionSelector'
@@ -27,6 +28,7 @@ import Menu from '../../../../public/menu.svg'
 export default function Header({type, children}:{type: string, children?: React.ReactNode}) {
   const [isMobille, setIsMobile] = useState(false);
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
+  const modalIsOpen = useAppSelector(state => state.burger.isOpen);
   let authed
   if (typeof window !== undefined) {
     authed = localStorage.getItem('authed') 
@@ -35,12 +37,17 @@ export default function Header({type, children}:{type: string, children?: React.
   const burgerHandler = () => {
     setBurgerIsOpen(!burgerIsOpen)
     if (burgerIsOpen){
-      document.body.setAttribute('burgerIsActive', 'open')
+      document.body.setAttribute('burgerIsActive', 'open');
     } else{
-      document.body.setAttribute('burgerIsActive', 'close')
+      document.body.setAttribute('burgerIsActive', 'close');
     }
   }
-  
+
+  useEffect(() => {
+    document.body.setAttribute('burgerIsActive', 'open');
+    setBurgerIsOpen(false);
+  }, [modalIsOpen])
+
   useEffect(() => {
     if (window.innerWidth <= 768){
       setIsMobile(true);
@@ -75,7 +82,11 @@ export default function Header({type, children}:{type: string, children?: React.
       <div className={!isMobille? styles.headerWrapper : styles.headerMobileWrapper}>
           <div className={styles.wrapper}>
               <Logo variant='light' />
-              <SearchInput placeholder='Search for some artists or concerts' variant='header'/>
+              <SearchInput
+                burgerIsOpen = { burgerIsOpen }
+                setBurgerIsOpen = { setBurgerIsOpen }
+                placeholder='Search for some artists or concerts'
+                variant='header'/>
           </div>
           <div className={styles.events}>
           <Link className={styles.link} href={'/'}>Home</Link>

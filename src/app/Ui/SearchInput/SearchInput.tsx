@@ -1,5 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { useAppDispatch } from '@/app/hooks/rtkHooks'
+import { setOpen } from '@/app/store/burger/burger-slice'
 import useDebounce from '@/app/hooks/useDebounce'
 import { ChangeEvent } from 'react'
 import { Input } from '@/shadComponents/ui/input'
@@ -10,6 +12,7 @@ import styles from './input.module.scss'
 export default function SearchInput(
     {placeholder, variant}:
     {placeholder:string, variant: string}) {
+    const dispatch = useAppDispatch();
     const [searchValue, setSearchValue] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [results, setResults] = useState<any>();
@@ -58,6 +61,7 @@ export default function SearchInput(
         if (debouncedSearchTerm) {
           setIsSearching(true);
           setResults(artists);
+          dispatch(setOpen(true))
           setIsOpen(true);
           // api req
           // searchCharacters(debouncedSearchTerm).then(results => {
@@ -70,6 +74,7 @@ export default function SearchInput(
       },
       [debouncedSearchTerm]
     );
+
     const onChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
       setSearchValue(e.target.value);
     }

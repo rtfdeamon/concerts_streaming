@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { loginReducer } from "./login/loginSlice";
 import { registerReducer } from "./register/registerSlice";
+import { burgerReducer } from "./burger/burger-slice";
 
 export const store = configureStore({
     reducer:{
         login: loginReducer,
-        register: registerReducer
+        register: registerReducer,
+        burger: burgerReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
