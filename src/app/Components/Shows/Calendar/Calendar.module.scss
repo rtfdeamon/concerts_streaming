@@ -1,3 +1,16 @@
 .Calendar{
     @apply w-[80%] rounded-md border mx-auto mb-6 text-xl
 }
+@media screen and (max-width: 480px) {
+    .Calendar{
+        @apply w-[100%] text-base
+    }
+}
+@media screen and (max-width: 420px) {
+    .Calendar{
+        & button, & tr{
+            @apply text-xs
+        }
+        @apply p-0
+    }
+}

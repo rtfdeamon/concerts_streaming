@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useAppDispatch } from '@/app/hooks/rtkHooks'
-import { setOpen } from '@/app/store/burger/burger-slice'
+import { setOpen } from '@/app/store/modal/modal-slice'
 import useDebounce from '@/app/hooks/useDebounce'
 import { ChangeEvent } from 'react'
 import { Input } from '@/shadComponents/ui/input'

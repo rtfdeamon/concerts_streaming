@@ -5,8 +5,8 @@ const initialState = {
     isOpen: false
 }
 
-const burgerSlice = createSlice({
-    name: '@@burger',
+const modalSlice = createSlice({
+    name: '@@modal',
     initialState,
     reducers:{
         setOpen: (state, action:PayloadAction<boolean>) => {
@@ -15,5 +15,5 @@ const burgerSlice = createSlice({
     }
 })
 
-export const { setOpen } = burgerSlice.actions;
-export const burgerReducer = burgerSlice.reducer;
+export const { setOpen } = modalSlice.actions;
+export const modalReducer = modalSlice.reducer;

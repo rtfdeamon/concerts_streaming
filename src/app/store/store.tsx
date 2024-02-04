@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { loginReducer } from "./login/loginSlice";
 import { registerReducer } from "./register/registerSlice";
-import { burgerReducer } from "./burger/burger-slice";
+import { modalReducer } from "./modal/modal-slice";
 
 export const store = configureStore({
     reducer:{
         login: loginReducer,
         register: registerReducer,
-        burger: burgerReducer
+        modal: modalReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

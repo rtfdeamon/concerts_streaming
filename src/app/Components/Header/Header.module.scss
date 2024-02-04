@@ -48,6 +48,12 @@ body[burgerIsActive = "close"] .headerMobileWrapper{
     @apply flex items-center
 }
 .events{
+    &  ul button, &  ul a{
+        @apply bg-transparent text-xl mr-0
+    }
+    &  ul a:not(:first-child){
+        @apply mt-3
+    }
     @apply flex justify-between items-center
 }
 body[theme = "dark"] .link {
@@ -85,7 +91,23 @@ body[theme = "dark"] .events button{
         @apply w-[90vw] justify-center mb-5
     }
     .events{
+        & div{
+            @apply ml-0
+        }
         @apply mr-24
+    }
+    .events{
+        & ul{
+            @apply w-[350px]
+        }
+        &  ul button, &  ul a{
+            @apply mr-0
+        }
+}
+}
+@media screen and (max-width:900pX) {
+    .events{
+        @apply mb-6
     }
 }
 @media screen and (max-width:850px) {
@@ -110,5 +132,18 @@ body[theme = "dark"] .events button{
     }
     .profileWrapper a:first-child{
         @apply mr-16
+    }
+}
+@media screen and (max-width:480px) {
+    .events{
+        @apply flex flex-col justify-center items-center
+    }
+    .events{
+        & ul button{
+            @apply mt-8
+        }
+    }
+    .profileWrapper a:first-child{
+        @apply mr-4
     }
 }
