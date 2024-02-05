@@ -10,6 +10,9 @@
 .input{
     @apply mb-5 mt-5 text-black
 }
+.err{
+    @apply block w-[300px] text-2xl text-center text-red-500
+}
 .link{
     & a{
         @apply ml-5 hover:text-slate-400 transition-all duration-500

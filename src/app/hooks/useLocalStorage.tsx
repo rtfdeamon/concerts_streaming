@@ -9,7 +9,7 @@ const encode = (value: any) => {
   return JSON.parse(value)
 }
 
-const useLocalStorage = (key: string, defaultState: unknown) => {
+const useLocalStorage = (key: string, defaultState: any) => {
   const [value, setValue] = useState(
     encode(localStorage.getItem(key) || null) || defaultState
   )

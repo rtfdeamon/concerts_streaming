@@ -37,19 +37,15 @@ export interface ILogin {
 
 export default function Login() {
   const [error, setError] = useState(false);
+  const [res, setRes] = useState()
   const dispatch = useAppDispatch()
     const router = useRouter();
     const token = useAppSelector(state => state.login.token)
-    const authed = localStorage.getItem('authed')
+    const [storageToken, setStorageToken] = useLocalStorage('token', token);
+    const isAuthed = (token !== '' && Object.values(token)[0] !== 'Cannot to sign in') ? true : false;
+    const [authed, setAuthed] = useLocalStorage('authed', isAuthed);
     if (authed){
       router.push('/')
-    }
-    if (token !== '' && Object.values(token)[0] != 'Cannot to sign in'){
-      useLocalStorage('authed', true);
-      useLocalStorage('token', Object.values(token)[0]);
-      if (localStorage.getItem('token') === Object.values(token)[0] && localStorage.getItem('authed') === 'true'){
-        router.push('/')
-      }
     }
     const {
         register,
@@ -58,20 +54,30 @@ export default function Login() {
         } = useForm<ILogin>({ resolver })
     const onSubmit = handleSubmit(
         async (data: ILogin) => {
-          setError(false);
-          const res = await dispatch(login(data))
+          const res: any = await dispatch(login(data))
+          if (res.payload.error === "Cannot to sign in"){
+            setError(true)
+          } else{
+            setStorageToken(res.payload.token);
+            setAuthed(true);
+          }
         }
     )
     useEffect(() => {
-      if (Object.values(token)[0] != 'Cannot to sign in'){
-        setError(true);
-      }
+        if (token !== '' && Object.values(token)[0] != 'Cannot to sign in'){
+            console.log(token)
+          }
     }, [token])
+    useEffect(() => {
+      if (authed) {
+        router.push('/')
+      }
+    }, [authed])
   return (
     <>
       <div className={styles.formWrapper}>
-        <h1 className={styles.title}>Log in</h1>
-        {error && <span className={styles.span}>Please, input correct username/password</span>}
+        <h1 className={styles.title}>Login</h1>
+        {error && <span className={styles.err}>Please, input correct username/password</span>}
           <form className={styles.form}
             onSubmit={onSubmit}
           >
@@ -80,9 +86,15 @@ export default function Login() {
               <Input
                   className={styles.input}
                   type="text"
-                  {...register("username", {pattern : {
+                  {...register("username", {
+                    minLength:{
+                      value: 5,
+                      message: "min length is 5",
+                    },
+                    pattern : {
                       value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
                       message: "Entered value does not match email format",
+                      
                   }})} />
               {errors?.username && <p className={styles.error}>{errors.username.message}</p>}
               <span className={styles.span}>Password</span>
