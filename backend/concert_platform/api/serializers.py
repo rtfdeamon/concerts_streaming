@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from rest_framework.fields import empty
-from .models import Concert, ExtendedUser
+from rest_framework.utils import model_meta
+from .models import ArtistSession, Concert, ExtendedUser
 
 """
 class ExtendedUserSerializer(serializers.ModelSerializer):
@@ -10,6 +10,17 @@ class ExtendedUserSerializer(serializers.ModelSerializer):
         depth = 1
         fields = '__all__'
 """
+
+class ArtistSessionReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArtistSession
+        depth = 1
+        fields = '__all__'
+
+class ArtistSessionWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArtistSession
+        exclude = ('user', 'concert' )
 
 class ConcertReadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,7 +47,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ExtendedUserSerializer(serializers.BaseSerializer):
     def __init__(self, *args, **kwargs):
-        print(args, kwargs)
         super().__init__(*args, **kwargs)
     
     def to_representation(self, instance: ExtendedUser):
@@ -54,12 +64,22 @@ class ExtendedUserSerializer(serializers.BaseSerializer):
             'role': data['role']
         }
     
-    def run_validation(self, data):
+    def run_validation(self, data, *args, **kwargs):
         try:
-            User.objects.get(id=data['id'])
+            if self.instance is None:
+                User.objects.get(id=data['id'])
             return data
         except User.DoesNotExist as e:
             raise serializers.ValidationError('Base user does not exist')
     
     def create(self, data):
         return ExtendedUser.objects.create(**data)
+    
+    def update(self, instance, validated_data):
+        extended_fields = model_meta.get_field_info(instance).fields
+        
+        for attr, value in validated_data.items():
+            if attr in extended_fields:
+                setattr(instance, attr, value)
+        instance.save()
+        return instance

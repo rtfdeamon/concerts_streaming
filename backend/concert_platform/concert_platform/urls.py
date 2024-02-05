@@ -21,11 +21,12 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-from api.views import ConcertsViewSet, UserViewSet, SignInView, SignUpView
+from api.views import ArtistSessionViewSet, ConcertsViewSet, UserViewSet, SignInView, SignUpView
 
 router = routers.DefaultRouter()
 router.register('concerts', ConcertsViewSet)
-router.register('users', UserViewSet)
+router.register('sessions', ArtistSessionViewSet)
+router.register('users', UserViewSet, 'user')
 
 schema_view = get_schema_view(
    openapi.Info(
