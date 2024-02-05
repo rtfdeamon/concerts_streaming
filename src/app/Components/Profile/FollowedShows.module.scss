@@ -1,0 +1,12 @@
+.menuWrapper{
+    @apply w-2/3 mx-auto py-10 flex flex-col items-center
+}
+.title{
+    @apply text-5xl text-center mb-10
+}
+.shows{
+    @apply flex flex-wrap items-center justify-center relative text-xl my-7
+}
+.error{
+    @apply block mt-[40vh] text-5xl font-bold text-center
+}

@@ -18,6 +18,22 @@
         @apply relative flex flex-col h-[100vh] text-white
         
 }
+.headerWithoutBanner{
+    & a{
+        @apply mr-16 transition-all duration-500
+    }
+    & a:hover{
+        @apply text-blue-500
+    }
+    & input{
+        &::placeholder {
+            color: white;
+            opacity: 1; /* Firefox */
+          }
+    }
+    border-bottom: 2px solid #3b82f6;
+    @apply relative flex flex-col items-center justify-center h-[15vh] text-black
+}
 body[theme = "dark"] .header{
     background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../../public/banner.jpg');
     background-position: center top;
@@ -69,7 +85,7 @@ body[theme = "dark"] .events button{
     @apply block mt-[40vh] text-5xl font-bold text-center
 }
 @media screen and (max-width:1550px) {
-    .header{
+    .header, .headerWithoutBanner{
         & a:first-child{
             @apply mr-2
         }
@@ -79,7 +95,7 @@ body[theme = "dark"] .events button{
     }
 }
 @media screen and (max-width:1280px) {
-    .header{
+    .header, .headerWithoutBanner{
         & a:first-child{
             @apply mr-10
         }
@@ -116,7 +132,7 @@ body[theme = "dark"] .events button{
     }
 }
 @media screen and (max-width:768px) {
-    .header{
+    .header, .headerWithoutBanner{
         & a:first-child{
             @apply mr-0
         }

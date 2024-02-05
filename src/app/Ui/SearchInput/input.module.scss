@@ -21,11 +21,14 @@ body[theme = "dark"] .inputHeader, .inputDefault{
     @apply w-[300px] flex 
 }
 .inputDefault{
-    @apply w-[220px]
+    & input{
+        @apply  placeholder-black bg-blue-500 border-2
+    }
+    @apply w-[300px] flex  
 }
 
 @media screen and (max-width: 1366px){
-    .inputHeader{
+    .inputHeader, .inputDefault{
         & input{
             &::placeholder{
                 @apply truncate
@@ -36,17 +39,17 @@ body[theme = "dark"] .inputHeader, .inputDefault{
     }
 }
 @media screen and (max-width: 1280px){
-    .inputHeader{
+    .inputHeader, .inputDefault{
         @apply w-[300px]
     }
 }
 @media screen and (max-width: 850px){
-    .inputHeader{
+    .inputHeader, .inputDefault{
         @apply w-[250px]
     }
 }
 @media screen and (max-width: 768px){
-    .inputHeader{
+    .inputHeader, .inputDefault{
         @apply w-[300px] my-5
     }
 }

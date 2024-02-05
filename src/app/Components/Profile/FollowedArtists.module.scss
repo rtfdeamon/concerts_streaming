@@ -1,0 +1,31 @@
+.menuWrapper{
+    @apply w-2/3 mx-auto py-10 flex flex-col items-center
+}
+.title{
+    @apply text-5xl text-center mb-10
+}
+.artistsWrapper{
+    @apply flex flex-wrap justify-center
+}
+.artistWrapper{
+    @apply w-[350px] mb-[40px] flex flex-col
+}
+.linkWrapper{
+    &:hover{
+        @apply text-blue-500
+    }
+    & img{
+        @apply rounded-full w-[160px] h-[160px]
+    }
+    @apply flex justify-evenly text-center rounded-lg
+}
+.artistInfo{
+    @apply flex flex-col items-center justify-center w-[250px]
+}
+.artistName{
+    word-wrap: break-word;
+    @apply block max-w-[250px] mx-auto text-center text-2xl duration-500 transition-all my-4
+}
+.genre{
+    @apply text-slate-400 text-center
+}

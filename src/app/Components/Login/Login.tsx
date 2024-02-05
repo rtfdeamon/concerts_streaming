@@ -37,7 +37,6 @@ export interface ILogin {
 
 export default function Login() {
   const [error, setError] = useState(false);
-  const [res, setRes] = useState()
   const dispatch = useAppDispatch()
     const router = useRouter();
     const token = useAppSelector(state => state.login.token)
@@ -70,7 +69,7 @@ export default function Login() {
     }, [token])
     useEffect(() => {
       if (authed) {
-        router.push('/')
+        router.push('/profile')
       }
     }, [authed])
   return (

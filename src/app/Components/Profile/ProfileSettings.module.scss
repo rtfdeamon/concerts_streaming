@@ -1,0 +1,36 @@
+.menuWrapper{
+    @apply  mx-auto py-10 flex flex-col items-center
+}
+.title{
+    @apply text-5xl text-center mb-10
+}
+.imageWrapper{
+    & img{
+        @apply mt-3
+    }
+    @apply w-[80px] text-center mb-6
+}
+.span{
+    @apply text-xl
+}
+.avatar{
+    @apply rounded-full
+}
+.fileInput {
+    & input{
+        @apply mt-3
+    }
+    @apply w-[300px] mb-6
+}
+.profileName{
+    & input{
+        @apply mt-3
+    }
+    @apply w-[300px] mb-6
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex mx-auto mt-5 right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
+}

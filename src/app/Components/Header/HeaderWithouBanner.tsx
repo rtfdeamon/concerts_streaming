@@ -3,18 +3,15 @@ import { useEffect, useState } from 'react'
 import { useAppSelector } from '@/app/hooks/rtkHooks'
 import Logo from '../../Ui/Logo/Logo'
 import SearchInput from '@/app/Ui/SearchInput/SearchInput'
-import RegionSelector from './RegionSelector/RegionSelector'
 import ProfileDropdown from './ProfileDropdown/ProfileDropdown'
 import ThemeSwitcher from './ThemeSwitcher.tsx/ThemeSwitcher'
-import Banner from '../Banner/Banner'
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle
+  NavigationMenuTrigger
 } from "@/shadComponents/ui/navigation-menu"
 import styles from './Header.module.scss'
 import Image from 'next/image'
@@ -23,13 +20,13 @@ import X from '../../../../public/x.svg'
 import Menu from '../../../../public/menu.svg'
 
 
-export default function Header({type, children}:{type: string, children?: React.ReactNode}) {
+export default function HeaderWithoutBanner() {
   const [isMobille, setIsMobile] = useState(false);
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const modalIsOpen = useAppSelector(state => state.modal?.isOpen);
   let authed
   if (typeof window !== undefined) {
-    authed = localStorage?.getItem('authed')
+    authed = localStorage.getItem('authed')
   }
   console.log(authed);
   
@@ -53,7 +50,7 @@ export default function Header({type, children}:{type: string, children?: React.
     }
   }, [])
   return (
-    <header className={styles.header}>
+    <header className={styles.headerWithoutBanner}>
       {
         isMobille && 
         <div
@@ -83,77 +80,10 @@ export default function Header({type, children}:{type: string, children?: React.
               <Logo variant='light' />
               <SearchInput
                 placeholder='Search for some artists or concerts'
-                variant='header'/>
+                variant='default'/>
           </div>
           <div className={styles.events}>
           <Link className={styles.link} href={'/'}>Home</Link>
-            {/* <Menubar>
-                <MenubarMenu>
-                  <MenubarTrigger>Events</MenubarTrigger>
-                  <MenubarContent>
-                    <MenubarItem>
-                      Today
-                    </MenubarItem>
-                    <MenubarItem>
-                      This week
-                    </MenubarItem>
-                    <MenubarItem>
-                      This month
-                    </MenubarItem>
-                  </MenubarContent>
-                </MenubarMenu>
-                <MenubarMenu>
-                  <MenubarTrigger>Artists</MenubarTrigger>
-                  <MenubarContent>
-                    <MenubarItem>
-                      Undo <MenubarShortcut>⌘Z</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>
-                      Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarSub>
-                      <MenubarSubTrigger>Find</MenubarSubTrigger>
-                      <MenubarSubContent>
-                        <MenubarItem>Search the web</MenubarItem>
-                        <MenubarSeparator />
-                        <MenubarItem>Find...</MenubarItem>
-                        <MenubarItem>Find Next</MenubarItem>
-                        <MenubarItem>Find Previous</MenubarItem>
-                      </MenubarSubContent>
-                    </MenubarSub>
-                    <MenubarSeparator />
-                    <MenubarItem>Cut</MenubarItem>
-                    <MenubarItem>Copy</MenubarItem>
-                    <MenubarItem>Paste</MenubarItem>
-                  </MenubarContent>
-                </MenubarMenu>
-                <MenubarMenu>
-                  <MenubarTrigger>Music</MenubarTrigger>
-                  <MenubarContent>
-                    <MenubarItem>
-                      New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>
-                      New Window <MenubarShortcut>⌘N</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem disabled>New Incognito Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarSub>
-                      <MenubarSubTrigger>Share</MenubarSubTrigger>
-                      <MenubarSubContent>
-                        <MenubarItem>Email link</MenubarItem>
-                        <MenubarItem>Messages</MenubarItem>
-                        <MenubarItem>Notes</MenubarItem>
-                      </MenubarSubContent>
-                    </MenubarSub>
-                    <MenubarSeparator />
-                    <MenubarItem>
-                      Print... <MenubarShortcut>⌘P</MenubarShortcut>
-                    </MenubarItem>
-                  </MenubarContent>
-                </MenubarMenu>
-            </Menubar> */}
               <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
@@ -220,10 +150,6 @@ export default function Header({type, children}:{type: string, children?: React.
               <ThemeSwitcher />
           </div>
         </div>
-        {/* <RegionSelector /> */}
-        {type === 'errorPage' && <h5 className={styles.error}>Sorry! Page does not exist 🥲</h5>}
-        {type === 'banner' &&  <Banner />}
-        {type === 'children' && children}
     </header>
   )
 }

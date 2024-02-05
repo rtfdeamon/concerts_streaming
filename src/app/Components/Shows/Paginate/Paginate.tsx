@@ -30,7 +30,7 @@ function Items(shows: IShows) {
     );
   }
 
-  export default function PaginatedItems({itemsPerPage, items}: {itemsPerPage: number, items: IShows}){
+  export default function PaginatedItems({itemsPerPage, items, type}: {itemsPerPage: number, items: IShows, type?: string}){
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
@@ -55,7 +55,7 @@ function Items(shows: IShows) {
     return (
       <>
         <Items shows={currentItems} />
-        <div className={styles.paginate}>
+        <div className={!type ? styles.paginate : styles.followedShowsPaginate}>
             <ReactPaginate
             nextLabel=">"
             onPageChange={handlePageClick}

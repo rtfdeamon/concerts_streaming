@@ -1,0 +1,18 @@
+.wrapper{
+    @apply mx-auto
+}
+.content{
+    @apply flex justify-between
+}
+.nav{
+    & li{
+        @apply cursor-pointer transition-all duration-500 pb-2 border-b-2 opacity-70
+    }
+    & li:not(:first-child){
+        @apply mt-14
+    }
+    @apply flex flex-col items-center justify-center h-[85vh] w-[20vw] bg-white p-5 text-2xl
+}
+.active{
+    @apply border-black opacity-100
+}

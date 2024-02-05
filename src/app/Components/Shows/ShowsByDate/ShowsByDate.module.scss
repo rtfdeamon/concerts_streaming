@@ -36,6 +36,23 @@
         }
     }
 }
+.followedShowsPaginate {
+    & ul {
+        & li{
+            &:first-child{
+                @apply absolute left-[-40px]
+            }
+            &:last-child{
+                @apply absolute right-[2px]
+            }
+            & a{
+                @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
+            }
+            transform: translate(80%, -400%) !important;
+            @apply absolute
+        }
+    }
+}
 @media screen and (max-width:1480px) {
     .wrapper{
         @apply w-[280px]

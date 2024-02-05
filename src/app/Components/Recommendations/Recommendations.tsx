@@ -1,14 +1,5 @@
 'use client'
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/shadComponents/ui/carousel'
-import { Card } from "@/shadComponents/ui/card"
-import { Button } from '@/shadComponents/ui/button'
 import Women from '../../../../public/women.jpg'
 import Link from 'next/link'
 import Image from 'next/image'
