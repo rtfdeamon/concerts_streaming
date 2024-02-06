@@ -1,6 +1,6 @@
 'use client'
 
-import { IShowParams } from "../shows/[id]/page"
+import { IShowParams } from "@/app/shows/[id]/page"
 
 export default function Show({params}:IShowParams) {
   return (

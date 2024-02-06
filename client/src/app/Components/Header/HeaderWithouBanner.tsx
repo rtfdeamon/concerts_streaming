@@ -25,7 +25,7 @@ export default function HeaderWithoutBanner() {
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const modalIsOpen = useAppSelector(state => state.modal?.isOpen);
   let authed
-  if (typeof window !== undefined) {
+  if (typeof window !== "undefined") {
     authed = localStorage.getItem('authed')
   }
   console.log(authed);

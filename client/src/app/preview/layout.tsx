@@ -6,8 +6,8 @@ async function getPreviewData(id:string) {
   
 }
 
-export async function generateMetadata({ params }: {params: IPreviewParams}) {
-  const res = getPreviewData(params.params.id)
+export async function generateMetadata({ params }: IPreviewParams) {
+  // const res = getPreviewData(params.id)
   return {
     title: '...',
   }

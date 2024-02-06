@@ -6,7 +6,7 @@ export interface IShowParams {
   }
 }
 
-export default function page({params}:{params: IShowParams}) {
+export default function page({params}:IShowParams) {
   return (
     <Show params={params} />
   )
