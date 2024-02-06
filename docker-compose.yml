@@ -1,0 +1,37 @@
+version: '3'
+services:
+  db:
+    image: mariadb:lts
+    environment:
+      MARIADB_ROOT_PASSWORD: "${DATABASE_PASSWORD}"
+      MARIADB_DATABASE: "${DATABASE_NAME}"
+
+  backend:
+    build: backend
+    environment:
+      DJANGO_SUPERUSER_PASSWORD: "${ADMIN_PASSWORD}"
+      DJANGO_SUPERUSER_USERNAME: "${ADMIN_USER}"
+      DJANGO_SUPERUSER_EMAIL: "${ADMIN_EMAIL}"
+      DATABASE_NAME: "${DATABASE_NAME}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
+      DATABASE_HOST: "db"
+    depends_on:
+      - db
+    ports:
+      - "8180:8080"
+
+  frontend:
+    build:
+      context: client
+      args:
+        - BACKEND_URL=http://mmvsds-test.ddns.net:8180
+        - FRONTEND_URL=http://mmvsds-test.ddns.net:8188
+
+    depends_on:
+      - db
+    environment:
+      BACKEND_URL: "http://mmvsds-test.ddns.net:8180"
+      FRONTEND_URL: "http://mmvsds-test.ddns.net:8188"
+    ports:
+      - "8188:3000"
+
