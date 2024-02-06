@@ -60,7 +60,7 @@ export default function Recommendations() {
             <div className={styles.artistsWrapper}>
               {artists.map((a, i) => (
                 <div className={styles.artistWrapper} key={i}>
-                    <Link className={styles.linkWrapper} href={`/artists/${a.artistName}`}>
+                    <Link className={styles.linkWrapper} href={`/artist/${a.artistName}`}>
                         <Image src={Women} width={120} height={120} alt={'fds'} />
                         <div className={styles.artistInfo}>
                           <p className={styles.artistName}>{a.artistName}</p>

@@ -10,18 +10,23 @@ const encode = (value: any) => {
 }
 
 const useLocalStorage = (key: string, defaultState: any) => {
-  const [value, setValue] = useState(
-    encode(localStorage.getItem(key) || null) || defaultState
-  )
-  useEffect(() => {
-    localStorage.setItem(key, decode(value))
-    value === true ?
-    document.body.setAttribute('theme', 'dark') :
-    document.body.setAttribute('theme', 'light')
-  },  [value])
-
-  return [value, setValue]
-}
+  if (typeof window !== 'undefined'){
+    const [value, setValue] = useState(
+      encode(localStorage.getItem(key) || null) || defaultState
+    )
+    useEffect(() => {
+      localStorage.setItem(key, decode(value))
+      value === true ?
+      document.body.setAttribute('theme', 'dark') :
+      document.body.setAttribute('theme', 'light')
+    },  [value])
+  
+    return [value, setValue]
+  }else{
+    const [value, setValue] = useState()
+    return [value, setValue]
+  }
+  }
 
 export {
   useLocalStorage

@@ -13,8 +13,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle
+  NavigationMenuTrigger
 } from "@/shadComponents/ui/navigation-menu"
 import styles from './Header.module.scss'
 import Image from 'next/image'
@@ -28,11 +27,9 @@ export default function Header({type, children}:{type: string, children?: React.
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const modalIsOpen = useAppSelector(state => state.modal?.isOpen);
   let authed
-  if (typeof window !== undefined) {
-    authed = localStorage?.getItem('authed')
-  }
-  console.log(authed);
-  
+  if (typeof window !== 'undefined') {
+    authed = window?.localStorage?.getItem('authed')
+  }  
   const burgerHandler = () => {
     setBurgerIsOpen(!burgerIsOpen)
     if (burgerIsOpen){

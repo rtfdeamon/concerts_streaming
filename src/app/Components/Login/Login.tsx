@@ -62,11 +62,7 @@ export default function Login() {
           }
         }
     )
-    useEffect(() => {
-        if (token !== '' && Object.values(token)[0] != 'Cannot to sign in'){
-            console.log(token)
-          }
-    }, [token])
+
     useEffect(() => {
       if (authed) {
         router.push('/profile')

@@ -1,0 +1,62 @@
+.wrapper{
+    @apply max-w-[1280px] mx-auto p-5
+}
+.poster{
+    & img{
+        @apply rounded-full
+    }
+    @apply flex justify-around bg-white px-5 py-10 rounded-lg
+}
+.posterWrapper{
+    @apply flex flex-col items-center justify-center
+}
+.artistTitle{
+    @apply text-3xl font-semibold mb-4
+}
+.desc{
+    word-wrap: break-word;
+    @apply block max-w-[800px] mb-4 text-[#94A3B8]
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex mx-auto right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
+}
+.aboutWrapper{
+    @apply flex
+}
+.upcomingShowsWrapper{
+    @apply w-1/2 max-h-[510px] relative overflow-hidden bg-white mr-4 my-5 px-5 py-10 rounded-lg transition-all duration-500
+}
+.upcomingShowsWrapperActive{
+    @apply w-1/2 max-h-max relative overflow-hidden bg-white mr-4 my-5 px-5 py-10 rounded-lg transition-all duration-500
+}
+.upcomingShows{
+    & .btn{
+        @apply text-sm w-32 h-6 right-0 mx-0
+    }
+    @apply flex items-center justify-around mb-6
+}
+.upcomingDate{
+    @apply block
+}
+.upcomingDesc{
+    @apply block text-[#94A3B8]
+}
+.more{
+    &:hover{
+        @apply text-blue-700
+    }
+    @apply absolute bottom-0 right-0 left-0 pb-3 block bg-white text-center cursor-pointer border-t-2 pt-2 border-black duration-500 transition-all
+}
+.about{
+    @apply flex flex-col max-h-[600px] w-1/2 ml-4 bg-white my-5 px-5 py-10 rounded-lg
+}
+.aboutTitle{
+    @apply text-xl text-center
+}
+.aboutDesc{
+    word-wrap: break-word;
+    @apply block text-[#94A3B8] leading-loose indent-5
+}
