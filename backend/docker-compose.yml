@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: mariadb:lts
+    environment:
+      MARIADB_ROOT_PASSWORD: "${DATABASE_PASSWORD}"
+      MARIADB_DATABASE: "${DATABASE_NAME}"
+
+  backend:
+    build: .
+    environment:
+      DJANGO_SUPERUSER_PASSWORD: "${ADMIN_PASSWORD}"
+      DJANGO_SUPERUSER_USERNAME: "${ADMIN_USER}"
+      DJANGO_SUPERUSER_EMAIL: "${ADMIN_EMAIL}"
+      DATABASE_NAME: "${DATABASE_NAME}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
+      DATABASE_HOST: "db"
+    depends_on:
+      - db
+    ports:
+      - "8180:8080"
