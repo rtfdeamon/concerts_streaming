@@ -6,7 +6,7 @@ export interface IArtistParams {
   }
 }
 
-export default function page({params}:{params: IArtistParams}) {
+export default function page({params}:IArtistParams) {
   return (
     <Artist params={params} />
   )

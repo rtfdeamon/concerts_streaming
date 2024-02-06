@@ -16,7 +16,7 @@ function Items(shows: IShows) {
       <>
         {shows &&
           shows.shows.map((s, i) => (
-            <Link className={styles.wrapper} href={`/shows/${s.title}`} key={i}>
+            <Link className={styles.wrapper} href={`/preview/${s.title}`} key={i}>
             <h5 className={styles.title}>{s.title}</h5>
             <span className={styles.place}>{s.place}</span>
               <Image className={styles.img} src={Show} width={300} height={75}  alt={s.title}/>

@@ -1,4 +1,4 @@
-import Show from "../../Show/Show"
+import Show from "@/app/Components/Show/Show"
 
 export interface IShowParams {
   params:{

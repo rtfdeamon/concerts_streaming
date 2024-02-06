@@ -10,7 +10,7 @@ import Women from '../../../../public/women.jpg'
 import ShowsCalendar from "./ShowsCalendar"
 
 
-export default function Artist({params}:{params:IArtistParams}) {
+export default function Artist({params}:IArtistParams) {
     console.log(params.id)
   return (
     <>

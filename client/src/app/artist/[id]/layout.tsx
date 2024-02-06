@@ -6,7 +6,7 @@ async function getShowData(id:string) {
   
 }
 
-export async function generateMetadata({ params }: {params: IArtistParams}) {
+export async function generateMetadata({ params }:IArtistParams) {
   // const res = getShowData(params.params.id)
   return {
     title: '...',
