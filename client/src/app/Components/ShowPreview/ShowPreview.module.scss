@@ -57,3 +57,15 @@
     word-wrap: break-word;
     @apply block text-[#94A3B8] leading-loose min-h-[200px]
 }
+.banner{
+    height: 500px;
+    background-image: url('../../../../public/banner2.jpg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 200% 15%;
+    @apply relative px-14 py-20 bg-white rounded-md
+}
+.btnWrapper{
+    @apply absolute right-0 left-0 top-[50%]
+}
