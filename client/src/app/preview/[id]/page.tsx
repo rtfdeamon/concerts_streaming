@@ -6,7 +6,7 @@ export interface IPreviewParams {
   }
 }
 
-export default function page({params}:{params: IPreviewParams}) {
+export default function page({params}:IPreviewParams) {
   return (
     <ShowPreview params={params} />
   )

@@ -4,7 +4,6 @@ import { Button } from "@/shadComponents/ui/button"
 import HeaderWithoutBanner from "../Header/HeaderWithouBanner"
 import About from "./About"
 import Image from "next/image"
-import Link from "next/link"
 import styles from './Artist.module.scss'
 import Women from '../../../../public/women.jpg'
 import ShowsCalendar from "./ShowsCalendar"
@@ -23,7 +22,7 @@ export default function Artist({params}:IArtistParams) {
                         <p className={styles.desc}>Description Description Description Description Description Description Description Description
                         Description Description Description Description Description Description Description Description
                         </p>
-                        <Button className={styles.btn}>Take a ticket</Button>
+                        <Button className={styles.btn}>Follow an artist</Button>
                     </div>
                 </div>
                 <div className={styles.aboutWrapper}>
