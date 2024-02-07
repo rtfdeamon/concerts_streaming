@@ -68,3 +68,17 @@ concerts_query_parameters = [
     openapi.Parameter('category', openapi.IN_QUERY, type=openapi.TYPE_STRING),
     openapi.Parameter('filter', openapi.IN_QUERY, type=openapi.TYPE_STRING),
 ]
+
+upload_link_request_body_dto = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    properties={
+        'upload_type': openapi.Schema(type=openapi.TYPE_STRING, enum=['avatar', 'poster'])
+    }
+)
+
+upload_link_response_dto = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    properties={
+        'link': openapi.Schema(type=openapi.TYPE_STRING)
+    }
+)

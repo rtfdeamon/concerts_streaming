@@ -156,3 +156,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_METHODS = [
     "GET", "OPTIONS", "PATCH", "POST", "PUT", "DELETE"
 ]
+
+S3_ACCESS_KEY = os.environ.get('S3_ACCESS_KEY', '')
+S3_SECRET_KEY = os.environ.get('S3_SECRET_KEY', '')
+S3_ENDPOINT = os.environ.get('S3_ENDPOINT', '')
+S3_BUCKET = os.environ.get('S3_BUCKET', 'bucket')
+S3_PUBLIC_URL = os.environ.get('S3_PUBLIC_URL', S3_ENDPOINT)

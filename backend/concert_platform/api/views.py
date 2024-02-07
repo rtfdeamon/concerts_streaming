@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView, Response
@@ -9,12 +10,14 @@ from django.utils.decorators import method_decorator
 from django.conf import settings
 import datetime
 import jwt
+import boto3
+from uuid import uuid4
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from .models import ArtistSession, ExtendedUser, Concert, UserRole
 from .serializers import ArtistSessionReadSerializer, ArtistSessionWriteSerializer, ConcertReadSerializer, ConcertWriteSerializer, ExtendedUserSerializer, UserSerializer
-from .schemas import sign_in_request_dto, sign_up_request_dto, sign_in_response_dto, user_response_dto, user_list_response_dto, user_create_request_dto, user_update_request_dto, concerts_query_parameters
+from .schemas import sign_in_request_dto, sign_up_request_dto, sign_in_response_dto, user_response_dto, user_list_response_dto, user_create_request_dto, user_update_request_dto, concerts_query_parameters, upload_link_request_body_dto, upload_link_response_dto
 from utils.serializers import ReadWriteSerializerViewSetMixin
 from utils.authentication import JwtAuthentication
 
@@ -65,15 +68,15 @@ class UserViewSet(ViewSet):
         instance.delete()
         return Response(status=204)
     
-    @action(url_path='current', methods=['get'], detail=False)
-    def get_current_user(self, request):
+    @swagger_auto_schema(method='GET', responses={'200': user_response_dto})
+    @swagger_auto_schema(method='PUT', request_body=user_update_request_dto, responses={'200': user_response_dto})
+    @action(url_path='current', methods=['GET', 'PUT'], detail=False)
+    def manage_current_user(self, request):
         current_user = request.user
-        return self.retrieve(request, current_user.id)
-    
-    @action(url_path='current', methods=['post'], detail=False)
-    def update_current_user(self, request):
-        current_user = request.user
-        return self.update(request, current_user.id)
+        if request.method == 'GET':
+            return self.retrieve(request, current_user.id)
+        elif request.method == 'PUT':
+            return self.update(request, current_user.id)
 
 
 @method_decorator(name='list', decorator=swagger_auto_schema(manual_parameters=concerts_query_parameters))
@@ -147,3 +150,29 @@ class SignUpView(APIView):
         user = ExtendedUser.objects.create(id=base_user.id, name=username, role=role)
         user_serializer = ExtendedUserSerializer(user)
         return Response(user_serializer.data)
+
+class FileUploadView(APIView):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticated]
+    location_type_mapping = {
+        'avatar': 'avatars',
+        'poster': 'posters',
+    }
+
+    @swagger_auto_schema(request_body=upload_link_request_body_dto, responses={'200': upload_link_response_dto})
+    def post(self, request):
+        client = boto3.client(
+            's3',
+            endpoint_url=settings.S3_ENDPOINT,
+            aws_access_key_id=settings.S3_ACCESS_KEY,
+            aws_secret_access_key=settings.S3_SECRET_KEY
+        )
+        upload_type = request.data.get('upload_type', None)
+        if upload_type is None or not upload_type in self.location_type_mapping:
+            return Response({ 'error': 'Missing or incorrect upload type' }, status=400)
+        filename = '{}/{}.png'.format(self.location_type_mapping[upload_type], str(uuid4()))
+        upload_link = client.generate_presigned_url('put_object', dict(Bucket=settings.S3_BUCKET, Key=filename), ExpiresIn=86400)
+        parsed_link = urlparse(upload_link)
+        return Response({
+            'url': settings.S3_PUBLIC_URL + parsed_link.path + '?' + parsed_link.query
+        })

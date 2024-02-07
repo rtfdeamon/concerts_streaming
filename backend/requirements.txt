@@ -4,3 +4,4 @@ drf-yasg==1.21.7
 PyJWT==2.8.0
 mysqlclient
 django-cors-headers
+boto3
