@@ -11,14 +11,14 @@ if __name__ == '__main__':
     )
     try:
         s3.create_bucket(Bucket=S3_BUCKET, ACL='public-read')
-    except s3.exceptions.BucketAlreadyExists:
+    except (s3.exceptions.BucketAlreadyExists, s3.exceptions.BucketAlreadyOwnedByYou):
         print('Bucket exists')
     s3.put_bucket_policy(Bucket=S3_BUCKET, Policy=json.dumps({
-        'Version': '2021-10-17',
+        'Version': '2012-10-17',
         'Statement': [{
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::{}".format(S3_BUCKET)
+            "Resource": "arn:aws:s3:::{}/*".format(S3_BUCKET)
         }]
     }))
