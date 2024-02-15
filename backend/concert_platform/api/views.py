@@ -1,4 +1,8 @@
+import datetime
+from uuid import uuid4
 from urllib.parse import urlparse
+import jwt
+import boto3
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView, Response
@@ -8,18 +12,34 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.utils.decorators import method_decorator
 from django.conf import settings
-import datetime
-import jwt
-import boto3
-from uuid import uuid4
-from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from .models import ArtistSession, ExtendedUser, Concert, UserRole
-from .serializers import ArtistSessionReadSerializer, ArtistSessionWriteSerializer, ConcertReadSerializer, ConcertWriteSerializer, ExtendedUserSerializer, UserSerializer
-from .schemas import sign_in_request_dto, sign_up_request_dto, sign_in_response_dto, user_response_dto, user_list_response_dto, user_create_request_dto, user_update_request_dto, concerts_query_parameters, upload_link_request_body_dto, upload_link_response_dto
+from .serializers import (
+    ArtistSessionReadSerializer,
+    ArtistSessionWriteSerializer,
+    ConcertReadSerializer,
+    ConcertWriteSerializer,
+    ExtendedUserSerializer,
+    UserSerializer
+)
+from .schemas import (
+    sign_in_request_dto,
+    sign_up_request_dto,
+    sign_in_response_dto,
+    user_response_dto,
+    user_list_response_dto,
+    user_create_request_dto,
+    user_update_request_dto,
+    concerts_query_parameters,
+    upload_link_request_body_dto,
+    upload_link_response_dto,
+    artists_query_parameters,
+    artist_sessions_response_dto,
+    refresh_token_request_dto,
+)
 from utils.serializers import ReadWriteSerializerViewSetMixin
-from utils.authentication import JwtAuthentication
+from utils.authentication import AuthenticationError, JwtAuthentication, generate_refresh_token, reissue_refresh_token
 
 class UserViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
@@ -27,7 +47,8 @@ class UserViewSet(ViewSet):
 
     @swagger_auto_schema(responses={'200': user_list_response_dto})
     def list(self, request):
-        queryset = ExtendedUser.objects.all()
+        filters = {}
+        queryset = ExtendedUser.objects.all().filter(**filters)
         serializer = ExtendedUserSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -40,12 +61,13 @@ class UserViewSet(ViewSet):
     
     @swagger_auto_schema(request_body=user_create_request_dto, responses={'200': user_response_dto})
     def create(self, request, pk=None):
-        username = request.data['user']
+        username = request.data['username']
+        name = request.data['name']
         email = request.data['email']
         role = request.data['role']
         password = request.data['password']
         base_user = User.objects.create_user(username, email, password)
-        user = ExtendedUser.objects.create(id=base_user.id, role=role)
+        user = ExtendedUser.objects.create(id=base_user.id, name=name, role=role)
         user_serializer = ExtendedUserSerializer(user)
         return Response(user_serializer.data)
     
@@ -94,6 +116,7 @@ class ConcertsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
         status = self.request.query_params.get('status')
         category = self.request.query_params.get('category')
         filter_name = self.request.query_params.get('filter')
+        sorting_order = self.request.query_params.get('sort', 'name')
         if from_date is not None and to_date is not None:
             filters['date__range'] = (from_date, to_date)
         elif from_date is not None:
@@ -106,7 +129,7 @@ class ConcertsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
             filters['category'] = category
         if filter_name is not None:
             filters['name__icontains'] = filter_name
-        return Concert.objects.all().filter(**filters)
+        return Concert.objects.all().filter(**filters).order_by(sorting_order)
 
 class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
     queryset = ArtistSession.objects.all()
@@ -115,6 +138,32 @@ class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
     read_serializer_class = ArtistSessionReadSerializer
     write_serializer_class = ArtistSessionWriteSerializer
 
+    @swagger_auto_schema(responses={'200': artist_sessions_response_dto})
+    def retrieve(self, request, pk=None):
+        queryset = self.get_queryset()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = self.get_serializer_class(user)
+        return Response({
+            **serializer.data,
+            'streaming_server': settings.STREAMING_SERVER_BASE_URL
+        })
+
+class ArtistsView(APIView):
+    authentication_classes = []
+
+    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': user_list_response_dto})
+    def get(self, request):
+        filters = {
+            'role': UserRole.ARTIST.value
+        }
+        filter_name = self.request.query_params.get('filter')
+        sorting_order = self.request.query_params.get('sort', 'name')
+        if filter_name is not None:
+            filters['name__icontains'] = filter_name
+        queryset = ExtendedUser.objects.all().filter(**filters).order_by(sorting_order)
+        serializer = ExtendedUserSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 class SignInView(APIView):
     authentication_classes = []
 
@@ -122,34 +171,70 @@ class SignInView(APIView):
     def post(self, request):
         username = request.data['user']
         password = request.data['password']
-        user = authenticate(username=username, password=password)
-        if user is None:
+        try:
+            user = authenticate(username=username, password=password)
+            if user is None:
+                return Response({
+                    'error': 'Cannot to sign in'
+                }, status=403)
+            now = datetime.datetime.utcnow()
+            access_token = jwt.encode({
+                'sub': user.id,
+                'iat': int(now.timestamp()),
+                'exp': int(now.timestamp() + settings.ACCESS_TOKEN_LIFETIME)
+            }, key=settings.SECRET_KEY)
+            refresh_token = generate_refresh_token(user.id, int(now.timestamp() + settings.REFRESH_TOKEN_LIFETIME))
             return Response({
-                'error': 'Cannot to sign in'
-            }, status=403)
-        now = datetime.datetime.utcnow()
-        token = jwt.encode({
-            'sub': user.id,
-            'iat': int(now.timestamp()),
-            'exp': int(now.timestamp() + settings.JWT_TTL)
-        }, key=settings.SECRET_KEY)
-        return Response({
-            'token': token
-        })
+                'access_token': access_token,
+                'refresh_token': refresh_token,
+            })
+        except Exception as e:
+            return Response({
+                'error': str(e)
+            }, 403)
+
+class RefreshTokenView(APIView):
+    authentication_classes = []
+
+    @swagger_auto_schema(request_body=refresh_token_request_dto, responses={'200': sign_in_response_dto})
+    def post(self, request):
+        try:
+            refresh_token = request.data['token']
+            now = datetime.datetime.utcnow()
+            user_id, new_token = reissue_refresh_token(refresh_token, int(now.timestamp()))
+            access_token = jwt.encode({
+                'sub': user_id,
+                'iat': int(now.timestamp()),
+                'exp': int(now.timestamp() + settings.ACCESS_TOKEN_LIFETIME)
+            }, key=settings.SECRET_KEY)
+            return Response({
+                'access_token': access_token,
+                'refresh_token': new_token,
+            })
+        except AuthenticationError as e:
+            return Response({
+                'error': str(e)
+            }, 403)
 
 class SignUpView(APIView):
     authentication_classes = []
 
     @swagger_auto_schema(request_body=sign_up_request_dto, responses={'200': ExtendedUserSerializer})
     def post(self, request):
-        username = request.data['user']
+        username = request.data['username']
+        name = request.data['name']
         email = request.data['email']
         role = request.data.get('role', UserRole.VIEWER.value)
         password = request.data['password']
-        base_user = User.objects.create_user(username, email, password)
-        user = ExtendedUser.objects.create(id=base_user.id, name=username, role=role)
-        user_serializer = ExtendedUserSerializer(user)
-        return Response(user_serializer.data)
+        try:
+            base_user = User.objects.create_user(username, email, password)
+            user = ExtendedUser.objects.create(id=base_user.id, name=name, role=role)
+            user_serializer = ExtendedUserSerializer(user)
+            return Response(user_serializer.data)
+        except Exception as e:
+            return Response({
+                'error': str(e)
+            }, 403)
 
 class FileUploadView(APIView):
     authentication_classes = [JwtAuthentication]

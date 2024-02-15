@@ -20,7 +20,7 @@ class ArtistSessionReadSerializer(serializers.ModelSerializer):
 class ArtistSessionWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArtistSession
-        exclude = ('user', 'concert' )
+        exclude = ('user', 'concert', 'status', 'stream_key')
 
 class ConcertReadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,14 +54,18 @@ class ExtendedUserSerializer(serializers.BaseSerializer):
         result = {
             'id': instance.id,
             'role': instance.role,
-            'user': user.data
+            'name': instance.name,
+            'avatar_url': instance.avatar_url,
+            'username': user.data['username']
         }
         return result
     
     def to_internal_value(self, data):
         return {
             'id': data['id'],
-            'role': data['role']
+            'name': data['name'],
+            'role': data['role'],
+            'avatar_url': data['avatar_url']
         }
     
     def run_validation(self, data, *args, **kwargs):

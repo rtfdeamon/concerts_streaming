@@ -140,7 +140,8 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-JWT_TTL = 3600 * 24 * 7
+ACCESS_TOKEN_LIFETIME = 3600 * 24
+REFRESH_TOKEN_LIFETIME = 3600 * 24 * 30
 
 SWAGGER_SETTINGS = {
    'SECURITY_DEFINITIONS': {
@@ -162,3 +163,5 @@ S3_SECRET_KEY = os.environ.get('S3_SECRET_KEY', '')
 S3_ENDPOINT = os.environ.get('S3_ENDPOINT', '')
 S3_BUCKET = os.environ.get('S3_BUCKET', 'bucket')
 S3_PUBLIC_URL = os.environ.get('S3_PUBLIC_URL', S3_ENDPOINT)
+
+STREAMING_SERVER_BASE_URL = os.environ.get('STREAMING_BASE_URL', '')

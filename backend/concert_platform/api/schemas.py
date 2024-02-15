@@ -1,84 +1,154 @@
-from drf_yasg import openapi
+from drf_yasg.openapi import (
+    Schema,
+    Parameter,
+    IN_QUERY,
+    TYPE_OBJECT,
+    TYPE_STRING,
+    TYPE_ARRAY,
+    TYPE_INTEGER
+)
+
+from .models import ArtistSessionStatus, ConcertStatus
 
 from .serializers import UserSerializer
 
-sign_in_request_dto = openapi.Schema(
-    type='object',
+sign_in_request_dto = Schema(
+    type=TYPE_OBJECT,
     properties={
-        'user': openapi.Schema(type='string'),
-        'password': openapi.Schema(type='string')
+        'user': Schema(type=TYPE_STRING),
+        'password': Schema(type=TYPE_STRING)
     }
 )
-sign_in_response_dto = openapi.Schema(
-    type='object',
+sign_in_response_dto = Schema(
+    type=TYPE_OBJECT,
     properties={
-        'token': openapi.Schema(type='string'),
+        'access_token': Schema(type=TYPE_STRING),
+        'refresh_token': Schema(type=TYPE_STRING)
     }
 )
-sign_up_request_dto = openapi.Schema(
+sign_up_request_dto = Schema(
     type='object',
     properties={
-        'user': openapi.Schema(type='string'),
-        'password': openapi.Schema(type='string'),
-        'email': openapi.Schema(type='string'),
-        'role': openapi.Schema(type='string', enum=['administrator', 'artist', 'viewer'])
-    }
-)
-
-user_response_dto = openapi.Schema(
-    type='object',
-    properties={
-        'id': openapi.Schema(type='integer'),
-        'role': openapi.Schema(type='string'),
-        'user': openapi.Schema(type='object', properties={
-            'id': openapi.Schema(type='string'),
-            'username': openapi.Schema(type='string'),
-            'email': openapi.Schema(type='string'),
-        })
+        'user': Schema(type='string'),
+        'password': Schema(type='string'),
+        'email': Schema(type='string'),
+        'name': Schema(type='string'),
+        'role': Schema(type='string', enum=['administrator', 'artist', 'viewer'])
     }
 )
 
-user_list_response_dto = openapi.Schema(
+user_response_dto = Schema(
+    type='object',
+    properties={
+        'id': Schema(type='integer'),
+        'role': Schema(type='string'),
+        'name': Schema(type='string'),
+        'avatar_url': Schema(type='string'),
+        'username': Schema(type='string'),
+    }
+)
+
+user_list_response_dto = Schema(
     type='array', items=user_response_dto
 )
 
-user_create_request_dto = openapi.Schema(
+user_create_request_dto = Schema(
     type='object', properties={
-        'user': openapi.Schema(type='string'),
-        'email': openapi.Schema(type='string'),
-        'password': openapi.Schema(type='string'),
-        'role': openapi.Schema(type='string'),
-        'avatar_url': openapi.Schema(type='string'),
+        'username': Schema(type='string'),
+        'name': Schema(type='string'),
+        'email': Schema(type='string'),
+        'password': Schema(type='string'),
+        'role': Schema(type='string'),
+        'avatar_url': Schema(type='string'),
     }
 )
 
-user_update_request_dto = openapi.Schema(
+user_update_request_dto = Schema(
     type='object', properties={
-        'user': openapi.Schema(type='string'),
-        'email': openapi.Schema(type='string'),
-        'role': openapi.Schema(type='string'),
-        'avatar_url': openapi.Schema(type='string'),
+        'name': Schema(type='string'),
+        'email': Schema(type='string'),
+        'role': Schema(type='string'),
+        'avatar_url': Schema(type='string'),
     }
 )
 
 concerts_query_parameters = [
-    openapi.Parameter('from', openapi.IN_QUERY, type=openapi.TYPE_STRING),
-    openapi.Parameter('to', openapi.IN_QUERY, type=openapi.TYPE_STRING),
-    openapi.Parameter('status', openapi.IN_QUERY, type=openapi.TYPE_STRING),
-    openapi.Parameter('category', openapi.IN_QUERY, type=openapi.TYPE_STRING),
-    openapi.Parameter('filter', openapi.IN_QUERY, type=openapi.TYPE_STRING),
+    Parameter('from', IN_QUERY, type=TYPE_STRING),
+    Parameter('to', IN_QUERY, type=TYPE_STRING),
+    Parameter('status', IN_QUERY, type=TYPE_STRING),
+    Parameter('category', IN_QUERY, type=TYPE_STRING),
+    Parameter('filter', IN_QUERY, type=TYPE_STRING),
 ]
 
-upload_link_request_body_dto = openapi.Schema(
-    type=openapi.TYPE_OBJECT,
-    properties={
-        'upload_type': openapi.Schema(type=openapi.TYPE_STRING, enum=['avatar', 'poster'])
+artists_query_parameters = [
+    Parameter('filter', IN_QUERY, type=TYPE_STRING),
+]
+
+concert_response_dto = Schema(
+    type=TYPE_OBJECT, properties={
+        'id': Schema(type=TYPE_STRING),
+        'name': Schema(type=TYPE_STRING),
+        'description': Schema(type=TYPE_STRING),
+        'created_at': Schema(type=TYPE_STRING),
+        'date': Schema(type=TYPE_STRING),
+        'slots': Schema(type=TYPE_INTEGER),
+        'poster_url': Schema(type=TYPE_STRING),
+        'status': Schema(
+            type=TYPE_STRING,
+            enum=[value for value, _ in ConcertStatus.choices]
+        ),
+        'category': Schema(type=TYPE_STRING),
+
+        'user_id': user_response_dto,
     }
 )
 
-upload_link_response_dto = openapi.Schema(
-    type=openapi.TYPE_OBJECT,
+artist_sessions_request_dto = Schema(
+    type=TYPE_OBJECT, properties={
+        'name': Schema(type=TYPE_STRING),
+        'description': Schema(type=TYPE_STRING),
+        'artist_demo_url': Schema(type=TYPE_STRING),
+        'concert': concert_response_dto
+    }
+)
+
+artist_sessions_response_dto = Schema(
+    type=TYPE_OBJECT, properties={
+        'id': Schema(type=TYPE_STRING),
+        'name': Schema(type=TYPE_STRING),
+        'description': Schema(type=TYPE_STRING),
+        'created_at': Schema(type=TYPE_STRING),
+        'status': Schema(type=TYPE_STRING, enum=[
+            value for value, _ in ArtistSessionStatus.choices
+        ]),
+        'stream_key': Schema(type=TYPE_STRING),
+        'artist_demo_url': Schema(type=TYPE_STRING),
+        'streaming_server': Schema(type=TYPE_STRING),
+        'concert': concert_response_dto,
+        'user': user_response_dto
+    }
+)
+artist_sessions_list_response_dto = Schema(
+    type='array', items=artist_sessions_response_dto
+)
+
+upload_link_request_body_dto = Schema(
+    type=TYPE_OBJECT,
     properties={
-        'link': openapi.Schema(type=openapi.TYPE_STRING)
+        'upload_type': Schema(type=TYPE_STRING, enum=['avatar', 'poster'])
+    }
+)
+
+upload_link_response_dto = Schema(
+    type=TYPE_OBJECT,
+    properties={
+        'link': Schema(type=TYPE_STRING)
+    }
+)
+
+refresh_token_request_dto = Schema(
+    type=TYPE_OBJECT,
+    properties={
+        'token': Schema(type=TYPE_STRING)
     }
 )
