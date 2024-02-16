@@ -40,19 +40,17 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const [slots, setSlots] = useState<number | undefined>(undefined);
     const [perfomanceTime, setPerfomanceTime] = useState<number | undefined>(undefined);
     const [err, setErr] = useState(false);
-    const [file, setFile] = useState<File | undefined>(undefined);
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
 
     const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
         if (e.target.files){
-            setFile(e.target.files[0])
             const link:any = await generateUploadLink('poster');
             const res = await fetch(`${link.url}`, {
                 method: 'PUT',
                 headers: {
                   'Content-type' : 'image/png'
                 },
-                body: file
+                body: e.target.files[0]
               })
             if (res.ok){
                 setPosterUrl((link.url.split('?')[0]))
@@ -61,7 +59,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     }
     
 
-    const onCreateHandler = async () => {
+    const onChangeHandler = async () => {
         const stringDate = date?.toISOString() as string;
         const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, perfomanceTime, posterUrl}));
         if (res.payload.id){
@@ -167,7 +165,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                         </div>
                             </div>
                         <div className="mt-4">
-                            <Button onClick={onCreateHandler} className={styles.btn}>Change show</Button>
+                            <Button onClick={onChangeHandler} className={styles.btn}>Change show</Button>
                         </div>
                             {/* <div>
                                 <Image src={Show} width={500} height={400}  alt="image" />

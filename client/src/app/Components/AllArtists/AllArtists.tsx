@@ -3,15 +3,13 @@ import { ArtistsPaginate } from '../ArtistsPaginate/ArtistsPaginate'
 import styles from './AllArtists.module.scss'
 
 async function getShows(){
-  const res = await fetch('')
-  const data = await res.json()
+  const res = await fetch(`${process.env.BACKEND_URL}/artists/`);
+  const data = await res.json();
   return data;
 }
 
 export default async function AllArtists() {
-  let artists: IArtist[] = [];
-  getShows()
-    .then(res => artists = res)
+  const artists:IArtist[] = await getShows();
   return (
     <section>
         <h5 className={styles.title}>All artists</h5>
