@@ -22,28 +22,38 @@ export interface IRegister {
     select: string,
     email: string,
     username: string,
+    name: string,
     password: string
 }
   
   const resolver: Resolver<IRegister> = async (values) => {
     return {
       values: values.email? values : {} || values.username ? values : {} || values.password ? values : {} ,
-      errors: !values.username || !values.password
-        ? {
-          email: {
-            type: "required",
-            message: "Input your email",
-          },
-            username: {
-              type: "required",
-              message: "Input your login",
-            },
-            password: {
-                type: "required",
-                message: "Input your password",
-              },
-          }
-        : {},
+      errors: {}
+      // errors: !values.username || !values.password || !values.select || !values.name || !values.email
+      //   ? {
+      //     email: {
+      //       type: "required",
+      //       message: "Input your email",
+      //     },
+      //       username: {
+      //         type: "required",
+      //         message: "Input your login",
+      //       },
+      //       password: {
+      //           type: "required",
+      //           message: "Input your password",
+      //         },
+      //         select: {
+      //           type: "required",
+      //           message: "Select your role",
+      //         },
+      //         name: {
+      //           type: "required",
+      //           message: "Input your displayed name",
+      //         },
+      //     }
+      //   : {},
     }
   }
 
@@ -56,6 +66,7 @@ export default function SignUp() {
     const [passErr, setPassErr] = useState(false);
     const [select, setSelect] = useState('');
     const [selectErr, setSelectErr] = useState(false);
+    const [diplsayedNameErr, setDisplayedNameErr] = useState(false);
     const [err, setErr] = useState(false);
     const {
         register,
@@ -78,6 +89,9 @@ export default function SignUp() {
           }
           if (select === ''){
             setSelectErr(true)
+          }
+          if (data.name === ''){
+            setDisplayedNameErr(true)
           }
           data['select'] = select;
           const res:any = await dispatch(signUp(data))
@@ -129,7 +143,7 @@ export default function SignUp() {
                       message: "Entered value does not match email format",
                   }})} />
             {errors?.email && <p>{errors.email.message}</p>}
-            {emailErr && <span className={styles.err}>Email is quired at least 8 symbols</span>}
+            {emailErr && <span className={styles.err}>Email is required at least 8 symbols</span>}
             <span className={styles.span}>Username</span>
             <Input
                 className={styles.input}
@@ -144,7 +158,22 @@ export default function SignUp() {
                     message: "Entered value does not match username format",
                 }})} />
             {errors?.username && <p>{errors.username.message}</p>}
-            {usernameErr && <span className={styles.err}>Username is quired at least 5 symbols</span>}
+            {usernameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>}
+            <span className={styles.span}>Displayed name</span>
+            <Input
+                className={styles.input}
+                type="text"
+                {...register("name", {
+                  minLength: {
+                    value: 5,
+                    message: "min length is 5",
+                  },
+                  pattern : {
+                    value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
+                    message: "Entered value does not match username format",
+                }})} />
+            {errors?.username && <p>{errors.username.message}</p>}
+            {usernameErr && <span className={styles.err}>Username is required at least 5 symbols</span>}
             <span className={styles.span}>Password</span>
             <Input
                 className={styles.input}
@@ -157,7 +186,7 @@ export default function SignUp() {
                     },
                     })} />
             {errors?.password && <p>{errors.password.message}</p>}
-            {passErr && <span className={styles.err}>Password is quired at least 5 symbols</span>}
+            {passErr && <span className={styles.err}>Password is required at least 5 symbols</span>}
             <Button
               className={styles.btn}
               type="submit"
