@@ -9,7 +9,8 @@ async function getShows(){
 }
 
 export default async function AllArtists() {
-  const artists:IArtist[] = await getShows();
+  // const artists:IArtist[] = await getShows();
+  const artists: IArtist[] = [];
   return (
     <section>
         <h5 className={styles.title}>All artists</h5>
