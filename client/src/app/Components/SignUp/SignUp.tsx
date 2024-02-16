@@ -56,6 +56,7 @@ export default function SignUp() {
     const [passErr, setPassErr] = useState(false);
     const [select, setSelect] = useState('');
     const [selectErr, setSelectErr] = useState(false);
+    const [err, setErr] = useState(false);
     const {
         register,
         handleSubmit,
@@ -79,9 +80,12 @@ export default function SignUp() {
             setSelectErr(true)
           }
           data['select'] = select;
-          const res = await dispatch(signUp(data))
+          const res:any = await dispatch(signUp(data))
             if(res.meta.requestStatus === 'fulfilled'){
                 router.push('/login')
+            }
+            else if (res.payload.error){
+              setErr(true)
             }
         }
     )
@@ -89,6 +93,7 @@ export default function SignUp() {
     <>
       <div className={styles.formWrapper}>
         <h1 className={styles.title}>Register</h1>
+        {err && <span className={styles.err}>Something went wrong with sign up</span>}
         <form
           onSubmit={onSubmit}
             className={styles.form}>
@@ -156,7 +161,7 @@ export default function SignUp() {
             <Button
               className={styles.btn}
               type="submit"
-              >Login</Button>
+              >Register</Button>
               <p className={styles.link}>Already have an account? <Link href='/login'>Login</Link></p>
         </form>
       </div>
