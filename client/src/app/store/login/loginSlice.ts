@@ -10,7 +10,7 @@ export const login = createAsyncThunk<IToken, ILogin>(
             headers:{
                 'Content-type' : 'application/json'
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({user: username, password})
         })
         const data = await res.json();
         return data;
