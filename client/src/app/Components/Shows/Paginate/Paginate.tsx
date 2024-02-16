@@ -17,15 +17,15 @@ function Items(shows: {shows: IEvent[]}) {
       <>
         {shows &&
           shows.shows.map((s, i) => (
-            <Link className={styles.wrapper} href={`/preview/${s.name}`} key={i}>
-            <h5 className={styles.title}>{s.name}</h5>
-            <span className={styles.place}>{s.description}</span>
-              <Image className={styles.img} src={s.poster_url} width={300} height={75}  alt={s.name}/>
-            <span className={styles.date}>
-              <Image src={CalendarIcon} width={30} height={20} alt={s.name}/>
-              {s.date}
-            </span>
-          </Link>
+            <div className={styles.wrapper} key={i}>
+              <Link href={`/preview/${s.name}`} className={styles.title}>{s.name}</Link>
+              <span className={styles.place}>{s.description}</span>
+                <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
+              <span className={styles.date}>
+                <Image src={CalendarIcon} width={30} height={20} alt={s.name}/>
+                {s.date}
+              </span>
+          </div>
           ))}
       </>
     );
@@ -58,14 +58,14 @@ function Items(shows: {shows: IEvent[]}) {
         <Items shows={currentItems} />
         <div className={!type ? styles.paginate : styles.followedShowsPaginate}>
             <ReactPaginate
-            nextLabel=">"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={0}
-            activeClassName={'active hidden'}
-            pageClassName={'hidden'}
-            pageCount={pageCount}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={0}
+              activeClassName={'active hidden'}
+              pageClassName={'hidden'}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
             />
         </div>
       </>

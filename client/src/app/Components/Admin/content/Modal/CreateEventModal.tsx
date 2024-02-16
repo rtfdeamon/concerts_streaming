@@ -40,19 +40,17 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
     const [slots, setSlots] = useState(1);
     const [err, setErr] = useState(false);
     const [perfomanceTime, setPerfomanceTime] = useState(0);
-    const [file, setFile] = useState<File | undefined>(undefined);
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
 
     const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
         if (e.target.files){
-            setFile(e.target.files[0])
             const link:any = await generateUploadLink('poster');
             const res = await fetch(`${link.url}`, {
                 method: 'PUT',
                 headers: {
                   'Content-type' : 'image/png'
                 },
-                body: file
+                body: e.target.files[0]
               })
             if (res.ok){
                 setPosterUrl((link.url.split('?')[0]))

@@ -110,7 +110,7 @@ export const showsSlice = createSlice({
                 state.events = action.payload
             })
             .addCase(createShow.fulfilled, (state, action) => {
-                state.events = [...state.events, action.payload]
+                state.events.push(action.payload)
             })
             .addCase(deleteShow.fulfilled, (state, action) => {
                 const filteredEvents = state.events.filter(e => e.id !== action.payload)

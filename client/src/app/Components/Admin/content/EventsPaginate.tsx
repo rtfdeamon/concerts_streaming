@@ -66,19 +66,26 @@ function Items(events:IEvents) {
 
 
 export function EventsPaginate({itemsPerPage, events}:{itemsPerPage: number, events: IEvents}) {
-  const [itemOffset, setItemOffset] = useState(0);
-
-  const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = events.events.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(events.events.length / itemsPerPage);
-  const handlePageClick = (event: ISelect) => {
-    const newOffset = (event.selected * itemsPerPage) % currentItems.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
-  };
+    // Here we use item offsets; we could also use page offsets
+    // following the API or data you're working with.
+    const [itemOffset, setItemOffset] = useState(0);
+  
+    // Simulate fetching items from another resources.
+    // (This could be items from props; or items loaded in a local state
+    // from an API endpoint with useEffect and useState)
+    const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    const currentItems = events.events.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(events.events.length / itemsPerPage);
+  
+    // Invoke when user click to request another page.
+    const handlePageClick = (event:ISelect) => {
+      const newOffset = (event.selected * itemsPerPage) % events.events.length;
+      console.log(
+        `User requested page number ${event.selected}, which is offset ${newOffset}`
+      );
+      setItemOffset(newOffset);
+    };
 
   return (
     <>
@@ -87,7 +94,7 @@ export function EventsPaginate({itemsPerPage, events}:{itemsPerPage: number, eve
         className={styles.paginate}
         breakLabel="..."
         nextLabel=">"
-        onPageChange={handlePageClick}
+        onPageChange={(e:ISelect) => handlePageClick(e)}
         pageRangeDisplayed={5}
         pageCount={pageCount}
         previousLabel="<"
