@@ -1,15 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IRegister } from "@/app/Components/SignUp/SignUp";
 
+
+
 export const signUp = createAsyncThunk<void, IRegister>(
     '@@register/userSignUp',
-    async ({email, username, password}) => {
+    async ({email, username, password, select}) => {
         const res = await fetch(`${process.env.BACKEND_URL}/auth/signup`, {
             method: 'POST',
             headers:{
                 'Content-type' : 'application/json'
             },
-            body: JSON.stringify({user: username, password, email})
+            body: JSON.stringify({user: username, password, email, role: [select]})
         })
         const data = await res.json();
         return data;

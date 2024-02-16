@@ -1,0 +1,77 @@
+.chat{
+    @apply absolute h-screen w-[20vw] top-0 right-0 bottom-0 p-5 opacity-100 duration-700 transition-all bg-slate-300 
+}
+.chatIsHide{
+    @apply absolute h-screen w-[20vw] top-0 right-[-1000px] bottom-0 overflow-hidden p-5 duration-700 transition-all bg-slate-300
+}
+.messages{
+    @apply relative overflow-x-hidden w-full max-h-[66%] min-h-[66%] overflow-y-auto py-8
+}
+.messageWrapper{
+    @apply flex justify-between
+}
+.messageText{
+    & {
+        word-wrap: break-word;
+    }
+    @apply truncate
+}
+.chatUser, .chatDate{
+    @apply text-left text-[#72767e] text-sm mb-2
+}
+.chatUser{
+    @apply text-left
+}
+.chatDate{
+    @apply text-right
+}
+.chatMessage{
+    @apply text-left w-[75%] p-3 bg-slate-50 rounded-xl  mb-3
+}
+.messagePathLink{
+    @apply text-blue-300 truncate
+}
+.fileName{
+    @apply flex flex-col justify-center items-center text-blue-300
+}
+.fullChatMessage{
+    @apply w-[100%] p-3 bg-slate-50 rounded-xl  mb-3
+}
+.fullChatMessage .messageText {
+    overflow: visible;
+    text-overflow:unset;
+    white-space: wrap;
+}
+.moreMessage{
+    @apply block text-right cursor-pointer text-[#72767e] text-sm
+}
+.input{
+    & {
+        @apply cursor-pointer
+    }
+    @apply relative top-5 bottom-[0vh] w-full
+}
+.btns{
+    @apply flex justify-between relative top-10 bottom-[0vh] text-right
+}
+.clip{
+    @apply w-[40px] h-[40px] mt-[10px] ml-[20px] cursor-pointer
+}
+.sendButton{
+    @apply bg-[#0058dc] text-white rounded-xl p-4
+}
+.inputUpload{
+    @apply absolute hidden
+}
+.userMessage{
+    @apply ml-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[35%] max-w-[75%] p-3 bg-slate-50 rounded-xl  mb-3
+}
+.remoteMessage{
+    @apply mr-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[35%] max-w-[75%] p-3 bg-slate-50 rounded-xl  mb-3
+}
+.fileImage{
+    width: 100%;
+}
+.file{
+    margin: 0 auto;
+}

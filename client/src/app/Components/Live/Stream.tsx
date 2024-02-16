@@ -1,57 +1,99 @@
 'use client'
+import { useState, useEffect, useRef } from 'react';
 import { MediaPlayer, MediaProvider } from '@vidstack/react';
 import { Poster, type PosterProps } from '@vidstack/react';
+import { PIPButton, type PIPButtonProps } from "@vidstack/react";
 import { Controls } from '@vidstack/react';
 import { LiveButton } from '@vidstack/react';
 import { PlayButton } from '@vidstack/react';
-import { PauseIcon, PlayIcon } from '@vidstack/react/icons';
+import { PauseIcon, PlayIcon, PictureInPictureExitIcon, PictureInPictureIcon } from '@vidstack/react/icons';
 import { MuteButton } from '@vidstack/react';
 import { MuteIcon, VolumeHighIcon, VolumeLowIcon } from '@vidstack/react/icons';
+import { VolumeSlider, VolumeSliderInstance } from '@vidstack/react';
 import { FullscreenButton } from '@vidstack/react';
 import { FullscreenExitIcon, FullscreenIcon } from '@vidstack/react/icons';
+import { useMediaState, MediaPlayerInstance } from '@vidstack/react';
+import BufferingSpinner from './BufferingSpinner';
 import '@vidstack/react/player/styles/base.css';
-
+import styles from './Stream.module.scss'
 
 export default function Stream() {
+  const player = useRef<MediaPlayerInstance>(null);
+  const isActive = useMediaState('pictureInPicture', player);
+  const [bufferingIsActive, setBufferingIsActive] = useState(false);
+  const [volumeIsOpen, setVolumeIsOpen] = useState(false);
+  const volumeRef = useRef<VolumeSliderInstance>(null)
+
   return (
-    <MediaPlayer
-      title="Sprite Fight"
-      src="https://stream.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU.m3u8">
-      <Poster
-        className="absolute inset-0 block h-[300px] w-[500px] rounded-md opacity-0 transition-opacity data-[visible]:opacity-100 [&>img]:h-full [&>img]:w-full [&>img]:object-cover"
-        src="https://media-files.vidstack.io/sprite-fight/poster.webp"
-        alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
-      />
-        <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
-          <Controls.Group className="pointer-events-auto w-full flex items-center px-2">
-              <LiveButton className="w-10 h-10 flex items-center justify-center cursor-pointer group">
-                <span className="bg-gray-300 rounded-sm text-gray-950 text-xs font-semibold py-px px-1 group-data-[edge]:bg-red-600 group-data-[edge]:text-white group-data-[focus]:ring-4 ring-sky-400 tracking-wider">
-                  LIVE
-                </span>
-              </LiveButton>
-          </Controls.Group>
-          <div className="flex-1" />
-          <Controls.Group className="pointer-events-auto w-full flex items-center px-2">
-            Center Controls Group
-          </Controls.Group>
-          <div className="flex-1" />
-          <Controls.Group className="pointer-events-auto w-full flex items-center px-2">  
-              <MuteButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4">
-                <MuteIcon className="w-8 h-8 hidden group-data-[state='muted']:block" />
-                <VolumeLowIcon className="w-8 h-8 hidden group-data-[state='low']:block" />
-                <VolumeHighIcon className="w-8 h-8 hidden group-data-[state='high']:block" />
-              </MuteButton>
-              <PlayButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4">
-                <PlayIcon className="w-8 h-8 hidden group-data-[paused]:block" />
-                <PauseIcon className="w-8 h-8 group-data-[paused]:hidden" />
-              </PlayButton>
-              <FullscreenButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 aria-hidden:hidden">
-                <FullscreenIcon className="w-8 h-8 group-data-[active]:hidden" />
-                <FullscreenExitIcon className="w-8 h-8 hidden group-data-[active]:block" />
-              </FullscreenButton>
-          </Controls.Group>
-        </Controls.Root>
-      <MediaProvider />
-    </MediaPlayer>
+    <div className={styles.videoWrapper}>
+        <MediaPlayer
+          ref={player}
+          className={styles.video}
+          autoPlay
+          streamType="live"
+          aspectRatio="16/9"
+          onLoad={() => setBufferingIsActive(true)}
+          crossOrigin
+          load="idle"
+          posterLoad="idle"
+          title="Sprite Fight"
+          src="https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8">
+          <Poster
+            className={styles.poster}
+            src="https://media-files.vidstack.io/sprite-fight/poster.webp"
+            alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
+          />
+            <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
+              <Controls.Group className="pointer-events-auto w-full flex items-center px-2">
+                  <LiveButton className="w-10 h-10 flex items-center justify-center cursor-pointer group">
+                    <span className="bg-gray-300 rounded-sm text-gray-950 text-xs font-semibold py-px px-1 group-data-[edge]:bg-red-600 group-data-[edge]:text-white group-data-[focus]:ring-4 ring-sky-400 tracking-wider">
+                      LIVE
+                    </span>
+                  </LiveButton>
+              </Controls.Group>
+              <div className="flex-1" />
+              <Controls.Group className="pointer-events-auto w-full flex items-center px-2">
+                {bufferingIsActive && <BufferingSpinner />}
+              </Controls.Group>
+              <div className="flex-1" />
+              <Controls.Group className={styles.bottomControls}>
+                <div className={styles.muteWrapper}
+                  onMouseEnter={() => setVolumeIsOpen(true)}
+                  onMouseLeave={() => setVolumeIsOpen(false)}
+                >
+                  <MuteButton
+                      className="group ring-sky-400 relative inline-flex h-3 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4">
+                      <MuteIcon className="w-8 h-8 hidden group-data-[state='muted']:block" />
+                      <VolumeLowIcon className="w-8 h-8 hidden group-data-[state='low']:block" />
+                      <VolumeHighIcon className="w-8 h-8 hidden group-data-[state='high']:block" />
+                    </MuteButton>
+                    {volumeIsOpen && 
+                      <VolumeSlider.Root 
+                        className={"bg-white group ring-sky-400 relative inline-flex h-2 w-20 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4"} ref={volumeRef}>
+                      <VolumeSlider.Track className="vds-slider-track" />
+                      <VolumeSlider.TrackFill className="vds-slider-track-fill vds-slider-track" />
+                      <VolumeSlider.Preview className="vds-slider-preview">
+                        <VolumeSlider.Value className="text-sm" />
+                      </VolumeSlider.Preview>
+                      <VolumeSlider.Thumb className="vds-slider-thumb" />
+                    </VolumeSlider.Root>
+                    }
+                </div>
+                  <PlayButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 mr-4">
+                    <PlayIcon className="w-8 h-8 hidden group-data-[paused]:block" />
+                    <PauseIcon className="w-8 h-8 group-data-[paused]:hidden" />
+                  </PlayButton>
+                  <FullscreenButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 aria-hidden:hidden">
+                    <FullscreenIcon className="w-8 h-8 group-data-[active]:hidden" />
+                    <FullscreenExitIcon className="w-8 h-8 hidden group-data-[active]:block" />
+                  </FullscreenButton>
+                  <PIPButton>
+                    {!isActive ? <PictureInPictureIcon /> : <PictureInPictureExitIcon />}
+                  </PIPButton>  
+              </Controls.Group>
+            </Controls.Root>
+          <MediaProvider />
+        </MediaPlayer>
+    </div>
   )
 }

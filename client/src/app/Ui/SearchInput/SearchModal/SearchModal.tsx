@@ -63,7 +63,7 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching}:
                 <h5 className={styles.Title}>Shows</h5>
                 <div className={styles.artistsWrapper}>
                     {results?.map((r: any, i: number) => (
-                        <Link href={`/artist/${i}`} key={i} className={styles.artist}>
+                        <Link href={`/preview/${i}`} key={i} className={styles.artist}>
                             <Image className={styles.Image} src={Women} width={300} height={300} alt={r.artistName} />
                             <span className={styles.artistName}>{r.artistName}</span>
                         </Link>

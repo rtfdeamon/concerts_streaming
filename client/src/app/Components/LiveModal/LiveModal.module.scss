@@ -1,0 +1,23 @@
+.input{
+    & input{
+        @apply w-[400px]
+    }
+    @apply block w-[400px] mb-6 transition-all duration-1000 
+}
+body[data-theme="dark"] .input{
+    .notchedOutline{
+        border: 1px solid rgb(236, 217, 217);
+    }
+    & label, & input{
+        color: rgb(236, 217, 217)
+    }
+}
+.wrapper{
+    @apply relative
+}
+.alert{
+    @apply absolute top-0  m-auto right-10
+}
+.snackBar{
+    @apply relative w-[480px] mt-5
+}

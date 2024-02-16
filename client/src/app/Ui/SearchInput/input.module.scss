@@ -10,7 +10,7 @@ body[theme = "dark"] .inputHeader, .inputDefault{
 }
 .inputDefault{
     & input{
-        @apply  font-bold bg-blue-500 border-none
+        @apply  font-bold bg-blue-600 border-none
     }
     @apply w-[300px] flex  
 }

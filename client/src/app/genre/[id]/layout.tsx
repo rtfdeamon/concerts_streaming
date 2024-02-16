@@ -2,14 +2,11 @@ import { Metadata } from "next"
 import { IPreviewParams } from "./page"
 
 
-async function getPreviewData(id:string) {
-  
-}
-
 export async function generateMetadata({ params }: IPreviewParams) {
-  // const res = getPreviewData(params.id)
+  // const res = getPreviewData(params.params.id)
   return {
-    title: '...',
+    title: params.id,
+    description: `Artists and shows by ${params.id}`
   }
 }
 

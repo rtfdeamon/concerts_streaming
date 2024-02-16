@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {ILogin} from '../../Components/Login/Login'
+import { IToken } from "@/app/types/interfaces";
 
-export const login = createAsyncThunk<string, ILogin>(
+export const login = createAsyncThunk<IToken, ILogin>(
     '@@login/userLogin',
     async ({username, password}) => {
         const res = await fetch(`${process.env.BACKEND_URL}/auth/signin`, {
@@ -17,12 +18,15 @@ export const login = createAsyncThunk<string, ILogin>(
 )
 
 interface IInitialState {
-    token: string;
+    token?: IToken;
     status: string;
     error: boolean
 }
 const initialState:IInitialState = {
-    token: '',
+    token:{
+        accessToken: '',
+        refreshToken: '',
+    },
     status: 'idle',
     error: false
 }

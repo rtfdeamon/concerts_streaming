@@ -1,4 +1,7 @@
 'use client'
+import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks";
+import { getCurrUser } from "@/app/store/user/userSlice";
+import { useEffect } from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -6,30 +9,40 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-  } from "@/shadComponents/ui/dropdown-menu"
-import { Button } from "@/shadComponents/ui/button"
+  } from "@/shadComponents/ui/dropdown-menu";
+import { Button } from "@/shadComponents/ui/button";
+import Link from "next/link";
+import Image from "next/image";
 import styles from './ProfileDropdown.module.scss'
-import Link from "next/link"
 
 export default function ProfileDropdown() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(state => state.userInfo.user);
+  useEffect(() => {
+    dispatch(getCurrUser());
+  }, [])  
   return (
     <div className={styles.profileImage}>
-        <Link href={'/profile/${userID}'} className={styles.userIcon}></Link>
+        {user?.avatar_url && <Image src={user?.avatar_url as string} className={styles.userIcon} width={40} height={40} alt='user avatar'></Image> }
         <DropdownMenu>
-            <DropdownMenuTrigger>
+          <DropdownMenuTrigger>
                 <Button className={styles.btn}>Profile</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuLabel>My Profile</DropdownMenuLabel>
+                <DropdownMenuLabel>Hello, {user?.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <Link href={'/profile'}>
                     Profile
                   </Link>
                   </DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                {user?.role === 'administrator' && 
+                  <DropdownMenuItem>
+                        <Link href={'/admin'}>
+                          Admin panel
+                        </Link>
+                  </DropdownMenuItem>
+                }
             </DropdownMenuContent>
         </DropdownMenu>
     </div>

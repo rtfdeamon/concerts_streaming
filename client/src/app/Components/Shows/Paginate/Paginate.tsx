@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from 'react';
+'use client'
+import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
 import Image from 'next/image';
 import CalendarIcon from '../../../../../public/../public/calendar-range.svg'
 import Show from '../../../../../public/show.jpg'
-import { IShows } from '../Shows';
+import { IEvent } from '@/app/types/interfaces';
 import styles from '..//ShowsByDate/ShowsByDate.module.scss'
 
 interface ISelect{
         selected: number;
 }
 
-function Items(shows: IShows) {
+function Items(shows: {shows: IEvent[]}) {
     return (
       <>
         {shows &&
           shows.shows.map((s, i) => (
-            <Link className={styles.wrapper} href={`/preview/${s.title}`} key={i}>
-            <h5 className={styles.title}>{s.title}</h5>
-            <span className={styles.place}>{s.place}</span>
-              <Image className={styles.img} src={Show} width={300} height={75}  alt={s.title}/>
+            <Link className={styles.wrapper} href={`/preview/${s.name}`} key={i}>
+            <h5 className={styles.title}>{s.name}</h5>
+            <span className={styles.place}>{s.description}</span>
+              <Image className={styles.img} src={s.poster_url} width={300} height={75}  alt={s.name}/>
             <span className={styles.date}>
-              <Image src={CalendarIcon} width={30} height={20} alt={s.title}/>
+              <Image src={CalendarIcon} width={30} height={20} alt={s.name}/>
               {s.date}
             </span>
           </Link>
@@ -30,7 +31,7 @@ function Items(shows: IShows) {
     );
   }
 
-  export default function PaginatedItems({itemsPerPage, items, type}: {itemsPerPage: number, items: IShows, type?: string}){
+  export default function PaginatedItems({itemsPerPage, items, type}: {itemsPerPage: number, items: IEvent[], type?: string}){
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
@@ -40,12 +41,12 @@ function Items(shows: IShows) {
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    const currentItems = items.shows.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(items.shows.length / itemsPerPage);
+    const currentItems = items.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(items.length / itemsPerPage);
   
     // Invoke when user click to request another page.
     const handlePageClick = (event:ISelect) => {
-      const newOffset = (event.selected * itemsPerPage) % items.shows.length;
+      const newOffset = (event.selected * itemsPerPage) % items.length;
       console.log(
         `User requested page number ${event.selected}, which is offset ${newOffset}`
       );

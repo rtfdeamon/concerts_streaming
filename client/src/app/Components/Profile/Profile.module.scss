@@ -1,8 +1,8 @@
 .wrapper{
-    @apply mx-auto
+    @apply mx-auto w-[100vw]
 }
 .content{
-    @apply flex justify-between
+    @apply flex
 }
 .nav{
     & li{

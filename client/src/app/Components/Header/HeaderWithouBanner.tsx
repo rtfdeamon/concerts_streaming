@@ -13,11 +13,11 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger
 } from "@/shadComponents/ui/navigation-menu"
-import styles from './Header.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
 import X from '../../../../public/x.svg'
 import Menu from '../../../../public/menu.svg'
+import styles from './Header.module.scss'
 
 
 export default function HeaderWithoutBanner() {
@@ -28,7 +28,6 @@ export default function HeaderWithoutBanner() {
   if (typeof window !== "undefined") {
     authed = localStorage.getItem('authed')
   }
-  console.log(authed);
   
   const burgerHandler = () => {
     setBurgerIsOpen(!burgerIsOpen)
@@ -84,19 +83,19 @@ export default function HeaderWithoutBanner() {
           </div>
           <div className={styles.events}>
           <Link className={styles.link} href={'/'}>Home</Link>
-              <NavigationMenu>
+          <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Events</NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6 z-50">
-                          <NavigationMenuLink href="/docs" title="Introduction">
+                          <NavigationMenuLink href="/events/today" title="Introduction">
                             Today
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/docs/installation" title="Installation">
+                          <NavigationMenuLink href="/events/week" title="Installation">
                             This week
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/docs/primitives/typography" title="Typography">
+                          <NavigationMenuLink href="/events/month" title="Typography">
                             This month
                           </NavigationMenuLink>
                         </ul>
@@ -106,14 +105,14 @@ export default function HeaderWithoutBanner() {
                       <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
                       <NavigationMenuContent>
                       <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
-                          <NavigationMenuLink href="/docs" title="Introduction">
-                            Today
+                          <NavigationMenuLink href="/artists/followed" title="Introduction">
+                            Followed Artists
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/docs/installation" title="Installation">
-                            This week
+                          <NavigationMenuLink href="/artists/trending" title="Installation">
+                            Trending Artists
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/docs/primitives/typography" title="Typography">
-                            This month
+                          <NavigationMenuLink href="/artists/all" title="Typography">
+                            All Artists
                           </NavigationMenuLink>
                         </ul>
                       </NavigationMenuContent>
@@ -121,16 +120,59 @@ export default function HeaderWithoutBanner() {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Music</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                      <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
-                          <NavigationMenuLink href="/docs" title="Introduction">
-                            Today
+                      <ul className="flex items-center justify-around w-[350px] text-center p-6">
+                        <div className='flex flex-col'>
+                        <NavigationMenuLink href="/genre/electronic" title="Introduction">
+                            Electronic
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/docs/installation" title="Installation">
-                            This week
+                          <NavigationMenuLink href="/genre/country" title="Installation">     
+                            Country
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/docs/primitives/typography" title="Typography">
-                            This month
+                          <NavigationMenuLink href="/genre/hiphop" title="Typography">
+                            Hip hop
                           </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/funk" title="Typography">
+                            Funk
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/jazz" title="Typography">
+                            Jazz
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/latin" title="Typography">
+                            Latin
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/pop" title="Typography">
+                            Pop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/punk" title="Typography">
+                            Punk
+                          </NavigationMenuLink>
+                        </div>
+                        <div className='flex flex-col'>
+                          <NavigationMenuLink href="/genre/alternative" title="Typography">
+                              Alternative
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/genre/classical" title="Typography">
+                              Classical
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/genre/r&b" title="Typography">
+                              R&B
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/genre/rock" title="Typography">
+                              Rock
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/genre/blues" title="Typography">
+                              Blues
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/genre/metal" title="Typography">
+                              Metal
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/genre/indie" title="Typography">
+                              Indie
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/genre/other" title="Typography">
+                              Other
+                            </NavigationMenuLink>
+                        </div>
                         </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>

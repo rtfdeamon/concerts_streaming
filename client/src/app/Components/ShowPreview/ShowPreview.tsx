@@ -1,5 +1,5 @@
 import HeaderWithoutBanner from "../Header/HeaderWithouBanner";
-import { IPreviewParams } from "@/app/preview/page";
+import { IPreviewParams } from "@/app/genre/[id]/page";
 import { Button } from "@/shadComponents/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,16 +7,25 @@ import Women from '../../../../public/women.jpg'
 import Live from '../../../../public/radio.svg'
 import CalendarIcon from '../../../../public/calendar-range.svg'
 import styles from './ShowPreview.module.scss'
+import RequestButton from "./RequestButton";
 
 export default function ShowPreview({params}:IPreviewParams) {
+  const isArtist = true;
+  const artistName = null;
   return (
       <>
         <HeaderWithoutBanner />
         <section className={styles.section}>
                 <div className={styles.poster} style={{  backgroundImage: "url(" + { Women } + ")", backgroundSize: 'auto' }}>
                     <div className={styles.posterWrapper}>
-                        <h5 className={styles.artistTitle}>{params.id} by 
-                        <Link className={styles.link} href={'/artist'}>%artist name%</Link></h5>
+                        <h5 className={styles.artistTitle}>{params.id} 
+                        {artistName && 
+                          <span>
+                            by 
+                            <Link className={styles.link} href={'/artist'}>%artist name%</Link>
+                          </span>
+                        }
+                        </h5>
                         <p className={styles.desc}>Description Description Description Description Description Description Description Description
                         Description Description Description Description Description Description Description Description
                         </p>
@@ -33,7 +42,12 @@ export default function ShowPreview({params}:IPreviewParams) {
                                 </div>
                             </div>
                         </div>
-                        <Button className={styles.btn}>Take a ticket</Button>
+                        {
+                          !isArtist ? 
+                          <Button className={styles.btn}>Take a ticket</Button>
+                          :
+                          <RequestButton  />
+                        }
                     </div>
                 </div>
                 <div className={styles.aboutWrapper}>

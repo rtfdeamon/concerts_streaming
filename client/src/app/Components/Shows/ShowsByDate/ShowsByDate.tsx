@@ -1,11 +1,17 @@
-import { IShows } from '../Shows'
+import { IEvent } from '@/app/types/interfaces'
 import PaginatedItems from '../Paginate/Paginate'
 import styles from './ShowsByDate.module.scss'
 
-export default function ShowsByDate(shows:IShows) {
+export default function ShowsByDate({shows}:{shows: IEvent[]}) {
   return (
     <div className={styles.shows}>
-        <PaginatedItems itemsPerPage={4} items={shows} />
+        {shows.length >0 ?
+          <PaginatedItems itemsPerPage={4} items={shows} />
+          :
+          <div className={styles.showsException}>
+            Sorry! No shows yet 🥲
+          </div>
+        }
     </div>
   )
 }

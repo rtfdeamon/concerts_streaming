@@ -1,4 +1,4 @@
-import ShowPreview from "../Components/ShowPreview/ShowPreview"
+import InfoByGenre from "@/app/Components/InfoByGenre/InfoByGenre"
 
 export interface IPreviewParams {
   params:{
@@ -8,6 +8,8 @@ export interface IPreviewParams {
 
 export default function page({params}:IPreviewParams) {
   return (
-    <ShowPreview params={params} />
+    <>
+      <InfoByGenre params={params} />
+    </>
   )
 }

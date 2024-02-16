@@ -1,4 +1,5 @@
 import RootProvider from "./store/RootProvider";
+import { Toaster } from "@/shadComponents/ui/toaster";
 
 import type { Metadata } from "next";
 import { Onest } from "next/font/google";
@@ -21,6 +22,7 @@ export default function RootLayout({
       <RootProvider>
           <body className={inter.className}>
             {children}
+            <Toaster />
           </body>
       </RootProvider>
     </html>

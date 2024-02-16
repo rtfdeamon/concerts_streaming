@@ -40,12 +40,13 @@ export default function Login() {
   const dispatch = useAppDispatch()
     const router = useRouter();
     const token = useAppSelector(state => state.login.token)
-    const [storageToken, setStorageToken] = useLocalStorage('token', token);
-    const isAuthed = (token !== '' && Object.values(token)[0] !== 'Cannot to sign in') ? true : false;
+    const [storageAccessToken, setStorageAccessToken] = useLocalStorage('accessToken', token?.accessToken);
+    const [storageRefreshToken, setStorageRefreshToken] = useLocalStorage('refreshToken', token?.refreshToken);
+    const isAuthed = (token?.refreshToken !== ''
+    &&  token?.accessToken !== 'Cannot to sign in'
+    && token?.accessToken !== '')
+    ? true : false;
     const [authed, setAuthed] = useLocalStorage('authed', isAuthed);
-    if (authed){
-      router.push('/')
-    }
     const {
         register,
         handleSubmit,
@@ -54,15 +55,16 @@ export default function Login() {
     const onSubmit = handleSubmit(
         async (data: ILogin) => {
           const res: any = await dispatch(login(data))
-          if (res.payload.error === "Cannot to sign in"){
-            setError(true)
+          if (res.payload.error === "Cannot to sign in" || res.payload.token === 'undefined'){
+            setError(true);
+            return;
           } else{
-            setStorageToken(res.payload.token);
+            setStorageAccessToken(Object.values(res.payload)[0]);
+            setStorageRefreshToken(Object.values(res.payload)[1]);
             setAuthed(true);
           }
         }
     )
-
     useEffect(() => {
       if (authed) {
         router.push('/profile')

@@ -15,7 +15,7 @@
                 opacity: 1; /* Firefox */
               }
         }
-        @apply relative flex flex-col h-[100vh] text-white
+        @apply relative flex flex-col h-[100vh] w-[100vw] text-white
         
 }
 .headerWithoutBanner{
@@ -32,7 +32,7 @@
           }
     }
     border-bottom: 2px solid #3b82f6;
-    @apply relative flex flex-col items-center justify-center h-[15vh] text-black
+    @apply relative flex flex-col items-center justify-center h-[15vh] w-[100vw] text-black
 }
 body[theme = "dark"] .header{
     background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../../public/banner.jpg');

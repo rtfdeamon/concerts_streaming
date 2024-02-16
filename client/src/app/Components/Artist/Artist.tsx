@@ -10,7 +10,6 @@ import ShowsCalendar from "./ShowsCalendar"
 
 
 export default function Artist({params}:IArtistParams) {
-    console.log(params.id)
   return (
     <>
         <HeaderWithoutBanner />

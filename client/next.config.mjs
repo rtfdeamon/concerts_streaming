@@ -7,6 +7,9 @@ const nextConfig = {
       },
     eslint:{
       ignoreDuringBuilds: true
+    },
+    images:{
+      domains: ['192.168.100.101']
     }
 };
 
