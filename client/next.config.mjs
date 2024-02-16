@@ -9,7 +9,7 @@ const nextConfig = {
       ignoreDuringBuilds: true
     },
     images:{
-      domains: ['192.168.100.101']
+      domains: ['http://mmvsds-test.ddns.net']
     }
 };
 
