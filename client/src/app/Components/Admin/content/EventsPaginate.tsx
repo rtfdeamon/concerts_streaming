@@ -90,16 +90,18 @@ export function EventsPaginate({itemsPerPage, events}:{itemsPerPage: number, eve
   return (
     <>
       <Items events={currentItems} />
-      <ReactPaginate
-        className={styles.paginate}
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={(e:ISelect) => handlePageClick(e)}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
+      {currentItems.length >=4 && 
+        <ReactPaginate
+          className={styles.paginate}
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={(e:ISelect) => handlePageClick(e)}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
       />
+      }
     </>
   );
 }

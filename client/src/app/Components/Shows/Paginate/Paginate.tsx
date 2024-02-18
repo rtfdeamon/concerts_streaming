@@ -57,16 +57,31 @@ function Items(shows: {shows: IEvent[]}) {
       <>
         <Items shows={currentItems} />
         <div className={!type ? styles.paginate : styles.followedShowsPaginate}>
-            <ReactPaginate
-              nextLabel=">"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={0}
-              activeClassName={'active hidden'}
-              pageClassName={'hidden'}
-              pageCount={pageCount}
-              previousLabel="<"
-              renderOnZeroPageCount={null}
-            />
+          {!type ?
+              currentItems.length >= 4 &&
+                  <ReactPaginate
+                    nextLabel=">"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={0}
+                    activeClassName={'active hidden'}
+                    pageClassName={'hidden'}
+                    pageCount={pageCount}
+                    previousLabel="<"
+                    renderOnZeroPageCount={null}
+                />
+              :
+              currentItems.length >= 6 &&
+                <ReactPaginate
+                  nextLabel=">"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={0}
+                  activeClassName={'active hidden'}
+                  pageClassName={'hidden'}
+                  pageCount={pageCount}
+                  previousLabel="<"
+                  renderOnZeroPageCount={null}
+              />
+          }
         </div>
       </>
     );

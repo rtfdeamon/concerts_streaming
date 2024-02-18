@@ -1,16 +1,17 @@
 'use client'
-import { useState, useEffect } from "react"
+import { useState, useEffect, lazy, Suspense } from "react"
 import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks"
 import { getCurrUser } from "@/app/store/user/userSlice"
 import { useRouter } from "next/navigation"
 import HeaderWithoutBanner from "../Header/HeaderWithouBanner"
 import ProfileSettings from "./ProfileSettings"
-import FollowedArtists from "./FollowedArtists"
-import FollowedShows from "./FollowedShows"
-import UpcomingShows from "./UpcomingShows"
-import ArtistShows from "./ArtistShows"
-import styles from './Profile.module.scss'
+const FollowedArtists = lazy(() => import('./FollowedArtists'))
+const FollowedShows = lazy(() => import('./FollowedShows'))
+const UpcomingShows = lazy(() => import('./UpcomingShows'))
+const ArtistShows = lazy(() => import('./ArtistShows'))
+import Loading from "../Loading/Loading"
 import { checkAccessToken } from "@/app/utils/checkAccessToken"
+import styles from './Profile.module.scss'
 
 export default function Profile() {
   const dispatch = useAppDispatch();
@@ -76,7 +77,7 @@ export default function Profile() {
         <HeaderWithoutBanner />
         <section className={styles.wrapper}>
           <div className={styles.content}>
-            {user?.role === 'artist' ? 
+            {user?.role.includes('artist') && 
               <ul className={styles.nav}>
               <li
                 onClick={profileHandler}
@@ -90,28 +91,56 @@ export default function Profile() {
                 onClick={upcomingHandler}
                 className={upcomingIsOpen ? styles.active : styles.notActive}
               >Upcoming shows</li>
-            </ul>
-              :
-              <ul className={styles.nav}>
-              <li
-                onClick={profileHandler}
-                className={profileIsOpen ? styles.active : styles.notActive}
-              >My Profile</li>
-              <li
-                onClick={artistsHandler}
-                className={artistsIsOpen ? styles.active : styles.notActive}
-              >My Artists</li>
-              <li
-                onClick={showsHandler}
-                className={showsIsOpen ? styles.active : styles.notActive}
-              >Followed shows</li>
-            </ul>
+            </ul> }
+            {user?.role.includes('viewer') &&
+                <ul className={styles.nav}>
+                <li
+                  onClick={profileHandler}
+                  className={profileIsOpen ? styles.active : styles.notActive}
+                >My Profile</li>
+                <li
+                  onClick={artistsHandler}
+                  className={artistsIsOpen ? styles.active : styles.notActive}
+                >My Artists</li>
+                <li
+                  onClick={showsHandler}
+                  className={showsIsOpen ? styles.active : styles.notActive}
+                >Followed shows</li>
+              </ul>
+            }
+            {user?.role.includes('administrator') &&
+                <ul className={styles.nav}>
+                <li
+                  onClick={profileHandler}
+                  className={profileIsOpen ? styles.active : styles.notActive}
+                >My Profile</li>
+                <li
+                  onClick={upcomingHandler}
+                  className={upcomingIsOpen ? styles.active : styles.notActive}
+                >Upcoming shows</li>
+              </ul>
             }
             {profileIsOpen && <ProfileSettings />}
-            {artistsIsOpen && <FollowedArtists />}
-            {showsIsOpen && <FollowedShows />}
-            {upcomingIsOpen && <UpcomingShows />}
-            {artistShowsIsOpen && <ArtistShows />}
+            {artistsIsOpen && 
+              <Suspense fallback={<Loading />}>
+                 <FollowedArtists />
+              </Suspense>
+            }
+            {showsIsOpen && 
+              <Suspense fallback={<Loading />}>
+                    <FollowedShows />
+              </Suspense>
+            }
+            {upcomingIsOpen && 
+              <Suspense fallback={<Loading />}>
+                  <UpcomingShows />
+              </Suspense>
+            }
+            {artistShowsIsOpen &&
+              <Suspense fallback={<Loading />}>
+                <ArtistShows />
+              </Suspense>
+            }
           </div>
         </section>
     </>

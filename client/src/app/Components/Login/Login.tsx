@@ -55,7 +55,7 @@ export default function Login() {
     const onSubmit = handleSubmit(
         async (data: ILogin) => {
           const res: any = await dispatch(login(data))
-          if (res.payload.error === "Cannot to sign in" || res.payload.token === 'undefined'){
+          if (res.payload.error){
             setError(true);
             return;
           } else{
@@ -111,7 +111,7 @@ export default function Login() {
                   type="submit"
               >Login</Button>
           </form>
-          <p className={styles.link}>Did not register yet? <Link href='/register'> Sign up</Link></p>
+          <p className={styles.link}>Did not register yet? <Link href='/signup'> Sign up</Link></p>
         </div>
     </>
   )

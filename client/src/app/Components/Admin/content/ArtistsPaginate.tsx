@@ -68,16 +68,18 @@ export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, a
   return (
     <>
       <Items artists={currentItems} />
-      <ReactPaginate
-        className={styles.paginate}
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
-      />
+      {currentItems.length >= 4 && 
+        <ReactPaginate
+          className={styles.paginate}
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+      />  
+      }
     </>
   );
 }
