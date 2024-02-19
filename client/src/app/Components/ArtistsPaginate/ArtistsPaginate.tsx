@@ -56,7 +56,7 @@ export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, a
   return (
     <>
       <Items artists={currentItems} />
-      {currentItems.length >= 4 &&
+      {artists.length >= 4 &&
         <ReactPaginate
           className={styles.paginate}
           breakLabel="..."

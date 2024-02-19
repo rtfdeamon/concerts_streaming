@@ -3,7 +3,7 @@ import styles from './ArtistShows.module.scss'
 import { IAcceptedShow } from '@/app/types/interfaces';
 
 async function getShows(){
-  const res = await fetch('');
+  const res = await fetch(``);
   const data = await res.json();
   return data;
 }
@@ -22,7 +22,6 @@ export default async function ArtistShows() {
               Sorry! No shows yet 🥲
           </div>
       }
-      {/* <ArtistShowsPaginate  itemsPerPage={4} shows={shows}/> */}
     </section>
   )
 }

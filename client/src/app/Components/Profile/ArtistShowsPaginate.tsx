@@ -89,7 +89,7 @@ export function ArtistShowsPaginate({ itemsPerPage, shows }: {itemsPerPage: numb
   return (
     <>
       <Items shows={currentItems} />
-      {currentItems.length >=4 && 
+      {shows.length >=4 && 
         <ReactPaginate
           breakLabel="..."
           nextLabel="next >"

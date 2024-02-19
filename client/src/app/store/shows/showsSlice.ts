@@ -86,6 +86,15 @@ export const getShowByFilter = createAsyncThunk<IEvent[], IDate>(
     }
 )
 
+export const eventsSort = createAsyncThunk<IEvent[], {sort: string}>(
+    '@@shows/eventsSortByDate',
+    async ({sort}) => {
+        const res = await fetch(`${process.env.BACKEND_URL}/concerts/?sort=${sort}`)
+        const data = await res.json()
+        return data as IEvent[];
+    }
+)
+
 export const showsSlice = createSlice({
     name: '@@shows',
     initialState,
@@ -121,6 +130,9 @@ export const showsSlice = createSlice({
                 state.events[changedShowIndex] = action.payload;
             })
             .addCase(getShowByFilter.fulfilled, (state, action) => {
+                state.events = action.payload;
+            })
+            .addCase(eventsSort.fulfilled, (state, action) => {
                 state.events = action.payload;
             })
     }
