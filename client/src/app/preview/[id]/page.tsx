@@ -10,7 +10,6 @@ export interface IPreviewParams {
 export default function page({params}:IPreviewParams) {
   return (
     <>
-      <CheckIsAuth />
       <ShowPreview params={params} />    
     </>
   )
