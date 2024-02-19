@@ -14,7 +14,6 @@ async function refreshTokens(refreshToken: string){
 }
 export async function RefreshTokens(refreshToken: string){
     const res: IToken = await refreshTokens(refreshToken);
-    console.log('res', res)
     const [storageAccessToken, setStorageAccessToken] = useLocalStorage('accessToken', res?.accessToken);
     const [storageRefreshToken, setStorageRefreshToken] = useLocalStorage('refreshToken', res?.refreshToken);
     return [storageAccessToken, storageRefreshToken]
