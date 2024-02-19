@@ -96,7 +96,7 @@ export default function SignUp() {
           if (data.name.length <= 4){
             setDisplayedNameErr(true)
           }
-          if (!emailErr && usernameErr && !passErr && !selectErr && !diplsayedNameErr) {
+          if (!emailErr && !usernameErr && !passErr && !selectErr && !diplsayedNameErr) {
             data['select'] = select;
             const res:any = await dispatch(signUp(data));
             if (res.error){
