@@ -24,7 +24,7 @@ export default function InfoByGenre({params}:IPreviewParams) {
         <h5 className={styles.title}>{params.id}</h5>
         <div className={styles.wrapper}>
             {
-                data.length >0 ? <PaginatedItems  itemsPerPage={4} items={data}/>
+                data.length >0 ? <PaginatedItems  itemsPerPage={6} items={data} type='genres'/>
                 :
                 <div className={styles.showsException}>
                     Sorry! No shows yet 🥲

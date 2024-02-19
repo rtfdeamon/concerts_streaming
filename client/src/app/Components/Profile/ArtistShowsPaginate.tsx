@@ -91,12 +91,13 @@ export function ArtistShowsPaginate({ itemsPerPage, shows }: {itemsPerPage: numb
       <Items shows={currentItems} />
       {shows.length >=4 && 
         <ReactPaginate
+          className={styles.paginate}
           breakLabel="..."
-          nextLabel="next >"
+          nextLabel=">"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}
-          previousLabel="< previous"
+          previousLabel="<"
           renderOnZeroPageCount={null}
       />
       }

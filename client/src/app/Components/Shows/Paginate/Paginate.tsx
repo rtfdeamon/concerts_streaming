@@ -4,7 +4,6 @@ import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
 import Image from 'next/image';
 import CalendarIcon from '../../../../../public/../public/calendar-range.svg'
-import Show from '../../../../../public/show.jpg'
 import { IEvent } from '@/app/types/interfaces';
 import styles from '..//ShowsByDate/ShowsByDate.module.scss'
 

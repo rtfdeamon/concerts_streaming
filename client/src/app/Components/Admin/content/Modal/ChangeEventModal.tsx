@@ -41,6 +41,11 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const [perfomanceTime, setPerfomanceTime] = useState<number | undefined>(undefined);
     const [err, setErr] = useState(false);
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
+    const [category, setCategory] = useState<string | undefined>(undefined);
+
+    const categoryChangeHandler = (e: string) => {
+        setCategory(e);
+    }
 
     const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
         if (e.target.files){
@@ -61,7 +66,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
     const onChangeHandler = async () => {
         const stringDate = date?.toISOString() as string;
-        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, perfomanceTime, posterUrl}));
+        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, perfomanceTime, posterUrl, category}));
         if (res.payload.id){
             setIsOpen(false)
         } else{
@@ -108,6 +113,36 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                         <div>
                         <div className="mt-4">
                             <Input onChange={(e) => setName(e.target.value)} type="text" placeholder="Show's title" />
+                        </div>
+                        <div className="mt-4">
+                            <Select
+                                onValueChange={(e) => categoryChangeHandler(e)}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select concert genre" />
+                                </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                        <SelectLabel>Genre</SelectLabel>
+                                            <SelectItem value="electronic">Electronic</SelectItem>
+                                            <SelectItem value="country">Country</SelectItem>
+                                            <SelectItem value="hiphop">Hip hop</SelectItem>
+                                            <SelectItem value="funk">Funk</SelectItem>
+                                            <SelectItem value="jazz">Jazz</SelectItem>
+                                            <SelectItem value="latin">Latin</SelectItem>
+                                            <SelectItem value="pop">Pop</SelectItem>
+                                            <SelectItem value="punk">Punk</SelectItem>
+                                            <SelectItem value="alternative">Alternative</SelectItem>
+                                            <SelectItem value="classical">Classical</SelectItem>
+                                            <SelectItem value="r&b">R&B</SelectItem>
+                                            <SelectItem value="rock">Rock</SelectItem>
+                                            <SelectItem value="blues">Blues</SelectItem>
+                                            <SelectItem value="metal">Metal</SelectItem>
+                                            <SelectItem value="indie">Indie</SelectItem>
+                                            <SelectItem value="other">Other</SelectItem>
+                                        </SelectGroup>
+                                    </SelectContent>
+                            </Select>
                         </div>
                         <div className="mt-4">
                             <Input onChange={(e) => setSlots(parseInt(e.target.value))} type="number" defaultValue={1} min={1} placeholder="Slots number" />

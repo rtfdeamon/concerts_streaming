@@ -27,14 +27,14 @@ export const loadAllShows = createAsyncThunk<IEvent[], void>(
 
 export const createShow = createAsyncThunk<IEvent, IShow>(
     '@@shows/createShow',
-    async ({name, description, date, slots, perfomanceTime, posterUrl}) => {
+    async ({name, description, date, slots, perfomanceTime, posterUrl, category}) => {
         const res = await fetch(`${process.env.BACKEND_URL}/concerts/`, {
             method: 'POST',
             headers:{
                 'Content-type' : 'application/json',
                 'Authorization' : `Bearer ${await getTokenForApi()}`
             },
-            body: JSON.stringify({name, description, date, slots, perfomanceTime, poster_url: posterUrl})
+            body: JSON.stringify({name, description, date, slots, perfomanceTime, poster_url: posterUrl, category})
         })
         const data = await res.json();
         return data as IEvent
@@ -57,7 +57,7 @@ export const deleteShow = createAsyncThunk<string, string>(
 
 export const changeShow = createAsyncThunk<IEvent, IChangeShow>(
     '@@shows/changeShow',
-    async ({id, name, description, date, slots, perfomanceTime, posterUrl}) => {
+    async ({id, name, description, date, slots, perfomanceTime, posterUrl, category}) => {
         console.log(posterUrl)
             const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/`, {
             method: 'PATCH',
@@ -65,7 +65,7 @@ export const changeShow = createAsyncThunk<IEvent, IChangeShow>(
                 'Content-type' : 'application/json',
                 'Authorization' : `Bearer ${await getTokenForApi()}`
             },
-            body: JSON.stringify({name, description, date, slots, perfomanceTime, poster_url: posterUrl})
+            body: JSON.stringify({name, description, date, slots, perfomanceTime, poster_url: posterUrl, category})
         })
         const data = await res.json();
         return data as IEvent;

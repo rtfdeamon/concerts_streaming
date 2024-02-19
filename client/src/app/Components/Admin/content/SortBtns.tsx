@@ -19,12 +19,12 @@ export default function SortBtns() {
     const titleSortHandler = (e: string) => {
         setSelectedTitleSort(e);
         setSelectedDateSort('');
-        dispatch(eventsSort({sort: selectedTitleSort}));
+        dispatch(eventsSort({sort: e}));
     }
     const dateSortHandler = (e: string) => {
         setSelectedDateSort(e);
         setSelectedTitleSort('');
-        dispatch(eventsSort({sort: selectedDateSort}));
+        dispatch(eventsSort({sort: e}));
     }
     return (
     <>

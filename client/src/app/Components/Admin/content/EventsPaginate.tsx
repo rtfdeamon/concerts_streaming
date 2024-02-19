@@ -40,6 +40,7 @@ function Items(events:IEvents) {
             <p className={styles.desc}>{e.description}</p>
             <div className={styles.info}>
               <p className={styles.paragraph}>Slots count: {e.slots}</p>
+              <p className={styles.paragraph}>Genre: {e.category}</p>
               <p className={styles.paragraph}>Accessibility: </p>
               <p className={styles.paragraph}>Perfomance time: </p>
             </div>

@@ -41,6 +41,11 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
     const [err, setErr] = useState(false);
     const [perfomanceTime, setPerfomanceTime] = useState(0);
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
+    const [category, setCategory] = useState("");
+
+    const categoryChangeHandler = (e: string) => {
+        setCategory(e);
+    }
 
     const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
         if (e.target.files){
@@ -59,12 +64,13 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
     }
 
     const onCreateHandler = async () => {
-        if (name === '' || description === "" || slots < 1 || typeof date === 'undefined' || perfomanceTime === 0 || typeof posterUrl === 'undefined'){
+        if (name === '' || description === "" || slots < 1 || typeof date === 'undefined'
+        || perfomanceTime === 0 || typeof posterUrl === 'undefined' || category === ''){
             setErr(true);
             return;
         } else{
             const stringDate = date.toISOString();
-            const res: any = await dispatch(createShow({name, description, date: stringDate, slots, perfomanceTime, posterUrl}));
+            const res: any = await dispatch(createShow({name, description, date: stringDate, slots, perfomanceTime, posterUrl, category}));
             if (res.payload.id){
                 setIsOpen(false);
             } else{
@@ -109,6 +115,36 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                         <div>
                         <div className="mt-4">
                             <Input onChange={(e) => setName(e.target.value)} type="text" placeholder="Show's title" />
+                        </div>
+                        <div className="mt-4">
+                            <Select
+                                onValueChange={(e) => categoryChangeHandler(e)}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select concert genre" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                    <SelectLabel>Genre</SelectLabel>
+                                        <SelectItem value="electronic">Electronic</SelectItem>
+                                        <SelectItem value="country">Country</SelectItem>
+                                        <SelectItem value="hiphop">Hip hop</SelectItem>
+                                        <SelectItem value="funk">Funk</SelectItem>
+                                        <SelectItem value="jazz">Jazz</SelectItem>
+                                        <SelectItem value="latin">Latin</SelectItem>
+                                        <SelectItem value="pop">Pop</SelectItem>
+                                        <SelectItem value="punk">Punk</SelectItem>
+                                        <SelectItem value="alternative">Alternative</SelectItem>
+                                        <SelectItem value="classical">Classical</SelectItem>
+                                        <SelectItem value="r&b">R&B</SelectItem>
+                                        <SelectItem value="rock">Rock</SelectItem>
+                                        <SelectItem value="blues">Blues</SelectItem>
+                                        <SelectItem value="metal">Metal</SelectItem>
+                                        <SelectItem value="indie">Indie</SelectItem>
+                                        <SelectItem value="other">Other</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                         </div>
                         <div className="mt-4">
                             <Input onChange={(e) => setSlots(parseInt(e.target.value))} type="number" min={1} placeholder="Slots number" />
