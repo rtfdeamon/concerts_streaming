@@ -1,3 +1,5 @@
+'use client'
+import { useState, useEffect } from 'react';
 import { IEvent } from '@/app/types/interfaces';
 import PaginatedItems from '../../Shows/Paginate/Paginate';
 import Image from 'next/image';
@@ -11,8 +13,11 @@ async function getShows(){
 }
 
 export default async function ScheduledConcerts() {
-    let shows: IEvent[] = [];
-    shows = await getShows();
+  const [shows, setShows] = useState<IEvent[]>([]);
+  useEffect(() => {
+    getShows()
+      .then(res => setShows(res))
+    }, [])
     return (
     <section>
         <div className={styles.titleWrapper}>
