@@ -7,6 +7,9 @@
 .wrapper{
     @apply mb-6 mx-4
 }
+.typeWrapper{
+    @apply w-[500px]
+}
 .title{
     @apply block text-center text-2xl
 }
@@ -43,16 +46,15 @@
     & ul {
         & li{
             &:first-child{
-                @apply absolute left-[-40px]
+                @apply absolute left-[40px]
             }
             &:last-child{
-                @apply absolute right-[2px]
+                @apply absolute right-[40px]
             }
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
-            transform: translate(50%, -40%) !important;
-            @apply absolute
+            @apply absolute top-[60%]
         }
     }
 }

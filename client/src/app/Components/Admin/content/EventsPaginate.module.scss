@@ -26,7 +26,7 @@
     @apply flex flex-col justify-around mt-4
 }
 .paragraph{
-    @apply mb-3
+    @apply mb-3 capitalize
 }
 .paginate{
     & li{

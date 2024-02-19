@@ -28,8 +28,8 @@ export interface IRegister {
   
   const resolver: Resolver<IRegister> = async (values) => {
     return {
-      values: values.email? values : {} || values.username ? values : {} || values.password ? values : {} ,
-      errors: {}
+      values: values.email? values : {} || values.username ? values : {} || values.password ? values : {} ||
+      values.select? values: {} || values.name? values : {},
       // errors: !values.username || !values.password || !values.select || !values.name || !values.email
       //   ? {
       //     email: {
@@ -54,6 +54,7 @@ export interface IRegister {
       //         },
       //     }
       //   : {},
+      errors: {},
     }
   }
 
@@ -75,17 +76,19 @@ export default function SignUp() {
         } = useForm<IRegister>({ resolver })
     const onSubmit = handleSubmit(
         async (data: IRegister) => {
+          setEmailErr(false)
+          setUsernameErr(false)
+          setPassErr(false)
+          setSelectErr(false)
+          setDisplayedNameErr(false)
           if (data.email.length < 8) {
             setEmailErr(true)
-            return
           }
           if (data.username.length < 5) {
             setUsernameErr(true)
-            return
           }
           if (data.password.length < 8) {
             setPassErr(true)
-            return
           }
           if (select === ''){
             setSelectErr(true)
@@ -93,13 +96,16 @@ export default function SignUp() {
           if (data.name === ''){
             setDisplayedNameErr(true)
           }
+          if (emailErr || usernameErr || passErr || selectErr || diplsayedNameErr) {
+            return
+          }
           data['select'] = select;
           const res:any = await dispatch(signUp(data))
-            if(res.meta.requestStatus === 'fulfilled'){
-                router.push('/login')
-            }
-            else if (res.payload.error){
+          console.log(res)
+            if (res.error){
               setErr(true)
+            } else {
+              router.push('/login')
             }
         }
     )
@@ -150,15 +156,15 @@ export default function SignUp() {
                 type="text"
                 {...register("username", {
                   minLength: {
-                    value: 5,
-                    message: "min length is 5",
+                    value: 2,
+                    message: "min length is 2",
                   },
                   pattern : {
                     value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
                     message: "Entered value does not match username format",
                 }})} />
             {errors?.username && <p>{errors.username.message}</p>}
-            {usernameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>}
+            {usernameErr && <span className={styles.err}>Displayed name is required at least 2 symbols</span>}
             <span className={styles.span}>Displayed name</span>
             <Input
                 className={styles.input}
@@ -172,8 +178,8 @@ export default function SignUp() {
                     value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
                     message: "Entered value does not match username format",
                 }})} />
-            {errors?.username && <p>{errors.username.message}</p>}
-            {usernameErr && <span className={styles.err}>Username is required at least 5 symbols</span>}
+            {errors?.name && <p>{errors.name.message}</p>}
+            {diplsayedNameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>}
             <span className={styles.span}>Password</span>
             <Input
                 className={styles.input}
@@ -186,7 +192,7 @@ export default function SignUp() {
                     },
                     })} />
             {errors?.password && <p>{errors.password.message}</p>}
-            {passErr && <span className={styles.err}>Password is required at least 5 symbols</span>}
+            {passErr && <span className={styles.err}>Password is required at least 8 symbols</span>}
             <Button
               className={styles.btn}
               type="submit"

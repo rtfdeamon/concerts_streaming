@@ -7,48 +7,13 @@ import styles from './CreateEvent.module.scss'
 import SortBtns from './SortBtns'
 
 
-interface IMockEvent {
-  eventTitle: string,
-  date: string
-}
-
-export interface IMockEvents{
-  events: IMockEvent[]
-}
-
-
 export default function CreateEvent() {
   const dispatch = useAppDispatch();
   const events = useAppSelector(state => state.shows.events)
   useEffect(() => {
     dispatch(loadAllShows());
   }, [])
-  // const mockEvents = [
-  //   {
-  //     eventTitle: 'Show 1',
-  //     date: 'Feb 05 - 10:00 AM'
-  //   },
-  //   {
-  //     eventTitle: 'Show 2',
-  //     date: 'Feb 05 - 10:00 AM'   
-  //   },
-  //   {
-  //     eventTitle: 'Show 3',
-  //     date: 'Feb 05 - 10:00 AM'
-  //     },
-  //   {
-  //     eventTitle: 'Show 4',
-  //     date: 'Feb 05 - 10:00 AM'    
-  //   },
-  //   {
-  //     eventTitle: 'Show 5',
-  //     date: 'Feb 05 - 10:00 AM'    
-  //   },
-  //   {
-  //     eventTitle: 'Show 6',
-  //     date: 'Feb 05 - 10:00 AM'
-  //   }
-  // ]
+
   return (
       <div className={styles.wrapper}>
       <h5 className={styles.title}>Create an Event</h5>

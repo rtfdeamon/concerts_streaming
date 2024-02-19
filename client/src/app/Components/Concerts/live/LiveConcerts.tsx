@@ -3,15 +3,14 @@ import PaginatedItems from '../../Shows/Paginate/Paginate';
 import styles from './LiveConcerts.module.scss'
 
 async function getShows(){
-    const res = await fetch('')
+    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=live`)
     const data = await res.json();
     return data
 }
 
 export default async function LiveConcerts() {
     let shows: IEvent[] = [];
-    getShows()
-        .then(res => shows = res)
+    shows = await getShows();
     return (
     <section>
         <div className={styles.titleWrapper}>

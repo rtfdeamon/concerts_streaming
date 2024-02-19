@@ -89,15 +89,18 @@ export function ArtistShowsPaginate({ itemsPerPage, shows }: {itemsPerPage: numb
   return (
     <>
       <Items shows={currentItems} />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
+      {shows.length >=4 && 
+        <ReactPaginate
+          className={styles.paginate}
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
       />
+      }
     </>
   );
 }

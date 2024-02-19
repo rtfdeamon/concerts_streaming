@@ -40,6 +40,7 @@ function Items(events:IEvents) {
             <p className={styles.desc}>{e.description}</p>
             <div className={styles.info}>
               <p className={styles.paragraph}>Slots count: {e.slots}</p>
+              <p className={styles.paragraph}>Genre: {e.category}</p>
               <p className={styles.paragraph}>Accessibility: </p>
               <p className={styles.paragraph}>Perfomance time: </p>
             </div>
@@ -90,16 +91,18 @@ export function EventsPaginate({itemsPerPage, events}:{itemsPerPage: number, eve
   return (
     <>
       <Items events={currentItems} />
-      <ReactPaginate
-        className={styles.paginate}
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={(e:ISelect) => handlePageClick(e)}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
+      {events.events.length >=4 && 
+        <ReactPaginate
+          className={styles.paginate}
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={(e:ISelect) => handlePageClick(e)}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
       />
+      }
     </>
   );
 }

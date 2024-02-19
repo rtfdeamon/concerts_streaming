@@ -2,10 +2,8 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { Fragment, useRef } from "react"
 import { Input } from "@/shadComponents/ui/input"
-import Image from "next/image"
 import { Dispatch, SetStateAction } from "react"
 import PreviewStream from "./PreviewStream"
-import styles from './modal.module.scss'
 
 export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
     return (

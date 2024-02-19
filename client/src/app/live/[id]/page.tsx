@@ -1,3 +1,4 @@
+import CheckIsAuth from "@/app/utils/checkIsAuth"
 import Live from "@/app/Components/Live/Live"
 
 export interface ILiveParams {
@@ -8,6 +9,9 @@ export interface ILiveParams {
 
 export default function page({params}:ILiveParams) {
   return (
-    <Live params={params} />
+    <>
+      <CheckIsAuth type="live" />
+      <Live params={params} />
+    </>
   )
 }

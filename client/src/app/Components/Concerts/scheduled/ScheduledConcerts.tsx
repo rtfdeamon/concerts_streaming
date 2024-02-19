@@ -5,15 +5,14 @@ import CalendarIcon from '../../../../../public/calendar-range.svg'
 import styles from './ScheduledConcerts.module.scss'
 
 async function getShows(){
-    const res = await fetch('')
+    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=scheduled`)
     const data = await res.json();
     return data
 }
 
 export default async function ScheduledConcerts() {
     let shows: IEvent[] = [];
-    getShows()
-        .then(res => shows = res)
+    shows = await getShows();
     return (
     <section>
         <div className={styles.titleWrapper}>

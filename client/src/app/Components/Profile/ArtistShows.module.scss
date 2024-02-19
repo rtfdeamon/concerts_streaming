@@ -2,7 +2,7 @@
     @apply w-2/3 mx-auto py-10 flex flex-col items-center
 }
 .title{
-    @apply block  mx-auto text-5xl text-center
+    @apply block  mx-auto text-5xl text-center mb-5
 }
 .showsException{
     @apply block mt-14 text-3xl text-center 
@@ -47,3 +47,9 @@
     @apply flex mt-8 right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
 }
 
+.paginate{
+            & li{
+                @apply block mr-5
+            }
+    @apply absolute bottom-0 flex justify-center items-center pb-7 text-center
+}
