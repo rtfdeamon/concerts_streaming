@@ -1,4 +1,5 @@
-import { refreshTokens } from "./refreshToken";
+import { RefreshTokens } from "./refreshToken";
+
 export async function checkAccessToken(){
     let arr: Array<string>
     let token: string
@@ -22,7 +23,7 @@ export async function checkAccessToken(){
                 refreshToken?.pop();
                 refreshToken?.shift();
                 refreshToken = refreshToken.join('');
-                refreshTokens(refreshToken)
+                RefreshTokens(refreshToken)
             }
         }
     }
