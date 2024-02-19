@@ -20,7 +20,7 @@ class ArtistSessionReadSerializer(serializers.ModelSerializer):
 class ArtistSessionWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArtistSession
-        exclude = ('user', 'concert', 'status', 'stream_key')
+        exclude = ('user', 'status', 'stream_key')
 
 class ConcertReadSerializer(serializers.ModelSerializer):
     class Meta:
