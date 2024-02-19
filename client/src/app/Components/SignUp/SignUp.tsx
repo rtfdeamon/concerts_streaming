@@ -93,20 +93,18 @@ export default function SignUp() {
           if (select === ''){
             setSelectErr(true)
           }
-          if (data.name === ''){
+          if (data.name.length <= 4){
             setDisplayedNameErr(true)
           }
-          if (emailErr || usernameErr || passErr || selectErr || diplsayedNameErr) {
-            return
-          }
-          data['select'] = select;
-          const res:any = await dispatch(signUp(data))
-          console.log(res)
+          if (!emailErr && usernameErr && !passErr && !selectErr && !diplsayedNameErr) {
+            data['select'] = select;
+            const res:any = await dispatch(signUp(data));
             if (res.error){
-              setErr(true)
+                setErr(true);
             } else {
-              router.push('/login')
+                router.push('/login');
             }
+          }
         }
     )
   return (
@@ -156,15 +154,15 @@ export default function SignUp() {
                 type="text"
                 {...register("username", {
                   minLength: {
-                    value: 2,
-                    message: "min length is 2",
+                    value: 5,
+                    message: "min length is 5",
                   },
                   pattern : {
                     value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
                     message: "Entered value does not match username format",
                 }})} />
             {errors?.username && <p>{errors.username.message}</p>}
-            {usernameErr && <span className={styles.err}>Displayed name is required at least 2 symbols</span>}
+            {usernameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>}
             <span className={styles.span}>Displayed name</span>
             <Input
                 className={styles.input}

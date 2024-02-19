@@ -5,33 +5,30 @@ import { ToastAction } from '@/shadComponents/ui/toast'
 import { useToast } from '@/shadComponents/ui/use-toast'
 
 export default function CheckIsAuth({type}:{type?: string}) {
-  const [isAuth, setIsAuth] = useState<boolean | null >(null);
   const router = useRouter();
   const { toast } = useToast();
   let timeoutId: NodeJS.Timeout;
+  let isAuth = true;
   const timeOut = !type ? 1500 : 0;
-
-  if (typeof window !== 'undefined' && localStorage.getItem('authed') !== null){
-    setIsAuth(JSON.parse(localStorage.getItem('authed') as string) as boolean)
-  }
 
   const toastHandler = () => {
     router.push('/login')
   }
 
-  if (!isAuth && typeof window !== 'undefined'){
-    localStorage.removeItem('authed');
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    toast({
-      title: "Sorry, you need to be sign in for this page",
-      action: (
-        <ToastAction onClick={() => toastHandler()} altText="Sign in">Sign in</ToastAction>
-      ),
-    })
-    timeoutId = setTimeout(() => {
-      router.push('/login')
-    }, timeOut)
+  if (typeof window !== 'undefined' && localStorage.getItem('authed') !== null){
+    isAuth = JSON.parse(localStorage.getItem('authed') as string) as boolean
+    console.log(isAuth)
+    if (!isAuth && typeof window !== 'undefined'){
+      toast({
+        title: "Sorry, you need to be sign in for this page",
+        action: (
+          <ToastAction onClick={() => toastHandler()} altText="Sign in">Sign in</ToastAction>
+        ),
+      })
+      timeoutId = setTimeout(() => {
+        router.push('/login')
+      }, timeOut)
+    }
   }
 
   useEffect(() => {
