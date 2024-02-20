@@ -26,6 +26,9 @@ export interface IRegister {
     password: string
 }
   
+
+
+export default function SignUp() {
   const resolver: Resolver<IRegister> = async (values) => {
     return {
       values: values.email? values : {} || values.username ? values : {} || values.password ? values : {} ||
@@ -57,9 +60,6 @@ export interface IRegister {
       errors: {},
     }
   }
-
-
-export default function SignUp() {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [emailErr, setEmailErr] = useState(false);
@@ -74,6 +74,20 @@ export default function SignUp() {
         handleSubmit,
         formState: { errors },
         } = useForm<IRegister>({ resolver })
+
+      const signUpFunc = async (data: IRegister) => {
+        if (!emailErr && !usernameErr && !passErr && !selectErr && !diplsayedNameErr) {
+          console.log(emailErr, usernameErr, passErr, selectErr, diplsayedNameErr)
+          data['select'] = select;
+          const res:any = await dispatch(signUp(data));
+          if (res.error){
+              setErr(true);
+          } else {
+              router.push('/login');
+          }
+        }
+      }
+
     const onSubmit = handleSubmit(
         async (data: IRegister) => {
           setEmailErr(false)
@@ -96,17 +110,10 @@ export default function SignUp() {
           if (data.name.length <= 4){
             setDisplayedNameErr(true)
           }
-          if (!emailErr && !usernameErr && !passErr && !selectErr && !diplsayedNameErr) {
-            data['select'] = select;
-            const res:any = await dispatch(signUp(data));
-            if (res.error){
-                setErr(true);
-            } else {
-                router.push('/login');
-            }
-          }
+          signUpFunc(data)
         }
     )
+    
   return (
     <>
       <div className={styles.formWrapper}>

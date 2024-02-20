@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { IArtist } from '@/app/types/interfaces';
 import Link from 'next/link';
 import Image from 'next/image';
+import User from '../../../../public/user (1).svg'
 import styles from './ArtistsPaginate.module.scss'
 
 interface ISelect{
@@ -12,20 +13,20 @@ interface ISelect{
 
 function Items(artists:{artists: IArtist[]}) {
   return (
-    <>
+    <div className={styles.wrapper}>
         {artists &&  artists.artists.map((a, i) => (
             <div key={i} className={styles.requestWrapper}>
                 <div className={styles.showWrapper}>
                   <div className={styles.request}>
                   <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
-                      <Image src={a.image} width={80} height={80} alt="artistIcon" />
-                      <p>{a.artistName}</p>
+                      <Image src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.name}</p>
                   </Link>
                   </div>
               </div>
             </div>
         ))}
-    </>
+    </div>
   );
 }
 

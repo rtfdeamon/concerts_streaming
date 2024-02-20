@@ -1,9 +1,11 @@
 'use client'
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useRef } from "react"
+import { Fragment } from "react"
 import { Input } from "@/shadComponents/ui/input"
 import { Dispatch, SetStateAction } from "react"
 import PreviewStream from "./PreviewStream"
+import Link from "next/link"
+import styles from './CheckModal.module.scss'
 
 export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
     return (
@@ -44,9 +46,14 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
                             </div>
                             <div className="mt-4">
                                 <span>Server</span>
-                                <Input type="text"  defaultValue="rtmp://stream01:312/ticket" />
+                                <Input type="text"  value={"rtmp://stream01:312/ticket"}/>
                                 <span>Key</span>
-                                <Input type="text" defaultValue="8DTFDSKCKSVDSJKDAS-" />
+                                <Input type="text" value={"8DTFDSKCKSVDSJKDAS-"} />
+                            </div>
+                            <div className="mt-4">
+                                <Link href={`${process.env.FRONTEND_URL}/obsGuide`}
+                                className={styles.link}
+                                >How to use OBS</Link>
                             </div>
                         </Dialog.Panel>
                     </Transition.Child>

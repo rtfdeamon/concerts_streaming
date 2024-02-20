@@ -88,38 +88,6 @@ export default function HeaderWithoutBanner() {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Events</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6 z-50">
-                          <NavigationMenuLink href="/events/today" title="Introduction">
-                            Today
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/events/week" title="Installation">
-                            This week
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/events/month" title="Typography">
-                            This month
-                          </NavigationMenuLink>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                      <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
-                          <NavigationMenuLink href="/artists/followed" title="Introduction">
-                            Followed Artists
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/trending" title="Installation">
-                            Trending Artists
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/all" title="Typography">
-                            All Artists
-                          </NavigationMenuLink>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Music</NavigationMenuTrigger>
-                      <NavigationMenuContent>
                       <ul className="flex items-center justify-around w-[350px] text-center p-6">
                         <div className='flex flex-col'>
                         <NavigationMenuLink href="/genre/electronic" title="Introduction">
@@ -170,6 +138,81 @@ export default function HeaderWithoutBanner() {
                               Indie
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/genre/other" title="Typography">
+                              Other
+                            </NavigationMenuLink>
+                        </div>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                      <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
+                          <NavigationMenuLink href="/artists/genre/followed" title="Introduction">
+                            Followed Artists
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/trending" title="Installation">
+                            Trending Artists
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/all" title="Typography">
+                            All Artists
+                          </NavigationMenuLink>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Music</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                      <ul className="flex items-center justify-around w-[350px] text-center p-6">
+                        <div className='flex flex-col'>
+                        <NavigationMenuLink href="/artists/genre/electronic" title="Introduction">
+                            Electronic
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/country" title="Installation">     
+                            Country
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
+                            Hip hop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/funk" title="Typography">
+                            Funk
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/jazz" title="Typography">
+                            Jazz
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/latin" title="Typography">
+                            Latin
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/pop" title="Typography">
+                            Pop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/punk" title="Typography">
+                            Punk
+                          </NavigationMenuLink>
+                        </div>
+                        <div className='flex flex-col'>
+                          <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
+                              Alternative
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/classical" title="Typography">
+                              Classical
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/r&b" title="Typography">
+                              R&B
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/rock" title="Typography">
+                              Rock
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/blues" title="Typography">
+                              Blues
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/metal" title="Typography">
+                              Metal
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/indie" title="Typography">
+                              Indie
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/other" title="Typography">
                               Other
                             </NavigationMenuLink>
                         </div>

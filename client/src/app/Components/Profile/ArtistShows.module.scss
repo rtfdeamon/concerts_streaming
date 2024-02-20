@@ -31,20 +31,23 @@
     }
     @apply block mx-auto mt-3
  }
- .controls{
-    & button:first-child{
-        &:hover{
-            @apply bg-slate-700
-        }
-        @apply bg-slate-400 mr-12
-    }
+//  .controls{
+//     & button:first-child{
+//         &:hover{
+//             @apply bg-slate-700
+//         }
+//         @apply bg-slate-400 mr-12
+//     }
+//     @apply flex justify-center
+//  }
+.controls{
     @apply flex justify-center
- }
+}
  .btn{
     &:hover{
         @apply bg-blue-700
     }
-    @apply flex mt-8 right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
+    @apply flex mt-8 right-2 text-xl p-8 bg-blue-500 duration-500 transition-all w-[400px]
 }
 
 .paginate{

@@ -1,5 +1,10 @@
-.shows{
+.shows, .genresShows{
     @apply flex flex-wrap items-center justify-center relative text-xl my-7
+}
+.genresShows {
+    & div{
+        @apply w-[500px]
+    }
 }
 .showsException{
     @apply my-5 text-3xl
@@ -8,7 +13,7 @@
     @apply mb-6 mx-4
 }
 .typeWrapper{
-    @apply w-[500px]
+    @apply w-[400px]
 }
 .title{
     @apply block text-center text-2xl
@@ -46,15 +51,15 @@
     & ul {
         & li{
             &:first-child{
-                @apply absolute left-[40px]
+                @apply absolute left-[30px]
             }
             &:last-child{
-                @apply absolute right-[40px]
+                @apply absolute right-[30px]
             }
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
-            @apply absolute top-[60%]
+            @apply absolute top-[50%]
         }
     }
 }

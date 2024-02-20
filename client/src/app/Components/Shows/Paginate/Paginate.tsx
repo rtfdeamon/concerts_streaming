@@ -14,7 +14,7 @@ interface ISelect{
 function Items({shows, type}: {shows: IEvent[], type?: string}) {
     return (
       <>
-      <div className={styles.shows}>
+      <div className={type === 'genres' || 'followedShows' || 'scheduledShows' ? styles.genresShows : styles.shows}>
           {shows &&
             shows.map((s, i) => (
               <div className={!type ? styles.wrapper : styles.typeWrapper} key={i}>
@@ -82,7 +82,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
                   previousLabel="<"
                   renderOnZeroPageCount={null}
               />
-          }
+            }
         </div>
       </>
     );

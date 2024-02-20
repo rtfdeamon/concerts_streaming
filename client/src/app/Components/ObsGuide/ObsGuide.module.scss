@@ -1,0 +1,15 @@
+.article{
+    & div{
+        & img{
+            @apply block mx-auto mt-6
+        }
+        @apply mb-10 leading-10
+    }
+    @apply my-5 max-w-[1400px] mx-auto
+}
+.title{
+    @apply text-center text-5xl mb-10
+}
+.link{
+    @apply text-blue-500
+}
