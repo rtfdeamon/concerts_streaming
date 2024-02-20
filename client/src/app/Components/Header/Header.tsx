@@ -233,54 +233,54 @@ export default function Header({type, children}:{type: string, children?: React.
                       <NavigationMenuContent>
                       <ul className="flex items-center justify-around w-[350px] text-center p-6">
                         <div className='flex flex-col'>
-                        <NavigationMenuLink href="/artists/electronic" title="Introduction">
+                        <NavigationMenuLink href="/artists/genre/electronic" title="Introduction">
                             Electronic
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/country" title="Installation">     
+                          <NavigationMenuLink href="/artists/genre/country" title="Installation">     
                             Country
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/hiphop" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
                             Hip hop
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/funk" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/funk" title="Typography">
                             Funk
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/jazz" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/jazz" title="Typography">
                             Jazz
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/latin" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/latin" title="Typography">
                             Latin
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/pop" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/pop" title="Typography">
                             Pop
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/punk" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/punk" title="Typography">
                             Punk
                           </NavigationMenuLink>
                         </div>
                         <div className='flex flex-col'>
-                          <NavigationMenuLink href="/artists/alternative" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
                               Alternative
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/classical" title="Typography">
+                            <NavigationMenuLink href="/artists/genre/classical" title="Typography">
                               Classical
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/r&b" title="Typography">
+                            <NavigationMenuLink href="/artists/genre/r&b" title="Typography">
                               R&B
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/rock" title="Typography">
+                            <NavigationMenuLink href="/artists/genre/rock" title="Typography">
                               Rock
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/blues" title="Typography">
+                            <NavigationMenuLink href="/artists/genre/blues" title="Typography">
                               Blues
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/metal" title="Typography">
+                            <NavigationMenuLink href="/artists/genre/metal" title="Typography">
                               Metal
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/indie" title="Typography">
+                            <NavigationMenuLink href="/artists/genre/indie" title="Typography">
                               Indie
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/other" title="Typography">
+                            <NavigationMenuLink href="/artists/genre/other" title="Typography">
                               Other
                             </NavigationMenuLink>
                         </div>
