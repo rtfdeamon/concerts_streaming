@@ -9,9 +9,9 @@ export async function checkAccessToken(){
         // arr.shift();
         // token = arr.join('');
         arr = localStorage.getItem('accessToken')?.split('') as Array<string>;
-        arr.pop();
-        arr.shift();
         if (arr){
+            arr.pop();
+            arr.shift();
             token = arr.join('').split('.')[1];
             const expired: any = atob(token)
             const expiresDate: number = JSON.parse(expired).exp;
