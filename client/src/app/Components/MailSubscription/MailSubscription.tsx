@@ -23,7 +23,6 @@ export default function MailSubscription() {
             if (testRes){
                 // логика для пост запроса
                 // if (res.ok) toast(true)
-                console.log('seds')
                 toast({
                     title: "Email newsletter",
                     description: "You have successfully subscribed to our newsletter",

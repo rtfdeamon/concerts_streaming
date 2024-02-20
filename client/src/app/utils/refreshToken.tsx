@@ -1,7 +1,17 @@
+import { useRouter } from "next/navigation";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { signOut } from "./signOut";
 import { IToken } from "../types/interfaces";
+import { ToastAction } from '@/shadComponents/ui/toast'
+import { useToast } from '@/shadComponents/ui/use-toast'
 
-async function refreshTokens(refreshToken: string){
+async function refreshTokens(accessToken: string, refreshToken: string){
+    const router = useRouter();
+    const { toast } = useToast();
+    const routeHandler = () => {
+        router.push(`${process.env.FRONTEND_URL}/login`)
+    }
+
     const res = await fetch(`${process.env.BACKEND_URL}/auth/refresh_token`, {
         method: 'POST',
         headers: {
@@ -9,11 +19,28 @@ async function refreshTokens(refreshToken: string){
         },
         body: JSON.stringify({token: refreshToken})
     })
+    if (!res.ok){
+        if (typeof window !== 'undefined'){
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('authed');
+            localStorage.removeItem('role');
+        }
+        await signOut(accessToken)
+        toast({
+            title: "Your session is closed",
+            description: "You need to sign in again",
+            action: (
+              <ToastAction altText="Sign in">Sign in</ToastAction>
+            ),
+          })
+          routeHandler();
+    }
     const data = await res.json();
     return data;
 }
-export async function RefreshTokens(refreshToken: string){
-    const res: IToken = await refreshTokens(refreshToken);
+export async function RefreshTokens(accessToken: string, refreshToken: string){
+    const res: IToken = await refreshTokens(accessToken, refreshToken);
     const [storageAccessToken, setStorageAccessToken] = useLocalStorage('accessToken', res?.accessToken);
     const [storageRefreshToken, setStorageRefreshToken] = useLocalStorage('refreshToken', res?.refreshToken);
     return [storageAccessToken, storageRefreshToken]
