@@ -1,16 +1,24 @@
 from drf_yasg.openapi import (
     Schema,
+    SchemaRef,
     Parameter,
     IN_QUERY,
+    IN_PATH,
     TYPE_OBJECT,
     TYPE_STRING,
     TYPE_ARRAY,
-    TYPE_INTEGER
+    TYPE_INTEGER,
+    TYPE_BOOLEAN,
 )
 
-from .models import ArtistSessionStatus, ConcertStatus
+from .models import ArtistSessionStatus, ConcertStatus, UserRole
 
-from .serializers import UserSerializer
+status_response_dto = Schema(
+    type=TYPE_OBJECT,
+    properties={
+        'success': Schema(type=TYPE_BOOLEAN)
+    }
+)
 
 sign_in_request_dto = Schema(
     type=TYPE_OBJECT,
@@ -29,11 +37,22 @@ sign_in_response_dto = Schema(
 sign_up_request_dto = Schema(
     type='object',
     properties={
-        'user': Schema(type='string'),
+        'username': Schema(type='string'),
         'password': Schema(type='string'),
         'email': Schema(type='string'),
         'name': Schema(type='string'),
         'role': Schema(type='string', enum=['administrator', 'artist', 'viewer'])
+    }
+)
+
+nested_user_dto = Schema(
+    type='object',
+    properties={
+        'id': Schema(type='integer'),
+        'role': Schema(type='string'),
+        'name': Schema(type='string'),
+        'avatar_url': Schema(type='string'),
+        'username': Schema(type='string'),
     }
 )
 
@@ -45,6 +64,20 @@ user_response_dto = Schema(
         'name': Schema(type='string'),
         'avatar_url': Schema(type='string'),
         'username': Schema(type='string'),
+        'followers': Schema(
+            type=TYPE_ARRAY,
+            items=nested_user_dto
+        ),
+        'artist_followed': Schema(
+            type=TYPE_ARRAY,
+            items=nested_user_dto,
+        ),
+        'concerts_followed': Schema(
+            type=TYPE_ARRAY,
+            items={
+                '$ref': '#/definitions/ConcertRead'
+            }
+        )
     }
 )
 
@@ -84,52 +117,22 @@ artists_query_parameters = [
     Parameter('filter', IN_QUERY, type=TYPE_STRING),
 ]
 
-concert_response_dto = Schema(
-    type=TYPE_OBJECT, properties={
-        'id': Schema(type=TYPE_STRING),
-        'name': Schema(type=TYPE_STRING),
-        'description': Schema(type=TYPE_STRING),
-        'created_at': Schema(type=TYPE_STRING),
-        'date': Schema(type=TYPE_STRING),
-        'slots': Schema(type=TYPE_INTEGER),
-        'poster_url': Schema(type=TYPE_STRING),
-        'status': Schema(
-            type=TYPE_STRING,
-            enum=[value for value, _ in ConcertStatus.choices]
-        ),
-        'category': Schema(type=TYPE_STRING),
+artists_uri_parameters = [
+    Parameter('artist_id', IN_PATH, type=TYPE_STRING),
+]
 
-        'user_id': user_response_dto,
-    }
-)
+users_query_parameters = [
+    Parameter('role', IN_QUERY, type=TYPE_STRING, enum=[name for name, _ in UserRole.choices]),
+    Parameter('filter', IN_QUERY, type=TYPE_STRING),
+]
 
 artist_sessions_request_dto = Schema(
     type=TYPE_OBJECT, properties={
         'name': Schema(type=TYPE_STRING),
         'description': Schema(type=TYPE_STRING),
         'artist_demo_url': Schema(type=TYPE_STRING),
-        'concert': concert_response_dto
+        'concert_id': Schema(type=TYPE_STRING)
     }
-)
-
-artist_sessions_response_dto = Schema(
-    type=TYPE_OBJECT, properties={
-        'id': Schema(type=TYPE_STRING),
-        'name': Schema(type=TYPE_STRING),
-        'description': Schema(type=TYPE_STRING),
-        'created_at': Schema(type=TYPE_STRING),
-        'status': Schema(type=TYPE_STRING, enum=[
-            value for value, _ in ArtistSessionStatus.choices
-        ]),
-        'stream_key': Schema(type=TYPE_STRING),
-        'artist_demo_url': Schema(type=TYPE_STRING),
-        'streaming_server': Schema(type=TYPE_STRING),
-        'concert': concert_response_dto,
-        'user': user_response_dto
-    }
-)
-artist_sessions_list_response_dto = Schema(
-    type='array', items=artist_sessions_response_dto
 )
 
 upload_link_request_body_dto = Schema(
