@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { signOut } from "./signOut";
+import SignOut from "./SignOut";
 import { IToken } from "../types/interfaces";
 import { ToastAction } from '@/shadComponents/ui/toast'
 import { useToast } from '@/shadComponents/ui/use-toast'
@@ -20,13 +20,7 @@ async function refreshTokens(accessToken: string, refreshToken: string){
         body: JSON.stringify({token: refreshToken})
     })
     if (!res.ok){
-        if (typeof window !== 'undefined'){
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            localStorage.removeItem('authed');
-            localStorage.removeItem('role');
-        }
-        await signOut(accessToken)
+        await SignOut(accessToken)
         toast({
             title: "Your session is closed",
             description: "You need to sign in again",

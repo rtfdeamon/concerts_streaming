@@ -33,85 +33,54 @@ export default function SignUp() {
     return {
       values: values.email? values : {} || values.username ? values : {} || values.password ? values : {} ||
       values.select? values: {} || values.name? values : {},
-      // errors: !values.username || !values.password || !values.select || !values.name || !values.email
-      //   ? {
-      //     email: {
-      //       type: "required",
-      //       message: "Input your email",
-      //     },
-      //       username: {
-      //         type: "required",
-      //         message: "Input your login",
-      //       },
-      //       password: {
-      //           type: "required",
-      //           message: "Input your password",
-      //         },
-      //         select: {
-      //           type: "required",
-      //           message: "Select your role",
-      //         },
-      //         name: {
-      //           type: "required",
-      //           message: "Input your displayed name",
-      //         },
-      //     }
-      //   : {},
-      errors: {},
+      errors: !values.username || !values.password || select === '' || !values.name || !values.email
+        ? {
+          email: {
+            type: "required",
+            message: "Email is required at least 8 symbols",
+          },
+            username: {
+              type: "required",
+              message: "Username is required at least 5 symbols",
+            },
+            password: {
+                type: "required",
+                message: "Password is required at least 8 symbols",
+              },
+              select: {
+                type: "required",
+                message: "Select your role",
+              },
+              name: {
+                type: "required",
+                message: "Displayed name is required at least 5 symbols",
+              },
+          }
+        : {},
     }
   }
     const dispatch = useAppDispatch();
     const router = useRouter();
-    const [emailErr, setEmailErr] = useState(false);
-    const [usernameErr, setUsernameErr] = useState(false);
-    const [passErr, setPassErr] = useState(false);
     const [select, setSelect] = useState('');
-    const [selectErr, setSelectErr] = useState(false);
-    const [diplsayedNameErr, setDisplayedNameErr] = useState(false);
     const [err, setErr] = useState(false);
     const {
         register,
         handleSubmit,
         formState: { errors },
+        clearErrors,
         } = useForm<IRegister>({ resolver })
 
-      const signUpFunc = async (data: IRegister) => {
-        if (!emailErr && !usernameErr && !passErr && !selectErr && !diplsayedNameErr) {
-          console.log(emailErr, usernameErr, passErr, selectErr, diplsayedNameErr)
-          data['select'] = select;
-          const res:any = await dispatch(signUp(data));
-          if (res.error){
-              setErr(true);
-          } else {
-              router.push('/login');
-          }
-        }
-      }
-
+        
     const onSubmit = handleSubmit(
         async (data: IRegister) => {
-          setEmailErr(false)
-          setUsernameErr(false)
-          setPassErr(false)
-          setSelectErr(false)
-          setDisplayedNameErr(false)
-          if (data.email.length < 8) {
-            setEmailErr(true)
+            data['select'] = select;
+            const res:any = await dispatch(signUp(data));
+            if (res.error){
+                setErr(true);
+            } else {
+                router.push('/login');
+            }
           }
-          if (data.username.length < 5) {
-            setUsernameErr(true)
-          }
-          if (data.password.length < 8) {
-            setPassErr(true)
-          }
-          if (select === ''){
-            setSelectErr(true)
-          }
-          if (data.name.length <= 4){
-            setDisplayedNameErr(true)
-          }
-          signUpFunc(data)
-        }
     )
     
   return (
@@ -138,13 +107,14 @@ export default function SignUp() {
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-                {selectErr && <span className={styles.err}>You need to specify your role</span>}
+                {errors?.select && <span className={styles.err}>You need to specify your role</span>}
               </div>
                 <span className={styles.span}>Email</span>
                 <Input
                   className={styles.input}
                   type="text"
                   {...register("email", {
+                    required: "required",
                     minLength: {
                       value: 8,
                       message: "min length is 8",
@@ -153,13 +123,14 @@ export default function SignUp() {
                       value: /\S+@\S+\.\S+/,
                       message: "Entered value does not match email format",
                   }})} />
-            {errors?.email && <p>{errors.email.message}</p>}
-            {emailErr && <span className={styles.err}>Email is required at least 8 symbols</span>}
+            {errors?.email && <p className={styles.err}>{errors.email.message}</p>}
+            {/* {emailErr && <span className={styles.err}>Email is required at least 8 symbols</span>} */}
             <span className={styles.span}>Username</span>
             <Input
                 className={styles.input}
                 type="text"
                 {...register("username", {
+                  required: "required",
                   minLength: {
                     value: 5,
                     message: "min length is 5",
@@ -168,13 +139,14 @@ export default function SignUp() {
                     value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
                     message: "Entered value does not match username format",
                 }})} />
-            {errors?.username && <p>{errors.username.message}</p>}
-            {usernameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>}
+            {errors?.username && <p className={styles.err}>{errors.username.message}</p>}
+            {/* {usernameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>} */}
             <span className={styles.span}>Displayed name</span>
             <Input
                 className={styles.input}
                 type="text"
                 {...register("name", {
+                  required: "required",
                   minLength: {
                     value: 5,
                     message: "min length is 5",
@@ -183,8 +155,8 @@ export default function SignUp() {
                     value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
                     message: "Entered value does not match username format",
                 }})} />
-            {errors?.name && <p>{errors.name.message}</p>}
-            {diplsayedNameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>}
+            {errors?.name && <p className={styles.err}>{errors.name.message}</p>}
+            {/* {diplsayedNameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>} */}
             <span className={styles.span}>Password</span>
             <Input
                 className={styles.input}
@@ -196,8 +168,8 @@ export default function SignUp() {
                       message: "min length is 8",
                     },
                     })} />
-            {errors?.password && <p>{errors.password.message}</p>}
-            {passErr && <span className={styles.err}>Password is required at least 8 symbols</span>}
+            {errors?.password && <p className={styles.err}>{errors.password.message}</p>}
+            {/* {passErr && <span className={styles.err}>Password is required at least 8 symbols</span>} */}
             <Button
               className={styles.btn}
               type="submit"
