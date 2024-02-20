@@ -91,7 +91,7 @@ export function EventsPaginate({itemsPerPage, events}:{itemsPerPage: number, eve
   return (
     <>
       <Items events={currentItems} />
-      {events.events.length >=4 && 
+      {events.events.length > 4 && 
         <ReactPaginate
           className={styles.paginate}
           breakLabel="..."

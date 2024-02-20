@@ -1,5 +1,6 @@
 'use client'
 import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks";
+import SignOut from "@/app/utils/SignOut";
 import { getCurrUser } from "@/app/store/user/userSlice";
 import { useEffect } from "react";
 import {
@@ -10,14 +11,21 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/shadComponents/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 import { Button } from "@/shadComponents/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import styles from './ProfileDropdown.module.scss'
 
 export default function ProfileDropdown() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userInfo.user);
+  let accessToken: string = '';
+  if (typeof window !== 'undefined'){
+    accessToken = JSON.parse(localStorage.getItem('accessToken') as string)
+    console.log(accessToken)
+  }
   useEffect(() => {
     dispatch(getCurrUser());
   }, [])  
@@ -43,6 +51,12 @@ export default function ProfileDropdown() {
                         </Link>
                   </DropdownMenuItem>
                 }
+                  <DropdownMenuItem onClick={async () => {
+                    await SignOut(accessToken)
+                    router.push(`${process.env.FRONTEND_URL}/`)
+                  }}>
+                          Logout
+                  </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     </div>

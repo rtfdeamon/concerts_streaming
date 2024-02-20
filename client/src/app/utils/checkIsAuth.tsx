@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation"
 import { ToastAction } from '@/shadComponents/ui/toast'
 import { useToast } from '@/shadComponents/ui/use-toast'
@@ -14,7 +14,19 @@ export default function CheckIsAuth({type}:{type?: string}) {
   const toastHandler = () => {
     router.push('/login')
   }
-
+  
+  if (typeof window !== 'undefined' && localStorage.getItem('authed') === null){
+    isAuth = false;
+      toast({
+        title: "Sorry, you need to be sign in for this page",
+        action: (
+          <ToastAction onClick={() => toastHandler()} altText="Sign in">Sign in</ToastAction>
+        ),
+      })
+      timeoutId = setTimeout(() => {
+        router.push('/login')
+      }, timeOut)
+  }
   if (typeof window !== 'undefined' && localStorage.getItem('authed') !== null){
     isAuth = JSON.parse(localStorage.getItem('authed') as string) as boolean
     console.log(isAuth)

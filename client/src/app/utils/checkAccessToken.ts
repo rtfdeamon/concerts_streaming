@@ -1,18 +1,18 @@
 import { RefreshTokens } from "./refreshToken";
 
 export async function checkAccessToken(){
-    let arr: Array<string>
+    let accessToken: Array<string>
     let token: string
     if (typeof window !== 'undefined'){
         // arr = localStorage.getItem('refreshToken')?.split('') as Array<string>;
         // arr.pop();
         // arr.shift();
         // token = arr.join('');
-        arr = localStorage.getItem('accessToken')?.split('') as Array<string>;
-        arr.pop();
-        arr.shift();
-        if (arr){
-            token = arr.join('').split('.')[1];
+        accessToken = localStorage.getItem('accessToken')?.split('') as Array<string>;
+        accessToken?.pop();
+        accessToken?.shift();
+        if (accessToken){
+            token = accessToken.join('').split('.')[1];
             const expired: any = atob(token)
             const expiresDate: number = JSON.parse(expired).exp;
             const currDate = Math.floor(new Date().getTime()/1000);
@@ -23,7 +23,7 @@ export async function checkAccessToken(){
                 refreshToken?.pop();
                 refreshToken?.shift();
                 refreshToken = refreshToken.join('');
-                RefreshTokens(refreshToken)
+                RefreshTokens(accessToken.join(''), refreshToken)
             }
         }
     }

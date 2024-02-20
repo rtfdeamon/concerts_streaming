@@ -104,7 +104,7 @@ export default async function ScheduledEvents() {
             shows.length > 0 ?
             <PaginatedItems itemsPerPage={6} items={shows} type='followedShows'/>
             :
-            <h6 className={styles.error}>Sorry! No followed shows yet 🥲</h6>
+            <h6 className={styles.error}>Sorry! No scheduled shows yet 🥲</h6>
         }
         </div>
       </div>

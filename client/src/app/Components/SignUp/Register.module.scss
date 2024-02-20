@@ -17,7 +17,7 @@
     @apply mb-2 mt-2 text-black
 }
 .err{
-    @apply text-sm text-red-500 text-center
+    @apply text-sm font-bold text-red-500 text-center my-1
 }
 .link{
     & a{

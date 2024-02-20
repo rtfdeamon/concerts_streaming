@@ -1,22 +1,22 @@
 'use client'
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks"
-import { getCurrUser, changeCurrUserName, changeCurrUserPhoto } from "@/app/store/user/userSlice"
-import { Input } from "@/shadComponents/ui/input";
-import { Button } from "@/shadComponents/ui/button";
-import { Label } from "@/shadComponents/ui/label";
+import { getCurrUser, changeCurrUserName, changeCurrUserPhoto } from "@/app/store/user/userSlice";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@/shadComponents/ui/toast";
-import Image from "next/image";
-import DefaultImage from '../../.././../public/default.jpeg'
-import { IUser } from "@/app/types/interfaces";
-import { ChangeEvent } from "react";
-import styles from './ProfileSettings.module.scss';
+import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { generateUploadLink } from "@/app/utils/generateUploadLink";
+import { ChangeEvent } from "react";
+import Image from "next/image";
+import { Label } from "@/shadComponents/ui/label";
+import { Button } from "@/shadComponents/ui/button";
+import { Input } from "@/shadComponents/ui/input";
+import styles from './ProfileSettings.module.scss';
 
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userInfo.user);
+  const [storageUserRole, setStorageUserRole] = useLocalStorage('role', typeof user?.role !== 'undefined' ? user?.role : '');
   const [userName, setUserName] = useState('');
   const { toast } = useToast();
 
@@ -79,7 +79,9 @@ export default function ProfileSettings() {
   useEffect(() => {
     dispatch(getCurrUser())
   }, [])
-
+  useEffect(() => {
+    typeof user?.role !== 'undefined' && setStorageUserRole(user?.role);
+  }, [user?.role])
   return (
     <div className={styles.menuWrapper}>
         <h5 className={styles.title}>Profile of {user?.name}</h5>

@@ -61,7 +61,7 @@ export default function ShowPreview({params}:IPreviewParams) {
                   </p>
                 </div>
                 <div className={styles.banner}>
-                    <Link href={'/shows'} className={styles.btnWrapper}>
+                    <Link href={`${process.env.FRONTEND_URL}/events/month`} className={styles.btnWrapper}>
                       <Button className={styles.btn}>Look for more shows</Button>
                     </Link>
                 </div>

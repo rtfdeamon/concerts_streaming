@@ -14,7 +14,7 @@ interface ISelect{
 function Items({shows, type}: {shows: IEvent[], type?: string}) {
     return (
       <>
-      <div className={styles.shows}>
+      <div className={type === 'genres' || 'followedShows' || 'scheduledShows' ? styles.genresShows : styles.shows}>
           {shows &&
             shows.map((s, i) => (
               <div className={!type ? styles.wrapper : styles.typeWrapper} key={i}>
@@ -23,7 +23,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
                 <span className={styles.date}>
                   <Image src={CalendarIcon} width={30} height={20} alt={s.name}/>
-                  {s.date}
+                  {new Date(s.date).toUTCString()}
                 </span>
             </div>
             ))}
@@ -59,7 +59,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
         <Items shows={currentItems} type={type} />
         <div className={!type ? styles.paginate : styles.followedShowsPaginate}>
           {!type ?
-              items.length >= 4 &&
+              items.length > 4 &&
                   <ReactPaginate
                     nextLabel=">"
                     onPageChange={handlePageClick}
@@ -71,7 +71,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
                     renderOnZeroPageCount={null}
                 />
               :
-              items.length >= 6 &&
+              items.length > 6 &&
                 <ReactPaginate
                   nextLabel=">"
                   onPageChange={handlePageClick}
@@ -82,7 +82,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
                   previousLabel="<"
                   renderOnZeroPageCount={null}
               />
-          }
+            }
         </div>
       </>
     );

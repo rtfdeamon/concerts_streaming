@@ -156,38 +156,6 @@ export default function Header({type, children}:{type: string, children?: React.
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Events</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6 z-50">
-                          <NavigationMenuLink href="/events/today" title="Introduction">
-                            Today
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/events/week" title="Installation">
-                            This week
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/events/month" title="Typography">
-                            This month
-                          </NavigationMenuLink>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                      <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
-                          <NavigationMenuLink href="/artists/followed" title="Introduction">
-                            Followed Artists
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/trending" title="Installation">
-                            Trending Artists
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/all" title="Typography">
-                            All Artists
-                          </NavigationMenuLink>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>Music</NavigationMenuTrigger>
-                      <NavigationMenuContent>
                       <ul className="flex items-center justify-around w-[350px] text-center p-6">
                         <div className='flex flex-col'>
                         <NavigationMenuLink href="/genre/electronic" title="Introduction">
@@ -238,6 +206,81 @@ export default function Header({type, children}:{type: string, children?: React.
                               Indie
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/genre/other" title="Typography">
+                              Other
+                            </NavigationMenuLink>
+                        </div>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                      <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
+                          <NavigationMenuLink href="/artists/followed" title="Introduction">
+                            Followed Artists
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/trending" title="Installation">
+                            Trending Artists
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/all" title="Typography">
+                            All Artists
+                          </NavigationMenuLink>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Music</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                      <ul className="flex items-center justify-around w-[350px] text-center p-6">
+                        <div className='flex flex-col'>
+                        <NavigationMenuLink href="/artists/electronic" title="Introduction">
+                            Electronic
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/country" title="Installation">     
+                            Country
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/hiphop" title="Typography">
+                            Hip hop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/funk" title="Typography">
+                            Funk
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/jazz" title="Typography">
+                            Jazz
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/latin" title="Typography">
+                            Latin
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/pop" title="Typography">
+                            Pop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/punk" title="Typography">
+                            Punk
+                          </NavigationMenuLink>
+                        </div>
+                        <div className='flex flex-col'>
+                          <NavigationMenuLink href="/artists/alternative" title="Typography">
+                              Alternative
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/classical" title="Typography">
+                              Classical
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/r&b" title="Typography">
+                              R&B
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/rock" title="Typography">
+                              Rock
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/blues" title="Typography">
+                              Blues
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/metal" title="Typography">
+                              Metal
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/indie" title="Typography">
+                              Indie
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/other" title="Typography">
                               Other
                             </NavigationMenuLink>
                         </div>

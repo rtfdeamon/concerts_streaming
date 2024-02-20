@@ -41,10 +41,10 @@ export interface IChangeShow extends IShow{
 
 export interface IArtist {
   id: string,
-  artistName: string,
-  image: string,
-  genre: string,
-
+  role: string,
+  name: string,
+  avatar_url: string,
+  username: string
 }
 
 export interface IAcceptedShow {
