@@ -12,10 +12,6 @@ export default function SignOut(token: string) {
             localStorage.removeItem('refreshToken');
             localStorage.removeItem('authed');
             localStorage.removeItem('role');
-            localStorage.setItem('accessToken', '')
-            localStorage.setItem('refreshToken', '')
-            localStorage.setItem('authed', '')
-            localStorage.setItem('role', '')
         }
         return res
     }
