@@ -12,13 +12,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.utils.decorators import method_decorator
 from django.conf import settings
-from drf_yasg.utils import swagger_auto_schema
+from drf_yasg.utils import swagger_auto_schema, no_body
 
-from .models import ArtistSession, ExtendedUser, Concert, UserRole
+from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ExtendedUser, Concert, RefreshToken, UserRole
 from .serializers import (
     ArtistSessionReadSerializer,
     ArtistSessionWriteSerializer,
+    ArtistSubscriptionSerializer,
     ConcertReadSerializer,
+    ConcertSubscriptionSerializer,
     ConcertWriteSerializer,
     ExtendedUserSerializer,
     UserSerializer
@@ -28,38 +30,48 @@ from .schemas import (
     sign_up_request_dto,
     sign_in_response_dto,
     user_response_dto,
-    user_list_response_dto,
     user_create_request_dto,
     user_update_request_dto,
     concerts_query_parameters,
     upload_link_request_body_dto,
     upload_link_response_dto,
     artists_query_parameters,
-    artist_sessions_response_dto,
     refresh_token_request_dto,
+    artists_uri_parameters,
+    status_response_dto,
 )
 from utils.serializers import ReadWriteSerializerViewSetMixin
-from utils.authentication import AuthenticationError, JwtAuthentication, generate_refresh_token, reissue_refresh_token
+from utils.authentication import AuthenticationError, JwtAuthentication, generate_access_token, generate_refresh_token, reissue_refresh_token
 
 class UserViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JwtAuthentication]
 
-    @swagger_auto_schema(responses={'200': user_list_response_dto})
-    def list(self, request):
+    def get_filters(self):
         filters = {}
-        queryset = ExtendedUser.objects.all().filter(**filters)
+        role = self.request.query_params.get('role')
+        filter_name = self.request.query_params.get('filter')
+        if role is not None:
+            filters['role'] = role
+        if filter_name is not None:
+            filters['name__icontains'] = filter_name
+        return filters
+
+    @swagger_auto_schema(responses={'200': ExtendedUserSerializer(many=True)})
+    def list(self, request):
+        filters = self.get_filters()
+        queryset = ExtendedUser.objects.all().filter(**filters).order_by('name')
         serializer = ExtendedUserSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    @swagger_auto_schema(responses={'200': user_response_dto})
+    @swagger_auto_schema(responses={'200': ExtendedUserSerializer})
     def retrieve(self, request, pk=None):
         queryset = ExtendedUser.objects.all()
         user = get_object_or_404(queryset, pk=pk)
         serializer = ExtendedUserSerializer(user)
         return Response(serializer.data)
     
-    @swagger_auto_schema(request_body=user_create_request_dto, responses={'200': user_response_dto})
+    @swagger_auto_schema(request_body=user_create_request_dto, responses={'200': ExtendedUserSerializer})
     def create(self, request, pk=None):
         username = request.data['username']
         name = request.data['name']
@@ -71,7 +83,7 @@ class UserViewSet(ViewSet):
         user_serializer = ExtendedUserSerializer(user)
         return Response(user_serializer.data)
     
-    @swagger_auto_schema(request_body=user_update_request_dto, responses={'200': user_response_dto})
+    @swagger_auto_schema(request_body=user_update_request_dto, responses={'200': ExtendedUserSerializer})
     def update(self, request, pk=None):
         queryset = ExtendedUser.objects.all()
         instance = get_object_or_404(queryset, pk=pk)
@@ -90,7 +102,7 @@ class UserViewSet(ViewSet):
         instance.delete()
         return Response(status=204)
     
-    @swagger_auto_schema(method='GET', responses={'200': user_response_dto})
+    @swagger_auto_schema(method='GET', responses={'200': ExtendedUserSerializer})
     @swagger_auto_schema(method='PUT', request_body=user_update_request_dto, responses={'200': user_response_dto})
     @action(url_path='current', methods=['GET', 'PUT'], detail=False)
     def manage_current_user(self, request):
@@ -130,6 +142,27 @@ class ConcertsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
         if filter_name is not None:
             filters['name__icontains'] = filter_name
         return Concert.objects.all().filter(**filters).order_by(sorting_order)
+    
+    @swagger_auto_schema(
+        request_body=no_body,
+        responses={'200': ConcertSubscriptionSerializer }
+    )
+    @action(url_path='subscribe', methods=['POST'], detail=True)
+    def subscribe(self, request, pk=None):
+        user_id = request.user.id
+        subscription = ConcertSubscription.objects.create(user_id=user_id, concert_id=pk)
+        return Response(ConcertSubscriptionSerializer(instance=subscription).data)
+    
+    @swagger_auto_schema(
+        request_body=no_body,
+        responses={'200': ConcertSubscriptionSerializer }
+    )
+    @action(url_path='unsubscribe', methods=['POST'], detail=True)
+    def unsubscribe(self, request, pk=None):
+        user_id = request.user.id
+        subscription = ConcertSubscription.objects.filter(user_id=user_id, concert_id=pk).first()
+        subscription.delete()
+        return Response(ConcertSubscriptionSerializer(instance=subscription).data)
 
 class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
     queryset = ArtistSession.objects.all()
@@ -138,7 +171,7 @@ class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
     read_serializer_class = ArtistSessionReadSerializer
     write_serializer_class = ArtistSessionWriteSerializer
 
-    @swagger_auto_schema(responses={'200': artist_sessions_response_dto})
+    @swagger_auto_schema(responses={'200': ArtistSessionReadSerializer})
     def retrieve(self, request, pk=None):
         queryset = self.get_queryset()
         user = get_object_or_404(queryset, pk=pk)
@@ -151,11 +184,24 @@ class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
 class ArtistsView(APIView):
     authentication_classes = []
 
-    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': user_list_response_dto})
+    def get_filters(self):
+        filters = {}
+        role = self.request.query_params.get('role')
+        filter_name = self.request.query_params.get('filter')
+        if role is not None:
+            filters['role'] = role
+        if filter_name is not None:
+            filters['name__icontains'] = filter_name
+        return filters
+
+    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer})
     def get(self, request):
+        filter_by_name = request.query_params.get('filter', None)
         filters = {
             'role': UserRole.ARTIST.value
         }
+        if filter_by_name is not None:
+            filters['name__icontains'] = filter_by_name
         filter_name = self.request.query_params.get('filter')
         sorting_order = self.request.query_params.get('sort', 'name')
         if filter_name is not None:
@@ -163,6 +209,27 @@ class ArtistsView(APIView):
         queryset = ExtendedUser.objects.all().filter(**filters).order_by(sorting_order)
         serializer = ExtendedUserSerializer(queryset, many=True)
         return Response(serializer.data)
+
+class ArtistSubscribeView(APIView):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(manual_parameters=artists_uri_parameters, request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
+    def post(self, request, artist_id=None):
+        user_id = request.user.id
+        subscription = ArtistSubscription.objects.create(user_id=user_id, artist_id=artist_id)
+        return Response(ArtistSubscriptionSerializer(instance=subscription).data)
+
+class ArtistUnsubscribeView(APIView):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(manual_parameters=artists_uri_parameters, request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
+    def post(self, request, artist_id=None):
+        user_id = request.user.id
+        subscription = ArtistSubscription.objects.filter(user_id=user_id, artist_id=artist_id).first()
+        subscription.delete()
+        return Response(ArtistSubscriptionSerializer(instance=subscription).data)
 
 class SignInView(APIView):
     authentication_classes = []
@@ -178,12 +245,17 @@ class SignInView(APIView):
                     'error': 'Cannot to sign in'
                 }, status=403)
             now = datetime.datetime.utcnow()
-            access_token = jwt.encode({
-                'sub': user.id,
-                'iat': int(now.timestamp()),
-                'exp': int(now.timestamp() + settings.ACCESS_TOKEN_LIFETIME)
-            }, key=settings.SECRET_KEY)
-            refresh_token = generate_refresh_token(user.id, int(now.timestamp() + settings.REFRESH_TOKEN_LIFETIME))
+            session_id = uuid4()
+            access_token = generate_access_token(
+                user.id,
+                session_id,
+                now
+            )
+            refresh_token = generate_refresh_token(
+                user.id,
+                session_id,
+                int(now.timestamp() + settings.REFRESH_TOKEN_LIFETIME)
+            )
             return Response({
                 'access_token': access_token,
                 'refresh_token': refresh_token,
@@ -201,12 +273,12 @@ class RefreshTokenView(APIView):
         try:
             refresh_token = request.data['token']
             now = datetime.datetime.utcnow()
-            user_id, new_token = reissue_refresh_token(refresh_token, int(now.timestamp()))
-            access_token = jwt.encode({
-                'sub': user_id,
-                'iat': int(now.timestamp()),
-                'exp': int(now.timestamp() + settings.ACCESS_TOKEN_LIFETIME)
-            }, key=settings.SECRET_KEY)
+            user_id, session_id, new_token = reissue_refresh_token(refresh_token, int(now.timestamp()))
+            access_token = generate_access_token(
+                user_id,
+                session_id,
+                now
+            )
             return Response({
                 'access_token': access_token,
                 'refresh_token': new_token,
@@ -235,6 +307,17 @@ class SignUpView(APIView):
             return Response({
                 'error': str(e)
             }, 403)
+
+class SignOutView(APIView):
+    authentication_classes = [JwtAuthentication]
+
+    @swagger_auto_schema(request_body=no_body, responses={'200': status_response_dto})
+    def post(self, request):
+        session_id = request.auth
+        session = RefreshToken.objects.filter(session_id=session_id)
+        session.delete()
+        return Response({ 'success': True })
+
 
 class FileUploadView(APIView):
     authentication_classes = [JwtAuthentication]

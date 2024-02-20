@@ -23,13 +23,16 @@ from drf_yasg import openapi
 
 from api.views import (
     ArtistSessionViewSet,
+    ArtistUnsubscribeView,
     ConcertsViewSet,
     UserViewSet,
     SignInView,
+    SignOutView,
     SignUpView,
     FileUploadView,
     ArtistsView,
-    RefreshTokenView
+    RefreshTokenView,
+    ArtistSubscribeView,
 )
 
 router = routers.DefaultRouter()
@@ -50,10 +53,13 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/signin", SignInView.as_view()),
+    path("auth/signout", SignOutView.as_view()),
     path("auth/signup", SignUpView.as_view()),
     path("auth/refresh_token", RefreshTokenView.as_view()),
 
     path('artists/', ArtistsView.as_view()),
+    path('artists/<artist_id>/subscribe/', ArtistSubscribeView.as_view()),
+    path('artists/<artist_id>/unsubscribe/', ArtistUnsubscribeView.as_view()),
 
     path("upload/generate-link", FileUploadView.as_view()),
 

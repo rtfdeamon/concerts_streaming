@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.utils import model_meta
-from .models import ArtistSession, Concert, ExtendedUser
+from .schemas import user_response_dto
+from .models import ArtistSession, ArtistSubscription, Concert, ConcertSubscription, ExtendedUser, UserRole
 
 """
 class ExtendedUserSerializer(serializers.ModelSerializer):
@@ -20,7 +21,17 @@ class ArtistSessionReadSerializer(serializers.ModelSerializer):
 class ArtistSessionWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArtistSession
-        exclude = ('user', 'concert', 'status', 'stream_key')
+        exclude = ('user', 'status', 'stream_key')
+
+class ArtistSubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArtistSubscription
+        fields = '__all__'
+
+class ConcertSubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConcertSubscription
+        fields = '__all__'
 
 class ConcertReadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,8 +56,13 @@ class UserSerializer(serializers.ModelSerializer):
             'id', 'username', 'email'
         ]
 
-class ExtendedUserSerializer(serializers.BaseSerializer):
+class ExtendedUserSerializer(serializers.Serializer):
+    class Meta:
+        swagger_schema_fields = user_response_dto
+
     def __init__(self, *args, **kwargs):
+        self.expand_relations = kwargs.pop('expand', True)
+        print('expand', self.expand_relations)
         super().__init__(*args, **kwargs)
     
     def to_representation(self, instance: ExtendedUser):
@@ -56,8 +72,23 @@ class ExtendedUserSerializer(serializers.BaseSerializer):
             'role': instance.role,
             'name': instance.name,
             'avatar_url': instance.avatar_url,
-            'username': user.data['username']
+            'username': user.data['username'],
         }
+        if self.expand_relations:
+            result['followers'] = ExtendedUserSerializer(
+                instance=instance.subscribers.all(),
+                many=True,
+                expand=False
+            ).data
+            result['artists_followed'] = ExtendedUserSerializer(
+                instance=instance.artists_followed.all(),
+                many=True,
+                expand=False
+            ).data
+            result['concerts_followed'] = ConcertWriteSerializer(
+                instance=instance.concerts_followed.all(),
+                many=True
+            ).data
         return result
     
     def to_internal_value(self, data):
