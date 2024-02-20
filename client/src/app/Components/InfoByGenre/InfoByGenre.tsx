@@ -38,7 +38,7 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
         <h5 className={styles.title}>{id}</h5>
         <div className={styles.wrapper}>
             {isArtists ? 
-                artistData.length >0 ? <ArtistsPaginate  itemsPerPage={12} artists={artistData}/>
+                artistData.length >0 ? <ArtistsPaginate  itemsPerPage={15} artists={artistData}/>
                 :
                 <div className={styles.showsException}>
                     Sorry! No artist in {id} genre yet 🥲

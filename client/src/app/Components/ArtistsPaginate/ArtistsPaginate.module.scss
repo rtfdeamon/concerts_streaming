@@ -5,10 +5,10 @@
      @apply flex items-center justify-center relative
  }
  .request{
-     @apply flex items-center justify-between
+     @apply flex items-center justify-between items-center
  }
  .showWrapper{
-     @apply w-[380px] bg-white rounded-md p-6 mb-8
+     @apply w-[350px] bg-white rounded-md p-6 mb-8
  }
  .showLink{
      &:hover{
@@ -29,9 +29,8 @@
      @apply block mx-auto
  }
  .paginate{
-     transform: translate(200%, -20%);
              & li{
                  @apply block mr-5
              }
-     @apply absolute bottom-0 flex justify-center items-center pb-7 text-center
+     @apply w-full absolute bottom-0 flex justify-center items-center pb-7 text-center
  }
