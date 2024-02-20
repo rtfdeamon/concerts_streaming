@@ -11,7 +11,7 @@ import { Card, CardContent } from "@/shadComponents/ui/card"
 import styles from './TagsCarousel.module.scss'
 import Link from "next/link"
 
-export default function TargsCarousel() {
+export default function TagsCarousel() {
   const tags = [
     ['Today',
     'This Week',
