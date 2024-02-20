@@ -1,7 +1,5 @@
 import Header from './Components/Header/Header'
-import TagsCarousel from './Components/TagsCarousel/TargsCarousel'
 import Recommendations from './Components/Recommendations/Recommendations';
-import TargsCarousel from './Components/TagsCarousel/TargsCarousel';
 import Shows from './Components/Shows/Shows';
 import About from './Components/About/About';
 import CallToAction from './Components/CallToAction/CallToAction';
@@ -12,7 +10,6 @@ export default function Home() {
   return (
     <>
       <Header type='banner'/>
-      {/* <TargsCarousel />  */}
           <main className='main'>
             <Shows />
             <Recommendations />
