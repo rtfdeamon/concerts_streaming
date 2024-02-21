@@ -1,6 +1,7 @@
 'use client'
 import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks";
 import SignOut from "@/app/utils/SignOut";
+import { resetTokens } from "@/app/store/login/loginSlice";
 import { getCurrUser } from "@/app/store/user/userSlice";
 import { useEffect } from "react";
 import {
@@ -54,6 +55,7 @@ export default function ProfileDropdown() {
                 }
                   <DropdownMenuItem onClick={async () => {
                     accessToken !== 'undefined' && typeof accessToken !== 'undefined' && await SignOut(accessToken)
+                    dispatch(resetTokens())
                     router.push(`${process.env.FRONTEND_URL}/`)
                   }}>
                           Logout
