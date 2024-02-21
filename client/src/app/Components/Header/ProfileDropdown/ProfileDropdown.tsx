@@ -22,9 +22,11 @@ export default function ProfileDropdown() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userInfo.user);
   let accessToken: string = '';
-  // if (typeof window !== 'undefined' && typeof localStorage.getItem('accessToken') !== "undefined"){
-  //   accessToken = JSON.parse(localStorage.getItem('accessToken') as string)
-  // }
+  if (typeof window !== 'undefined'){
+    console.log(localStorage.getItem('accessToken'), typeof localStorage.getItem('accessToken'));
+    if (localStorage.getItem('accessToken') !== 'undefined' && typeof localStorage.getItem('accessToken') !== 'undefined')
+    accessToken = JSON.parse(localStorage.getItem('accessToken') as string)
+  }
   useEffect(() => {
     dispatch(getCurrUser());
   }, [])  
@@ -51,7 +53,7 @@ export default function ProfileDropdown() {
                   </DropdownMenuItem>
                 }
                   <DropdownMenuItem onClick={async () => {
-                    await SignOut(accessToken)
+                    accessToken !== 'undefined' && typeof accessToken !== 'undefined' && await SignOut(accessToken)
                     router.push(`${process.env.FRONTEND_URL}/`)
                   }}>
                           Logout

@@ -2,7 +2,7 @@
 import {  useEffect, useState } from "react"
 
 const decode = (value: any) => {
-  if (typeof value !== undefined){
+  if (typeof value !== 'undefined'){
     return JSON.stringify(value)
   }
 }
