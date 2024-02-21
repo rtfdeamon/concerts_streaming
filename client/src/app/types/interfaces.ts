@@ -17,6 +17,7 @@ export interface IEvent {
   status: string,
   category: string,
   user_id: IUser,
+  subscribers: IUser[]
 }
 
 export interface IEvents {
@@ -59,9 +60,16 @@ export interface IUser {
   role:	string,
   name: string,
   avatar_url: string,
-  username: number
+  username: number,
+  artist_followed: IArtist[],
+  concerts_followed: IEvent[]
 }
 export interface IToken {
   accessToken : string,
   refreshToken: string
+}
+
+export interface IResult {
+  artists: IArtist[],
+  shows: IEvent[]
 }

@@ -5,12 +5,15 @@ import { Dispatch, SetStateAction } from 'react'
 import { Button } from '@/shadComponents/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
-import Women from '../../../../../public/women.jpg'
+import User from '../../../../../public/user (1).svg'
+import { IResult } from '@/app/types/interfaces'
+import { IArtist } from '@/app/Components/Recommendations/Recommendations'
 import styles from './SearchModal.module.scss'
+import { A } from '@vidstack/react/dist/types/vidstack.js'
 
 export default function SearchModal({isOpen, setIsOpen, results, isSearching}:
     {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>,
-    results: any, isSearching: boolean
+    results: IResult | undefined, isSearching: boolean
     }) {
 
     const closeModal = () => {
@@ -51,21 +54,30 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching}:
                 Results
               </Dialog.Title>
               {isSearching && <span className={styles.searching}>Searching...</span>}
-              <h5 className={styles.Title}>Artists</h5>
+              {typeof results !== 'undefined' && results?.artists.length > 0 ?  
+                  <h5 className={styles.Title}>Artists</h5>
+                  :
+                  <h5 className={styles.Title}>No artists for this query</h5>
+                }
                 <div className={styles.artistsWrapper}>
-                    {results?.map((r: any, i: number) => (
-                        <Link href={`/artist/${i}`} key={i} className={styles.artist}>
-                            <Image className={styles.Image} src={Women} width={300} height={300} alt={r.artistName} />
-                            <span className={styles.artistName}>{r.artistName}</span>
+                    {results?.artists.map((a) => (
+                        <Link href={`/artist/${a.id}`} key={a.id} className={styles.artist}>
+                            {a.avatar_url}
+                            <Image className={styles.Image} src={a.avatar_url === 'undefined' ? User : a.avatar_url} width={300} height={300} alt={a.name} />
+                            <span className={styles.artistName}>{a.name}</span>
                         </Link>
                     ))}
                 </div>
-                <h5 className={styles.Title}>Shows</h5>
+                {typeof results !== 'undefined' && results?.shows.length > 0 ?  
+                  <h5 className={styles.Title}>Shows</h5>
+                  :
+                  <h5 className={styles.Title}>No shows for this query</h5>
+                }
                 <div className={styles.artistsWrapper}>
-                    {results?.map((r: any, i: number) => (
-                        <Link href={`/preview/${i}`} key={i} className={styles.artist}>
-                            <Image className={styles.Image} src={Women} width={300} height={300} alt={r.artistName} />
-                            <span className={styles.artistName}>{r.artistName}</span>
+                    {results?.shows.map((s) => (
+                        <Link href={`/preview/${s.id}`} key={s.id} className={styles.artist}>
+                            <Image className={styles.Image} src={s.poster_url === 'undefined' ? User : s.poster_url} width={300} height={300} alt={s.name} />
+                            <span className={styles.artistName}>{s.name}</span>
                         </Link>
                     ))}
                 </div>

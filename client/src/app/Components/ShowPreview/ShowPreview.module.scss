@@ -2,16 +2,16 @@
     @apply max-w-[1280px] mx-auto p-5
 }
 .poster{
-    & img{
-        @apply rounded-full
-    }
-    @apply flex justify-around bg-white px-5 py-10 rounded-lg
+    @apply bg-white px-5 py-10 rounded-lg
 }
 .posterWrapper{
     @apply flex flex-col items-center justify-center
 }
 .artistTitle{
-    @apply text-3xl font-semibold mb-4
+    @apply text-3xl text-center font-semibold mb-4
+}
+.preview{
+    @apply block mx-auto mb-8 rounded-md
 }
 .link{
     &:hover{

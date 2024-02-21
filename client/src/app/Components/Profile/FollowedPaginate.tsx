@@ -5,7 +5,7 @@ import { IArtist } from '@/app/types/interfaces';
 import Link from 'next/link';
 import Image from 'next/image';
 import User from '../../../../public/user (1).svg'
-import styles from './ArtistsPaginate.module.scss'
+import styles from './FollowedArtists.module.scss'
 
 interface ISelect{
     selected: number;
@@ -15,16 +15,14 @@ function Items(artists:{artists: IArtist[]}) {
   return (
     <div className={styles.wrapper}>
         {artists &&  artists.artists.map((a, i) => (
-            <div key={i} className={styles.requestWrapper}>
-                <div className={styles.showWrapper}>
-                  <div className={styles.request}>
-                  <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
-                      <Image src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
-                      <p>{a.name}</p>
-                      <p>genre</p>
-                  </Link>
-                  </div>
-              </div>
+            <div className={styles.artistWrapper} key={i}>
+                <Link className={styles.linkWrapper} href={`/artists/${a.id}`}>
+                    <Image src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={100} height={100} alt={'fds'} />
+                    <div className={styles.artistInfo}>
+                    <p className={styles.artistName}>{a.name}</p>
+                    <span className={styles.genre}>genre?</span>
+                    </div>
+                </Link>
             </div>
         ))}
     </div>
@@ -33,7 +31,7 @@ function Items(artists:{artists: IArtist[]}) {
 
 
 
-export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, artists: IArtist[]}) {
+export function FollowedPaginate({itemsPerPage, artists}:{itemsPerPage: number, artists: IArtist[]}) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -58,7 +56,7 @@ export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, a
   return (
     <>
       <Items artists={currentItems} />
-      {artists.length > 4 &&
+      {artists.length > 9 &&
         <ReactPaginate
           className={styles.paginate}
           breakLabel="..."

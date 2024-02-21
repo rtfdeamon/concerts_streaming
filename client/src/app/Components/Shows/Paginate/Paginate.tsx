@@ -18,7 +18,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
           {shows &&
             shows.map((s, i) => (
               <div className={!type ? styles.wrapper : styles.typeWrapper} key={i}>
-                <Link href={`/preview/${s.name}`} className={styles.title}>{s.name}</Link>
+                <Link href={`/preview/${s.id}`} className={styles.title}>{s.name}</Link>
                 <span className={styles.place}>{s.description}</span>
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
                 <span className={styles.date}>

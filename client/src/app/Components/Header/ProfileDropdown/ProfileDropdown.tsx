@@ -24,7 +24,6 @@ export default function ProfileDropdown() {
   const user = useAppSelector(state => state.userInfo.user);
   let accessToken: string = '';
   if (typeof window !== 'undefined'){
-    console.log(localStorage.getItem('accessToken'), typeof localStorage.getItem('accessToken'));
     if (localStorage.getItem('accessToken') !== 'undefined' && typeof localStorage.getItem('accessToken') !== 'undefined')
     accessToken = JSON.parse(localStorage.getItem('accessToken') as string)
   }
