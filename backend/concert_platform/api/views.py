@@ -171,11 +171,15 @@ class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
     read_serializer_class = ArtistSessionReadSerializer
     write_serializer_class = ArtistSessionWriteSerializer
 
+    def create(self, request):
+        request.data['user'] = request.user.id
+        return super().create(request)
+
     @swagger_auto_schema(responses={'200': ArtistSessionReadSerializer})
     def retrieve(self, request, pk=None):
         queryset = self.get_queryset()
         user = get_object_or_404(queryset, pk=pk)
-        serializer = self.get_serializer_class(user)
+        serializer = self.get_serializer_class()(instance=user)
         return Response({
             **serializer.data,
             'streaming_server': settings.STREAMING_SERVER_BASE_URL

@@ -14,6 +14,10 @@ class ConcertStatus(models.TextChoices):
     LIVE = 'live'
     FINISHED = 'finished'
 
+class ConcertAccess(models.TextChoices):
+    FREE = 'free'
+    PAID = 'paid'
+
 class ArtistSessionStatus(models.TextChoices):
     PENDING = 'pending'
     ACCEPTED = 'accepted'
@@ -41,6 +45,8 @@ class Concert(models.Model):
     status = models.CharField(max_length=20, null=False, choices=ConcertStatus.choices, default=ConcertStatus.SCHEDULED)
     category = models.CharField(max_length=200, null=True)
     subscribers = models.ManyToManyField(ExtendedUser, through='ConcertSubscription', through_fields=('concert', 'user'), related_name='concert_subscribers')
+    performance_time = models.IntegerField(default=15)
+    access = models.CharField(max_length=20, null=False, choices=ConcertAccess.choices, default=ConcertAccess.PAID)
 
 class ArtistSession(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
