@@ -47,6 +47,7 @@ export default function Login() {
     && token?.accessToken !== '')
     ? true : false;
     const [authed, setAuthed] = useLocalStorage('authed', isAuthed);
+    console.log(token?.accessToken)
     const {
         register,
         handleSubmit,

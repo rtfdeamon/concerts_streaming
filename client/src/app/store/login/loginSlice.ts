@@ -34,7 +34,11 @@ const initialState:IInitialState = {
 const loginSlice = createSlice({
     name: '@@login',
     initialState,
-    reducers:{},
+    reducers:{
+        resetTokens: () => {
+            return initialState
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(login.rejected, (state) => {
@@ -53,4 +57,5 @@ const loginSlice = createSlice({
     }
 })
 
+export const {resetTokens} = loginSlice.actions;
 export const loginReducer = loginSlice.reducer;
