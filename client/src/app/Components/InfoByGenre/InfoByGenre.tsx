@@ -9,28 +9,14 @@ import { IArtist, IEvent } from '@/app/types/interfaces';
 import styles from './InfoByGenre.module.scss'
 
 async function getData(id:string, isArtists?: boolean) {
+    console.log(isArtists, id)
     let res
     if (!isArtists){
         res = await fetch(`${process.env.BACKEND_URL}/concerts?category=${id}`);
         const data = await res.json();
         return data
     } 
-    else if (isArtists && id === 'followed'){
-        const token: string | undefined = await getTokenForApi()
-        if (typeof token !== 'undefined') {
-            const res = await fetch(`${process.env.BACKEND_URL}/users/current`, {
-            method: 'GET',
-            headers: {
-            'Authorization' : `Bearer ${token}`
-            }
-        })
-            const data = await res.json();
-            return data.artists_followed;
-        } else{
-            return null
-        }
-    }
-    else{
+    else {
         res = await fetch(`${process.env.BACKEND_URL}/artists?category=${id}`);
         const data = await res.json();
         return data
@@ -57,7 +43,7 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
         <h5 className={styles.title}>{isArtists ? <span>{id} artists</span> : <span>{id} shows</span>}</h5>
         <div className={styles.wrapper}>
             {isArtists ? 
-                artistData.length >0 ? <ArtistsPaginate  itemsPerPage={15} artists={artistData}/>
+                artistData && artistData.length >0 ? <ArtistsPaginate  itemsPerPage={15} artists={artistData}/>
                 :
                 <div className={styles.showsException}>
                     Sorry! No artist in {id} genre yet 🥲

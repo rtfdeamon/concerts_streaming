@@ -56,7 +56,8 @@ export default function Login() {
     const onSubmit = handleSubmit(
         async (data: ILogin) => {
           const res: any = await dispatch(login(data))
-          if (res.payload.error){
+          console.log(res)
+          if (res.payload?.error || res?.error){
             setError(true);
             return;
           } else{

@@ -148,13 +148,13 @@ export default function HeaderWithoutBanner() {
                       <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
                       <NavigationMenuContent>
                       <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
-                          <NavigationMenuLink href="/artists/genre/followed" title="Introduction">
+                          <NavigationMenuLink href="/artists/followed" title="Introduction">
                             Followed Artists
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/trending" title="Installation">
+                          <NavigationMenuLink href="/artists/trending" title="Installation">
                             Trending Artists
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/all" title="Typography">
+                          <NavigationMenuLink href="/artists/all" title="Typography">
                             All Artists
                           </NavigationMenuLink>
                         </ul>

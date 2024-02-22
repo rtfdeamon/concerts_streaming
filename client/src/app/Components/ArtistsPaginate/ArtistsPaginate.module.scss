@@ -1,8 +1,8 @@
 .wrapper{
-    @apply flex justify-evenly flex-wrap w-[100vw]
+    @apply flex justify-center flex-wrap w-[100vw]
  }
  .requestWrapper{
-     @apply flex items-center justify-center relative
+     @apply flex items-center justify-center relative mr-6
  }
  .request{
      @apply flex items-center justify-between items-center
