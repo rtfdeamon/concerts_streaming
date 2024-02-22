@@ -1,10 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { IEvent } from '@/app/types/interfaces';
-import PaginatedItems from '../../Shows/Paginate/Paginate';
+import ScheduledPaginate from './ScheduledPaginate';
 import Image from 'next/image';
-import CalendarIcon from '../../../../../public/calendar-range.svg'
-import styles from './ScheduledConcerts.module.scss'
+import CalendarIcon from '../../../../public/calendar-range.svg'
+import styles from './ScheduledShows.module.scss'
 
 async function getShows(){
     const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=scheduled`)
@@ -19,7 +19,7 @@ export default async function ScheduledConcerts() {
       .then(res => setShows(res))
     }, [])
     return (
-    <section>
+    <section className={styles.sectionWrapper}>
         <div className={styles.titleWrapper}>
           <Image src={CalendarIcon} width={50} height={50} alt='calendar' />
             <h5 className={styles.title}>Scheduled shows</h5>
@@ -27,7 +27,7 @@ export default async function ScheduledConcerts() {
         <div className={styles.shows}>
         {
             shows && shows.length > 0 ?
-            <PaginatedItems itemsPerPage={6} items={shows} type='scheduledShows'/>
+            <ScheduledPaginate itemsPerPage={6} items={shows}/>
             :
             <h6 className={styles.showsException}>Sorry! No scheduled shows yet 🥲</h6>
         }

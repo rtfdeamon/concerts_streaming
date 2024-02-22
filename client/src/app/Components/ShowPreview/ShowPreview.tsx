@@ -1,8 +1,8 @@
 'use client'
 import { useState, useEffect } from "react";
-import { useAppSelector } from "@/app/hooks/rtkHooks";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import HeaderWithoutBanner from "../Header/HeaderWithouBanner";
+import SponsorModal from "./SponsorModal";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { IUser } from "@/app/types/interfaces";
@@ -43,11 +43,15 @@ const unFollowShow = async (id: string) => {
 }
 
 export default function ShowPreview({params}:IPreviewParams) {
+  let role : string | undefined;
+  if (typeof window !== 'undefined' && typeof localStorage.getItem('role') !== undefined){
+    role = JSON.parse(localStorage.getItem('role') as string);
+  }
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [show, setShow] = useState<IEvent | null>(null);
   const [token, setToken] = useState<string | undefined>(undefined);
   const [user, setUser] = useState<IUser | null>();
-  const userStatus = useAppSelector(state => state.userInfo.user?.role)
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { toast } = useToast();
 
   const onSubscribeHandler = async (id: string) => {
@@ -75,7 +79,11 @@ export default function ShowPreview({params}:IPreviewParams) {
     }
   }
 
-    useEffect(() => {
+  const modalHandler = () => {
+    setModalIsOpen(true)
+  }
+
+  useEffect(() => {
       fetch(`${process.env.BACKEND_URL}/concerts/${params.id}`)
       .then(res => res.json())
       .then(res => setShow(res))
@@ -104,6 +112,7 @@ export default function ShowPreview({params}:IPreviewParams) {
   return (
       <>
         <HeaderWithoutBanner />
+        {modalIsOpen && show && <SponsorModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} showId={show?.id} showTitle={show.name}/>}
         <section className={styles.section}>
           {show?.name ? 
           <>
@@ -127,18 +136,25 @@ export default function ShowPreview({params}:IPreviewParams) {
                               </div>
                           </div>
                       </div>
-                      {!isSubscribed ?
+                      {!isSubscribed && role !== 'sponsor' &&
                           <Button
                           onClick={() => onSubscribeHandler(show.id)}
-                          disabled={!userStatus}
+                          disabled={!role}
                           className={styles.btn}>
                           Follow this show</Button>
-                          :
+                      }
+                      {isSubscribed && role !== 'sponsor' && 
                           <Button
                           onClick={() => onUnsubscribeHandler(show.id)}
-                          disabled={!userStatus}
+                          disabled={!role}
                           className={styles.btn}>
                           Unsubcribe</Button>
+                      }
+                      {role && role === 'sponsor' &&
+                          <Button
+                          onClick={() => modalHandler()}
+                          className={styles.btn}>
+                          Become a sponsor</Button>
                         }
                   </div>
               </div>

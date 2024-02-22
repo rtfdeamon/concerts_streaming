@@ -42,7 +42,7 @@ const unFollowArtist = async (id: string) => {
 
 export default function Artist({params}:IArtistParams) {
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [artist, setArtist] = useState<[IArtist] | null>();
+  const [artist, setArtist] = useState<IArtist | null>();
   const [user, setUser] = useState<IUser | null>();
   const [token, setToken] = useState<string | undefined>();
   const userStatus = useAppSelector(state => state.userInfo.user?.role)
@@ -74,7 +74,7 @@ export default function Artist({params}:IArtistParams) {
   }
 
   useEffect(() => {
-      fetch(`${process.env.BACKEND_URL}/artists/`)
+      fetch(`${process.env.BACKEND_URL}/artists/${params.id}`)
       .then(res => res.json())
       .then(res => setArtist(res))
   }, [])
@@ -93,7 +93,6 @@ export default function Artist({params}:IArtistParams) {
       }
   }, [token])
   useEffect(() => {
-    console.log(user?.artists_followed)
     console.log(user?.artists_followed.every(u => u.id != params.id))
     if (user?.artists_followed.every(u => u.id != params.id)){
       setIsSubscribed(false)
@@ -109,21 +108,21 @@ export default function Artist({params}:IArtistParams) {
             {artist ?
               <>
                   <div className={styles.poster}>
-                    <Image src={typeof artist[0].avatar_url === 'object' ? User : artist[0].avatar_url} width={200} height={200} alt="women" />
+                    <Image src={typeof artist?.avatar_url === 'object' ? User : artist?.avatar_url} width={200} height={200} alt="women" />
                   <div className={styles.posterWrapper}>
-                        <h5 className={styles.artistTitle}>{artist[0].name}</h5>
+                        <h5 className={styles.artistTitle}>{artist?.name}</h5>
                         <p className={styles.desc}>
                           genre
                         </p>
                         {!isSubscribed ?
                           <Button
-                          onClick={() => onSubscribeHandler(artist[0].id)}
+                          onClick={() => onSubscribeHandler(artist?.id)}
                           disabled={!userStatus}
                           className={styles.btn}>
                           Follow an artist</Button>
                           :
                           <Button
-                          onClick={() => onUnsubscribeHandler(artist[0].id)}
+                          onClick={() => onUnsubscribeHandler(artist?.id)}
                           disabled={!userStatus}
                           className={styles.btn}>
                           Unsubcribe</Button>
@@ -132,7 +131,7 @@ export default function Artist({params}:IArtistParams) {
                    </div>
                   <div className={styles.aboutWrapper}>
                       <ShowsCalendar />
-                      <About id={artist[0].name} />
+                      <About id={artist?.name} />
                   </div>
               </>
             :

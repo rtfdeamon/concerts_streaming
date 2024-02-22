@@ -67,3 +67,15 @@ export interface IResult {
   artists: IArtist[],
   shows: IEvent[]
 }
+
+export interface IAd {
+  id: string,
+  created_at: string,
+  banner_url: string,
+  user: IUser,
+  status: string,
+  concert: IEvent
+}
+export interface IAds{
+  ads: IAd[]
+}
