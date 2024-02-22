@@ -26,6 +26,7 @@ from api.views import (
     ArtistUnsubscribeView,
     ConcertsViewSet,
     UserViewSet,
+    ArtistsViewSet,
     SignInView,
     SignOutView,
     SignUpView,
@@ -39,6 +40,7 @@ router = routers.DefaultRouter()
 router.register('concerts', ConcertsViewSet)
 router.register('sessions', ArtistSessionViewSet)
 router.register('users', UserViewSet, 'user')
+router.register('artists', ArtistsViewSet, 'artist')
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -56,10 +58,6 @@ urlpatterns = [
     path("auth/signout", SignOutView.as_view()),
     path("auth/signup", SignUpView.as_view()),
     path("auth/refresh_token", RefreshTokenView.as_view()),
-
-    path('artists/', ArtistsView.as_view()),
-    path('artists/<artist_id>/subscribe/', ArtistSubscribeView.as_view()),
-    path('artists/<artist_id>/unsubscribe/', ArtistUnsubscribeView.as_view()),
 
     path("upload/generate-link", FileUploadView.as_view()),
 

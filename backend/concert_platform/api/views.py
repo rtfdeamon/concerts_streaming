@@ -185,21 +185,12 @@ class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
             'streaming_server': settings.STREAMING_SERVER_BASE_URL
         })
 
-class ArtistsView(APIView):
-    authentication_classes = []
+class ArtistsViewSet(ViewSet):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def get_filters(self):
-        filters = {}
-        role = self.request.query_params.get('role')
-        filter_name = self.request.query_params.get('filter')
-        if role is not None:
-            filters['role'] = role
-        if filter_name is not None:
-            filters['name__icontains'] = filter_name
-        return filters
-
-    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer})
-    def get(self, request):
+    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer(many=True)})
+    def list(self, request):
         filter_by_name = request.query_params.get('filter', None)
         filters = {
             'role': UserRole.ARTIST.value
@@ -214,24 +205,25 @@ class ArtistsView(APIView):
         serializer = ExtendedUserSerializer(queryset, many=True)
         return Response(serializer.data)
 
-class ArtistSubscribeView(APIView):
-    authentication_classes = [JwtAuthentication]
-    permission_classes = [IsAuthenticated]
+    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer})
+    def retrieve(self, request, pk=None):
+        queryset = ExtendedUser.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = ExtendedUserSerializer(instance=user)
+        return Response(serializer.data)
 
-    @swagger_auto_schema(manual_parameters=artists_uri_parameters, request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
-    def post(self, request, artist_id=None):
+    @swagger_auto_schema(request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
+    @action(url_path='subscribe', methods=['POST'], detail=True)
+    def subscribe(self, request, pk=None):
         user_id = request.user.id
-        subscription = ArtistSubscription.objects.create(user_id=user_id, artist_id=artist_id)
+        subscription = ArtistSubscription.objects.create(user_id=user_id, artist_id=pk)
         return Response(ArtistSubscriptionSerializer(instance=subscription).data)
 
-class ArtistUnsubscribeView(APIView):
-    authentication_classes = [JwtAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    @swagger_auto_schema(manual_parameters=artists_uri_parameters, request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
-    def post(self, request, artist_id=None):
+    @swagger_auto_schema(request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
+    @action(url_path='unsubscribe', methods=['POST'], detail=True)
+    def unsubscribe(self, request, pk=None):
         user_id = request.user.id
-        subscription = ArtistSubscription.objects.filter(user_id=user_id, artist_id=artist_id).first()
+        subscription = ArtistSubscription.objects.filter(user_id=user_id, artist_id=pk).first()
         subscription.delete()
         return Response(ArtistSubscriptionSerializer(instance=subscription).data)
 
