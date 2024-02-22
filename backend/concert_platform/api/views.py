@@ -230,7 +230,7 @@ class SponsorAdsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
     def get_queryset(self):
         if self.action == 'list':
             filters = {}
-            sorting_order = self.request.query_params.get('sort', 'name')
+            sorting_order = self.request.query_params.get('sort', 'created_at')
             concert = self.request.query_params.get('concert', None)
             user = self.request.user
 
