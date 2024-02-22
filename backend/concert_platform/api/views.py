@@ -17,9 +17,11 @@ from drf_yasg.utils import swagger_auto_schema, no_body
 from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
 from .serializers import (
     ConcertAdReadSerializer,
-    ConcertAdWriteSerializer,
+    ConcertAdCreateSerializer,
+    ConcertAdUpdateSerializer,
     ArtistSessionReadSerializer,
-    ArtistSessionWriteSerializer,
+    ArtistSessionCreateSerializer,
+    ArtistSessionUpdateSerializer,
     ArtistSubscriptionSerializer,
     ConcertReadSerializer,
     ConcertSubscriptionSerializer,
@@ -166,11 +168,16 @@ class ConcertsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
         subscription.delete()
         return Response(ConcertSubscriptionSerializer(instance=subscription).data)
 
-class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
+class ArtistSessionViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [JwtAuthentication]
-    read_serializer_class = ArtistSessionReadSerializer
-    write_serializer_class = ArtistSessionWriteSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ArtistSessionCreateSerializer
+        if self.action in ["update", "partial_update"]:
+            return ArtistSessionUpdateSerializer
+        return ArtistSessionReadSerializer
 
     def create(self, request):
         request.data['user'] = request.user.id
@@ -209,8 +216,12 @@ class SponsorAdsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
     authentication_classes = [JwtAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    read_serializer_class = ConcertAdReadSerializer
-    write_serializer_class = ConcertAdWriteSerializer
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ConcertAdCreateSerializer
+        if self.action in ["update", "partial_update"]:
+            return ConcertAdUpdateSerializer
+        return ConcertAdReadSerializer
 
     def create(self, request):
         request.data['user'] = request.user.id

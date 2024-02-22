@@ -22,10 +22,15 @@ class ArtistSessionReadSerializer(serializers.ModelSerializer):
     def get_concert(self, item):
         return NestedConcertSerializer(item.concert).data
 
-class ArtistSessionWriteSerializer(serializers.ModelSerializer):
+class ArtistSessionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArtistSession
         exclude = ('status', 'stream_key')
+
+class ArtistSessionUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArtistSession
+        exclude = ('concert', 'user', 'stream_key')
 
 class ConcertAdReadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,10 +38,15 @@ class ConcertAdReadSerializer(serializers.ModelSerializer):
         depth = 1
         fields = '__all__'
 
-class ConcertAdWriteSerializer(serializers.ModelSerializer):
+class ConcertAdCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SponsorAd
         exclude = ('status', )
+
+class ConcertAdUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SponsorAd
+        exclude = ('concert', 'user')
 
 class ArtistSubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -98,7 +108,6 @@ class ExtendedUserSerializer(serializers.Serializer):
 
     def __init__(self, *args, **kwargs):
         self.expand_relations = kwargs.pop('expand', True)
-        print('expand', self.expand_relations)
         super().__init__(*args, **kwargs)
     
     def to_representation(self, instance: ExtendedUser):
