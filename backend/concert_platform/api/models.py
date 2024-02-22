@@ -35,6 +35,7 @@ class ExtendedUser(models.Model):
     description = models.TextField(default='')
     role = models.CharField(max_length=40, null=False, default=UserRole.VIEWER)
     avatar_url = models.URLField(null=True)
+    artist_genre = models.CharField(max_length=200, null=True)
     subscribers = models.ManyToManyField('self', through='ArtistSubscription', through_fields=('artist', 'user'))
     artists_followed = models.ManyToManyField('self', through='ArtistSubscription', through_fields=('user', 'artist'))
     concerts_followed = models.ManyToManyField('Concert', through='ConcertSubscription', through_fields=('user', 'concert'))

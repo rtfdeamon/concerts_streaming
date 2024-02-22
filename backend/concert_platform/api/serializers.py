@@ -109,6 +109,7 @@ class ExtendedUserSerializer(serializers.Serializer):
             'name': instance.name,
             'description': instance.description,
             'avatar_url': instance.avatar_url,
+            'artist_genre': instance.artist_genre,
             'username': user.data['username'],
         }
         if self.expand_relations:
@@ -142,6 +143,7 @@ class ExtendedUserSerializer(serializers.Serializer):
             'name': data['name'],
             'role': data['role'],
             'description': data['description'],
+            'artist_genre': data['artist_genre'],
             'avatar_url': data['avatar_url']
         }
     

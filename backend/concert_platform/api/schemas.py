@@ -51,6 +51,7 @@ nested_user_dto = Schema(
         'id': Schema(type='integer'),
         'role': Schema(type='string'),
         'name': Schema(type='string'),
+        'artist_genre': Schema(type='string'),
         'avatar_url': Schema(type='string'),
         'username': Schema(type='string'),
     }
@@ -62,6 +63,7 @@ user_response_dto = Schema(
         'id': Schema(type='integer'),
         'role': Schema(type='string'),
         'name': Schema(type='string'),
+        'artist_genre': Schema(type='string'),
         'avatar_url': Schema(type='string'),
         'username': Schema(type='string'),
         'followers': Schema(
@@ -77,6 +79,14 @@ user_response_dto = Schema(
             items={
                 '$ref': '#/definitions/ConcertRead'
             }
+        ),
+        'performances': Schema(
+            type=TYPE_ARRAY,
+            items={ '$ref': '#/definitions/ArtistSessionRead' }
+        ),
+        'ads': Schema(
+            type=TYPE_ARRAY,
+            items={ '$ref': '#/definitions/ConcertAdRead' }
         )
     }
 )
@@ -93,6 +103,7 @@ user_create_request_dto = Schema(
         'password': Schema(type='string'),
         'role': Schema(type='string'),
         'avatar_url': Schema(type='string'),
+        'artist_genre': Schema(type='string'),
     }
 )
 
@@ -102,6 +113,7 @@ user_update_request_dto = Schema(
         'email': Schema(type='string'),
         'role': Schema(type='string'),
         'avatar_url': Schema(type='string'),
+        'artist_genre': Schema(type='string'),
     }
 )
 
