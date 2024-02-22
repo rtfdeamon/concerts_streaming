@@ -1,10 +1,4 @@
-export interface IUser {
-    id: number,
-    name: string,
-    role: string,
-    avatar_url: string
-  
-}
+
 
 export interface IEvent {
   id: string,
@@ -61,7 +55,7 @@ export interface IUser {
   name: string,
   avatar_url: string,
   username: number,
-  artist_followed: IArtist[],
+  artists_followed: IArtist[],
   concerts_followed: IEvent[]
 }
 export interface IToken {

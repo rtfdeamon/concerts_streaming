@@ -45,7 +45,7 @@
     @apply flex flex-col items-center justify-center text-center
 }
 .text{
-    @apply text-center
+    @apply text-center w-[100px]
 }
 .aboutWrapper{
     @apply flex flex-col text-center my-5 bg-white rounded-md p-5

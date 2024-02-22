@@ -45,14 +45,15 @@ const unFollowShow = async (id: string) => {
 export default function ShowPreview({params}:IPreviewParams) {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [show, setShow] = useState<IEvent | null>(null);
-  const [user, setUser] = useState<IUser | null>()
+  const [token, setToken] = useState<string | undefined>(undefined);
+  const [user, setUser] = useState<IUser | null>();
   const userStatus = useAppSelector(state => state.userInfo.user?.role)
   const { toast } = useToast();
 
   const onSubscribeHandler = async (id: string) => {
-    setIsSubscribed(false);
     const res: any = await followShow(id);
     if (res.user){
+      setIsSubscribed(true);
       toast({
         title: "You`re successfully subscribed!",
         action: (
@@ -62,9 +63,9 @@ export default function ShowPreview({params}:IPreviewParams) {
     }
   }
   const onUnsubscribeHandler = async (id: string) => {
-    setIsSubscribed(true);
     const res: any = await unFollowShow(id);
     if (res.user){
+      setIsSubscribed(false);
       toast({
         title: "You`re successfully unsubscribed!",
         action: (
@@ -78,26 +79,28 @@ export default function ShowPreview({params}:IPreviewParams) {
       fetch(`${process.env.BACKEND_URL}/concerts/${params.id}`)
       .then(res => res.json())
       .then(res => setShow(res))
-    let token;
-    getTokenForApi()
-      .then(res => token = res)
-      typeof token !== 'undefined' && fetch(`${process.env.BACKEND_URL}/users/current`, {
-        method: 'GET',
-        headers: {
-          'Authorization' : `Bearer ${token}`
-        }
-      })
-        .then(res => res.json())
-        .then(res => setUser(res))
   }, [])
   useEffect(() => {
-    console.log('fsfs')
+    getTokenForApi()
+      .then(res => setToken(res))
+      if (typeof token !== 'undefined'){
+        fetch(`${process.env.BACKEND_URL}/users/current`, {
+          method: 'GET',
+          headers: {
+            'Authorization' : `Bearer ${token}`
+          }
+        })
+        .then(res => res.json())
+        .then(res => setUser(res))
+      }
+  }, [token])
+  useEffect(() => {
     if (user?.concerts_followed.every(u => u.id !== params.id)){
       setIsSubscribed(false)
     } else{
       setIsSubscribed(true)
     }
-  }, [isSubscribed])
+  }, [user])
   return (
       <>
         <HeaderWithoutBanner />
@@ -119,8 +122,8 @@ export default function ShowPreview({params}:IPreviewParams) {
                           <div className={styles.date}>
                               <Image className={styles.CalendarIcon} src={CalendarIcon} height={50} width={50} alt="calendar" />
                               <div className={styles.wrapper}>
-                                <p className={styles.text}>10.10.2024</p>
-                                <span className={styles.span}>09:00 AM, GMT+3</span>
+                                <p className={styles.text}>{new Date(show.date).toLocaleString()}</p>
+                                {/* <span className={styles.span}>09:00 AM, GMT+3</span> */}
                               </div>
                           </div>
                       </div>
@@ -142,7 +145,7 @@ export default function ShowPreview({params}:IPreviewParams) {
               <div className={styles.aboutWrapper}>
                 <h6 className={styles.aboutTitle}>About this show</h6>
                 <p className={styles.aboutDesc}>
-                  {show.description}
+                  Тут будет список артистов, принимающих участие
                 </p>
               </div>
               <div className={styles.banner}>
