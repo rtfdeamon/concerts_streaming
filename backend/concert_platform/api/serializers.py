@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.utils import model_meta
 from .schemas import user_response_dto
-from .models import ArtistSession, ArtistSubscription, Concert, ConcertSubscription, ExtendedUser, UserRole
+from .models import ArtistSession, ArtistSubscription, Concert, ConcertSubscription, ExtendedUser, SponsorAd
 
 """
 class ExtendedUserSerializer(serializers.ModelSerializer):
@@ -26,6 +26,17 @@ class ArtistSessionWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArtistSession
         exclude = ('status', 'stream_key')
+
+class ConcertAdReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SponsorAd
+        depth = 1
+        fields = '__all__'
+
+class ConcertAdWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SponsorAd
+        exclude = ('status', )
 
 class ArtistSubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,6 +67,7 @@ class ConcertReadSerializer(serializers.ModelSerializer):
             'access',
             'subscribers',
             'performances',
+            'ads',
         ]
 
 class NestedConcertSerializer(serializers.ModelSerializer):
@@ -117,6 +129,10 @@ class ExtendedUserSerializer(serializers.Serializer):
             result['performances'] = ArtistSessionReadSerializer(
                 instance=instance.performances.all(),
                 many=True,
+            ).data
+            result['ads'] = ConcertAdReadSerializer(
+                instance=instance.ads.all(),
+                many=True
             ).data
         return result
     

@@ -14,8 +14,10 @@ from django.utils.decorators import method_decorator
 from django.conf import settings
 from drf_yasg.utils import swagger_auto_schema, no_body
 
-from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ExtendedUser, Concert, RefreshToken, UserRole
+from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
 from .serializers import (
+    ConcertAdReadSerializer,
+    ConcertAdWriteSerializer,
     ArtistSessionReadSerializer,
     ArtistSessionWriteSerializer,
     ArtistSubscriptionSerializer,
@@ -199,6 +201,36 @@ class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
             'streaming_server': settings.STREAMING_SERVER_BASE_URL
         })
     
+    @swagger_auto_schema(manual_parameters=artists_sessions_query_parameters)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+class SponsorAdsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    read_serializer_class = ConcertAdReadSerializer
+    write_serializer_class = ConcertAdWriteSerializer
+
+    def create(self, request):
+        request.data['user'] = request.user.id
+        return super().create(request)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            filters = {}
+            sorting_order = self.request.query_params.get('sort', 'name')
+            concert = self.request.query_params.get('concert', None)
+            user = self.request.user
+
+            if concert is not None:
+                filters['concert'] = concert
+            elif user is not None:
+                filters['user'] = user.id
+            return SponsorAd.objects.all().filter(**filters).order_by(sorting_order)
+        else:
+            return SponsorAd.objects.all()
+
     @swagger_auto_schema(manual_parameters=artists_sessions_query_parameters)
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)

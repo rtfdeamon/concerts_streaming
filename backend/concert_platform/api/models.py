@@ -23,6 +23,11 @@ class ArtistSessionStatus(models.TextChoices):
     ACCEPTED = 'accepted'
     REJECTED = 'rejected'
 
+class ConcertAdStatus(models.TextChoices):
+    PENDING = 'pending'
+    ACCEPTED = 'accepted'
+    REJECTED = 'rejected'
+
 # Create your models here.
 class ExtendedUser(models.Model):
     id = models.IntegerField(name='id', primary_key=True)
@@ -51,6 +56,7 @@ class Concert(models.Model):
 
 class ArtistSession(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
     name = models.CharField(max_length=200, null=False)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
@@ -62,6 +68,7 @@ class ArtistSession(models.Model):
 
 class ConcertSubscription(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
     user = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE, null=False, related_name='concert_subscriptions')
     concert = models.ForeignKey(Concert, on_delete=models.CASCADE, null=False, related_name='user_subscriptions')
 
@@ -75,6 +82,7 @@ class ConcertSubscription(models.Model):
 
 class ArtistSubscription(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
     user = models.ForeignKey(ExtendedUser, related_name='artist_subscriptions', on_delete=models.CASCADE, null=False)
     artist = models.ForeignKey(ExtendedUser, related_name='followers', on_delete=models.CASCADE, null=False)
 
@@ -85,6 +93,15 @@ class ArtistSubscription(models.Model):
                 name='artist_subscription_unique'
             )
         ]
+
+class SponsorAd(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    user = models.ForeignKey(ExtendedUser, related_name='ads', on_delete=models.CASCADE, parent_link=True)
+    concert = models.ForeignKey(Concert, on_delete=models.CASCADE, related_name='ads', parent_link=True, unique=True)
+    banner_url = models.CharField(max_length=2048)
+    status = models.CharField(max_length=20, choices=ConcertAdStatus.choices, default=ConcertAdStatus.PENDING)
+
 
 class RefreshToken(models.Model):
     token = models.CharField(max_length=64, primary_key=True)
