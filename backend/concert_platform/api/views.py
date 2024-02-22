@@ -37,7 +37,7 @@ from .schemas import (
     upload_link_response_dto,
     artists_query_parameters,
     refresh_token_request_dto,
-    artists_uri_parameters,
+    artists_sessions_query_parameters,
     status_response_dto,
 )
 from utils.serializers import ReadWriteSerializerViewSetMixin
@@ -165,7 +165,6 @@ class ConcertsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
         return Response(ConcertSubscriptionSerializer(instance=subscription).data)
 
 class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
-    queryset = ArtistSession.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [JwtAuthentication]
     read_serializer_class = ArtistSessionReadSerializer
@@ -174,6 +173,21 @@ class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
     def create(self, request):
         request.data['user'] = request.user.id
         return super().create(request)
+    
+    def get_queryset(self):
+        if self.action == 'list':
+            filters = {}
+            sorting_order = self.request.query_params.get('sort', 'name')
+            concert = self.request.query_params.get('concert', None)
+            user = self.request.user
+
+            if concert is not None:
+                filters['concert'] = concert
+            elif user is not None:
+                filters['user'] = user.id
+            return ArtistSession.objects.all().filter(**filters).order_by(sorting_order)
+        else:
+            return ArtistSession.objects.all()
 
     @swagger_auto_schema(responses={'200': ArtistSessionReadSerializer})
     def retrieve(self, request, pk=None):
@@ -184,6 +198,10 @@ class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
             **serializer.data,
             'streaming_server': settings.STREAMING_SERVER_BASE_URL
         })
+    
+    @swagger_auto_schema(manual_parameters=artists_sessions_query_parameters)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 class ArtistsViewSet(ViewSet):
     authentication_classes = [JwtAuthentication]

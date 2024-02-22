@@ -27,6 +27,7 @@ class ArtistSessionStatus(models.TextChoices):
 class ExtendedUser(models.Model):
     id = models.IntegerField(name='id', primary_key=True)
     name = models.CharField(max_length=200, default='User')
+    description = models.TextField(default='')
     role = models.CharField(max_length=40, null=False, default=UserRole.VIEWER)
     avatar_url = models.URLField(null=True)
     subscribers = models.ManyToManyField('self', through='ArtistSubscription', through_fields=('artist', 'user'))
@@ -44,17 +45,17 @@ class Concert(models.Model):
     poster_url = models.URLField(null=True)
     status = models.CharField(max_length=20, null=False, choices=ConcertStatus.choices, default=ConcertStatus.SCHEDULED)
     category = models.CharField(max_length=200, null=True)
-    subscribers = models.ManyToManyField(ExtendedUser, through='ConcertSubscription', through_fields=('concert', 'user'), related_name='concert_subscribers')
     performance_time = models.IntegerField(default=15)
     access = models.CharField(max_length=20, null=False, choices=ConcertAccess.choices, default=ConcertAccess.PAID)
+    subscribers = models.ManyToManyField(ExtendedUser, through='ConcertSubscription', through_fields=('concert', 'user'), related_name='concert_subscribers')
 
 class ArtistSession(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, null=False)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    user = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE, null=True, blank=False, parent_link='sessions')
-    concert = models.ForeignKey(Concert, on_delete=models.CASCADE, null=True, blank=True, parent_link='sessions')
+    user = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE, null=True, blank=False, related_name='performances', parent_link=True)
+    concert = models.ForeignKey(Concert, on_delete=models.CASCADE, null=True, blank=True, related_name='performances', parent_link=True)
     status = models.CharField(max_length=20, choices=ArtistSessionStatus.choices, default=ArtistSessionStatus.PENDING)
     stream_key = models.CharField(max_length=200, null=True)
     artist_demo_url = models.CharField(max_length=2048, null=True)

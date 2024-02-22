@@ -23,7 +23,6 @@ from drf_yasg import openapi
 
 from api.views import (
     ArtistSessionViewSet,
-    ArtistUnsubscribeView,
     ConcertsViewSet,
     UserViewSet,
     ArtistsViewSet,
@@ -31,14 +30,12 @@ from api.views import (
     SignOutView,
     SignUpView,
     FileUploadView,
-    ArtistsView,
     RefreshTokenView,
-    ArtistSubscribeView,
 )
 
 router = routers.DefaultRouter()
 router.register('concerts', ConcertsViewSet)
-router.register('sessions', ArtistSessionViewSet)
+router.register('sessions', ArtistSessionViewSet, 'session')
 router.register('users', UserViewSet, 'user')
 router.register('artists', ArtistsViewSet, 'artist')
 

@@ -117,13 +117,13 @@ artists_query_parameters = [
     Parameter('filter', IN_QUERY, type=TYPE_STRING),
 ]
 
-artists_uri_parameters = [
-    Parameter('artist_id', IN_PATH, type=TYPE_STRING),
-]
-
 users_query_parameters = [
     Parameter('role', IN_QUERY, type=TYPE_STRING, enum=[name for name, _ in UserRole.choices]),
     Parameter('filter', IN_QUERY, type=TYPE_STRING),
+]
+
+artists_sessions_query_parameters = [
+    Parameter('concert', IN_QUERY, type=TYPE_STRING)
 ]
 
 artist_sessions_request_dto = Schema(

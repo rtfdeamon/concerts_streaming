@@ -13,10 +13,14 @@ class ExtendedUserSerializer(serializers.ModelSerializer):
 """
 
 class ArtistSessionReadSerializer(serializers.ModelSerializer):
+    concert = serializers.SerializerMethodField()
     class Meta:
         model = ArtistSession
         depth = 1
         fields = '__all__'
+
+    def get_concert(self, item):
+        return NestedConcertSerializer(item.concert).data
 
 class ArtistSessionWriteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,7 +41,27 @@ class ConcertReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Concert
         depth = 1
-        fields = '__all__'
+        fields = [
+            'id',
+            'created_at',
+            'user_id',
+            'name',
+            'description',
+            'date',
+            'slots',
+            'poster_url',
+            'status',
+            'category',
+            'performance_time',
+            'access',
+            'subscribers',
+            'performances',
+        ]
+
+class NestedConcertSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Concert
+        exclude = ('subscribers', )
 
 class ConcertWriteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -71,6 +95,7 @@ class ExtendedUserSerializer(serializers.Serializer):
             'id': instance.id,
             'role': instance.role,
             'name': instance.name,
+            'description': instance.description,
             'avatar_url': instance.avatar_url,
             'username': user.data['username'],
         }
@@ -89,6 +114,10 @@ class ExtendedUserSerializer(serializers.Serializer):
                 instance=instance.concerts_followed.all(),
                 many=True
             ).data
+            result['performances'] = ArtistSessionReadSerializer(
+                instance=instance.performances.all(),
+                many=True,
+            ).data
         return result
     
     def to_internal_value(self, data):
@@ -96,6 +125,7 @@ class ExtendedUserSerializer(serializers.Serializer):
             'id': data['id'],
             'name': data['name'],
             'role': data['role'],
+            'description': data['description'],
             'avatar_url': data['avatar_url']
         }
     
