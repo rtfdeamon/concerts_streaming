@@ -5,48 +5,11 @@
     & img{
         @apply block mb-4
     }
-    @apply flex justify-center mt-10 mb-2 text-5xl w-[85vw]
+    @apply flex justify-center mt-10 mb-14 text-5xl w-[85vw]
 }
 .title{
     @apply block text-center
 }
 .showsException{
     @apply block mt-14 text-3xl text-center 
-}
-.shows {
-    @apply flex flex-wrap items-center justify-center relative text-xl my-3
-}
-.showsException{
-    @apply block mx-auto text-3xl
-}
-.wrapper{
-    @apply mb-6 mx-4 w-[400px]
-}
-.place{
-    @apply block text-center text-slate-400 my-1 max-w-[150px] truncate mx-auto
-}
-.date{
-    & img{
-        @apply mr-6
-    }
-    @apply flex items-center justify-center text-base
-}
-.img{
-    @apply block mx-auto my-4 w-[350px] h-[200px]
-}
-.paginate {
-    & ul {
-        & li{
-            &:first-child{
-                @apply absolute left-[100px]
-            }
-            &:last-child{
-                @apply absolute right-[100px]
-            }
-            & a{
-                @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
-            }
-            @apply absolute top-[50%]
-        }
-    }
 }

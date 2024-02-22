@@ -21,7 +21,6 @@ export default async function SponsoredShows() {
         }
         getAds()
     }, [])
-    console.log(ads)
     return (
         <section className={styles.sectionWrapper}>
         <div className={styles.titleWrapper}>

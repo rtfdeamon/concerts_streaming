@@ -1,45 +1,86 @@
 'use client'
 import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import { getTokenForApi } from '@/app/utils/getTokenForApi';
 import Link from 'next/link';
 import Image from 'next/image';
-import CalendarIcon from '../../..//../public/calendar-range.svg'
+import CalendarIcon from '../../..//../public/calendar-range.svg';
 import { IAd } from '@/app/types/interfaces';
-import styles from './SponsoredPagination.module.scss'
+import X from '../../../../public/xBlack.svg';
+import Accept from '../../../../public/plus.svg';
+import styles from './SponsoredPagination.module.scss';
 
 interface ISelect{
         selected: number;
 }
 
-function Items({items}: {items: IAd[]}) {
+function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
+    const changeReq = async (id: string, status: string) => {
+      const res = await fetch(`${process.env.BACKEND_URL}/sponsor-ads/${id}/`, {
+        method : 'PATCH',
+        headers: {
+          'Authorization' : `Bearer ${await getTokenForApi()}`,
+          'Content-type' : 'application/json'
+        },
+        body: JSON.stringify({status})
+      })
+      const data = await res.json();
+      return data;
+    }
     return (
       <>
-      <div className={styles.shows}>
+      {!isAdmin ? 
+        <div className={styles.shows}>
           {items &&
             items.map((s, i) => (
             <>
               <Link href={`/preview/${s.id}`} className={styles.wrapper} key={i}>
                     <span className={styles.title}>{s.concert.name}</span>
-                        <span className={styles.place}>{s.concert.description}</span>
-                        <Image className={styles.img} src={s.concert.poster_url} width={300} height={200}  alt={s.concert.name}/>
+                        <p className={styles.suggested}>Suggested banner:</p>
+                        <Image className={styles.img}  src={s.banner_url} width={300} height={150} alt='banner'/>
+                        <span>Status: {s.status}</span>
+                        {/* <Image className={styles.img} src={s.concert.poster_url} width={300} height={200}  alt={s.concert.name}/> */}
                         <span className={styles.date}>
                         <Image src={CalendarIcon} width={30} height={20} alt={s.concert.name}/>
                         {new Date(s.concert.date).toUTCString()}
                     </span>
                 </Link>
-                <div>
-                    <span>Suggested banner:</span>
-                    <Image src={s.banner_url} width={300} height={150} alt='banner'/>
-                    <span>Status: {s.status}</span>
-                </div>
             </>
             ))}
         </div>
+      :
+      <div className={styles.shows}>
+      {items &&
+        items.map((s, i) => (
+        <>
+          <div className={styles.wrapper} key={i}>
+              <Link href={`/preview/${s.id}`}>
+                  <span className={styles.title}>{s.concert.name}</span>
+                      <p className={styles.suggested}>Suggested banner:</p>
+                      <Image className={styles.img} src={s.banner_url} width={300} height={150} alt='banner'/>
+                      <span className={styles.date}>
+                      <Image src={CalendarIcon} width={30} height={20} alt={s.concert.name}/>
+                      {new Date(s.concert.date).toUTCString()}
+                    </span>
+              </Link>
+                <div className={styles.controls}>
+                      <Image
+                        onClick={() => changeReq(s.id, 'accepted')}
+                        src={Accept} width={40} height={40} alt="accept" title="Accept" />
+                      <Image
+                        onClick={() => changeReq(s.id, 'rejected')}
+                        src={X} width={40} height={40} alt="x" title="Decline" />
+                  </div>
+            </div>
+        </>
+        ))}
+    </div>
+      }
       </>
     );
   }
 
-  export default function SponsoredPagination({itemsPerPage, items}: {itemsPerPage: number, items: IAd[]}){
+  export default function SponsoredPagination({itemsPerPage, items, isAdmin}: {itemsPerPage: number, items: IAd[], isAdmin?: boolean}){
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
@@ -63,7 +104,7 @@ function Items({items}: {items: IAd[]}) {
   
     return (
       <>
-        <Items items={currentItems} />
+        <Items items={currentItems} isAdmin={isAdmin} />
         <div className={styles.paginate}>
           {
               items.length > 6 &&

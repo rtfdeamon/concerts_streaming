@@ -1,7 +1,10 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { Dispatch, SetStateAction } from 'react'
+import { useToast } from '@/shadComponents/ui/use-toast'
+import { ToastAction } from '@/shadComponents/ui/toast'
 import { generateUploadLink } from '@/app/utils/generateUploadLink'
+import { getTokenForApi } from '@/app/utils/getTokenForApi'
 import { ChangeEvent } from 'react'
 import { Label } from '@/shadComponents/ui/label'
 import { Input } from '@/shadComponents/ui/input'
@@ -9,8 +12,21 @@ import { Input } from '@/shadComponents/ui/input'
 export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
     {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, showId: string, showTitle: string}) {
 
+  const {toast} = useToast();
   function closeModal() {
     setIsOpen(false)
+  }
+
+  const adReq = async (poster: string) => {
+    const res = await fetch(`${process.env.BACKEND_URL}/sponsor-ads/`, {
+      method: 'POST',
+      headers: {
+        'Content-type' : 'application/json',
+        'Authorization' : `Bearer ${await getTokenForApi()}`
+      },
+      body: JSON.stringify({banner_url: poster, user: null, concert: showId})
+    })
+    return res;
   }
   const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
     if (e.target.files){
@@ -24,8 +40,35 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
           })
         if (res.ok){
             const posterUrl = link.url.split('?')[0]
-            // api req
-            closeModal()
+            const reqResponse = await adReq(posterUrl);
+            const req: any = await reqResponse.json();
+            if (reqResponse.ok){
+              toast({
+                title: "Request sended",
+                description: "Please, wait for admin to approve your request",
+                action: (
+                  <ToastAction altText="Hide">Hide</ToastAction>
+                ),
+              })
+              closeModal()
+            } else if (req.concert[0] === 'sponsor ad with this concert already exists.'){
+                toast({
+                  title: "You already send your request",
+                  description: "Please, wait for admin to approve your request",
+                  action: (
+                    <ToastAction altText="Hide">Hide</ToastAction>
+                  ),
+                })
+                closeModal()
+            } else {
+              toast({
+                title: "Something went wrong",
+                action: (
+                  <ToastAction altText="Hide">Hide</ToastAction>
+                ),
+              })
+              closeModal()
+            }
         }
     }
     }
@@ -69,19 +112,10 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
                         Do you want to be sponsor of this show?
                     </p>
                   </div>
-                <div className="mt-4">
+                <div className="mt-4 mb-4">
                         <Label htmlFor="picture">Banner</Label>
                         <Input onChange={(e) => onUploadHanler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg"/>
                 </div>
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="block mx-auto rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
