@@ -42,11 +42,13 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
     const [perfomanceTime, setPerfomanceTime] = useState(0);
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
     const [category, setCategory] = useState("");
-
+    const [access, setAccess] = useState("");
     const categoryChangeHandler = (e: string) => {
         setCategory(e);
     }
-
+    const accessChangeHandler = (e: string) => {
+        setAccess(e);
+    }
     const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
         if (e.target.files){
             const link:any = await generateUploadLink('poster');
@@ -65,12 +67,12 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
 
     const onCreateHandler = async () => {
         if (name === '' || description === "" || slots < 1 || typeof date === 'undefined'
-        || perfomanceTime === 0 || typeof posterUrl === 'undefined' || category === ''){
+        || perfomanceTime === 0 || typeof posterUrl === 'undefined' || category === '' || access === ""){
             setErr(true);
             return;
         } else{
             const stringDate = date.toISOString();
-            const res: any = await dispatch(createShow({name, description, date: stringDate, slots, perfomanceTime, posterUrl, category}));
+            const res: any = await dispatch(createShow({name, description, date: stringDate, slots, performance_time: perfomanceTime, posterUrl, category, access}));
             if (res.payload.id){
                 setIsOpen(false);
             } else{
@@ -119,6 +121,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                         <div className="mt-4">
                             <Select
                                 onValueChange={(e) => categoryChangeHandler(e)}
+                                value={category}
                             >
                                 <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Select concert genre" />
@@ -150,7 +153,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                             <Input onChange={(e) => setSlots(parseInt(e.target.value))} type="number" min={1} placeholder="Slots number" />
                         </div>
                         <div className="mt-4">
-                            <Select>
+                            <Select onValueChange={(e) => accessChangeHandler(e)} value={access} >
                             <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select an accessibility" />
                             </SelectTrigger>
@@ -158,7 +161,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                                 <SelectGroup>
                                 <SelectLabel>Accessibility</SelectLabel>
                                 <SelectItem value="free">Free</SelectItem>
-                                <SelectItem value="ticket">By a ticket</SelectItem>
+                                <SelectItem value="paid">By a ticket</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                             </Select>

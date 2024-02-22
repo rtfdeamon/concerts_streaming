@@ -42,7 +42,11 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const [err, setErr] = useState(false);
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
     const [category, setCategory] = useState<string | undefined>(undefined);
+    const [access, setAccess] = useState<string | undefined>(undefined);
 
+    const accessChangeHandler = (e: string) => {
+        setAccess(e);
+    }
     const categoryChangeHandler = (e: string) => {
         setCategory(e);
     }
@@ -66,7 +70,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
     const onChangeHandler = async () => {
         const stringDate = date?.toISOString() as string;
-        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, perfomanceTime, posterUrl, category}));
+        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, performance_time: perfomanceTime, posterUrl, category, access}));
         if (res.payload.id){
             setIsOpen(false)
         } else{
@@ -117,6 +121,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                         <div className="mt-4">
                             <Select
                                 onValueChange={(e) => categoryChangeHandler(e)}
+                                value={category}
                             >
                                 <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Select concert genre" />
@@ -148,7 +153,10 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                             <Input onChange={(e) => setSlots(parseInt(e.target.value))} type="number" defaultValue={1} min={1} placeholder="Slots number" />
                         </div>
                         <div className="mt-4">
-                            <Select>
+                            <Select
+                                onValueChange={(e) => accessChangeHandler(e)}
+                                value={access}
+                            >
                             <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select an accessibility" />
                             </SelectTrigger>
@@ -156,7 +164,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                                 <SelectGroup>
                                 <SelectLabel>Accessibility</SelectLabel>
                                 <SelectItem value="free">Free</SelectItem>
-                                <SelectItem value="ticket">By a ticket</SelectItem>
+                                <SelectItem value="paid">By a ticket</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                             </Select>

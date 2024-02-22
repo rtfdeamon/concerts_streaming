@@ -1,8 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { getTokenForApi } from '@/app/utils/getTokenForApi'
-import styles from './SponsoredShows.module.scss'
+import SponsoredPagination from './SponsoredPagination';
 import { IAd } from '@/app/types/interfaces';
+import styles from './SponsoredShows.module.scss'
 
 
 export default async function SponsoredShows() {
@@ -20,6 +21,7 @@ export default async function SponsoredShows() {
         }
         getAds()
     }, [])
+    console.log(ads)
     return (
         <section className={styles.sectionWrapper}>
         <div className={styles.titleWrapper}>
@@ -27,9 +29,9 @@ export default async function SponsoredShows() {
         </div>
         <div className={styles.shows}>
         {
-            // ads && ads.length > 0 ?
-            //     <ScheduledPaginate itemsPerPage={6} items={ads}/>
-            // :
+            ads && ads.length > 0 ?
+                <SponsoredPagination itemsPerPage={6} items={ads}/>
+            :
             <h6 className={styles.showsException}>Sorry! No sponsored shows by you yet 🥲</h6>
         }
         </div>

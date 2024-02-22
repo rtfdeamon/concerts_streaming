@@ -11,6 +11,8 @@ export interface IEvent {
   status: string,
   category: string,
   user_id: IUser,
+  access: string,
+  performance_time: number,
   subscribers: IUser[]
 }
 
@@ -28,7 +30,8 @@ export interface IShow{
   status?: string,
   category?: string,
   user_id?: number,
-  perfomanceTime?: number
+  performance_time?: number
+  access?: string,
 }
 export interface IChangeShow extends IShow{
   id: string
@@ -73,9 +76,6 @@ export interface IAd {
   created_at: string,
   banner_url: string,
   user: IUser,
-  status: string,
+  status: string
   concert: IEvent
-}
-export interface IAds{
-  ads: IAd[]
 }
