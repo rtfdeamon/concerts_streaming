@@ -6,7 +6,7 @@ import styles from './Live.module.scss'
 export default function Live({params}:ILiveParams) {
   return (
     <section className={styles.chatWrapper}>
-      <Stream />
+      <Stream id={params.id}/>
       <Chat />
     </section>
   )

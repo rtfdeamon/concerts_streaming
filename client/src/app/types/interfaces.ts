@@ -20,8 +20,21 @@ export interface IEvents {
   events: IEvent[]
 }
 
+export interface IPerformance {
+    id?: string,
+    name: string,
+    description?: string,
+    created_at?: string,
+    status?: string,
+    stream_key?: string,
+    artist_demo_url?: string,
+    user?: Number, 
+    concert?: string
+}
 
 export interface IShow{
+  id?: string,
+  created_at?: string,
   name?: string,
   description?: string,
   date?: string,
@@ -32,6 +45,9 @@ export interface IShow{
   user_id?: number,
   performance_time?: number
   access?: string,
+  subscribers: IUser[],
+  ads?: IAd[],
+  performances?: IPerformance[]
 }
 export interface IChangeShow extends IShow{
   id: string

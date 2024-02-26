@@ -1,5 +1,5 @@
 .chat{
-    @apply absolute h-screen w-[20vw] top-0 right-0 bottom-0 p-5 opacity-100 duration-700 transition-all bg-slate-300 
+    @apply sticky h-[100vh] w-[20vw] top-0 right-0 bottom-0 p-5 opacity-100 duration-700 transition-all bg-slate-300 
 }
 .chatIsHide{
     @apply absolute h-screen w-[20vw] top-0 right-[-1000px] bottom-0 overflow-hidden p-5 duration-700 transition-all bg-slate-300

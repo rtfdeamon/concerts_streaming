@@ -1,5 +1,7 @@
 'use client'
 import React, { useState } from 'react';
+import { useAppDispatch } from '@/app/hooks/rtkHooks';
+import { resAd } from '@/app/store/ads/ads-slice';
 import ReactPaginate from 'react-paginate';
 import { getTokenForApi } from '@/app/utils/getTokenForApi';
 import Link from 'next/link';
@@ -15,18 +17,7 @@ interface ISelect{
 }
 
 function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
-    const changeReq = async (id: string, status: string) => {
-      const res = await fetch(`${process.env.BACKEND_URL}/sponsor-ads/${id}/`, {
-        method : 'PATCH',
-        headers: {
-          'Authorization' : `Bearer ${await getTokenForApi()}`,
-          'Content-type' : 'application/json'
-        },
-        body: JSON.stringify({status})
-      })
-      const data = await res.json();
-      return data;
-    }
+    const dispatch = useAppDispatch();
     return (
       <>
       {!isAdmin ? 
@@ -65,10 +56,10 @@ function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
               </Link>
                 <div className={styles.controls}>
                       <Image
-                        onClick={() => changeReq(s.id, 'accepted')}
+                        onClick={() => dispatch(resAd({id: s.id, status: 'accepted'}))}
                         src={Accept} width={40} height={40} alt="accept" title="Accept" />
                       <Image
-                        onClick={() => changeReq(s.id, 'rejected')}
+                        onClick={() => dispatch(resAd({id: s.id, status: 'rejected'}))}
                         src={X} width={40} height={40} alt="x" title="Decline" />
                   </div>
             </div>

@@ -1,5 +1,11 @@
+.section{
+    @apply flex flex-col justify-center items-center
+}
+.banner{
+    @apply block mx-auto mt-20 w-[65vw] object-fill
+}
 .videoWrapper{
-    @apply h-screen w-[80vw]
+    @apply h-[80vh] w-[80vw]
 }
 .video{
     @apply relative block w-[80%] h-[55vh] mx-auto top-[20vh]
