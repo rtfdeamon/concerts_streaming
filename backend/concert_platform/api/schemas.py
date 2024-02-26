@@ -11,7 +11,7 @@ from drf_yasg.openapi import (
     TYPE_BOOLEAN,
 )
 
-from .models import ArtistSessionStatus, ConcertStatus, UserRole
+from .models import ArtistSessionStatus, ConcertStatus, UserRole, ConcertAdStatus
 
 status_response_dto = Schema(
     type=TYPE_OBJECT,
@@ -136,6 +136,12 @@ users_query_parameters = [
 
 artists_sessions_query_parameters = [
     Parameter('concert', IN_QUERY, type=TYPE_STRING)
+]
+
+sponsor_ads_query_parameters = [
+    Parameter('concert', IN_QUERY, type=TYPE_STRING),
+    Parameter('status', IN_QUERY, type=TYPE_STRING, enum=[name for name, _ in ConcertAdStatus.choices]),
+    Parameter('select', IN_QUERY, type=TYPE_STRING, enum=['user', 'all']),
 ]
 
 artist_sessions_request_dto = Schema(

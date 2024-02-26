@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.utils import model_meta
 from .schemas import user_response_dto
-from .models import ArtistSession, ArtistSubscription, Concert, ConcertSubscription, ExtendedUser, SponsorAd
+from .models import ArtistSession, ArtistSubscription, Concert, ConcertSubscription, ConcertTicket, ExtendedUser, SponsorAd
 
 """
 class ExtendedUserSerializer(serializers.ModelSerializer):
@@ -48,6 +48,17 @@ class ConcertAdUpdateSerializer(serializers.ModelSerializer):
         model = SponsorAd
         exclude = ('concert', 'user')
 
+class ConcertTicketReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConcertTicket
+        depth = 1
+        fields = '__all__'
+
+class ConcertTicketCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConcertTicket
+        exclude = ('status', )
+
 class ArtistSubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArtistSubscription
@@ -59,6 +70,16 @@ class ConcertSubscriptionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ConcertReadSerializer(serializers.ModelSerializer):
+
+    def to_representation(self, instance):
+        result = super().to_representation(instance)
+        # NOTE: requires optimization probably
+        request = self.context.get('request')
+        tickets = ConcertTicket.objects.all().filter(user_id=request.user.id)
+        data = ConcertTicketReadSerializer(instance=tickets, many=True).data
+        result['ticket'] = data
+        return result
+
     class Meta:
         model = Concert
         depth = 1

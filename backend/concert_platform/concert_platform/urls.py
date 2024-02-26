@@ -27,6 +27,7 @@ from api.views import (
     UserViewSet,
     ArtistsViewSet,
     SponsorAdsViewSet,
+    ConcertTicketsViewSet,
     SignInView,
     SignOutView,
     SignUpView,
@@ -40,6 +41,7 @@ router.register('sessions', ArtistSessionViewSet, 'session')
 router.register('users', UserViewSet, 'user')
 router.register('artists', ArtistsViewSet, 'artist')
 router.register('sponsor-ads', SponsorAdsViewSet, 'sponsor_ads')
+router.register('tickets', ConcertTicketsViewSet, 'ticket')
 
 schema_view = get_schema_view(
    openapi.Info(

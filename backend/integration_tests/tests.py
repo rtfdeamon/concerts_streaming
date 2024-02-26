@@ -7,6 +7,7 @@ from fixtures import (
     get_concert_subscription,
     get_poster,
     get_session,
+    get_ticket,
     get_user,
     get_sponsor_ad,
 )
@@ -88,10 +89,10 @@ if __name__ == '__main__':
         sorted_by_name_concerts = api.get('/concerts/', { 'sort': 'name' })
         concert_ids = [item['id'] for item in sorted_by_name_concerts]
         assert concert_ids.index(show1['id']) < concert_ids.index(show2['id'])
-    
+
     viewer_api = ApiWrapper(BASE_URL)
     authorize_api(viewer_api)
-    
+
     # Test artist subscription
     with get_artist_subscription(viewer_api, { 'artist': api.user_id }, do_not_delete=False) as sub:
         viewer_user = viewer_api.get('/users/current/')
@@ -101,7 +102,7 @@ if __name__ == '__main__':
         artist_user = api.get('/users/current/')
         artist_user_followers = set([item['id'] for item in artist_user['followers']])
         assert viewer_api.user_id in artist_user_followers
-    
+
     # Test concert subscription
     with get_concert(api, {}) as show1:
         with get_concert_subscription(api, { 'concert': show1['id'] }) as subscription:
@@ -112,7 +113,7 @@ if __name__ == '__main__':
             show = api.get(f'/concerts/{show1["id"]}')
             concert_subscribers = set(map(lambda x: x['id'], show['subscribers']))
             assert api.user_id in concert_subscribers
-    
+
     # Test artist sessions
     with get_user(api, dict(role='artist')) as (u1, *credentials):
         user_profile = api.get(f'/artists/{u1["id"]}/')
@@ -136,8 +137,8 @@ if __name__ == '__main__':
                 assert result
 
     # Test sponsor ads
-    with get_concert(api, {}) as show:
-        with get_sponsor_ad(api, show['id']) as advert:
+    with get_concert(api, {}, do_not_delete=True) as show:
+        with get_sponsor_ad(api, show['id'], do_not_delete=True) as advert:
             result = api.get(f'/sponsor-ads/{advert["id"]}')
             assert result["id"] == advert["id"]
             assert result["concert"]["id"] == show["id"]
@@ -147,3 +148,11 @@ if __name__ == '__main__':
 
             result = api.get(f'/users/current/')
             assert advert['id'] in set(map(lambda x: x['id'], result["ads"]))
+
+    another_user = ApiWrapper(BASE_URL)
+    with get_user(api, {}) as (u2, *credentials):
+        another_user.authorize(*credentials)
+        with get_concert(api, {}, do_not_delete=True) as show:
+            with get_ticket(api, show['id']) as t1, get_ticket(another_user, show['id']) as t2:
+                result = another_user.get(f'/concerts/{show["id"]}/')
+                print(result)

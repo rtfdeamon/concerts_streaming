@@ -28,6 +28,10 @@ class ConcertAdStatus(models.TextChoices):
     ACCEPTED = 'accepted'
     REJECTED = 'rejected'
 
+class ConcertTicketStatus(models.TextChoices):
+    ISSUED = 'issued'
+    ACTIVATED = 'activated'
+
 # Create your models here.
 class ExtendedUser(models.Model):
     id = models.IntegerField(name='id', primary_key=True)
@@ -103,6 +107,20 @@ class SponsorAd(models.Model):
     banner_url = models.CharField(max_length=2048)
     status = models.CharField(max_length=20, choices=ConcertAdStatus.choices, default=ConcertAdStatus.PENDING)
 
+class ConcertTicket(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    concert = models.ForeignKey(Concert, on_delete=models.CASCADE, related_name='ticket', parent_link=True)
+    user = models.ForeignKey(ExtendedUser, related_name='tickets', on_delete=models.CASCADE, parent_link=True)
+    status = models.CharField(max_length=20, choices=ConcertTicketStatus.choices, default=ConcertTicketStatus.ISSUED)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'concert'],
+                name='concert_ticket_unique'
+            )
+        ]
 
 class RefreshToken(models.Model):
     token = models.CharField(max_length=64, primary_key=True)

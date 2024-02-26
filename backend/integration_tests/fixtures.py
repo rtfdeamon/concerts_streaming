@@ -36,7 +36,7 @@ def get_user(api, payload):
         print('TODO: delete user')
 
 @contextlib.contextmanager
-def get_concert(api, payload):
+def get_concert(api, payload, do_not_delete=False):
     concert = api.post('/concerts/', {
         'name': 'Test show',
         'description': 'Test show description',
@@ -52,10 +52,11 @@ def get_concert(api, payload):
     try:
         yield concert
     finally:
-        api.delete(f'/concerts/{concert["id"]}')
+        if do_not_delete is not True:
+            api.delete(f'/concerts/{concert["id"]}')
 
 @contextlib.contextmanager
-def get_session(api, payload):
+def get_session(api, payload, do_not_delete=False):
     session = api.post('/sessions/', {
         'name': 'Test session',
         'description': 'Test artist session',
@@ -66,7 +67,8 @@ def get_session(api, payload):
     try:
         yield session
     finally:
-        api.delete(f'/sessions/{session["id"]}')
+        if do_not_delete is not True:
+            api.delete(f'/sessions/{session["id"]}')
 
 @contextlib.contextmanager
 def get_artist_subscription(api, payload, do_not_delete=False):
@@ -87,7 +89,7 @@ def get_concert_subscription(api, payload, do_not_delete=False):
             api.post(f'/concerts/{payload["concert"]}/unsubscribe/', {})
 
 @contextlib.contextmanager
-def get_sponsor_ad(api, concert_id, banner_url=None):
+def get_sponsor_ad(api, concert_id, banner_url=None, do_not_delete=False):
     if banner_url is None:
         banner_url = 'https://ads.test.local/banner.png'
     advert = api.post(f'/sponsor-ads/', {
@@ -98,4 +100,17 @@ def get_sponsor_ad(api, concert_id, banner_url=None):
     try:
         yield advert
     finally:
-        api.delete(f'/sponsor-ads/{advert["id"]}/')
+        if do_not_delete is not True:
+            api.delete(f'/sponsor-ads/{advert["id"]}/')
+
+@contextlib.contextmanager
+def get_ticket(api, concert_id, do_not_delete=False):
+    ticket = api.post(f'/tickets/', {
+        'user': None,
+        'concert': concert_id,
+    })
+    try:
+        yield ticket
+    finally:
+        if do_not_delete is not True:
+            api.delete(f'/tickets/{ticket["id"]}/')

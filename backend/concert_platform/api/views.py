@@ -3,7 +3,7 @@ from uuid import uuid4
 from urllib.parse import urlparse
 import jwt
 import boto3
-from rest_framework.viewsets import ModelViewSet, ViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet, mixins
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView, Response
 from rest_framework.decorators import action
@@ -12,9 +12,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.utils.decorators import method_decorator
 from django.conf import settings
+from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema, no_body
 
-from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
+from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ConcertTicket, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
 from .serializers import (
     ConcertAdReadSerializer,
     ConcertAdCreateSerializer,
@@ -25,6 +26,8 @@ from .serializers import (
     ArtistSubscriptionSerializer,
     ConcertReadSerializer,
     ConcertSubscriptionSerializer,
+    ConcertTicketCreateSerializer,
+    ConcertTicketReadSerializer,
     ConcertWriteSerializer,
     ExtendedUserSerializer,
     UserSerializer
@@ -42,6 +45,7 @@ from .schemas import (
     artists_query_parameters,
     refresh_token_request_dto,
     artists_sessions_query_parameters,
+    sponsor_ads_query_parameters,
     status_response_dto,
 )
 from utils.serializers import ReadWriteSerializerViewSetMixin
@@ -232,19 +236,39 @@ class SponsorAdsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
             filters = {}
             sorting_order = self.request.query_params.get('sort', 'created_at')
             concert = self.request.query_params.get('concert', None)
+            status = self.request.query_params.get('status', None)
+            select = self.request.query_params.get('select', None)
             user = self.request.user
 
             if concert is not None:
                 filters['concert'] = concert
-            elif user is not None:
+            elif user is not None and select != 'all':
                 filters['user'] = user.id
+            if status is not None:
+                filters['status'] = status
             return SponsorAd.objects.all().filter(**filters).order_by(sorting_order)
         else:
             return SponsorAd.objects.all()
 
-    @swagger_auto_schema(manual_parameters=artists_sessions_query_parameters)
+    @swagger_auto_schema(manual_parameters=sponsor_ads_query_parameters)
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
+
+class ConcertTicketsViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin, GenericViewSet):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return ConcertTicket.objects.all().filter(user_id=self.request.user.id)
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ConcertTicketCreateSerializer
+        return ConcertTicketReadSerializer
+    
+    def create(self, request):
+        request.data['user'] = request.user.id
+        return super().create(request)
 
 class ArtistsViewSet(ViewSet):
     authentication_classes = [JwtAuthentication]
