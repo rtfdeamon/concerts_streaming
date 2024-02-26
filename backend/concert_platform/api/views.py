@@ -296,6 +296,12 @@ class ArtistsViewSet(ViewSet):
         user = get_object_or_404(queryset, pk=pk)
         serializer = ExtendedUserSerializer(instance=user)
         return Response(serializer.data)
+    
+    @action(url_path='trending', methods=['GET'], detail=False)
+    def trending(self, request):
+        queryset = ExtendedUser.objects.all().filter(role=UserRole.ARTIST.value).order_by('?')[:9]
+        serializer = ExtendedUserSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     @swagger_auto_schema(request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
     @action(url_path='subscribe', methods=['POST'], detail=True)
