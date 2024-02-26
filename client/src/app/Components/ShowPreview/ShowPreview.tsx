@@ -116,9 +116,18 @@ export default function ShowPreview({params}:IPreviewParams) {
         <section className={styles.section}>
           {show?.name ? 
           <>
-              <div className={styles.poster} style={{  backgroundImage: "url(" + { Women } + ")", backgroundSize: 'auto' }}>
               <h5 className={styles.artistTitle}>{show.name}</h5>
-                <Image className={styles.preview} src={show.poster_url} width={600} height={300} alt={show.name} />
+              <div className={styles.poster} style={{  backgroundImage: "url(" + { Women } + ")", backgroundSize: 'auto' }}>
+                <div className={styles.previewWrapper}>
+                  <Image className={styles.preview} src={show.poster_url} width={600} height={300} alt={show.name} />
+                  {role === 'viewer' && 
+                            <Button
+                            // onClick={}
+                            disabled={!role}
+                            className={styles.buyBtn}>
+                            Buy a ticket</Button>
+                    }
+                </div>
                   <div className={styles.posterWrapper}>
                       <p className={styles.desc}>
                         {show.description}
@@ -166,7 +175,7 @@ export default function ShowPreview({params}:IPreviewParams) {
               </div>
               <div className={styles.banner}>
                   <Link href={`${process.env.FRONTEND_URL}/events/month`} className={styles.btnWrapper}>
-                    <Button className={styles.btn}>Look for more shows</Button>
+                    <Button className={styles.btnBanner}>Look for more shows</Button>
                   </Link>
               </div>
           </>

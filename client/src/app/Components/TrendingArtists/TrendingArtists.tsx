@@ -1,17 +1,29 @@
+'use client'
+import { useState, useEffect } from 'react';
+import { getTokenForApi } from '@/app/utils/getTokenForApi';
 import { ArtistsPaginate } from '../ArtistsPaginate/ArtistsPaginate';
 import { IArtist } from '@/app/types/interfaces';
 import styles from './TrendingArtists.module.scss'
 
+
 async function getShows(){
-  const res = await fetch('')
+  const res = await fetch(`${process.env.FRONTEND_URL}/artists/trending/`, {
+    method: 'GET',
+    headers: {
+      'Authorization':`Bearer ${await getTokenForApi()}`
+    }
+  })
   const data = await res.json()
-  return data;
+  return data
 }
 
 export default function TrendingArtists() {
-  let artists: IArtist[] = [];
-  getShows()
-    .then(res => artists = res)
+  const [artists, setArtists] = useState<IArtist[]>([])
+  useEffect(() => {
+    getShows()
+      .then(res => setArtists(res))
+  }, [])
+  console.log(artists)
   return (
     <section>
     <h5 className={styles.title}>Trending artists</h5>

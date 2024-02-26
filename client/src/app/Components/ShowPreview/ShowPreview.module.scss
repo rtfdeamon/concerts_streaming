@@ -10,8 +10,17 @@
 .artistTitle{
     @apply text-3xl text-center font-semibold mb-4
 }
+.previewWrapper{
+    @apply relative
+}
 .preview{
-    @apply block mx-auto mb-8 rounded-md
+    @apply block mx-auto mb-8 rounded-md object-fill w-full
+}
+.buyBtn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex absolute top-[48%] right-[37%] text-3xl w-[300px] h-[80px] mx-auto p-8 bg-blue-500 duration-500 transition-all
 }
 .link{
     &:hover{
@@ -21,9 +30,15 @@
 }
 .desc{
     word-wrap: break-word;
-    @apply block max-w-[800px] mb-4 text-[#94A3B8]
+    @apply block max-w-[800px] mb-4 text-[#94A3B8] text-xl
 }
 .btn{
+    &:hover{
+        @apply bg-blue-500 text-white
+    }
+    @apply flex mx-auto text-black right-2 text-xl p-8 bg-transparent border-2 border-blue-500 duration-500 transition-all
+}
+.btnBanner{
     &:hover{
         @apply bg-blue-700
     }
