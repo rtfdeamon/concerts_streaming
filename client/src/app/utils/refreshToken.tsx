@@ -8,6 +8,8 @@ import { useToast } from '@/shadComponents/ui/use-toast'
 
 export async function RefreshTokens(accessToken: string, refreshToken: string){
     const router = useRouter();
+    const [storageAccessToken, setStorageAccessToken] = useLocalStorage('accessToken', '');
+    const [storageRefreshToken, setStorageRefreshToken] = useLocalStorage('refreshToken', '');
     const { toast } = useToast();
     const routeHandler = () => {
         router.push(`${process.env.FRONTEND_URL}/login`)
@@ -34,11 +36,10 @@ export async function RefreshTokens(accessToken: string, refreshToken: string){
                   routeHandler();
             }
             const data = await res.json();
-            return data;
+            setStorageRefreshToken(data.refresh_token);
+            setStorageAccessToken(data.access_token);
         }
         refreshTokens(accessToken, refreshToken)
     }, [])
-    const [storageAccessToken, setStorageAccessToken] = useLocalStorage('accessToken', '');
-    const [storageRefreshToken, setStorageRefreshToken] = useLocalStorage('refreshToken', '');
     return [storageAccessToken, storageRefreshToken]
 }

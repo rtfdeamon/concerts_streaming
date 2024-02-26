@@ -1,13 +1,10 @@
+'use client'
 import { RefreshTokens } from "./refreshToken";
 
-export async function checkAccessToken(){
+export function checkAccessToken(){
     let accessToken: Array<string>
     let token: string
     if (typeof window !== 'undefined'){
-        // arr = localStorage.getItem('refreshToken')?.split('') as Array<string>;
-        // arr.pop();
-        // arr.shift();
-        // token = arr.join('');
         accessToken = localStorage.getItem('accessToken')?.split('') as Array<string>;
         accessToken?.pop();
         accessToken?.shift();
