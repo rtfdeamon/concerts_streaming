@@ -131,9 +131,22 @@ if __name__ == '__main__':
                 result = api.get(f'/sessions/?concert={show["id"]}')
                 assert session['id'] in set(map(lambda x: x['id'], result))
 
+                result = api.get(f'/concerts/{show["id"]}')
+                assert user_api.user_id not in set(map(lambda x: x['id'], result['artists']))
+
+                result = user_api.get('/users/current/')
+                assert show["id"] not in set(map(lambda x: x['id'], result['concerts']))
+
                 result = api.patch(f'/sessions/{session["id"]}/', {
                     'status': 'accepted'
                 })
+
+                result = api.get(f'/concerts/{show["id"]}')
+                assert user_api.user_id in set(map(lambda x: x['id'], result['artists']))
+
+                result = user_api.get('/users/current/')
+                assert show["id"] in set(map(lambda x: x['id'], result['concerts']))
+
                 assert result
 
     # Test sponsor ads

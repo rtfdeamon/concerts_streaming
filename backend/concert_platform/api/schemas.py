@@ -87,6 +87,14 @@ user_response_dto = Schema(
         'ads': Schema(
             type=TYPE_ARRAY,
             items={ '$ref': '#/definitions/ConcertAdRead' }
+        ),
+        'tickets': Schema(
+            type=TYPE_ARRAY,
+            items={ '$ref': '#/definitions/ConcertTicketRead' }
+        ),
+        'concerts': Schema(
+            type=TYPE_ARRAY,
+            items={ '$ref': '#/definitions/ConcertRead' }
         )
     }
 )

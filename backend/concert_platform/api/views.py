@@ -69,14 +69,14 @@ class UserViewSet(ViewSet):
     def list(self, request):
         filters = self.get_filters()
         queryset = ExtendedUser.objects.all().filter(**filters).order_by('name')
-        serializer = ExtendedUserSerializer(queryset, many=True)
+        serializer = ExtendedUserSerializer(queryset, many=True, context=dict(request=request))
         return Response(serializer.data)
 
     @swagger_auto_schema(responses={'200': ExtendedUserSerializer})
     def retrieve(self, request, pk=None):
         queryset = ExtendedUser.objects.all()
         user = get_object_or_404(queryset, pk=pk)
-        serializer = ExtendedUserSerializer(user)
+        serializer = ExtendedUserSerializer(user, private=True, context=dict(request=request))
         return Response(serializer.data)
     
     @swagger_auto_schema(request_body=user_create_request_dto, responses={'200': ExtendedUserSerializer})
@@ -88,14 +88,14 @@ class UserViewSet(ViewSet):
         password = request.data['password']
         base_user = User.objects.create_user(username, email, password)
         user = ExtendedUser.objects.create(id=base_user.id, name=name, role=role)
-        user_serializer = ExtendedUserSerializer(user)
+        user_serializer = ExtendedUserSerializer(user, private=True)
         return Response(user_serializer.data)
     
     @swagger_auto_schema(request_body=user_update_request_dto, responses={'200': ExtendedUserSerializer})
     def update(self, request, pk=None):
         queryset = ExtendedUser.objects.all()
         instance = get_object_or_404(queryset, pk=pk)
-        serializer = ExtendedUserSerializer(instance, data=request.data, partial=True)
+        serializer = ExtendedUserSerializer(instance, data=request.data, partial=True, private=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         base_user = User.objects.get(id=pk)
@@ -287,20 +287,20 @@ class ArtistsViewSet(ViewSet):
         if filter_name is not None:
             filters['name__icontains'] = filter_name
         queryset = ExtendedUser.objects.all().filter(**filters).order_by(sorting_order)
-        serializer = ExtendedUserSerializer(queryset, many=True)
+        serializer = ExtendedUserSerializer(queryset, many=True, context=dict(request=request))
         return Response(serializer.data)
 
     @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer})
     def retrieve(self, request, pk=None):
         queryset = ExtendedUser.objects.all()
         user = get_object_or_404(queryset, pk=pk)
-        serializer = ExtendedUserSerializer(instance=user)
+        serializer = ExtendedUserSerializer(instance=user, context=dict(request=request))
         return Response(serializer.data)
     
     @action(url_path='trending', methods=['GET'], detail=False)
     def trending(self, request):
         queryset = ExtendedUser.objects.all().filter(role=UserRole.ARTIST.value).order_by('?')[:9]
-        serializer = ExtendedUserSerializer(queryset, many=True)
+        serializer = ExtendedUserSerializer(queryset, many=True, context=dict(request=request))
         return Response(serializer.data)
 
     @swagger_auto_schema(request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
