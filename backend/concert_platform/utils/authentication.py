@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 import jwt
 from api.models import RefreshToken
+from django.utils.translation import gettext_lazy as _
 
 def generate_access_token(user_id: str, session_id: uuid.UUID, now: datetime.datetime) -> str:
     return jwt.encode({

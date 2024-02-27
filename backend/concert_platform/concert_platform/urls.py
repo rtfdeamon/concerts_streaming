@@ -23,22 +23,25 @@ from drf_yasg import openapi
 
 from api.views import (
     ArtistSessionViewSet,
-    ArtistUnsubscribeView,
     ConcertsViewSet,
     UserViewSet,
+    ArtistsViewSet,
+    SponsorAdsViewSet,
+    ConcertTicketsViewSet,
     SignInView,
     SignOutView,
     SignUpView,
     FileUploadView,
-    ArtistsView,
     RefreshTokenView,
-    ArtistSubscribeView,
 )
 
 router = routers.DefaultRouter()
 router.register('concerts', ConcertsViewSet)
-router.register('sessions', ArtistSessionViewSet)
+router.register('sessions', ArtistSessionViewSet, 'session')
 router.register('users', UserViewSet, 'user')
+router.register('artists', ArtistsViewSet, 'artist')
+router.register('sponsor-ads', SponsorAdsViewSet, 'sponsor_ads')
+router.register('tickets', ConcertTicketsViewSet, 'ticket')
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -56,10 +59,6 @@ urlpatterns = [
     path("auth/signout", SignOutView.as_view()),
     path("auth/signup", SignUpView.as_view()),
     path("auth/refresh_token", RefreshTokenView.as_view()),
-
-    path('artists/', ArtistsView.as_view()),
-    path('artists/<artist_id>/subscribe/', ArtistSubscribeView.as_view()),
-    path('artists/<artist_id>/unsubscribe/', ArtistUnsubscribeView.as_view()),
 
     path("upload/generate-link", FileUploadView.as_view()),
 

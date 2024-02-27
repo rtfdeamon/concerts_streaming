@@ -11,7 +11,7 @@ from drf_yasg.openapi import (
     TYPE_BOOLEAN,
 )
 
-from .models import ArtistSessionStatus, ConcertStatus, UserRole
+from .models import ArtistSessionStatus, ConcertStatus, UserRole, ConcertAdStatus
 
 status_response_dto = Schema(
     type=TYPE_OBJECT,
@@ -51,6 +51,7 @@ nested_user_dto = Schema(
         'id': Schema(type='integer'),
         'role': Schema(type='string'),
         'name': Schema(type='string'),
+        'artist_genre': Schema(type='string'),
         'avatar_url': Schema(type='string'),
         'username': Schema(type='string'),
     }
@@ -62,6 +63,7 @@ user_response_dto = Schema(
         'id': Schema(type='integer'),
         'role': Schema(type='string'),
         'name': Schema(type='string'),
+        'artist_genre': Schema(type='string'),
         'avatar_url': Schema(type='string'),
         'username': Schema(type='string'),
         'followers': Schema(
@@ -77,6 +79,22 @@ user_response_dto = Schema(
             items={
                 '$ref': '#/definitions/ConcertRead'
             }
+        ),
+        'performances': Schema(
+            type=TYPE_ARRAY,
+            items={ '$ref': '#/definitions/ArtistSessionRead' }
+        ),
+        'ads': Schema(
+            type=TYPE_ARRAY,
+            items={ '$ref': '#/definitions/ConcertAdRead' }
+        ),
+        'tickets': Schema(
+            type=TYPE_ARRAY,
+            items={ '$ref': '#/definitions/ConcertTicketRead' }
+        ),
+        'concerts': Schema(
+            type=TYPE_ARRAY,
+            items={ '$ref': '#/definitions/ConcertRead' }
         )
     }
 )
@@ -93,6 +111,7 @@ user_create_request_dto = Schema(
         'password': Schema(type='string'),
         'role': Schema(type='string'),
         'avatar_url': Schema(type='string'),
+        'artist_genre': Schema(type='string'),
     }
 )
 
@@ -102,6 +121,7 @@ user_update_request_dto = Schema(
         'email': Schema(type='string'),
         'role': Schema(type='string'),
         'avatar_url': Schema(type='string'),
+        'artist_genre': Schema(type='string'),
     }
 )
 
@@ -117,13 +137,19 @@ artists_query_parameters = [
     Parameter('filter', IN_QUERY, type=TYPE_STRING),
 ]
 
-artists_uri_parameters = [
-    Parameter('artist_id', IN_PATH, type=TYPE_STRING),
-]
-
 users_query_parameters = [
     Parameter('role', IN_QUERY, type=TYPE_STRING, enum=[name for name, _ in UserRole.choices]),
     Parameter('filter', IN_QUERY, type=TYPE_STRING),
+]
+
+artists_sessions_query_parameters = [
+    Parameter('concert', IN_QUERY, type=TYPE_STRING)
+]
+
+sponsor_ads_query_parameters = [
+    Parameter('concert', IN_QUERY, type=TYPE_STRING),
+    Parameter('status', IN_QUERY, type=TYPE_STRING, enum=[name for name, _ in ConcertAdStatus.choices]),
+    Parameter('select', IN_QUERY, type=TYPE_STRING, enum=['user', 'all']),
 ]
 
 artist_sessions_request_dto = Schema(
@@ -138,7 +164,8 @@ artist_sessions_request_dto = Schema(
 upload_link_request_body_dto = Schema(
     type=TYPE_OBJECT,
     properties={
-        'upload_type': Schema(type=TYPE_STRING, enum=['avatar', 'poster'])
+        'upload_type': Schema(type=TYPE_STRING, enum=['avatar', 'poster', 'artist_demo']),
+        'content_type': Schema(type=TYPE_STRING),
     }
 )
 

@@ -3,7 +3,7 @@ from uuid import uuid4
 from urllib.parse import urlparse
 import jwt
 import boto3
-from rest_framework.viewsets import ModelViewSet, ViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet, mixins
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView, Response
 from rest_framework.decorators import action
@@ -12,15 +12,22 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.utils.decorators import method_decorator
 from django.conf import settings
+from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema, no_body
 
-from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ExtendedUser, Concert, RefreshToken, UserRole
+from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ConcertTicket, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
 from .serializers import (
+    ConcertAdReadSerializer,
+    ConcertAdCreateSerializer,
+    ConcertAdUpdateSerializer,
     ArtistSessionReadSerializer,
-    ArtistSessionWriteSerializer,
+    ArtistSessionCreateSerializer,
+    ArtistSessionUpdateSerializer,
     ArtistSubscriptionSerializer,
     ConcertReadSerializer,
     ConcertSubscriptionSerializer,
+    ConcertTicketCreateSerializer,
+    ConcertTicketReadSerializer,
     ConcertWriteSerializer,
     ExtendedUserSerializer,
     UserSerializer
@@ -37,7 +44,8 @@ from .schemas import (
     upload_link_response_dto,
     artists_query_parameters,
     refresh_token_request_dto,
-    artists_uri_parameters,
+    artists_sessions_query_parameters,
+    sponsor_ads_query_parameters,
     status_response_dto,
 )
 from utils.serializers import ReadWriteSerializerViewSetMixin
@@ -61,14 +69,14 @@ class UserViewSet(ViewSet):
     def list(self, request):
         filters = self.get_filters()
         queryset = ExtendedUser.objects.all().filter(**filters).order_by('name')
-        serializer = ExtendedUserSerializer(queryset, many=True)
+        serializer = ExtendedUserSerializer(queryset, many=True, context=dict(request=request))
         return Response(serializer.data)
 
     @swagger_auto_schema(responses={'200': ExtendedUserSerializer})
     def retrieve(self, request, pk=None):
         queryset = ExtendedUser.objects.all()
         user = get_object_or_404(queryset, pk=pk)
-        serializer = ExtendedUserSerializer(user)
+        serializer = ExtendedUserSerializer(user, private=True, context=dict(request=request))
         return Response(serializer.data)
     
     @swagger_auto_schema(request_body=user_create_request_dto, responses={'200': ExtendedUserSerializer})
@@ -80,14 +88,14 @@ class UserViewSet(ViewSet):
         password = request.data['password']
         base_user = User.objects.create_user(username, email, password)
         user = ExtendedUser.objects.create(id=base_user.id, name=name, role=role)
-        user_serializer = ExtendedUserSerializer(user)
+        user_serializer = ExtendedUserSerializer(user, private=True)
         return Response(user_serializer.data)
     
     @swagger_auto_schema(request_body=user_update_request_dto, responses={'200': ExtendedUserSerializer})
     def update(self, request, pk=None):
         queryset = ExtendedUser.objects.all()
         instance = get_object_or_404(queryset, pk=pk)
-        serializer = ExtendedUserSerializer(instance, data=request.data, partial=True)
+        serializer = ExtendedUserSerializer(instance, data=request.data, partial=True, private=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         base_user = User.objects.get(id=pk)
@@ -164,38 +172,110 @@ class ConcertsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
         subscription.delete()
         return Response(ConcertSubscriptionSerializer(instance=subscription).data)
 
-class ArtistSessionViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
-    queryset = ArtistSession.objects.all()
+class ArtistSessionViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [JwtAuthentication]
-    read_serializer_class = ArtistSessionReadSerializer
-    write_serializer_class = ArtistSessionWriteSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ArtistSessionCreateSerializer
+        if self.action in ["update", "partial_update"]:
+            return ArtistSessionUpdateSerializer
+        return ArtistSessionReadSerializer
+
+    def create(self, request):
+        request.data['user'] = request.user.id
+        return super().create(request)
+    
+    def get_queryset(self):
+        if self.action == 'list':
+            filters = {}
+            sorting_order = self.request.query_params.get('sort', 'name')
+            concert = self.request.query_params.get('concert', None)
+            user = self.request.user
+
+            if concert is not None:
+                filters['concert'] = concert
+            elif user is not None:
+                filters['user'] = user.id
+            return ArtistSession.objects.all().filter(**filters).order_by(sorting_order)
+        else:
+            return ArtistSession.objects.all()
 
     @swagger_auto_schema(responses={'200': ArtistSessionReadSerializer})
     def retrieve(self, request, pk=None):
         queryset = self.get_queryset()
         user = get_object_or_404(queryset, pk=pk)
-        serializer = self.get_serializer_class(user)
+        serializer = self.get_serializer_class()(instance=user)
         return Response({
             **serializer.data,
             'streaming_server': settings.STREAMING_SERVER_BASE_URL
         })
+    
+    @swagger_auto_schema(manual_parameters=artists_sessions_query_parameters)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
-class ArtistsView(APIView):
-    authentication_classes = []
+class SponsorAdsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def get_filters(self):
-        filters = {}
-        role = self.request.query_params.get('role')
-        filter_name = self.request.query_params.get('filter')
-        if role is not None:
-            filters['role'] = role
-        if filter_name is not None:
-            filters['name__icontains'] = filter_name
-        return filters
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ConcertAdCreateSerializer
+        if self.action in ["update", "partial_update"]:
+            return ConcertAdUpdateSerializer
+        return ConcertAdReadSerializer
 
-    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer})
-    def get(self, request):
+    def create(self, request):
+        request.data['user'] = request.user.id
+        return super().create(request)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            filters = {}
+            sorting_order = self.request.query_params.get('sort', 'created_at')
+            concert = self.request.query_params.get('concert', None)
+            status = self.request.query_params.get('status', None)
+            select = self.request.query_params.get('select', None)
+            user = self.request.user
+
+            if concert is not None:
+                filters['concert'] = concert
+            elif user is not None and select != 'all':
+                filters['user'] = user.id
+            if status is not None:
+                filters['status'] = status
+            return SponsorAd.objects.all().filter(**filters).order_by(sorting_order)
+        else:
+            return SponsorAd.objects.all()
+
+    @swagger_auto_schema(manual_parameters=sponsor_ads_query_parameters)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+class ConcertTicketsViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin, GenericViewSet):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return ConcertTicket.objects.all().filter(user_id=self.request.user.id)
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ConcertTicketCreateSerializer
+        return ConcertTicketReadSerializer
+    
+    def create(self, request):
+        request.data['user'] = request.user.id
+        return super().create(request)
+
+class ArtistsViewSet(ViewSet):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer(many=True)})
+    def list(self, request):
         filter_by_name = request.query_params.get('filter', None)
         filters = {
             'role': UserRole.ARTIST.value
@@ -207,27 +287,34 @@ class ArtistsView(APIView):
         if filter_name is not None:
             filters['name__icontains'] = filter_name
         queryset = ExtendedUser.objects.all().filter(**filters).order_by(sorting_order)
-        serializer = ExtendedUserSerializer(queryset, many=True)
+        serializer = ExtendedUserSerializer(queryset, many=True, context=dict(request=request))
         return Response(serializer.data)
 
-class ArtistSubscribeView(APIView):
-    authentication_classes = [JwtAuthentication]
-    permission_classes = [IsAuthenticated]
+    @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer})
+    def retrieve(self, request, pk=None):
+        queryset = ExtendedUser.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = ExtendedUserSerializer(instance=user, context=dict(request=request))
+        return Response(serializer.data)
+    
+    @action(url_path='trending', methods=['GET'], detail=False)
+    def trending(self, request):
+        queryset = ExtendedUser.objects.all().filter(role=UserRole.ARTIST.value).order_by('?')[:9]
+        serializer = ExtendedUserSerializer(queryset, many=True, context=dict(request=request))
+        return Response(serializer.data)
 
-    @swagger_auto_schema(manual_parameters=artists_uri_parameters, request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
-    def post(self, request, artist_id=None):
+    @swagger_auto_schema(request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
+    @action(url_path='subscribe', methods=['POST'], detail=True)
+    def subscribe(self, request, pk=None):
         user_id = request.user.id
-        subscription = ArtistSubscription.objects.create(user_id=user_id, artist_id=artist_id)
+        subscription = ArtistSubscription.objects.create(user_id=user_id, artist_id=pk)
         return Response(ArtistSubscriptionSerializer(instance=subscription).data)
 
-class ArtistUnsubscribeView(APIView):
-    authentication_classes = [JwtAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    @swagger_auto_schema(manual_parameters=artists_uri_parameters, request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
-    def post(self, request, artist_id=None):
+    @swagger_auto_schema(request_body=no_body, responses={'200': ArtistSubscriptionSerializer})
+    @action(url_path='unsubscribe', methods=['POST'], detail=True)
+    def unsubscribe(self, request, pk=None):
         user_id = request.user.id
-        subscription = ArtistSubscription.objects.filter(user_id=user_id, artist_id=artist_id).first()
+        subscription = ArtistSubscription.objects.filter(user_id=user_id, artist_id=pk).first()
         subscription.delete()
         return Response(ArtistSubscriptionSerializer(instance=subscription).data)
 
@@ -325,6 +412,12 @@ class FileUploadView(APIView):
     location_type_mapping = {
         'avatar': 'avatars',
         'poster': 'posters',
+        'artist_demo': 'demos',
+    }
+    default_content_type_mapping = {
+        'avatar': 'image/png',
+        'poster': 'image/png',
+        'artist_demo': 'audio/mpeg',
     }
 
     @swagger_auto_schema(request_body=upload_link_request_body_dto, responses={'200': upload_link_response_dto})
@@ -336,10 +429,11 @@ class FileUploadView(APIView):
             aws_secret_access_key=settings.S3_SECRET_KEY
         )
         upload_type = request.data.get('upload_type', None)
+        content_type = request.data.get('content_type', self.default_content_type_mapping.get(upload_type, 'application/octet-stream'))
         if upload_type is None or not upload_type in self.location_type_mapping:
             return Response({ 'error': 'Missing or incorrect upload type' }, status=400)
         filename = '{}/{}.png'.format(self.location_type_mapping[upload_type], str(uuid4()))
-        upload_link = client.generate_presigned_url('put_object', dict(Bucket=settings.S3_BUCKET, Key=filename, ContentType='image/png'), ExpiresIn=86400)
+        upload_link = client.generate_presigned_url('put_object', dict(Bucket=settings.S3_BUCKET, Key=filename, ContentType=content_type), ExpiresIn=86400)
         parsed_link = urlparse(upload_link)
         return Response({
             'url': settings.S3_PUBLIC_URL + parsed_link.path + '?' + parsed_link.query
