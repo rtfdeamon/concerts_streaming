@@ -412,6 +412,12 @@ class FileUploadView(APIView):
     location_type_mapping = {
         'avatar': 'avatars',
         'poster': 'posters',
+        'artist_demo': 'demos',
+    }
+    default_content_type_mapping = {
+        'avatar': 'image/png',
+        'poster': 'image/png',
+        'artist_demo': 'audio/mpeg',
     }
 
     @swagger_auto_schema(request_body=upload_link_request_body_dto, responses={'200': upload_link_response_dto})
@@ -423,10 +429,11 @@ class FileUploadView(APIView):
             aws_secret_access_key=settings.S3_SECRET_KEY
         )
         upload_type = request.data.get('upload_type', None)
+        content_type = request.data.get('content_type', self.default_content_type_mapping.get(upload_type, 'application/octet-stream'))
         if upload_type is None or not upload_type in self.location_type_mapping:
             return Response({ 'error': 'Missing or incorrect upload type' }, status=400)
         filename = '{}/{}.png'.format(self.location_type_mapping[upload_type], str(uuid4()))
-        upload_link = client.generate_presigned_url('put_object', dict(Bucket=settings.S3_BUCKET, Key=filename, ContentType='image/png'), ExpiresIn=86400)
+        upload_link = client.generate_presigned_url('put_object', dict(Bucket=settings.S3_BUCKET, Key=filename, ContentType=content_type), ExpiresIn=86400)
         parsed_link = urlparse(upload_link)
         return Response({
             'url': settings.S3_PUBLIC_URL + parsed_link.path + '?' + parsed_link.query

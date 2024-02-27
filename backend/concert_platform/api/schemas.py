@@ -164,7 +164,8 @@ artist_sessions_request_dto = Schema(
 upload_link_request_body_dto = Schema(
     type=TYPE_OBJECT,
     properties={
-        'upload_type': Schema(type=TYPE_STRING, enum=['avatar', 'poster'])
+        'upload_type': Schema(type=TYPE_STRING, enum=['avatar', 'poster', 'artist_demo']),
+        'content_type': Schema(type=TYPE_STRING),
     }
 )
 
