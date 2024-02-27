@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import HeaderWithoutBanner from "../Header/HeaderWithouBanner";
+import RequestButton from "./RequestButton";
 import SponsorModal from "./SponsorModal";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
@@ -14,7 +15,6 @@ import Women from '../../../../public/women.jpg'
 import Live from '../../../../public/radio.svg'
 import CalendarIcon from '../../../../public/calendar-range.svg'
 import styles from './ShowPreview.module.scss'
-import RequestButton from "./RequestButton";
 import { IEvent } from "@/app/types/interfaces";
 import Loading from "../Loading/Loading";
 
@@ -40,6 +40,23 @@ const unFollowShow = async (id: string) => {
   })
   const data: unknown = await res.json();
   return data;
+}
+
+const buyTicket = async (concert: string, user: Number) => {
+  try {
+    const res = await fetch(`${process.env.BACKEND_URL}/tickets/`, {
+      method: 'POST',
+      headers: {
+        'Authorization' : `Bearer ${await getTokenForApi()}`,
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({concert, user})
+    })
+    const data: any = await res.json();
+    return data;
+  } catch(e){
+    throw new Error();
+  }
 }
 
 export default function ShowPreview({params}:IPreviewParams) {
@@ -77,6 +94,28 @@ export default function ShowPreview({params}:IPreviewParams) {
         ),
       })
     }
+  }
+
+  const onBuyHandler = async (concert: string, user: Number) => {
+    buyTicket(concert, user)
+      .then(res => {
+        if (res.user){
+          toast({
+            title: "You`re successfully buy a ticket!",
+            action: (
+              <ToastAction altText="Hide">Hide</ToastAction>
+            ),
+          })
+        }
+      })
+      .catch(e => {
+        toast({
+          title: "You already bought a ticket",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+      })
   }
 
   const modalHandler = () => {
@@ -122,11 +161,14 @@ export default function ShowPreview({params}:IPreviewParams) {
                   <Image className={styles.preview} src={show.poster_url} width={600} height={300} alt={show.name} />
                   {role === 'viewer' && 
                             <Button
-                            // onClick={}
+                            onClick={() => onBuyHandler(show.id, user?.id as Number)}
                             disabled={!role}
                             className={styles.buyBtn}>
                             Buy a ticket</Button>
-                    }
+                  }
+                  {role === 'artist' &&
+                          <RequestButton id={params.id} />
+                  }
                 </div>
                   <div className={styles.posterWrapper}>
                       <p className={styles.desc}>
@@ -145,14 +187,14 @@ export default function ShowPreview({params}:IPreviewParams) {
                               </div>
                           </div>
                       </div>
-                      {!isSubscribed && role !== 'sponsor' &&
+                      {!isSubscribed && role !== 'sponsor' && role !== 'artist' &&
                           <Button
                           onClick={() => onSubscribeHandler(show.id)}
                           disabled={!role}
                           className={styles.btn}>
                           Follow this show</Button>
                       }
-                      {isSubscribed && role !== 'sponsor' && 
+                      {isSubscribed && role !== 'sponsor' && role !== 'artist'  && 
                           <Button
                           onClick={() => onUnsubscribeHandler(show.id)}
                           disabled={!role}
@@ -164,7 +206,7 @@ export default function ShowPreview({params}:IPreviewParams) {
                           onClick={() => modalHandler()}
                           className={styles.btn}>
                           Become a sponsor</Button>
-                        }
+                      }
                   </div>
               </div>
               <div className={styles.aboutWrapper}>

@@ -4,3 +4,9 @@
     }
     @apply transition-all duration-500
 }
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply block mx-auto right-2 text-xl h-16 px-8 bg-blue-500 duration-500 transition-all
+}

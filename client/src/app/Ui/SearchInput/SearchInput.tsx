@@ -21,7 +21,7 @@ export default function SearchInput(
 
     const getArtists = async (searchValue: string) => {
       try{
-        const res = await fetch(`${process.env.FRONTEND_URL}/artists?filter=${searchValue}`)
+        const res = await fetch(`${process.env.BACKEND_URL}/artists/?filter=${searchValue}`)
         const data: IArtist[] = await res.json();
         return data;
       } catch{
@@ -30,7 +30,7 @@ export default function SearchInput(
     }
     const getShows = async (searchValue: string) => {
       try{
-        const res = await fetch(`${process.env.FRONTEND_URL}/concerts?filter=${searchValue}`)
+        const res = await fetch(`${process.env.BACKEND_URL}/concerts/?filter=${searchValue}`)
         const data: IEvent[] = await res.json();
         return data;
       } catch{

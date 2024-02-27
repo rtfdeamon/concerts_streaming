@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import User from '../../../../../public/user (1).svg'
 import { IResult } from '@/app/types/interfaces'
-import { IArtist } from '@/app/Components/Recommendations/Recommendations'
 import styles from './SearchModal.module.scss'
 import { A } from '@vidstack/react/dist/types/vidstack.js'
 
@@ -63,7 +62,7 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching}:
                     {results?.artists.map((a) => (
                         <Link href={`/artist/${a.id}`} key={a.id} className={styles.artist}>
                             {a.avatar_url}
-                            <Image className={styles.Image} src={a.avatar_url === 'undefined' ? User : a.avatar_url} width={300} height={300} alt={a.name} />
+                            <Image className={styles.Image} src={typeof a.avatar_url === 'object' ? User : a.avatar_url} width={300} height={300} alt={a.name} />
                             <span className={styles.artistName}>{a.name}</span>
                         </Link>
                     ))}
@@ -76,7 +75,7 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching}:
                 <div className={styles.artistsWrapper}>
                     {results?.shows.map((s) => (
                         <Link href={`/preview/${s.id}`} key={s.id} className={styles.artist}>
-                            <Image className={styles.Image} src={s.poster_url === 'undefined' ? User : s.poster_url} width={300} height={300} alt={s.name} />
+                            <Image className={styles.Image} src={typeof s.poster_url === 'object' ? User : s.poster_url} width={300} height={300} alt={s.name} />
                             <span className={styles.artistName}>{s.name}</span>
                         </Link>
                     ))}

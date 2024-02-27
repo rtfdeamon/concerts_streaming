@@ -1,6 +1,24 @@
 .title{
-    @apply text-5xl text-center my-10
+    @apply text-5xl text-center my-10 mr-28
 }
 .showsException{
     @apply block mt-14 text-3xl text-center 
+}
+.requestWrapper{
+    @apply w-[100vw] flex flex-wrap justify-center
+}
+.showWrapper{
+    &:hover{
+        @apply text-blue-500
+    }
+    @apply w-[400px] mr-32 text-center bg-white rounded-md p-6 mb-8 transition-all duration-500
+}
+.image{
+    @apply block mx-auto
+}
+.name{
+    @apply mt-2
+}
+.genre{
+    @apply text-slate-500
 }

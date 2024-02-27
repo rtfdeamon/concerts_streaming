@@ -1,4 +1,5 @@
 'use client'
+import { Button } from "@/shadComponents/ui/button"
 import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import { Input } from "@/shadComponents/ui/input"
@@ -54,6 +55,11 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
                                 <Link href={`${process.env.FRONTEND_URL}/obsGuide`}
                                 className={styles.link}
                                 >How to use OBS</Link>
+                            </div>
+                            <div className="mt-4">
+                            <Button className={styles.btn}>
+                                Create
+                            </Button>            
                             </div>
                         </Dialog.Panel>
                     </Transition.Child>

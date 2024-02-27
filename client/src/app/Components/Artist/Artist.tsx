@@ -100,7 +100,6 @@ export default function Artist({params}:IArtistParams) {
       setIsSubscribed(true)
     }
   }, [user])
-
   return (
     <>
         <HeaderWithoutBanner />

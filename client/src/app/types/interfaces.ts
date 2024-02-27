@@ -39,7 +39,7 @@ export interface IShow{
   description?: string,
   date?: string,
   slots?: number,
-  posterUrl?: string,
+  poster_url?: string,
   status?: string,
   category?: string,
   user_id?: number,
@@ -94,4 +94,12 @@ export interface IAd {
   user: IUser,
   status: string
   concert: IEvent
+}
+export interface ITicket {
+  id: string,
+  created_at: string,
+  status: string,
+  concert: IShow,
+  user: IUser,
+  concerts_followed: string
 }
