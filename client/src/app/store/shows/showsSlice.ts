@@ -27,7 +27,7 @@ export const loadAllShows = createAsyncThunk<IEvent[], void>(
 
 export const createShow = createAsyncThunk<IEvent, IShow>(
     '@@shows/createShow',
-    async ({name, description, date, slots, performance_time, posterUrl, category, access}) => {
+    async ({name, description, date, slots, performance_time, poster_url: posterUrl, category, access}) => {
         const res = await fetch(`${process.env.BACKEND_URL}/concerts/`, {
             method: 'POST',
             headers:{
@@ -57,7 +57,7 @@ export const deleteShow = createAsyncThunk<string, string>(
 
 export const changeShow = createAsyncThunk<IEvent, IChangeShow>(
     '@@shows/changeShow',
-    async ({id, name, description, date, slots, performance_time, posterUrl, category, access}) => {
+    async ({id, name, description, date, slots, performance_time, poster_url: posterUrl, category, access}) => {
         console.log(posterUrl)
             const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/`, {
             method: 'PATCH',

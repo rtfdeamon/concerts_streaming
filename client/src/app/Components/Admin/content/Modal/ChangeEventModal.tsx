@@ -70,7 +70,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
     const onChangeHandler = async () => {
         const stringDate = date?.toISOString() as string;
-        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, performance_time: perfomanceTime, posterUrl, category, access}));
+        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access}));
         if (res.payload.id){
             setIsOpen(false)
         } else{

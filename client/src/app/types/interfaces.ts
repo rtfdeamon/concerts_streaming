@@ -45,7 +45,7 @@ export interface IShow{
   user_id?: number,
   performance_time?: number
   access?: string,
-  subscribers: IUser[],
+  subscribers?: IUser[],
   ads?: IAd[],
   performances?: IPerformance[]
 }
