@@ -41,8 +41,8 @@ function Items(events:IEvents) {
             <div className={styles.info}>
               <p className={styles.paragraph}>Slots count: {e.slots}</p>
               <p className={styles.paragraph}>Genre: {e.category}</p>
-              <p className={styles.paragraph}>Accessibility: </p>
-              <p className={styles.paragraph}>Perfomance time: </p>
+              <p className={styles.paragraph}>Accessibility:  {e.access}</p>
+              <p className={styles.paragraph}>Perfomance time: {e.performance_time}</p>
             </div>
           <div className={styles.show}>
               <div className={styles.controls}>

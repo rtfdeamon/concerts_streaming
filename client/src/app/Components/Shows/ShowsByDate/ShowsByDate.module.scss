@@ -13,7 +13,7 @@
     @apply mb-6 mx-4
 }
 .typeWrapper{
-    @apply w-[400px]
+    @apply w-[500px]
 }
 .title{
     @apply block text-center text-2xl
@@ -59,7 +59,7 @@
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
-            @apply absolute top-[50%]
+            @apply absolute top-[60%]
         }
     }
 }

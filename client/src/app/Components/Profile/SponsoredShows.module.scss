@@ -1,0 +1,15 @@
+.sectionWrapper{
+    @apply w-[80vw]
+}
+.titleWrapper{
+    & img{
+        @apply block mb-4
+    }
+    @apply flex justify-center mt-10 mb-14 text-5xl w-[85vw]
+}
+.title{
+    @apply block text-center
+}
+.showsException{
+    @apply block mt-14 text-3xl text-center 
+}

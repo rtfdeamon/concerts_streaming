@@ -24,7 +24,6 @@ export default function ProfileDropdown() {
   const user = useAppSelector(state => state.userInfo.user);
   let accessToken: string = '';
   if (typeof window !== 'undefined'){
-    console.log(localStorage.getItem('accessToken'), typeof localStorage.getItem('accessToken'));
     if (localStorage.getItem('accessToken') !== 'undefined' && typeof localStorage.getItem('accessToken') !== 'undefined')
     accessToken = JSON.parse(localStorage.getItem('accessToken') as string)
   }
@@ -54,9 +53,9 @@ export default function ProfileDropdown() {
                   </DropdownMenuItem>
                 }
                   <DropdownMenuItem onClick={async () => {
-                    accessToken !== 'undefined' && typeof accessToken !== 'undefined' && await SignOut(accessToken)
+                    accessToken !== 'undefined' && typeof accessToken !== 'undefined' && SignOut(accessToken)
                     dispatch(resetTokens())
-                    router.push(`${process.env.FRONTEND_URL}/`)
+                    router.push(`${process.env.FRONTEND_URL}/login/`)
                   }}>
                           Logout
                   </DropdownMenuItem>

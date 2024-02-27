@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
+import { getTokenForApi } from '@/app/utils/getTokenForApi';
 import { MediaPlayer, MediaProvider } from '@vidstack/react';
 import { Poster, type PosterProps } from '@vidstack/react';
 import { PIPButton, type PIPButtonProps } from "@vidstack/react";
@@ -14,18 +15,38 @@ import { FullscreenButton } from '@vidstack/react';
 import { FullscreenExitIcon, FullscreenIcon } from '@vidstack/react/icons';
 import { useMediaState, MediaPlayerInstance } from '@vidstack/react';
 import BufferingSpinner from './BufferingSpinner';
+import { IShow } from '@/app/types/interfaces';
+import Image from 'next/image';
 import '@vidstack/react/player/styles/base.css';
 import styles from './Stream.module.scss'
 
-export default function Stream() {
+export default function Stream({id}: {id: string}) {
+  const [show, setShow] = useState<IShow | undefined>();
   const player = useRef<MediaPlayerInstance>(null);
   const isActive = useMediaState('pictureInPicture', player);
   const [bufferingIsActive, setBufferingIsActive] = useState(false);
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
   const volumeRef = useRef<VolumeSliderInstance>(null)
+  useEffect(() => {
+    const getShow = async (id: string) => {
+      const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/`, {
+        method: 'GET',
+        headers: {
+          'Authorization' : `Bearer ${await getTokenForApi()}`
+        }
+      })
+      const data: IShow = await res.json();
+      setShow(data);
+    }
+    getShow(id);
+  }, [])
+  useEffect(() => {
+    console.log(show)
 
+  }, [show])
   return (
-    <div className={styles.videoWrapper}>
+    <section className={styles.section}>
+        <div className={styles.videoWrapper}>
         <MediaPlayer
           ref={player}
           className={styles.video}
@@ -95,5 +116,8 @@ export default function Stream() {
           <MediaProvider />
         </MediaPlayer>
     </div>
+    {show?.ads && show?.ads[0].banner_url &&  <Image className={styles.banner} src={show.ads[0].banner_url} width={900} height={300} alt='Banner'/>}
+    </section>
+
   )
 }

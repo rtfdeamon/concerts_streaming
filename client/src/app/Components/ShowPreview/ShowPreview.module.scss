@@ -2,16 +2,25 @@
     @apply max-w-[1280px] mx-auto p-5
 }
 .poster{
-    & img{
-        @apply rounded-full
-    }
-    @apply flex justify-around bg-white px-5 py-10 rounded-lg
+    @apply bg-white px-5 py-10 rounded-lg
 }
 .posterWrapper{
     @apply flex flex-col items-center justify-center
 }
 .artistTitle{
-    @apply text-3xl font-semibold mb-4
+    @apply text-3xl text-center font-semibold mb-4
+}
+.previewWrapper{
+    @apply relative
+}
+.preview{
+    @apply block mx-auto mb-8 rounded-md object-fill w-full
+}
+.buyBtn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex absolute top-[48%] right-[37%] text-3xl w-[300px] h-[80px] mx-auto p-8 bg-blue-500 duration-500 transition-all
 }
 .link{
     &:hover{
@@ -21,9 +30,15 @@
 }
 .desc{
     word-wrap: break-word;
-    @apply block max-w-[800px] mb-4 text-[#94A3B8]
+    @apply block max-w-[800px] mb-4 text-[#94A3B8] text-xl
 }
 .btn{
+    &:hover{
+        @apply bg-blue-500 text-white
+    }
+    @apply flex mx-auto text-black right-2 text-xl p-8 bg-transparent border-2 border-blue-500 duration-500 transition-all
+}
+.btnBanner{
     &:hover{
         @apply bg-blue-700
     }
@@ -45,7 +60,7 @@
     @apply flex flex-col items-center justify-center text-center
 }
 .text{
-    @apply text-center
+    @apply text-center w-[100px]
 }
 .aboutWrapper{
     @apply flex flex-col text-center my-5 bg-white rounded-md p-5

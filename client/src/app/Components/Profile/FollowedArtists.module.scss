@@ -29,3 +29,9 @@
 .genre{
     @apply text-slate-400 text-center
 }
+.paginate{
+    & li{
+        @apply block mr-5
+    }
+@apply absolute bottom-0 flex justify-center items-center pb-7 text-center
+}

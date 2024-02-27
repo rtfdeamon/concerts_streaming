@@ -3,21 +3,21 @@ import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
 import Image from 'next/image';
-import CalendarIcon from '../../../../../public/../public/calendar-range.svg'
+import CalendarIcon from '../../../../public/calendar-range.svg'
 import { IEvent } from '@/app/types/interfaces';
-import styles from '..//ShowsByDate/ShowsByDate.module.scss'
+import styles from './ScheduledShows.module.scss'
 
 interface ISelect{
         selected: number;
 }
 
-function Items({shows, type}: {shows: IEvent[], type?: string}) {
+function Items({shows}: {shows: IEvent[]}) {
     return (
       <>
-      <div className={type ? styles.genresShows : styles.shows}>
+      <div className={styles.shows}>
           {shows &&
             shows.map((s, i) => (
-              <Link href={`/preview/${s.id}`} className={!type ? styles.wrapper : styles.typeWrapper} key={i}>
+              <Link href={`/preview/${s.id}`} className={styles.wrapper} key={i}>
                 <span className={styles.title}>{s.name}</span>
                 <span className={styles.place}>{s.description}</span>
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
@@ -32,7 +32,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
     );
   }
 
-  export default function PaginatedItems({itemsPerPage, items, type}: {itemsPerPage: number, items: IEvent[], type?: string}){
+  export default function ScheduledPaginate({itemsPerPage, items}: {itemsPerPage: number, items: IEvent[]}){
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
@@ -56,21 +56,9 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
   
     return (
       <>
-        <Items shows={currentItems} type={type} />
-        <div className={!type ? styles.paginate : styles.followedShowsPaginate}>
-          {!type ?
-              items.length > 4 &&
-                  <ReactPaginate
-                    nextLabel=">"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={0}
-                    activeClassName={'active hidden'}
-                    pageClassName={'hidden'}
-                    pageCount={pageCount}
-                    previousLabel="<"
-                    renderOnZeroPageCount={null}
-                />
-              :
+        <Items shows={currentItems} />
+        <div className={styles.paginate}>
+          {
               items.length > 6 &&
                 <ReactPaginate
                   nextLabel=">"

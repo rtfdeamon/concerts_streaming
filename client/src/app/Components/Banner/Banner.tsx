@@ -1,4 +1,3 @@
-
 import { Button } from '@/shadComponents/ui/button'
 import Link from 'next/link'
 import styles from './Banner.module.scss'

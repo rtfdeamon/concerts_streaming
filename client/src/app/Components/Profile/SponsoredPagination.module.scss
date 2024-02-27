@@ -1,0 +1,46 @@
+.shows {
+    @apply flex flex-wrap items-center justify-center relative text-xl my-3
+}
+.showsException{
+    @apply block mx-auto text-3xl
+}
+.wrapper{
+    @apply w-[400px] mb-12 mx-4 py-4 flex flex-col justify-around items-center bg-white rounded-xl
+}
+.title{
+    @apply mb-3 block text-center
+}
+.suggested{
+    @apply block mb-3 text-center text-slate-400 my-1 truncate mx-auto
+}
+.status{
+    @apply my-6
+}
+.date{
+    & img{
+        @apply mr-6
+    }
+    @apply flex items-center justify-center text-base my-3
+}
+.img{
+    @apply block mx-auto w-[300px] h-[200px]
+}
+.controls{
+    @apply w-[70%] flex justify-evenly cursor-pointer
+}
+.paginate {
+    & ul {
+        & li{
+            &:first-child{
+                @apply absolute left-[-50px]
+            }
+            &:last-child{
+                @apply absolute right-[-50px]
+            }
+            & a{
+                @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
+            }
+            @apply absolute top-[45%]
+        }
+    }
+}

@@ -1,15 +1,18 @@
-import { Metadata } from "next"
+import { IArtist } from "@/app/types/interfaces"
 import { IArtistParams } from "./page"
 
 
 async function getShowData(id:string) {
-  
+  const res = await fetch(`${process.env.BACKEND_URL}/artists/${id}`)
+  const data:IArtist = await res.json()
+  return data;
 }
 
 export async function generateMetadata({ params }:IArtistParams) {
-  // const res = getShowData(params.params.id)
+  const res = await getShowData(params.id)
   return {
-    title: '...',
+    title: res.name,
+    description: `Page of ${res.name} artist`
   }
 }
 

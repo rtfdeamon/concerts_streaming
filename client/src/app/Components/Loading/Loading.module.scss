@@ -3,7 +3,7 @@
 //     transform: translateY(-50%)
 // }
 .loading{
-    @apply absolute block w-screen h-screen text-center top-[45%]
+    @apply absolute block w-screen h-screen text-center top-[45%] right-[0%]
 }
 .ldsRing {
     display: inline-block;
