@@ -9,7 +9,7 @@ export interface IPreviewParams {
 export default function page({params}:IPreviewParams) {
   return (
     <>
-      <InfoByGenre params={{params}} />
+      <InfoByGenre params={{params}} isArtists={false}/>
     </>
   )
 }

@@ -8,7 +8,6 @@ import Image from 'next/image'
 import User from '../../../../../public/user (1).svg'
 import { IResult } from '@/app/types/interfaces'
 import styles from './SearchModal.module.scss'
-import { A } from '@vidstack/react/dist/types/vidstack.js'
 
 export default function SearchModal({isOpen, setIsOpen, results, isSearching}:
     {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>,
@@ -61,7 +60,6 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching}:
                 <div className={styles.artistsWrapper}>
                     {results?.artists.map((a) => (
                         <Link href={`/artist/${a.id}`} key={a.id} className={styles.artist}>
-                            {a.avatar_url}
                             <Image className={styles.Image} src={typeof a.avatar_url === 'object' ? User : a.avatar_url} width={300} height={300} alt={a.name} />
                             <span className={styles.artistName}>{a.name}</span>
                         </Link>

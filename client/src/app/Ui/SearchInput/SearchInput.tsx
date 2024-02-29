@@ -74,6 +74,7 @@ export default function SearchInput(
       <div className={variant === 'header' ? styles.inputHeader : styles.inputDefault}>
           <span></span>
           <Input
+            className={styles.searchInput}
             onChange={(e) => onChangeHandler(e)}
             type="text"
             placeholder={placeholder} />

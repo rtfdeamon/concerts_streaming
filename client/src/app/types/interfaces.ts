@@ -103,3 +103,14 @@ export interface ITicket {
   user: IUser,
   concerts_followed: string
 }
+export interface IArtistRequest {
+  id?: string,
+  name: string,
+  description?: string,
+  created_at?: string,
+  status?: string,
+  stream_key?: string,
+  artist_demo_url?: string,
+  user?: IUser, 
+  concert?: IShow
+}

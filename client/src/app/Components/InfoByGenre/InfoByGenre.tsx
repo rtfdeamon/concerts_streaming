@@ -9,15 +9,25 @@ import { IArtist, IEvent } from '@/app/types/interfaces';
 import styles from './InfoByGenre.module.scss'
 
 async function getData(id:string, isArtists?: boolean) {
-    console.log(isArtists, id)
+    console.log(!isArtists && id ==='all')
     let res
+    if (!isArtists && id ==='all'){
+        res = await fetch(`${process.env.BACKEND_URL}/concerts`);
+        const data = await res.json();
+        return data
+    } 
     if (!isArtists){
         res = await fetch(`${process.env.BACKEND_URL}/concerts?category=${id}`);
         const data = await res.json();
         return data
-    } 
-    else {
+    }
+    if (isArtists){
         res = await fetch(`${process.env.BACKEND_URL}/artists?category=${id}`);
+        const data = await res.json();
+        return data
+    }
+    if (isArtists && id ==='all'){
+        res = await fetch(`${process.env.BACKEND_URL}/artists`);
         const data = await res.json();
         return data
     }

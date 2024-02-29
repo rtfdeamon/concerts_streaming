@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useAppDispatch } from '@/app/hooks/rtkHooks';
+import { changeSessionStatus } from '@/app/store/sessions/sessionsSlice';
 import ReactPaginate from 'react-paginate';
-import { IArtistsRequests } from './ArtistsRequests';
+import { IArtistRequest } from '@/app/types/interfaces';
 import Link from 'next/link';
 import Image from 'next/image';
-import Women from '../../../../../public/women.jpg'
+import User from '../../../../../public/user (1).svg'
 import X from '../../../../../public/xBlack.svg'
 import Accept from '../../../../../public/plus.svg'
 import styles from './ArtistsRequests.module.scss'
@@ -12,26 +14,32 @@ interface ISelect{
     selected: number;
 }
 
-function Items(artists:IArtistsRequests) {
+function Items({sessions}: {sessions:IArtistRequest[]}) {
+  const dispatch = useAppDispatch();
+  const filteredSessions = sessions.filter(s => s.status === 'pending')
   return (
     <>
-        {artists.artists &&  artists.artists.map((a, i) => (
+        {filteredSessions &&  filteredSessions.map((a, i) => (
             <div key={i} className={styles.requestWrapper}>
                 <div className={styles.showWrapper}>
-                <Link className={styles.showLink} href={`/preview/Example%202`} >Show: ExampleShow1</Link>
+                <Link className={styles.showLink} href={`/preview/${a.concert?.id}`} >Show: {a.concert?.name}</Link>
                   <div className={styles.request}>
-                  <Link href={`/artist/${a.name}`} className={styles.imageWrapper}>
-                      <Image src={Women} width={80} height={80} alt="artistIcon" />
-                      <p>{a.name}</p>
+                  <Link href={`/artist/${a.user?.id}`} className={styles.imageWrapper}>
+                      <Image src={typeof a.user?.avatar_url !== 'object' ? a.user?.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.user?.name}</p>
                   </Link>
                   <div className={styles.fileWrapper}>
-                      <p>{a.fileName}</p>
-                      <audio controls src="">
+                      <span>{a.description}</span>
+                      <audio controls src={`${a.artist_demo_url}`}>
                       </audio>
                   </div>
                   <div className={styles.controls}>
-                      <Image src={Accept} width={40} height={40} alt="accept" title="Accept" />
-                      <Image src={X} width={40} height={40} alt="x" title="Decline" />
+                      <Image
+                        onClick={() => dispatch(changeSessionStatus({id: a.id as string, status: 'accepted'}))}
+                        src={Accept} width={40} height={40} alt="accept" title="Accept" />
+                      <Image
+                        onClick={() => dispatch(changeSessionStatus({id: a.id as string, status: 'rejected'}))}
+                        src={X} width={40} height={40} alt="x" title="Decline" />
                   </div>
                   </div>
               </div>
@@ -43,7 +51,7 @@ function Items(artists:IArtistsRequests) {
 
 
 
-export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, artists: IArtistsRequests}) {
+export function ArtistsPaginate({itemsPerPage, sessions}:{itemsPerPage: number, sessions: IArtistRequest[]}) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -53,8 +61,8 @@ export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, a
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = artists.artists.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(artists.artists.length / itemsPerPage);
+  const currentItems = sessions.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(sessions.length / itemsPerPage);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event: ISelect) => {
@@ -67,8 +75,8 @@ export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, a
 
   return (
     <>
-      <Items artists={currentItems} />
-      {artists.artists.length > 4 && 
+      <Items sessions={currentItems} />
+      {sessions.length > 4 && 
         <ReactPaginate
           className={styles.paginate}
           breakLabel="..."

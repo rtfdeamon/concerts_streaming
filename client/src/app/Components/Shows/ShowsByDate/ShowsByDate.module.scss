@@ -59,10 +59,10 @@
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
-            @apply absolute top-[60%]
+            @apply absolute top-[50%]
+            }
         }
     }
-}
 @media screen and (max-width:1480px) {
     .wrapper{
         @apply w-[280px]

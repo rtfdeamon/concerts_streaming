@@ -6,6 +6,7 @@ import { adminMenuReducer } from "./admin/adminMenu-slice";
 import { showsReducer } from "./shows/showsSlice";
 import { userReducer } from "./user/userSlice";
 import { adsReducer } from "./ads/ads-slice";
+import { sessionsReducer } from "./sessions/sessionsSlice";
 
 export const store = configureStore({
     reducer:{
@@ -15,7 +16,8 @@ export const store = configureStore({
         menuOption: adminMenuReducer,
         shows: showsReducer,
         userInfo: userReducer,
-        ads: adsReducer
+        ads: adsReducer,
+        sessions: sessionsReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

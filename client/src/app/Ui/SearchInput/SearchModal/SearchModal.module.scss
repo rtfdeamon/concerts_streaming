@@ -5,7 +5,7 @@
     @apply text-xl my-3
 }
 .artistsWrapper{
-    @apply flex flex-row overflow-x-auto overflow-y-hidden justify-center items-center text-center mb-8 z-[99]
+    @apply flex flex-row overflow-x-auto overflow-y-hidden items-center text-center mb-8 z-[99]
 }
 .Title{
     @apply text-2xl text-center my-3
@@ -14,7 +14,7 @@
     &:hover {
         @apply bg-slate-200
     }
-    @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[200px] min-w-[200px]
+    @apply block p-4 mx-auto transition-all duration-500 cursor-pointer min-h-[200px] min-w-[200px]
 }
 .Image{
     @apply block rounded-md mb-2
