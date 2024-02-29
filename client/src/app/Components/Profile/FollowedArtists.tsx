@@ -32,7 +32,7 @@ export default async function FollowedArtists() {
           typeof artists !== 'undefined'  && artists.length > 0 ?
               <FollowedPaginate itemsPerPage={9} artists={artists} />
           :
-            <h5 className={styles.title}>Sorry! No followed artists yet 🥲</h5>
+            <h5 className={styles.showsException}>Sorry! No followed artists yet 🥲</h5>
         }
         </div>
     </div>

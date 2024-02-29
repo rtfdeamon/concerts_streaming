@@ -143,6 +143,10 @@ export default function Profile() {
                 onClick={upcomingHandler}
                 className={upcomingIsOpen ? styles.active : styles.notActive}
               >Upcoming shows</li>
+                <li
+                  onClick={artistsHandler}
+                  className={artistsIsOpen ? styles.active : styles.notActive}
+                >Followed Artists</li>
             </ul> }
             {user?.role.includes('viewer') &&
                 <ul className={styles.nav}>

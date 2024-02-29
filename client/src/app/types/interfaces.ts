@@ -13,7 +13,8 @@ export interface IEvent {
   user_id: IUser,
   access: string,
   performance_time: number,
-  subscribers: IUser[]
+  subscribers: IUser[],
+  ticket_price: string
 }
 
 export interface IEvents {
@@ -45,9 +46,10 @@ export interface IShow{
   user_id?: number,
   performance_time?: number
   access?: string,
-  subscribers: IUser[],
+  subscribers?: IUser[],
   ads?: IAd[],
-  performances?: IPerformance[]
+  performances?: IPerformance[],
+  ticket_price?: string
 }
 export interface IChangeShow extends IShow{
   id: string

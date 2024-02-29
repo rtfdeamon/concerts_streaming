@@ -43,6 +43,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
     const [category, setCategory] = useState("");
     const [access, setAccess] = useState("");
+    const [price, setPrice] = useState("");
     const categoryChangeHandler = (e: string) => {
         setCategory(e);
     }
@@ -72,7 +73,8 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
             return;
         } else{
             const stringDate = date.toISOString();
-            const res: any = await dispatch(createShow({name, description, date: stringDate, slots, performance_time: perfomanceTime, posterUrl, category, access}));
+            const res: any = await dispatch(createShow({name, description, date: stringDate, slots,
+            performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
             if (res.payload.id){
                 setIsOpen(false);
             } else{
@@ -166,6 +168,12 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                             </SelectContent>
                             </Select>
                         </div>
+                        {
+                            access === 'paid' && 
+                            <div className="mt-4">
+                                <Input onChange={(e) => setPrice(String(e.target.value))} type="number" min={1} placeholder="Price" />
+                            </div>
+                        }
                         <div className="mt-4">
                         <Popover>
                             <PopoverTrigger asChild>

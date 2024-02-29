@@ -43,7 +43,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
     const [category, setCategory] = useState<string | undefined>(undefined);
     const [access, setAccess] = useState<string | undefined>(undefined);
-
+    const [price, setPrice] = useState<string | undefined>(undefined);
     const accessChangeHandler = (e: string) => {
         setAccess(e);
     }
@@ -70,7 +70,8 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
     const onChangeHandler = async () => {
         const stringDate = date?.toISOString() as string;
-        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, performance_time: perfomanceTime, posterUrl, category, access}));
+        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
+            slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
         if (res.payload.id){
             setIsOpen(false)
         } else{
@@ -169,6 +170,12 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                             </SelectContent>
                             </Select>
                         </div>
+                        {
+                            access === 'paid' && 
+                            <div className="mt-4">
+                                <Input onChange={(e) => setPrice(String(e.target.value))} type="number" min={1} placeholder="Price" />
+                            </div>
+                        }
                         <div className="mt-4">
                         <Popover>
                             <PopoverTrigger asChild>
