@@ -15,7 +15,7 @@ export default function ArtistsRequests() {
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.title}>Artists requests</h5>
-      <ArtistsPaginate itemsPerPage={4} sessions={sessions} />
+      <ArtistsPaginate itemsPerPage={4} sessions={sessions.filter(s => s.status === 'pending')} />
     </div>
   )
 }

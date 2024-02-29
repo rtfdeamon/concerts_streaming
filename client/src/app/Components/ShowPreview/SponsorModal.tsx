@@ -30,6 +30,23 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
   }
   const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
     if (e.target.files){
+        const image = new Image()
+        image.src = URL.createObjectURL(e.target.files[0])
+        await new Promise((res, rej) => { image.onload = () => {
+          if (image.width > 1200 || image.height > 320){
+            toast({
+              title: "Banner loading",
+              description: "Please, upload a banner in 1200 x 320 resolution",
+              variant: "destructive",
+              action: (
+                <ToastAction altText="Hide">Hide</ToastAction>
+              ),
+            })
+          } else {
+            res(null);
+          }
+        }
+      });
         const link:any = await generateUploadLink('poster');
         const res = await fetch(`${link.url}`, {
             method: 'PUT',
@@ -55,6 +72,7 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
                 toast({
                   title: "You already send your request",
                   description: "Please, wait for admin to approve your request",
+                  variant: "destructive",
                   action: (
                     <ToastAction altText="Hide">Hide</ToastAction>
                   ),
@@ -63,6 +81,7 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
             } else {
               toast({
                 title: "Something went wrong",
+                variant: "destructive",
                 action: (
                   <ToastAction altText="Hide">Hide</ToastAction>
                 ),

@@ -66,6 +66,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
                     pageRangeDisplayed={0}
                     activeClassName={'active hidden'}
                     pageClassName={'hidden'}
+                    breakClassName={'hidden'}
                     pageCount={pageCount}
                     previousLabel="<"
                     renderOnZeroPageCount={null}

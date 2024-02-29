@@ -14,7 +14,8 @@ export interface IEvent {
   access: string,
   performance_time: number,
   subscribers: IUser[],
-  ticket_price: string
+  ticket_price: string,
+  artists?: IArtist[]
 }
 
 export interface IEvents {
@@ -60,7 +61,10 @@ export interface IArtist {
   role: string,
   name: string,
   avatar_url: string,
-  username: string
+  username: string,
+  description?: string,
+  performances?: IPerformance[],
+  concerts: IEvent[]
 }
 
 export interface IAcceptedShow {

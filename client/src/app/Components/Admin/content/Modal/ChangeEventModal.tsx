@@ -26,6 +26,7 @@ import { Label } from "@/shadComponents/ui/label"
 import { Textarea } from "@/shadComponents/ui/textarea"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
+import X from "../../../../../../public/xBlack.svg"
 import CalendarIcon from '../../../../../../public/calendar-range.svg'
 import Image from "next/image"
 import { Dispatch, SetStateAction } from "react"
@@ -79,11 +80,13 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
         }
     }
 
+    const onCloseHandler = () => {
 
+    }
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
+                <Dialog as="div" className="relative z-10" onClose={onCloseHandler}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -115,6 +118,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                             Change show
                             {err && <span className={styles.span}>Please, fill in all required fields</span>}
                         </Dialog.Title>
+                        <Image onClick={() => setIsOpen(false)} className="absolute top-[40px] right-[60px] cursor-pointer" src={X} width={50} height={25} alt="X" />
                         <div>
                         <div className="mt-4">
                             <Input onChange={(e) => setName(e.target.value)} type="text" placeholder="Show's title" />

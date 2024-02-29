@@ -25,7 +25,7 @@ function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
           {items &&
             items.map((s, i) => (
             <>
-              <Link href={`/preview/${s.id}`} className={styles.wrapper} key={i}>
+              <Link href={`${process.env.FRONTEND_URL}/preview/${s.concert.id}`} className={styles.wrapper} key={i}>
                     <span className={styles.title}>{s.concert.name}</span>
                         <p className={styles.suggested}>Suggested banner:</p>
                         <Image className={styles.img}  src={s.banner_url} width={300} height={150} alt='banner'/>
@@ -45,7 +45,7 @@ function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
         items.map((s, i) => (
         <>
           <div className={styles.wrapper} key={i}>
-              <Link href={`/preview/${s.id}`}>
+              <Link href={`${process.env.FRONTEND_URL}/preview/${s.concert.id}`}>
                   <span className={styles.title}>{s.concert.name}</span>
                       <p className={styles.suggested}>Suggested banner:</p>
                       <Image className={styles.img} src={s.banner_url} width={300} height={150} alt='banner'/>

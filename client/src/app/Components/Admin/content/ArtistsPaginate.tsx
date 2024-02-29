@@ -16,10 +16,9 @@ interface ISelect{
 
 function Items({sessions}: {sessions:IArtistRequest[]}) {
   const dispatch = useAppDispatch();
-  const filteredSessions = sessions.filter(s => s.status === 'pending')
   return (
     <>
-        {filteredSessions &&  filteredSessions.map((a, i) => (
+        {sessions &&  sessions.map((a, i) => (
             <div key={i} className={styles.requestWrapper}>
                 <div className={styles.showWrapper}>
                 <Link className={styles.showLink} href={`/preview/${a.concert?.id}`} >Show: {a.concert?.name}</Link>
@@ -52,26 +51,26 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
 
 
 export function ArtistsPaginate({itemsPerPage, sessions}:{itemsPerPage: number, sessions: IArtistRequest[]}) {
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
-  const [itemOffset, setItemOffset] = useState(0);
-
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
-  const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = sessions.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(sessions.length / itemsPerPage);
-
-  // Invoke when user click to request another page.
-  const handlePageClick = (event: ISelect) => {
-    const newOffset = (event.selected * itemsPerPage) % currentItems.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
-  };
+    // Here we use item offsets; we could also use page offsets
+    // following the API or data you're working with.
+    const [itemOffset, setItemOffset] = useState(0);
+  
+    // Simulate fetching items from another resources.
+    // (This could be items from props; or items loaded in a local state
+    // from an API endpoint with useEffect and useState)
+    const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    const currentItems = sessions.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(sessions.length / itemsPerPage);
+  
+    // Invoke when user click to request another page.
+    const handlePageClick = (event:ISelect) => {
+      const newOffset = (event.selected * itemsPerPage) % sessions.length;
+      console.log(
+        `User requested page number ${event.selected}, which is offset ${newOffset}`
+      );
+      setItemOffset(newOffset);
+    };
 
   return (
     <>
