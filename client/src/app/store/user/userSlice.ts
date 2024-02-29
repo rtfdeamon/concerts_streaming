@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
-import { IUser } from "@/app/types/interfaces";
+import { IArtist, IUser } from "@/app/types/interfaces";
 import { ILink } from "@/app/utils/generateUploadLink";
 
 
@@ -34,6 +34,30 @@ export const changeCurrUserName = createAsyncThunk<IUser, string>(
         return data;
     }
 )
+
+export interface IArtistChange {
+    name: string | undefined,
+    description: string | undefined,
+    artist_genre: string | undefined
+}
+
+
+export const changeArtistOptions = createAsyncThunk<IArtist, IArtistChange>(
+    '@@user/changeArtistOptions',
+    async ({ name, description, artist_genre } ) => {
+        const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
+            method: 'PUT',
+            headers:{
+                'Content-type' : 'application/json',
+                'Authorization' : `Bearer ${await getTokenForApi()}`
+            },
+            body: JSON.stringify({name, description, artist_genre})
+        })
+        const data = await res.json();
+        return data;
+    }
+)
+
 export const changeCurrUserPhoto = createAsyncThunk<IUser, ILink>(
     '@@user/changeCurrUserPhoto',
     async (link) => {
@@ -52,7 +76,7 @@ export const changeCurrUserPhoto = createAsyncThunk<IUser, ILink>(
 
 
 interface IInitialState {
-    user?: IUser,
+    user?: IUser | IArtist,
     error: boolean,
     status: string
 }
@@ -86,6 +110,9 @@ const userSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(changeCurrUserPhoto.fulfilled, (state, action) => {
+                state.user = action.payload;
+            })
+            .addCase(changeArtistOptions.fulfilled, (state, action) => {
                 state.user = action.payload;
             })
     }

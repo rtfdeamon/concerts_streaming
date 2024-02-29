@@ -64,7 +64,8 @@ export interface IArtist {
   username: string,
   description?: string,
   performances?: IPerformance[],
-  concerts: IEvent[]
+  concerts: IEvent[],
+  artist_genre: string
 }
 
 export interface IAcceptedShow {

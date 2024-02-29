@@ -214,7 +214,7 @@ export default function ShowPreview({params}:IPreviewParams) {
               <div className={styles.aboutWrapper}>
                 <h6 className={styles.aboutTitle}>List of artists</h6>
                 <div className={styles.aboutDesc}>
-                  {show.artists ? 
+                  {show. artists && show.artists?.length > 0 ? 
                     <ArtistsPaginate artists={show.artists} itemsPerPage={4} />
                   :
                     <p>No artists in this concert yet</p>
