@@ -122,3 +122,14 @@ export interface IArtistRequest {
   concert?: IShow
 }
 
+export interface IChat {
+  id?: string,
+  created_at?: string,
+  message: IMessage,
+  user: IUser
+}
+export interface IMessage {
+  sender: IUser,
+  date: number,
+  text: string
+}

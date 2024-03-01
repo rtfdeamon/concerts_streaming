@@ -58,16 +58,16 @@
     @apply w-[40px] h-[40px] mt-[10px] ml-[20px] cursor-pointer
 }
 .sendButton{
-    @apply bg-[#0058dc] text-white rounded-xl p-4
+    @apply bg-[#0058dc] text-white rounded-xl p-4 block mx-auto w-[90%]
 }
 .inputUpload{
     @apply absolute hidden
 }
 .userMessage{
-    @apply ml-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[35%] max-w-[75%] p-3 bg-slate-50 rounded-xl  mb-3
+    @apply ml-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[60%] max-w-[80%] p-3 bg-slate-50 rounded-xl  mb-3
 }
 .remoteMessage{
-    @apply mr-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[35%] max-w-[75%] p-3 bg-slate-50 rounded-xl  mb-3
+    @apply mr-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[60%] max-w-[80%] p-3 bg-slate-50 rounded-xl  mb-3
 }
 .fileImage{
     width: 100%;
