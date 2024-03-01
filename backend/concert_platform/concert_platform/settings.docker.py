@@ -163,3 +163,6 @@ S3_BUCKET = os.environ.get('S3_BUCKET', 'bucket')
 S3_PUBLIC_URL = os.environ.get('S3_PUBLIC_URL', S3_ENDPOINT)
 
 STREAMING_SERVER_BASE_URL = os.environ.get('STREAMING_BASE_URL', '')
+
+PAYPAL_CLIENT_ID = 'paypalclientid'
+PAYPAL_CLIENT_SECRET = 'paypalclientsecret'

@@ -33,6 +33,7 @@ from api.views import (
     SignUpView,
     FileUploadView,
     RefreshTokenView,
+    NewsletterSubscribeView,
 )
 
 router = routers.DefaultRouter()
@@ -60,6 +61,7 @@ urlpatterns = [
     path("auth/signup", SignUpView.as_view()),
     path("auth/refresh_token", RefreshTokenView.as_view()),
 
+    path("newsletter/subscribe", NewsletterSubscribeView.as_view()),
     path("upload/generate-link", FileUploadView.as_view()),
 
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

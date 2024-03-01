@@ -57,6 +57,7 @@ class Concert(models.Model):
     category = models.CharField(max_length=200, null=True)
     performance_time = models.IntegerField(default=15)
     access = models.CharField(max_length=20, null=False, choices=ConcertAccess.choices, default=ConcertAccess.PAID)
+    ticket_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     subscribers = models.ManyToManyField(ExtendedUser, through='ConcertSubscription', through_fields=('concert', 'user'), related_name='concert_subscribers')
     # artists = models.ManyToManyField(ExtendedUser, through='ArtistSession', through_fields=('concert', 'user'), related_name='concert_artists')
 
