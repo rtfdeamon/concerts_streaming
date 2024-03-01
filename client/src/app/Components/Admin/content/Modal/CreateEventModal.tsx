@@ -74,7 +74,6 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
             return;
         } else{
             const stringDate = date.toISOString();
-       	    const res: any = await dispatch(createShow({name, description, date: stringDate, slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access}));
             const res: any = await dispatch(createShow({name, description, date: stringDate, slots,
             performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
             if (res.payload.id){
