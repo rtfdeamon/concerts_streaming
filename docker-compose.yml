@@ -30,14 +30,14 @@ services:
     build:
       context: client
       args:
-        - BACKEND_URL=http://mmvsds-test.ddns.net:8180
-        - FRONTEND_URL=http://mmvsds-test.ddns.net:8188
+        - BACKEND_URL=https://concertplatform.mmvs.video/api #http://mmvsds-test.ddns.net:8180
+        - FRONTEND_URL=https://concertplatform.mmvs.video # http://mmvsds-test.ddns.net:8188
 
     depends_on:
       - db
     environment:
-      BACKEND_URL: "http://mmvsds-test.ddns.net:8180"
-      FRONTEND_URL: "http://mmvsds-test.ddns.net:8188"
+      BACKEND_URL: "https://concertplatform.mmvs.video/api" # "http://mmvsds-test.ddns.net:8180"
+      FRONTEND_URL: "https://concertplatform.mmvs.video" # "http://mmvsds-test.ddns.net:8188"
     ports:
       - "8188:3000"
 

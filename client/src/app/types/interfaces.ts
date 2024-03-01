@@ -109,7 +109,7 @@ export interface ITicket {
   concert: IShow,
   user: IUser,
   concerts_followed: string
-}=
+}
 export interface IArtistRequest {
   id?: string,
   name: string,

@@ -125,7 +125,7 @@ export default function ShowPreview({params}:IPreviewParams) {
   }
 
   useEffect(() => {
-      fetch(`${process.env.BACKEND_URL}/concerts/${params.id}`)
+      fetch(`${process.env.BACKEND_URL}/concerts/${params.id}/`)
       .then(res => res.json())
       .then(res => setShow(res))
   }, [])
