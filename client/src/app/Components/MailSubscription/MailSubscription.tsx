@@ -16,20 +16,43 @@ export default function MailSubscription() {
         if (err) setErr(false);
         setEmail(e.target.value)
     }
-    const emailHandler = () => {
-        if (email === '') return
+    const emailHandler = async () => {
+        if (email === '') {
+            setErr(true)
+            return
+        }
         else {
             const testRes = reg.test(email)
             if (testRes){
                 // логика для пост запроса
                 // if (res.ok) toast(true)
-                toast({
-                    title: "Email newsletter",
-                    description: "You have successfully subscribed to our newsletter",
-                    action: (
-                      <ToastAction altText="Hide">Hide</ToastAction>
-                    ),
-                  })
+                const res = await fetch(`${process.env.BACKEND_URL}/newsletter/subscribe/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type':'application/json'
+                    },
+                    body: JSON.stringify({email})
+                })
+                const data = await res.json();
+                if (data.access){
+                    toast({
+                        title: "Email newsletter",
+                        description: "You have successfully subscribed to our newsletter",
+                        action: (
+                          <ToastAction altText="Hide">Hide</ToastAction>
+                        ),
+                      })
+                }
+                else {
+                    toast({
+                        title: "Email newsletter",
+                        description: "Something went wrong",
+                        variant: 'destructive',
+                        action: (
+                          <ToastAction altText="Hide">Hide</ToastAction>
+                        ),
+                      })
+                }
             } else{
                 setErr(true)
             }
@@ -42,6 +65,7 @@ export default function MailSubscription() {
             <Input
                 onChange={(e) => onChangeHandler(e)}
                 className={styles.input}
+                value={email}
                 type="email"
                 placeholder="Type your email adress" />
             <Button className={styles.btn} onClick={emailHandler}>Subscribe</Button>
