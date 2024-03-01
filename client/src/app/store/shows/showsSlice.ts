@@ -44,7 +44,7 @@ export const createShow = createAsyncThunk<IEvent, IShow>(
 export const deleteShow = createAsyncThunk<string, string>(
     '@@shows/deleteShow',
     async (id) => {
-            await fetch(`${process.env.BACKEND_URL}/concerts/${id}`, {
+            await fetch(`${process.env.BACKEND_URL}/concerts/${id}/`, {
             method: 'DELETE',
             headers: {
                 'Content-type' : 'application/json',
@@ -79,7 +79,7 @@ interface IDate {
 export const getShowByFilter = createAsyncThunk<IEvent[], IDate>(
     '@@shows/getShowByFilter',
     async ({from, to}) => {
-        const res = await fetch(`${process.env.BACKEND_URL}/concerts/?from=${from}&to=${to}`)
+        const res = await fetch(`${process.env.BACKEND_URL}/concerts/?from=${from}&to=${to}/`)
         const data = await res.json()
         return data as IEvent[];
     }
@@ -88,7 +88,7 @@ export const getShowByFilter = createAsyncThunk<IEvent[], IDate>(
 export const eventsSort = createAsyncThunk<IEvent[], {sort: string}>(
     '@@shows/eventsSortByDate',
     async ({sort}) => {
-        const res = await fetch(`${process.env.BACKEND_URL}/concerts/?sort=${sort}`)
+        const res = await fetch(`${process.env.BACKEND_URL}/concerts/?sort=${sort}/`)
         const data = await res.json()
         return data as IEvent[];
     }

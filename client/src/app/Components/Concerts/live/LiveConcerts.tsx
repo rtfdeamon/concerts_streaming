@@ -3,7 +3,7 @@ import PaginatedItems from '../../Shows/Paginate/Paginate';
 import styles from './LiveConcerts.module.scss'
 
 async function getShows(){
-    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=live`)
+    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=live/`)
     const data = await res.json();
     return data
 }

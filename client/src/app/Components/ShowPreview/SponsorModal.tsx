@@ -48,7 +48,7 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
         }
       });
         const link:any = await generateUploadLink('poster');
-        const res = await fetch(`${link.url}`, {
+        const res = await fetch(`${link.url}/`, {
             method: 'PUT',
             headers: {
               'Content-type' : 'image/png'

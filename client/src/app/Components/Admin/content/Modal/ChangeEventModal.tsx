@@ -55,7 +55,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
         if (e.target.files){
             const link:any = await generateUploadLink('poster');
-            const res = await fetch(`${link.url}`, {
+            const res = await fetch(`${link.url}/`, {
                 method: 'PUT',
                 headers: {
                   'Content-type' : 'image/png'

@@ -12,7 +12,7 @@ import styles from './input.module.scss'
 
 export const getArtists = async (searchValue: string) => {
   try{
-    const res = await fetch(`${process.env.BACKEND_URL}/artists/?filter=${searchValue}`)
+    const res = await fetch(`${process.env.BACKEND_URL}/artists/?filter=${searchValue}/`)
     const data: IArtist[] = await res.json();
     return data;
   } catch{
@@ -21,7 +21,7 @@ export const getArtists = async (searchValue: string) => {
 }
 export const getShows = async (searchValue: string) => {
   try{
-    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?filter=${searchValue}`)
+    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?filter=${searchValue}/`)
     const data: IEvent[] = await res.json();
     return data;
   } catch{

@@ -13,7 +13,7 @@ export default function FollowedShows() {
     useEffect(() => {
       getTokenForApi()
       .then(res => setToken(res))
-      typeof token !== 'undefined' && fetch(`${process.env.BACKEND_URL}/users/current`, {
+      typeof token !== 'undefined' && fetch(`${process.env.BACKEND_URL}/users/current/`, {
         method: 'GET',
         headers: {
           'Authorization' : `Bearer ${token}`

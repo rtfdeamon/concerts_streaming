@@ -4,7 +4,7 @@ export async function RefreshTokens(accessToken: string, refreshToken: string){
         location.replace(`${process.env.FRONTEND_URL}/login`)
     }
     async function refreshTokens(accessToken: string, refreshToken: string){
-        const res = await fetch(`${process.env.BACKEND_URL}/auth/refresh_token`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/auth/refresh_token/`, {
             method: 'POST',
             headers: {
                 'Content-type' : 'application/json'

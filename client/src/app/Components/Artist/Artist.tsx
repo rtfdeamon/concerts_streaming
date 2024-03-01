@@ -75,7 +75,7 @@ export default function Artist({params}:IArtistParams) {
   }
 
   useEffect(() => {
-      fetch(`${process.env.BACKEND_URL}/artists/${params.id}`)
+      fetch(`${process.env.BACKEND_URL}/artists/${params.id}/`)
       .then(res => res.json())
       .then(res => setArtist(res))
   }, [])
@@ -83,7 +83,7 @@ export default function Artist({params}:IArtistParams) {
     getTokenForApi()
       .then(res => setToken(res))
       if (typeof token !== 'undefined'){
-        fetch(`${process.env.BACKEND_URL}/users/current`, {
+        fetch(`${process.env.BACKEND_URL}/users/current/`, {
           method: 'GET',
           headers: {
             'Authorization' : `Bearer ${token}`
