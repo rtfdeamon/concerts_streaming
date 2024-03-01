@@ -1,23 +1,23 @@
-
+'use client'
+import { useState, useEffect } from 'react';
 import { IArtist } from '@/app/types/interfaces';
 import Link from 'next/link';
 import Image from 'next/image';
 import User from '../../../../public/user (1).svg';
 import styles from './TrendingArtists.module.scss';
 
-export const dynamic = 'force-dynamic'
 
-async function getShows(){
-  const res = await fetch(`${process.env.BACKEND_URL}/artists/trending/`)
-  const data = await res.json()
-  console.log(data);
-  return data;
-}
 
 export default async function TrendingArtists() {
-  let artists: IArtist[] = []
-  artists = await getShows()
-  console.log(artists)
+  const [artists, setArtists] = useState<IArtist[]>([]);
+  useEffect(() => {
+    async function getShows(){
+      const res = await fetch(`${process.env.BACKEND_URL}/artists/trending/`)
+      const data = await res.json()
+      setArtists(data);
+    }
+    getShows()
+  }, [])
   return (
     <section>
     <h5 className={styles.title}>Trending artists</h5>
