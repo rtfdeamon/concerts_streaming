@@ -10,6 +10,14 @@ services:
       - "${STORAGE_PORT}:9000"
       - "${STORAGE_CONSOLE_PORT}:9001"
     command: server /data --console-address ":9001"
+  
+  chat:
+    image: centrifugo/centrifugo:v5
+    volumes:
+      - ./chat_config.json:/centrifugo/config.json
+    command: centrifugo -c config.json
+    ports:
+      - "8183:8000"
 
   db:
     image: mariadb:lts
@@ -31,7 +39,11 @@ services:
       S3_ENDPOINT: "http://filestorage:9000"
       S3_BUCKET: "concertstreaming"
       S3_PUBLIC_URL: "${S3_PUBLIC_URL}"
+      CENTRIFUGO_SERVER: "http://chat:8000"
+      CENTRIFUGO_API_KEY: "DW6XQJYKQT22DUS2GOOGPLBOBV66STNBDISKPS5UEZ52NXKO"
     depends_on:
       - db
+      - filestorage
+      - chat
     ports:
       - "${BACKEND_PORT}:8080"

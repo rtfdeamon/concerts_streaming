@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.utils import model_meta
 from drf_yasg.utils import swagger_serializer_method
 from .schemas import user_response_dto
-from .models import ArtistSession, ArtistSessionStatus, ArtistSubscription, Concert, ConcertSubscription, ConcertTicket, ExtendedUser, SponsorAd
+from .models import ArtistSession, ArtistSessionStatus, ArtistSubscription, ChatMessage, Concert, ConcertSubscription, ConcertTicket, ExtendedUser, SponsorAd
 
 """
 class ExtendedUserSerializer(serializers.ModelSerializer):
@@ -226,3 +226,9 @@ class OrderCreateSerializer(serializers.Serializer):
 
 class OrderCaptureSerializer(serializers.Serializer):
     order_id = serializers.CharField()
+
+class ChatMessageSerializer(serializers.ModelSerializer):
+    user = ExtendedUserSerializer(expand=False)
+    class Meta:
+        model = ChatMessage
+        fields = ['id', 'created_at', 'message', 'user']
