@@ -37,35 +37,37 @@ sign_in_response_dto = Schema(
 sign_up_request_dto = Schema(
     type='object',
     properties={
-        'username': Schema(type='string'),
-        'password': Schema(type='string'),
-        'email': Schema(type='string'),
-        'name': Schema(type='string'),
-        'role': Schema(type='string', enum=['administrator', 'artist', 'viewer'])
+        'username': Schema(type=TYPE_STRING),
+        'password': Schema(type=TYPE_STRING),
+        'email': Schema(type=TYPE_STRING),
+        'name': Schema(type=TYPE_STRING),
+        'role': Schema(type=TYPE_STRING, enum=['administrator', 'artist', 'viewer'])
     }
 )
 
 nested_user_dto = Schema(
     type='object',
     properties={
-        'id': Schema(type='integer'),
-        'role': Schema(type='string'),
-        'name': Schema(type='string'),
-        'artist_genre': Schema(type='string'),
-        'avatar_url': Schema(type='string'),
-        'username': Schema(type='string'),
+        'id': Schema(type=TYPE_INTEGER),
+        'role': Schema(type=TYPE_STRING),
+        'name': Schema(type=TYPE_STRING),
+        'artist_genre': Schema(type=TYPE_STRING),
+        'description': Schema(type=TYPE_STRING),
+        'avatar_url': Schema(type=TYPE_STRING),
+        'username': Schema(type=TYPE_STRING),
     }
 )
 
 user_response_dto = Schema(
     type='object',
     properties={
-        'id': Schema(type='integer'),
-        'role': Schema(type='string'),
-        'name': Schema(type='string'),
-        'artist_genre': Schema(type='string'),
-        'avatar_url': Schema(type='string'),
-        'username': Schema(type='string'),
+        'id': Schema(type=TYPE_INTEGER),
+        'role': Schema(type=TYPE_STRING),
+        'name': Schema(type=TYPE_STRING),
+        'artist_genre': Schema(type=TYPE_STRING),
+        'description': Schema(type=TYPE_STRING),
+        'avatar_url': Schema(type=TYPE_STRING),
+        'username': Schema(type=TYPE_STRING),
         'followers': Schema(
             type=TYPE_ARRAY,
             items=nested_user_dto
@@ -105,23 +107,25 @@ user_list_response_dto = Schema(
 
 user_create_request_dto = Schema(
     type='object', properties={
-        'username': Schema(type='string'),
-        'name': Schema(type='string'),
-        'email': Schema(type='string'),
-        'password': Schema(type='string'),
-        'role': Schema(type='string'),
-        'avatar_url': Schema(type='string'),
-        'artist_genre': Schema(type='string'),
+        'username': Schema(type=TYPE_STRING),
+        'name': Schema(type=TYPE_STRING),
+        'email': Schema(type=TYPE_STRING),
+        'password': Schema(type=TYPE_STRING),
+        'role': Schema(type=TYPE_STRING),
+        'avatar_url': Schema(type=TYPE_STRING),
+        'artist_genre': Schema(type=TYPE_STRING),
+        'description': Schema(type=TYPE_STRING),
     }
 )
 
 user_update_request_dto = Schema(
     type='object', properties={
-        'name': Schema(type='string'),
-        'email': Schema(type='string'),
-        'role': Schema(type='string'),
-        'avatar_url': Schema(type='string'),
-        'artist_genre': Schema(type='string'),
+        'name': Schema(type=TYPE_STRING),
+        'email': Schema(type=TYPE_STRING),
+        'role': Schema(type=TYPE_STRING),
+        'avatar_url': Schema(type=TYPE_STRING),
+        'artist_genre': Schema(type=TYPE_STRING),
+        'description': Schema(type=TYPE_STRING),
     }
 )
 
@@ -135,6 +139,7 @@ concerts_query_parameters = [
 
 artists_query_parameters = [
     Parameter('filter', IN_QUERY, type=TYPE_STRING),
+    Parameter('category', IN_QUERY, type=TYPE_STRING),
 ]
 
 users_query_parameters = [
@@ -143,7 +148,8 @@ users_query_parameters = [
 ]
 
 artists_sessions_query_parameters = [
-    Parameter('concert', IN_QUERY, type=TYPE_STRING)
+    Parameter('concert', IN_QUERY, type=TYPE_STRING),
+    Parameter('select', IN_QUERY, type=TYPE_STRING, enum=['user', 'all']),
 ]
 
 sponsor_ads_query_parameters = [
@@ -180,5 +186,19 @@ refresh_token_request_dto = Schema(
     type=TYPE_OBJECT,
     properties={
         'token': Schema(type=TYPE_STRING)
+    }
+)
+
+mail_subscription_request_dto = Schema(
+    type=TYPE_OBJECT,
+    properties={
+        'email': Schema(type=TYPE_STRING)
+    }
+)
+
+chat_send_request_dto = Schema(
+    type=TYPE_OBJECT,
+    properties={
+        'message': Schema(type=TYPE_STRING)
     }
 )

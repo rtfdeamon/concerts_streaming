@@ -113,7 +113,9 @@ class ArtistSessionReadSerializer(serializers.ModelSerializer):
 
     @swagger_serializer_method(serializer_or_field=NestedConcertSerializer)
     def get_concert(self, item):
-        return NestedConcertSerializer(item.concert).data
+        if item.concert:
+            return NestedConcertSerializer(item.concert).data
+        return None
 
 class ArtistSessionCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -190,6 +192,7 @@ class ConcertReadSerializer(serializers.ModelSerializer):
             'date',
             'slots',
             'poster_url',
+            'ticket_price',
             'status',
             'category',
             'performance_time',
@@ -217,3 +220,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'username', 'email'
         ]
+
+class OrderCreateSerializer(serializers.Serializer):
+    ticket_id = serializers.UUIDField()
+
+class OrderCaptureSerializer(serializers.Serializer):
+    order_id = serializers.CharField()

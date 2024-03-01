@@ -35,7 +35,8 @@ if __name__ == '__main__':
     avatar_url = get_avatar_url()
 
     api.put('/users/current/', dict(
-        avatar_url=avatar_url
+        avatar_url=avatar_url,
+        description='User description',
     ))
 
     poster_url = get_poster()

@@ -1,12 +1,15 @@
 import datetime
+import sys
 from uuid import uuid4
 from urllib.parse import urlparse
 import jwt
 import boto3
+from cent import Client
 from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet, mixins
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView, Response
 from rest_framework.decorators import action
+from rest_framework.exceptions import APIException
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -15,7 +18,7 @@ from django.conf import settings
 from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema, no_body
 
-from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ConcertTicket, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
+from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ConcertTicket, ConcertTicketStatus, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
 from .serializers import (
     ConcertAdReadSerializer,
     ConcertAdCreateSerializer,
@@ -47,7 +50,10 @@ from .schemas import (
     artists_sessions_query_parameters,
     sponsor_ads_query_parameters,
     status_response_dto,
+    mail_subscription_request_dto,
+    chat_send_request_dto,
 )
+from utils import paypal
 from utils.serializers import ReadWriteSerializerViewSetMixin
 from utils.authentication import AuthenticationError, JwtAuthentication, generate_access_token, generate_refresh_token, reissue_refresh_token
 
@@ -95,11 +101,11 @@ class UserViewSet(ViewSet):
     def update(self, request, pk=None):
         queryset = ExtendedUser.objects.all()
         instance = get_object_or_404(queryset, pk=pk)
-        serializer = ExtendedUserSerializer(instance, data=request.data, partial=True, private=True)
+        serializer = ExtendedUserSerializer(instance, data=request.data, partial=True, private=True, context=dict(request=request))
         serializer.is_valid(raise_exception=True)
         serializer.save()
         base_user = User.objects.get(id=pk)
-        user_serializer = UserSerializer(instance=base_user, data=request.data, partial=True)
+        user_serializer = UserSerializer(instance=base_user, data=request.data, partial=True, context=dict(request=request))
         user_serializer.is_valid()
         user_serializer.save()
         return Response(serializer.data)
@@ -192,11 +198,12 @@ class ArtistSessionViewSet(ModelViewSet):
             filters = {}
             sorting_order = self.request.query_params.get('sort', 'name')
             concert = self.request.query_params.get('concert', None)
+            select = self.request.query_params.get('select', None)
             user = self.request.user
 
             if concert is not None:
                 filters['concert'] = concert
-            elif user is not None:
+            elif select != 'all' and user is not None and not user.is_anonymous:
                 filters['user'] = user.id
             return ArtistSession.objects.all().filter(**filters).order_by(sorting_order)
         else:
@@ -277,6 +284,7 @@ class ArtistsViewSet(ViewSet):
     @swagger_auto_schema(manual_parameters=artists_query_parameters, responses={'200': ExtendedUserSerializer(many=True)})
     def list(self, request):
         filter_by_name = request.query_params.get('filter', None)
+        category = request.query_params.get('category', None)
         filters = {
             'role': UserRole.ARTIST.value
         }
@@ -286,6 +294,8 @@ class ArtistsViewSet(ViewSet):
         sorting_order = self.request.query_params.get('sort', 'name')
         if filter_name is not None:
             filters['name__icontains'] = filter_name
+        if category is not None:
+            filters['artist_genre'] = category
         queryset = ExtendedUser.objects.all().filter(**filters).order_by(sorting_order)
         serializer = ExtendedUserSerializer(queryset, many=True, context=dict(request=request))
         return Response(serializer.data)
@@ -317,6 +327,30 @@ class ArtistsViewSet(ViewSet):
         subscription = ArtistSubscription.objects.filter(user_id=user_id, artist_id=pk).first()
         subscription.delete()
         return Response(ArtistSubscriptionSerializer(instance=subscription).data)
+
+class OrdersViewSet(ViewSet):
+    authentication_classes = [JwtAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request):
+        ticket_id = request.data['ticket_id']
+        ticket = ConcertTicket.objects.filter(id=ticket_id).first()
+        if ticket is None:
+            raise APIException('Wrong ticket')
+        if ticket.status == ConcertTicketStatus.ACTIVATED:
+            raise APIException('Ticket already activated')
+        price = ticket.concert.ticket_price
+        description = f'Ticket for concert: "{ticket.concert.name}"'
+        token = paypal.generate_access_token(settings.PAYPAL_CLIENT_ID, settings.PAYPAL_CLIENT_SECRET)
+        result = paypal.create_order(token, description, price)
+        return result
+
+    @action(url_path='capture', methods=['POST'], detail=False)
+    def capture(self, request):
+        order_id = request.data['order_id']
+        token = paypal.generate_access_token(settings.PAYPAL_CLIENT_ID, settings.PAYPAL_CLIENT_SECRET)
+        result = paypal.capture_order(token, order_id)
+        return result
 
 class SignInView(APIView):
     authentication_classes = []
@@ -405,6 +439,12 @@ class SignOutView(APIView):
         session.delete()
         return Response({ 'success': True })
 
+class NewsletterSubscribeView(APIView):
+    authentication_classes = [JwtAuthentication]
+
+    @swagger_auto_schema(request_body=mail_subscription_request_dto, responses={'200': status_response_dto})
+    def post(self, request):
+        return Response({ 'success': True })
 
 class FileUploadView(APIView):
     authentication_classes = [JwtAuthentication]
