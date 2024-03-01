@@ -18,8 +18,9 @@ from django.conf import settings
 from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema, no_body
 
-from .models import ArtistSession, ArtistSubscription, ConcertSubscription, ConcertTicket, ConcertTicketStatus, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
+from .models import ArtistSession, ArtistSubscription, ChatMessage, ConcertSubscription, ConcertTicket, ConcertTicketStatus, ExtendedUser, Concert, RefreshToken, SponsorAd, UserRole
 from .serializers import (
+    ChatMessageSerializer,
     ConcertAdReadSerializer,
     ConcertAdCreateSerializer,
     ConcertAdUpdateSerializer,
@@ -52,6 +53,7 @@ from .schemas import (
     status_response_dto,
     mail_subscription_request_dto,
     chat_send_request_dto,
+    chat_history_query_parameters,
 )
 from utils import paypal
 from utils.serializers import ReadWriteSerializerViewSetMixin
@@ -177,6 +179,49 @@ class ConcertsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
         subscription = ConcertSubscription.objects.filter(user_id=user_id, concert_id=pk).first()
         subscription.delete()
         return Response(ConcertSubscriptionSerializer(instance=subscription).data)
+    
+    @swagger_auto_schema(
+        method='POST',
+        request_body=chat_send_request_dto,
+        responses={'200': status_response_dto}
+    )
+    @swagger_auto_schema(
+        method='GET',
+        manual_parameters=chat_history_query_parameters,
+        responses={'200': ChatMessageSerializer(many=True)}
+    )
+    @action(url_path='chat', methods=['GET', 'POST'], detail=True)
+    def chat(self, request, pk=None):
+        if request.method == 'POST':
+            message = ChatMessage(
+                concert_id=pk,
+                user_id=request.user.id,
+                message=request.data['message']
+            )
+            message.save()
+            message_data = ChatMessageSerializer(message).data
+            client = Client(settings.CENTRIFUGO_SERVER + '/api', api_key=settings.CENTRIFUGO_API_KEY)
+            client.publish(f"concert-{pk}", {
+                'sender': {
+                    'id': message_data['user']['id'],
+                    'name': message_data['user']['name'],
+                    'avatar_url': message_data['user']['avatar_url']
+                },
+                'date': int(datetime.datetime.utcnow().timestamp()),
+                'text': request.data['message']
+            })
+            return Response({
+                'success': True,
+                'message': message_data
+            })
+        else:
+            last_messages = request.query_params.get('last_messages', None)
+            limit = 20
+            if last_messages is not None:
+                limit = int(last_messages)
+            queryset = ChatMessage.objects.all().filter(concert_id=pk).order_by('-created_at')[:limit]
+            serializer = ChatMessageSerializer(queryset, many=True)
+            return Response(reversed(serializer.data))
 
 class ArtistSessionViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]

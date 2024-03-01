@@ -129,3 +129,10 @@ class RefreshToken(models.Model):
     user = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE, null=False)
     expire_at = models.BigIntegerField(null=False)
     session_id = models.UUIDField(null=False, default=uuid.uuid4)
+
+class ChatMessage(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    concert = models.ForeignKey(Concert, on_delete=models.CASCADE)
+    user = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE)
+    message = models.TextField()

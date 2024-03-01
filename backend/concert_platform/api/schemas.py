@@ -202,3 +202,6 @@ chat_send_request_dto = Schema(
         'message': Schema(type=TYPE_STRING)
     }
 )
+chat_history_query_parameters = [
+    Parameter('last_messages', IN_QUERY, type=TYPE_INTEGER),
+]
