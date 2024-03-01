@@ -7,11 +7,12 @@ import { ToastAction } from "@/shadComponents/ui/toast";
 import { Select, SelectTrigger, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectValue } from "@/shadComponents/ui/select";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { generateUploadLink } from "@/app/utils/generateUploadLink";
-import { ChangeEvent } from "react";
+import { ChangeEvent, ChangeEventHandler } from "react";
 import Image from "next/image";
 import { Label } from "@/shadComponents/ui/label";
 import { Button } from "@/shadComponents/ui/button";
 import { Input } from "@/shadComponents/ui/input";
+import { Textarea } from "@/shadComponents/ui/textarea";
 import styles from './ProfileSettings.module.scss';
 
 export default function ProfileSettings() {
@@ -29,7 +30,7 @@ export default function ProfileSettings() {
   const categoryChangeHandler = (e: string) => {
     setCategory(e);
   }
-  const descHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const descHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDesc(e.target.value);
   }
   const onUploadHandler = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -136,7 +137,7 @@ export default function ProfileSettings() {
           <>
             <div className={styles.profileName}>
               <span className={styles.span}>Profile's description</span>
-              <Input onChange={descHandler} type="text" placeholder="Test" />
+              <Textarea placeholder="Type description of your profile" onChange={(e) => descHandler(e)} />
             </div>
             <div className={styles.profileName}>
               <span className={styles.span}>Change your genre</span>

@@ -28,6 +28,9 @@
      }
      @apply block mx-auto
  }
+ .image{
+    @apply rounded-full w-[80px] h-[80px]
+ }
  .paginate{
              & li{
                  @apply block mr-5

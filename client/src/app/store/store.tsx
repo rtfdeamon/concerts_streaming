@@ -7,6 +7,7 @@ import { showsReducer } from "./shows/showsSlice";
 import { userReducer } from "./user/userSlice";
 import { adsReducer } from "./ads/ads-slice";
 import { sessionsReducer } from "./sessions/sessionsSlice";
+import { searchInputReducer } from "./searchInput/searchInput-slice";
 
 export const store = configureStore({
     reducer:{
@@ -17,7 +18,8 @@ export const store = configureStore({
         shows: showsReducer,
         userInfo: userReducer,
         ads: adsReducer,
-        sessions: sessionsReducer
+        sessions: sessionsReducer,
+        inputValue: searchInputReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

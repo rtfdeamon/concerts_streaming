@@ -1,6 +1,9 @@
 .title{
     @apply text-3xl mb-10 text-center font-medium leading-6 text-gray-900
 }
+.searchInput{
+    @apply  bg-transparent w-[400px] flex mx-auto mb-12 placeholder-black
+}
 .searching{
     @apply text-xl my-3
 }

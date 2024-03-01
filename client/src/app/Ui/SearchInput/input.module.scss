@@ -14,9 +14,6 @@ body[theme = "dark"] .inputHeader, .inputDefault{
     }
     @apply w-[300px] flex  
 }
-.searchInput{
-    z-index: 99;
-}
 @media screen and (max-width: 1366px){
     .inputHeader, .inputDefault{
         & input{
