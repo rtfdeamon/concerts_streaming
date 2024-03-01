@@ -29,7 +29,7 @@ export default async function SponsoredShows() {
             <div className={styles.shows}>
                 {
                     ads && ads.length > 0 ?
-                        <SponsoredPagination itemsPerPage={6} items={ads}/>
+                        <SponsoredPagination itemsPerPage={6} items={ads.filter(a => a.status === 'accepted')}/>
                     :
                     <h6 className={styles.showsException}>Sorry! No sponsored shows by you yet 🥲</h6>
                 }

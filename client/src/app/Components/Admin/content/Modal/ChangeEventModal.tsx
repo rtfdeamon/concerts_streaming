@@ -26,6 +26,7 @@ import { Label } from "@/shadComponents/ui/label"
 import { Textarea } from "@/shadComponents/ui/textarea"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
+import X from "../../../../../../public/xBlack.svg"
 import CalendarIcon from '../../../../../../public/calendar-range.svg'
 import Image from "next/image"
 import { Dispatch, SetStateAction } from "react"
@@ -43,7 +44,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
     const [category, setCategory] = useState<string | undefined>(undefined);
     const [access, setAccess] = useState<string | undefined>(undefined);
-
+    const [price, setPrice] = useState<string | undefined>(undefined);
     const accessChangeHandler = (e: string) => {
         setAccess(e);
     }
@@ -70,7 +71,8 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
     const onChangeHandler = async () => {
         const stringDate = date?.toISOString() as string;
-        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate, slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access}));
+        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
+            slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
         if (res.payload.id){
             setIsOpen(false)
         } else{
@@ -78,11 +80,13 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
         }
     }
 
+    const onCloseHandler = () => {
 
+    }
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
+                <Dialog as="div" className="relative z-10" onClose={onCloseHandler}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -114,6 +118,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                             Change show
                             {err && <span className={styles.span}>Please, fill in all required fields</span>}
                         </Dialog.Title>
+                        <Image onClick={() => setIsOpen(false)} className="absolute top-[40px] right-[60px] cursor-pointer" src={X} width={50} height={25} alt="X" />
                         <div>
                         <div className="mt-4">
                             <Input onChange={(e) => setName(e.target.value)} type="text" placeholder="Show's title" />
@@ -169,6 +174,12 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                             </SelectContent>
                             </Select>
                         </div>
+                        {
+                            access === 'paid' && 
+                            <div className="mt-4">
+                                <Input onChange={(e) => setPrice(String(e.target.value))} type="number" min={1} placeholder="Price" />
+                            </div>
+                        }
                         <div className="mt-4">
                         <Popover>
                             <PopoverTrigger asChild>

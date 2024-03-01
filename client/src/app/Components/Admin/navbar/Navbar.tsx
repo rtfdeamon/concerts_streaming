@@ -30,9 +30,9 @@ export default function Navbar() {
         <li
           onClick={() => dispatch(changeMenuOption('requests'))}
           className={styles.navEl}>Artists requests</li>
-                  <li
+        <li
           onClick={() => dispatch(changeMenuOption('sponsors'))}
-          className={styles.navEl}>Sponsor's requests</li>
+          className={styles.navEl}>Sponsors requests</li>
       </ul>
     </div>
   )

@@ -8,6 +8,7 @@ import { ToastAction } from '@/shadComponents/ui/toast'
 import { useToast } from '@/shadComponents/ui/use-toast'
 import HeaderWithoutBanner from "../Header/HeaderWithouBanner"
 import Loading from "../Loading/Loading"
+import Link from "next/link"
 import Image from "next/image"
 import About from "./About"
 import User from '../../../../public/user (1).svg'
@@ -129,9 +130,15 @@ export default function Artist({params}:IArtistParams) {
                   </div>
                    </div>
                   <div className={styles.aboutWrapper}>
-                      <ShowsCalendar />
-                      <About id={artist?.name} />
+                      {artist.concerts.length > 0 &&  <ShowsCalendar concerts={artist.concerts} isAbout={artist.description ? true : false}/> }
+                      {artist.description && <About id={artist?.name}  description={artist.description}
+                        isCalendar={artist.concerts.length > 0 ? true : false} />}
                   </div>
+                  <div className={styles.banner}>
+                  <Link href={`${process.env.FRONTEND_URL}/artists/all`} className={styles.btnWrapper}>
+                    <Button className={styles.btnBanner}>Look for more artists</Button>
+                  </Link>
+              </div>
               </>
             :
               <Loading />

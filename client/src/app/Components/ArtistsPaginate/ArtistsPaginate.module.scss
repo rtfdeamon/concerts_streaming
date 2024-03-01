@@ -1,5 +1,5 @@
 .wrapper{
-    @apply flex justify-center flex-wrap w-[100vw]
+    @apply flex justify-center flex-wrap w-[100%]
  }
  .requestWrapper{
      @apply flex items-center justify-center relative mr-6
@@ -27,6 +27,9 @@
          @apply rounded-full block mx-auto
      }
      @apply block mx-auto
+ }
+ .image{
+    @apply rounded-full w-[80px] h-[80px]
  }
  .paginate{
              & li{

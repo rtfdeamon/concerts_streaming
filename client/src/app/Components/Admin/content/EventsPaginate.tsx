@@ -34,16 +34,19 @@ function Items(events:IEvents) {
         <div className={styles.showWrapper} key={e.id}>
           <Link href={`/preview/${e.name}`} className={styles.title} >{e.name}</Link>
           <span className={styles.date}>
-            <Image src={CalendarIcon} width={30} height={20} alt={e.name}/>
-            {new Date(e.date).toLocaleString()}</span>
-            {e.poster_url && <Image className={styles.showImage} src={e.poster_url} width={400} height={250} alt='Show' />}
-            <p className={styles.desc}>{e.description}</p>
-            <div className={styles.info}>
-              <p className={styles.paragraph}>Slots count: {e.slots}</p>
-              <p className={styles.paragraph}>Genre: {e.category}</p>
-              <p className={styles.paragraph}>Accessibility:  {e.access}</p>
-              <p className={styles.paragraph}>Perfomance time: {e.performance_time}</p>
-            </div>
+              <Image src={CalendarIcon} width={30} height={20} alt={e.name}/>
+              {new Date(e.date).toLocaleString()}</span>
+              <p className={styles.desc}>{e.description}</p>
+          <div className={styles.infoWrapper}>
+              {e.poster_url && <Image className={styles.showImage} src={e.poster_url} width={400} height={250} alt='Show' />}
+              <div className={styles.info}>
+                <p className={styles.paragraph}>Slots count: {e.slots}</p>
+                <p className={styles.paragraph}>Genre: {e.category}</p>
+                <p className={styles.paragraph}>Accessibility:  {e.access}</p>
+                {e.ticket_price &&  <p className={styles.paragraph}>Price:  {e.ticket_price} $</p>}
+                <p className={styles.paragraph}>Perfomance time: {e.performance_time}</p>
+              </div>
+          </div>
           <div className={styles.show}>
               <div className={styles.controls}>
                 <Button

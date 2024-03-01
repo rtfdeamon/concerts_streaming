@@ -183,7 +183,7 @@ export default function Shows() {
             <Link href={'/genre/blues'}>Blues</Link>
             <Link href={'/genre/classical'}>Classical</Link>
             <Link href={'/genre/indie'}>Indie</Link>
-            <Link href={'/genre/other'}>Other</Link>
+            <Link href={'/genre/all'}>All</Link>
         </div>
         <div className={styles.artists}>
             <Link href={'/artists/all'}>All artists</Link>

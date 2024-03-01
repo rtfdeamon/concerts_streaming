@@ -20,7 +20,10 @@
     @apply rounded-md
 }
 .desc{
-    @apply text-slate-500 my-5
+    @apply text-slate-500 my-2
+}
+.infoWrapper{
+    @apply flex justify-evenly w-[80%]
 }
 .info{
     @apply flex flex-col justify-around mt-4
@@ -39,7 +42,7 @@
     & button{
         @apply w-[200px] h-[50px]
     }
-    @apply mt-2
+    @apply mt-10
 }
 .changeBtn{
     @apply bg-slate-400 mr-5

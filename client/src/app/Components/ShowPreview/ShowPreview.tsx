@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import HeaderWithoutBanner from "../Header/HeaderWithouBanner";
+import { ArtistsPaginate } from "../ArtistsPaginate/ArtistsPaginate";
 import RequestButton from "./RequestButton";
 import SponsorModal from "./SponsorModal";
 import { useToast } from "@/shadComponents/ui/use-toast";
@@ -111,6 +112,7 @@ export default function ShowPreview({params}:IPreviewParams) {
       .catch(e => {
         toast({
           title: "You already bought a ticket",
+          variant: "destructive",
           action: (
             <ToastAction altText="Hide">Hide</ToastAction>
           ),
@@ -169,6 +171,12 @@ export default function ShowPreview({params}:IPreviewParams) {
                   {role === 'artist' &&
                           <RequestButton id={params.id} />
                   }
+                  {role && role === 'sponsor' &&
+                      <Button
+                      onClick={modalHandler}
+                      className={styles.buyBtn}>
+                      Become a sponsor</Button>
+                  }
                 </div>
                   <div className={styles.posterWrapper}>
                       <p className={styles.desc}>
@@ -201,19 +209,17 @@ export default function ShowPreview({params}:IPreviewParams) {
                           className={styles.btn}>
                           Unsubcribe</Button>
                       }
-                      {role && role === 'sponsor' &&
-                          <Button
-                          onClick={() => modalHandler()}
-                          className={styles.btn}>
-                          Become a sponsor</Button>
-                      }
                   </div>
               </div>
               <div className={styles.aboutWrapper}>
-                <h6 className={styles.aboutTitle}>About this show</h6>
-                <p className={styles.aboutDesc}>
-                  Тут будет список артистов, принимающих участие
-                </p>
+                <h6 className={styles.aboutTitle}>List of artists</h6>
+                <div className={styles.aboutDesc}>
+                  {show. artists && show.artists?.length > 0 ? 
+                    <ArtistsPaginate artists={show.artists} itemsPerPage={4} />
+                  :
+                    <p>No artists in this concert yet</p>
+                  }
+                </div>
               </div>
               <div className={styles.banner}>
                   <Link href={`${process.env.FRONTEND_URL}/events/month`} className={styles.btnWrapper}>

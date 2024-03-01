@@ -13,7 +13,9 @@ export interface IEvent {
   user_id: IUser,
   access: string,
   performance_time: number,
-  subscribers: IUser[]
+  subscribers: IUser[],
+  ticket_price: string,
+  artists?: IArtist[]
 }
 
 export interface IEvents {
@@ -47,7 +49,8 @@ export interface IShow{
   access?: string,
   subscribers?: IUser[],
   ads?: IAd[],
-  performances?: IPerformance[]
+  performances?: IPerformance[],
+  ticket_price?: string
 }
 export interface IChangeShow extends IShow{
   id: string
@@ -58,7 +61,11 @@ export interface IArtist {
   role: string,
   name: string,
   avatar_url: string,
-  username: string
+  username: string,
+  description?: string,
+  performances?: IPerformance[],
+  concerts: IEvent[],
+  artist_genre: string
 }
 
 export interface IAcceptedShow {
@@ -102,4 +109,16 @@ export interface ITicket {
   concert: IShow,
   user: IUser,
   concerts_followed: string
+}=
+export interface IArtistRequest {
+  id?: string,
+  name: string,
+  description?: string,
+  created_at?: string,
+  status?: string,
+  stream_key?: string,
+  artist_demo_url?: string,
+  user?: IUser, 
+  concert?: IShow
 }
+

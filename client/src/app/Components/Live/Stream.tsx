@@ -116,7 +116,7 @@ export default function Stream({id}: {id: string}) {
           <MediaProvider />
         </MediaPlayer>
     </div>
-    {show?.ads && show?.ads[0].banner_url &&  <Image className={styles.banner} src={show.ads[0].banner_url} width={900} height={300} alt='Banner'/>}
+    {show?.ads && show?.ads[0].banner_url &&  <Image className={styles.banner} src={show.ads[0].banner_url} width={1200} height={320} alt='Banner'/>}
     </section>
 
   )

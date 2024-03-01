@@ -206,7 +206,7 @@ export default function Header({type, children}:{type: string, children?: React.
                               Indie
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/genre/other" title="Typography">
-                              Other
+                              All events
                             </NavigationMenuLink>
                         </div>
                         </ul>
@@ -281,7 +281,7 @@ export default function Header({type, children}:{type: string, children?: React.
                               Indie
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/artists/genre/other" title="Typography">
-                              Other
+                              All artists
                             </NavigationMenuLink>
                         </div>
                         </ul>

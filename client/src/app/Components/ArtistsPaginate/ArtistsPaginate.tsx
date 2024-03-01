@@ -19,9 +19,8 @@ function Items(artists:{artists: IArtist[]}) {
                 <div className={styles.showWrapper}>
                   <div className={styles.request}>
                   <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
-                      <Image src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
                       <p>{a.name}</p>
-                      <p>genre</p>
                   </Link>
                   </div>
               </div>

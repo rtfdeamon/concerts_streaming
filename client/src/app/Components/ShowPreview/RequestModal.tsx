@@ -72,6 +72,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         .catch(e => {
           toast({
             title: "Something went wrong",
+            variant: "destructive",
             action: (
               <ToastAction altText="Hide">Hide</ToastAction>
             ),

@@ -20,6 +20,9 @@
     @apply w-[300px] mb-6
 }
 .profileName{
+    & button{
+        @apply mt-3
+    }
     & input{
         @apply mt-3
     }

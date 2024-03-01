@@ -22,6 +22,7 @@ export default function Content() {
       {option === 'sponsors' && 
         <SponsorsRequests />
       }
+
     </div>
   )
 }
