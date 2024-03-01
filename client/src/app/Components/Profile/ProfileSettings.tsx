@@ -40,7 +40,7 @@ export default function ProfileSettings() {
       formData.append('file', file);
       const uploadType = 'avatar'
       const link:any = await generateUploadLink(uploadType);
-      const res = await fetch(`${link.url}`, {
+      const res = await fetch(`${link.url}/`, {
         method: 'PUT',
         headers: {
           'Content-type' : 'image/png'

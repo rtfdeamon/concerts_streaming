@@ -7,7 +7,7 @@ import CalendarIcon from '../../../../../public/calendar-range.svg'
 import styles from './ScheduledConcerts.module.scss'
 
 async function getShows(){
-    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=scheduled`)
+    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=scheduled/`)
     const data = await res.json();
     return data
 }

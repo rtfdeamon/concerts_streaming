@@ -3,7 +3,7 @@ import { IArtistParams } from "./page"
 
 
 async function getShowData(id:string) {
-  const res = await fetch(`${process.env.BACKEND_URL}/artists/${id}`)
+  const res = await fetch(`${process.env.BACKEND_URL}/artists/${id}/`)
   const data:IArtist = await res.json()
   return data;
 }
