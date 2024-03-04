@@ -1,7 +1,7 @@
 'use client'
 import { RefreshTokens } from "./refreshToken";
 
-export function checkAccessToken(){
+export async function checkAccessToken(){
     let accessToken: Array<string>
     let token: string
     if (typeof window !== 'undefined'){
@@ -13,15 +13,30 @@ export function checkAccessToken(){
             const expired: any = atob(token)
             const expiresDate: number = JSON.parse(expired).exp;
             const currDate = Math.floor(new Date().getTime()/1000);
-            if (expiresDate - currDate > 0){
-                return
-            } else {
+            let flag = localStorage.getItem('flag')
+            if (!flag){
+            // if (expiresDate - currDate > 0){
+            //     return
+            // } else {
+                // !flag ? await : setInterval в котором провверяю флаг
                 let refreshToken: string | Array<string> = localStorage.getItem('refreshToken')?.split('') as Array<string>
                 refreshToken?.pop();
                 refreshToken?.shift();
                 refreshToken = refreshToken.join('');
-                RefreshTokens(accessToken.join(''), refreshToken)
-            }
+                await RefreshTokens(accessToken.join(''), refreshToken)
+            // }
+        }
+            else {
+                console.log('1');
+                
+                 await new Promise((res, rej) => {
+                    setInterval(() => {
+                        flag = localStorage.getItem('flag')
+                        if (flag === null) {
+                            res('1')  
+                        }
+                    }, 100)
+            })}
         }
     }
 }

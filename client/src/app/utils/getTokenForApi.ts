@@ -1,7 +1,7 @@
 
 import { checkAccessToken } from "./checkAccessToken";
 export async function getTokenForApi(){
-    checkAccessToken();
+    await checkAccessToken();
     let arr: Array<string>
     let token: string
     if (typeof window !== 'undefined'){
