@@ -1,4 +1,5 @@
 import RootProvider from "./store/RootProvider";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Toaster } from "@/shadComponents/ui/toaster";
 
 import type { Metadata } from "next";
@@ -12,6 +13,10 @@ export const metadata: Metadata = {
   description: "Concert platform for musicians all over the world",
 };
 
+const initialOptions = {
+
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -19,12 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <RootProvider>
-          <body className={inter.className}>
-            {children}
-            <Toaster />
-          </body>
-      </RootProvider>
+        <RootProvider>
+            <body className={inter.className}>
+              {children}
+              <Toaster />
+            </body>
+        </RootProvider>
     </html>
   );
 }

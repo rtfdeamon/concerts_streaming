@@ -10,6 +10,9 @@
 .request{
     @apply flex items-center justify-between
 }
+.image{
+    @apply rounded-full h-[80px]
+}
 .showWrapper{
     @apply w-[600px] bg-white rounded-md p-6 mb-8
 }

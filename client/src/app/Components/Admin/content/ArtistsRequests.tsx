@@ -11,7 +11,7 @@ export default function ArtistsRequests() {
   const sessions = useAppSelector(state => state.sessions.entities);
   useEffect(() => {
     dispatch(loadSessions())
-}, [])
+}, [dispatch])
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.title}>Artists requests</h5>

@@ -1,13 +1,15 @@
 'use client'
 import { useState, useEffect } from 'react';
+import Loading from '../Loading/Loading';
 import { getTokenForApi } from '@/app/utils/getTokenForApi'
 import SponsoredPagination from './SponsoredPagination';
 import { IAd } from '@/app/types/interfaces';
 import styles from './SponsoredShows.module.scss'
 
 
-export default async function SponsoredShows() {
-    const [ads, setAds] = useState<IAd[] | undefined>(undefined)
+export default function SponsoredShows() {
+    const [ads, setAds] = useState<IAd[] | undefined>(undefined);
+    const [isLoaded, setIsLoaded] = useState(true);
     useEffect(() => {
         const getAds = async () => {
             const res = await fetch(`${process.env.BACKEND_URL}/sponsor-ads/`, {
@@ -18,6 +20,7 @@ export default async function SponsoredShows() {
             })
             const data: IAd[] = await res.json();
             setAds(data)
+            setIsLoaded(false)
         }
         getAds()
     }, [])
@@ -28,10 +31,12 @@ export default async function SponsoredShows() {
             </div>
             <div className={styles.shows}>
                 {
-                    ads && ads.length > 0 ?
+                    ads && ads.length > 0 &&
                         <SponsoredPagination itemsPerPage={6} items={ads.filter(a => a.status === 'accepted')}/>
-                    :
-                    <h6 className={styles.showsException}>Sorry! No sponsored shows by you yet 🥲</h6>
+                }
+                {isLoaded && <Loading />}
+                {!isLoaded && ads?.length === 0 && 
+                <h6 className={styles.showsException}>Sorry! No scheduled shows yet 🥲</h6>
                 }
             </div>
         </section>

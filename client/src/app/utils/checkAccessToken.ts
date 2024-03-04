@@ -15,15 +15,15 @@ export async function checkAccessToken(){
             const currDate = Math.floor(new Date().getTime()/1000);
             let flag = localStorage.getItem('flag')
             if (!flag){
-            // if (expiresDate - currDate > 0){
-            //     return
-            // } else {
+            if (expiresDate - currDate > 0){
+                return
+            } else {
                 let refreshToken: string | Array<string> = localStorage.getItem('refreshToken')?.split('') as Array<string>
                 refreshToken?.pop();
                 refreshToken?.shift();
                 refreshToken = refreshToken.join('');
                 await RefreshTokens(accessToken.join(''), refreshToken)
-            // }
+            }
         }
             else {
                 let intervalId: NodeJS.Timeout; 

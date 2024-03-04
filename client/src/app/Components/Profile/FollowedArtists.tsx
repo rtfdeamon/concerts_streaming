@@ -1,15 +1,17 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { getTokenForApi } from '@/app/utils/getTokenForApi'
+import { FollowedPaginate } from './FollowedPaginate'
+import Loading from '../Loading/Loading'
 import { IArtist } from '@/app/types/interfaces'
 import styles from './FollowedArtists.module.scss'
-import { FollowedPaginate } from './FollowedPaginate'
 
 
 
-export default async function FollowedArtists() {
+export default function FollowedArtists() {
   const [artists, setArtists] = useState<IArtist[] | undefined>()
   const [token, setToken] = useState<string | undefined>();
+  const [isLoaded, setIsLoaded] = useState(true);
   useEffect(() => {
     getTokenForApi()
       .then(res => setToken(res))
@@ -23,15 +25,18 @@ export default async function FollowedArtists() {
     })
       .then(res => res.json())
       .then(res => setArtists(res.artists_followed))
+      .finally(() => setIsLoaded(false))
   }, [token])
   return (
     <div className={styles.menuWrapper}>
       <h5 className={styles.title}>My Artists</h5>
       <div className={styles.artistsWrapper}>
         {
-          typeof artists !== 'undefined'  && artists.length > 0 ?
+          typeof artists !== 'undefined'  && artists.length > 0 &&
               <FollowedPaginate itemsPerPage={9} artists={artists} />
-          :
+        }
+        {isLoaded && <Loading />}
+        {!isLoaded && artists?.length === 0 && 
             <h5 className={styles.showsException}>Sorry! No followed artists yet 🥲</h5>
         }
         </div>

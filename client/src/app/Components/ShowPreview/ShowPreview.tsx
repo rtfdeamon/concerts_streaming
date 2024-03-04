@@ -5,6 +5,7 @@ import HeaderWithoutBanner from "../Header/HeaderWithouBanner";
 import { ArtistsPaginate } from "../ArtistsPaginate/ArtistsPaginate";
 import RequestButton from "./RequestButton";
 import SponsorModal from "./SponsorModal";
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { IUser } from "@/app/types/interfaces";
@@ -18,6 +19,7 @@ import CalendarIcon from '../../../../public/calendar-range.svg'
 import styles from './ShowPreview.module.scss'
 import { IEvent } from "@/app/types/interfaces";
 import Loading from "../Loading/Loading";
+import PayPalBtns from "./PayPalBtns";
 
 const followShow = async (id: string) => {
   const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/subscribe/`, {
@@ -60,6 +62,7 @@ const buyTicket = async (concert: string, user: Number) => {
   }
 }
 
+
 export default function ShowPreview({params}:IPreviewParams) {
   let role : string | undefined;
   if (typeof window !== 'undefined' && typeof localStorage.getItem('role') !== undefined){
@@ -70,7 +73,12 @@ export default function ShowPreview({params}:IPreviewParams) {
   const [token, setToken] = useState<string | undefined>(undefined);
   const [user, setUser] = useState<IUser | null>();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [paypalIsActive, setPaypalIsActive] = useState(false);
   const { toast } = useToast();
+
+  const paypalActiveHandler = () => {
+    setPaypalIsActive(prev => !prev)
+  }
 
   const onSubscribeHandler = async (id: string) => {
     const res: any = await followShow(id);
@@ -161,13 +169,6 @@ export default function ShowPreview({params}:IPreviewParams) {
               <div className={styles.poster} style={{  backgroundImage: "url(" + { Women } + ")", backgroundSize: 'auto' }}>
                 <div className={styles.previewWrapper}>
                   <Image className={styles.preview} src={show.poster_url} width={600} height={300} alt={show.name} />
-                  {role === 'viewer' && 
-                            <Button
-                            onClick={() => onBuyHandler(show.id, user?.id as Number)}
-                            disabled={!role}
-                            className={styles.buyBtn}>
-                            Buy a ticket</Button>
-                  }
                   {role === 'artist' &&
                           <RequestButton id={params.id} />
                   }
@@ -176,6 +177,25 @@ export default function ShowPreview({params}:IPreviewParams) {
                       onClick={modalHandler}
                       className={styles.buyBtn}>
                       Become a sponsor</Button>
+                  }
+                  {role === 'viewer' &&
+                  <>
+                    {
+                      !paypalIsActive ? 
+                      <Button
+                      onClick={() => {
+                        // onBuyHandler(show.id, user?.id as Number)
+                        paypalActiveHandler()
+                      }}
+                      disabled={!role}
+                      className={styles.buyBtn}>
+                      Buy a ticket</Button>
+                        :
+                      <div className={styles.paypalWrapper} onClick={paypalActiveHandler}>
+                        <PayPalBtns />          
+                      </div>
+                    }
+                    </>
                   }
                 </div>
                   <div className={styles.posterWrapper}>

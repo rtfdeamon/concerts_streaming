@@ -99,6 +99,7 @@ export function EventsPaginate({itemsPerPage, events}:{itemsPerPage: number, eve
           className={styles.paginate}
           breakLabel="..."
           nextLabel=">"
+          breakClassName={'hidden'}
           onPageChange={(e:ISelect) => handlePageClick(e)}
           pageRangeDisplayed={5}
           pageCount={pageCount}

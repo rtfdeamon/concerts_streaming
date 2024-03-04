@@ -32,7 +32,7 @@ function Items({ filteredSessions }: {filteredSessions: IArtistRequest[]}) {
      <CheckModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
      <OptionsModal isOpen={optionsModalIsOpen} setIsOpen={setOptionsModalIsOpen}  id={id} posterUrl={posterUrl} />
         {filteredSessions.length > 0 ? filteredSessions.map(s => (
-            <div  className={styles.requestWrapper}>
+            <div key={s.id} className={styles.requestWrapper}>
               <div className={styles.showWrapper}>
               <Link className={styles.showLink} href={`/preview/${s.concert?.id}`} >Show: {s.concert?.name}</Link>
                 <div className={styles.request}>
@@ -87,6 +87,7 @@ export function ArtistShowsPaginate({ itemsPerPage, sessions }: {itemsPerPage: n
           className={styles.paginate}
           breakLabel="..."
           nextLabel=">"
+          breakClassName={'hidden'}
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}

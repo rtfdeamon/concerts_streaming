@@ -15,13 +15,13 @@ export default function ShowsCalendar({concerts, isAbout}: {concerts: IEvent[], 
             style={isAbout ? {width: '48%'} : {width: '100%'}}
         >
             {concerts.map(c => (
-                    <li className={styles.upcomingShows}>
-                    <p className={styles.upcomingDate}>{new Date(c.date).toLocaleString()}</p>
-                    <p className={styles.upcomingDesc}>{c.description}</p>
-                    <Link href={`/shows/$showID`}>
-                        <Link href={`${process.env.FRONTEND_URL}/${c.id}`} className={styles.btn}>Go to the show</Link>
-                    </Link>
-                </li>
+                    <li key={c.id} className={styles.upcomingShows}>
+                        <p className={styles.upcomingDate}>{new Date(c.date).toLocaleString()}</p>
+                        <p className={styles.upcomingDesc}>{c.description}</p>
+                        <Link href={`/shows/$showID`}>
+                            <Link href={`${process.env.FRONTEND_URL}/${c.id}`} className={styles.btn}>Go to the show</Link>
+                        </Link>
+                    </li>
             ))}
             <span
             onClick={onOpenHandler}

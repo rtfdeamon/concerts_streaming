@@ -12,7 +12,7 @@ export default function CreateEvent() {
   const events = useAppSelector(state => state.shows.events)
   useEffect(() => {
     dispatch(loadAllShows());
-  }, [])
+  }, [dispatch])
 
   return (
       <div className={styles.wrapper}>

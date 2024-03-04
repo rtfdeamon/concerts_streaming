@@ -111,9 +111,13 @@ export default function Shows() {
         setMonthIsOpen(false);
         setWeekIsOpen(false);
         setCalendarIsOpen(false);
-        const today = new Date();
-        const yesterday = new Date(Date.now()-86400000)
-        dispatch(getShowByFilter({to: today.toISOString(), from: yesterday.toISOString()}))
+        let today: number | Date = new Date().setHours(0);
+        let tomorrow: number | Date  = today + 84910000
+        today = new Date(today)
+        tomorrow = new Date(tomorrow)
+        console.log(today.toUTCString(), tomorrow.toUTCString());
+        
+        dispatch(getShowByFilter({to: tomorrow.toISOString(), from: today.toISOString()}))
     }
     const weekIsOpenHandler = () => {
         setWeekIsOpen(!weekIsOpen);

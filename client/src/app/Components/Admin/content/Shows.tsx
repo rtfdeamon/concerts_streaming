@@ -8,7 +8,7 @@ export default function Shows() {
     const events = useAppSelector(state => state.shows.events)
     useEffect(() => {
         dispatch(loadAllShows())
-    }, [events.length])
+    }, [dispatch, events.length])
     return (
         <EventsPaginate itemsPerPage={4} events={{events}} />
   )
