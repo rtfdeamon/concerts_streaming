@@ -90,9 +90,9 @@ export default function Stream({id}: {id: string}) {
                     </MuteButton>
                     {volumeIsOpen && 
                       <VolumeSlider.Root 
-                        className={"bg-white group ring-sky-400 relative inline-flex h-2 w-20 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4"} ref={volumeRef}>
+                        className={"block bg-white group ring-sky-400 relative my-3 h-2 w-20 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4"} ref={volumeRef}>
                       <VolumeSlider.Track className="vds-slider-track" />
-                      <VolumeSlider.TrackFill className="vds-slider-track-fill vds-slider-track" />
+                      <VolumeSlider.TrackFill className="vds-slider-track-fill vds-slider-track h-2" />
                       <VolumeSlider.Preview className="vds-slider-preview">
                         <VolumeSlider.Value className="text-sm" />
                       </VolumeSlider.Preview>

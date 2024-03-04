@@ -52,6 +52,7 @@ export default memo(function Chat({id}: {id: string}) {
       }
       getChat()
       return () => {
+        sub.unsubscribe();
         centrifuge.disconnect();
       }
     }, [])
