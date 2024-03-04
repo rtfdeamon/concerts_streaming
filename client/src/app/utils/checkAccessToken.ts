@@ -18,7 +18,6 @@ export async function checkAccessToken(){
             // if (expiresDate - currDate > 0){
             //     return
             // } else {
-                // !flag ? await : setInterval в котором провверяю флаг
                 let refreshToken: string | Array<string> = localStorage.getItem('refreshToken')?.split('') as Array<string>
                 refreshToken?.pop();
                 refreshToken?.shift();
@@ -27,13 +26,12 @@ export async function checkAccessToken(){
             // }
         }
             else {
-                console.log('1');
-                
+                let intervalId: NodeJS.Timeout; 
                  await new Promise((res, rej) => {
-                    setInterval(() => {
+                    intervalId =  setInterval(() => {
                         flag = localStorage.getItem('flag')
                         if (flag === null) {
-                            res('1')  
+                            res(clearInterval(intervalId))  
                         }
                     }, 100)
             })}

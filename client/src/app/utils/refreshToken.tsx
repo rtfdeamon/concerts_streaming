@@ -14,8 +14,8 @@ export async function RefreshTokens(accessToken: string, refreshToken: string){
         location.replace(`${process.env.FRONTEND_URL}/login`)
     }
     localStorage.setItem('flag', JSON.stringify("pending"))
-    const promise = refreshTokens(accessToken, refreshToken);
-    promise.then(res => res.json())
+    refreshTokens(accessToken, refreshToken)
+    .then(res => res.json())
     .then(res => {
         if (res.access_token){
             localStorage.setItem('refreshToken', JSON.stringify(res.refresh_token))
