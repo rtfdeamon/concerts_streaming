@@ -15,8 +15,8 @@ export async function RefreshTokens(accessToken: string, refreshToken: string){
               routeHandler();
         }
         const data = await res.json();
-        localStorage.setItem('refreshToken', data.refresh_token)
-        localStorage.setItem('accessToken', data.access_token)
+        localStorage.setItem('refreshToken', JSON.stringify(data.refresh_token))
+        localStorage.setItem('accessToken', JSON.stringify(data.access_token))
     }
     await refreshTokens(accessToken, refreshToken)
     return

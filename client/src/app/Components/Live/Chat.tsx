@@ -1,18 +1,12 @@
 'use client'
-import { useState, useEffect, useMemo, memo } from "react";
+import { useState, useEffect, memo } from "react";
 import { Centrifuge } from 'centrifuge';
-
 import InputEmojiWithRef from "react-input-emoji";
-import Link from "next/link";
-import Image from "next/image";
-import Clip from '../../../../public/clip.png';
-import FileIcon from '../../../../public/fileIcon.svg';
 import { IMessage, IUser } from "@/app/types/interfaces";
 import styles from './Chat.module.scss';
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 
 const centrifuge = new Centrifuge('ws://192.168.100.101:8183/connection/websocket')
-
 export default memo(function Chat({id}: {id: string}) {
     const [messageText, setMessageText] = useState('');
     const [chatMessageReceived, setChatMessageReceived] = useState<IMessage[]>([]);
@@ -40,7 +34,6 @@ export default memo(function Chat({id}: {id: string}) {
     useEffect(() => {
       sub.on('publication', function(ctx) {
         setChatMessageReceived(prev => [...prev, ctx.data])
-        console.log(chatMessageReceived)
     });
     }, [centrifuge])
 
@@ -51,10 +44,6 @@ export default memo(function Chat({id}: {id: string}) {
         setChatMessageReceived(data)
       }
       getChat()
-      return () => {
-        sub.unsubscribe();
-        centrifuge.disconnect();
-      }
     }, [])
 
     const sendMessage = async () => {
@@ -68,7 +57,6 @@ export default memo(function Chat({id}: {id: string}) {
               body: JSON.stringify({text: messageText})
 
             })
-            console.log(res)
             if (res.ok) {
               setMessageText('');
             }
@@ -82,7 +70,7 @@ export default memo(function Chat({id}: {id: string}) {
                 'Authorization':`Bearer ${await getTokenForApi()}`,
                 'Content-type':'application/json'
               },
-              body: JSON.stringify({message: messageText})
+              body: JSON.stringify({text: messageText})
 
             })
             if (res.ok) {

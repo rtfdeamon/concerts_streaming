@@ -25,7 +25,7 @@ export default function ProfileDropdown() {
   let accessToken: string = '';
   if (typeof window !== 'undefined'){
     if (localStorage.getItem('accessToken') !== 'undefined' && typeof localStorage.getItem('accessToken') !== 'undefined')
-    accessToken = JSON.parse(localStorage.getItem('accessToken') as string)
+    accessToken = JSON.parse(localStorage.getItem('accessToken') as string);
   }
   useEffect(() => {
     dispatch(getCurrUser());
