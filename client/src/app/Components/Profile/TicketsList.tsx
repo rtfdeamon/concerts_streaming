@@ -35,7 +35,7 @@ export default function TicketsList() {
                 ticketInfo && ticketInfo.length > 0 &&
                     <div className={styles.ticketInfos}>
                         {ticketInfo.map((t) => (
-                            <Link key={t.id} className={styles.link} href={`${process.env.FRONTEND_URL}/preview/${t.id}`} >
+                            <Link key={t.id} className={styles.link} href={`${process.env.FRONTEND_URL}/preview/${t.concert.id}`} >
                                 <h5 className={styles.concTitle}>{t.concert.name}</h5>
                                 {t.concert.poster_url !== '' && typeof t.concert.poster_url !=='undefined' &&
                                 <Image className={styles.poster} src={t.concert.poster_url} width={250} height={150} alt='Poster' />}
