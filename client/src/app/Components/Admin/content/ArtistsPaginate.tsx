@@ -24,7 +24,7 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
                 <Link className={styles.showLink} href={`/preview/${a.concert?.id}`} >Show: {a.concert?.name}</Link>
                   <div className={styles.request}>
                   <Link href={`/artist/${a.user?.id}`} className={styles.imageWrapper}>
-                      <Image src={typeof a.user?.avatar_url !== 'object' ? a.user?.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <Image src={typeof a.user?.avatar_url !== 'object' ? a.user?.avatar_url : User} className={styles.image} width={80} height={80} alt="artistIcon" />
                       <p>{a.user?.name}</p>
                   </Link>
                   <div className={styles.fileWrapper}>
@@ -80,6 +80,7 @@ export function ArtistsPaginate({itemsPerPage, sessions}:{itemsPerPage: number, 
           className={styles.paginate}
           breakLabel="..."
           nextLabel=">"
+          breakClassName={'hidden'}
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}

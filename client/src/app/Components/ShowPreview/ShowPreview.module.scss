@@ -20,7 +20,10 @@
     &:hover{
         @apply bg-blue-700
     }
-    @apply flex absolute top-[48%] right-[37%] text-3xl w-[300px] h-[80px] mx-auto p-8 bg-blue-500 duration-500 transition-all
+    @apply flex absolute top-[48%] right-[40%] text-3xl mx-auto p-8 bg-blue-500 duration-500 transition-all
+}
+.paypalWrapper{
+    @apply block h-[230px] mt-4 mx-auto p-8 text-3xl
 }
 .link{
     &:hover{

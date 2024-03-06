@@ -61,6 +61,7 @@ export function FollowedPaginate({itemsPerPage, artists}:{itemsPerPage: number, 
           className={styles.paginate}
           breakLabel="..."
           nextLabel=">"
+          breakClassName={'hidden'}
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}

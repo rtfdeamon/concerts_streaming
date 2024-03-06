@@ -32,7 +32,7 @@ function Items(events:IEvents) {
     <ChangeEventModal isOpen={isOpen} setIsOpen={setIsOpen} eventId={eventId}/>
     {events.events.map((e: IEvent) => (
         <div className={styles.showWrapper} key={e.id}>
-          <Link href={`/preview/${e.name}`} className={styles.title} >{e.name}</Link>
+          <Link href={`/preview/${e.id}`} className={styles.title} >{e.name}</Link>
           <span className={styles.date}>
               <Image src={CalendarIcon} width={30} height={20} alt={e.name}/>
               {new Date(e.date).toLocaleString()}</span>
@@ -99,6 +99,7 @@ export function EventsPaginate({itemsPerPage, events}:{itemsPerPage: number, eve
           className={styles.paginate}
           breakLabel="..."
           nextLabel=">"
+          breakClassName={'hidden'}
           onPageChange={(e:ISelect) => handlePageClick(e)}
           pageRangeDisplayed={5}
           pageCount={pageCount}

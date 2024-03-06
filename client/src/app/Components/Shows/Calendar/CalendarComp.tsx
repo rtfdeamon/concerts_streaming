@@ -13,9 +13,11 @@ export default function CalendarComp() {
   const [date, setDate] = React.useState<Date | undefined>(new Date())
   const onSelectHandler = (e: Date | undefined) => {
     setDate(e)
-    let tomorrow: Date | number = Date.parse(String(e)) + 86400000
+    let today: Date | number = Date.parse(String(e))
+    let tomorrow: Date | number = Date.parse(String(e)) + 86399000
     tomorrow =  new Date(tomorrow);
-    if (date) dispatch(getShowByFilter({to: tomorrow.toISOString(), from: tomorrow.toISOString()}))
+    today =  new Date(today);
+    if (date) dispatch(getShowByFilter({to: tomorrow.toISOString(), from: today.toISOString()}))
   }
 
   return (

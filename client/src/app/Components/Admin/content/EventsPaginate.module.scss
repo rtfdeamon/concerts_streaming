@@ -17,7 +17,7 @@
     @apply flex justify-center text-center my-4
 }
 .showImage{
-    @apply rounded-md
+    @apply rounded-md h-[300px] object-fill
 }
 .desc{
     @apply text-slate-500 my-2

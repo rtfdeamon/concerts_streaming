@@ -2,21 +2,22 @@
 import { useState, useEffect } from 'react';
 import { IEvent } from '@/app/types/interfaces';
 import PaginatedItems from '../../Shows/Paginate/Paginate';
+import Loading from '../../Loading/Loading';
 import Image from 'next/image';
 import CalendarIcon from '../../../../../public/calendar-range.svg'
 import styles from './ScheduledConcerts.module.scss'
 
-async function getShows(){
-    const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=scheduled/`)
-    const data = await res.json();
-    return data
-}
-
-export default async function ScheduledConcerts() {
+export default function ScheduledConcerts() {
   const [shows, setShows] = useState<IEvent[]>([]);
+  const [isLoaded, setIsLoaded] = useState(true);
   useEffect(() => {
+    async function getShows(){
+      const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=scheduled`)
+      const data = await res.json();
+      setShows(data);
+      setIsLoaded(false);
+  }
     getShows()
-      .then(res => setShows(res))
     }, [])
     return (
     <section>
@@ -26,10 +27,12 @@ export default async function ScheduledConcerts() {
         </div>
         <div className={styles.shows}>
         {
-            shows && shows.length > 0 ?
+            shows && shows.length > 0 &&
             <PaginatedItems itemsPerPage={6} items={shows} type='scheduledShows'/>
-            :
-            <h6 className={styles.showsException}>Sorry! No scheduled shows yet 🥲</h6>
+        }
+        {isLoaded && <Loading />}
+        {!isLoaded && shows?.length === 0 && 
+          <h6 className={styles.showsException}>Sorry! No scheduled shows yet 🥲</h6>
         }
         </div>
     </section>

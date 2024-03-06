@@ -65,6 +65,10 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
                     Sorry! No shows in {id} genre yet 🥲
                 </div>
             }
+            {isLoaded && <Loading />}
+            {!isLoaded && shows?.length === 0 && 
+            <h6 className={styles.showsException}>Sorry! No scheduled shows yet 🥲</h6>
+            }
         </div>
     </section>
   )

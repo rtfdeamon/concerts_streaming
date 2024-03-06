@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { IEvent } from '@/app/types/interfaces';
 import ScheduledPaginate from './ScheduledPaginate';
+import Loading from '../Loading/Loading';
 import Image from 'next/image';
 import CalendarIcon from '../../../../public/calendar-range.svg'
 import styles from './ScheduledShows.module.scss'
@@ -12,11 +13,13 @@ async function getShows(){
     return data
 }
 
-export default async function ScheduledConcerts() {
+export default function ScheduledConcerts() {
   const [shows, setShows] = useState<IEvent[]>([]);
+  const [isLoaded, setIsLoaded] = useState(true);
   useEffect(() => {
     getShows()
       .then(res => setShows(res))
+      .finally(() => setIsLoaded(false))
     }, [])
     return (
     <section className={styles.sectionWrapper}>
@@ -26,9 +29,11 @@ export default async function ScheduledConcerts() {
         </div>
         <div className={styles.shows}>
         {
-            shows && shows.length > 0 ?
+            shows && shows.length > 0 &&
             <ScheduledPaginate itemsPerPage={6} items={shows}/>
-            :
+        }
+        {isLoaded && <Loading />}
+        {!isLoaded && shows?.length === 0 && 
             <h6 className={styles.showsException}>Sorry! No scheduled shows yet 🥲</h6>
         }
         </div>

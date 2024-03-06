@@ -105,6 +105,7 @@ function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
                   pageRangeDisplayed={0}
                   activeClassName={'active hidden'}
                   pageClassName={'hidden'}
+                  breakClassName={'hidden'}
                   pageCount={pageCount}
                   previousLabel="<"
                   renderOnZeroPageCount={null}

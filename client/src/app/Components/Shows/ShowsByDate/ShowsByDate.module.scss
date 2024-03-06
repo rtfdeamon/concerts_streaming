@@ -1,6 +1,9 @@
 .shows, .genresShows{
     @apply flex flex-wrap items-center justify-center relative text-xl my-7
 }
+.genresShows{
+    @apply h-[60vh]
+}
 .genresShows {
     & div{
         @apply w-[500px]
@@ -51,15 +54,16 @@
     & ul {
         & li{
             &:first-child{
-                @apply absolute left-[30px]
+                @apply absolute left-[100px]
             }
             &:last-child{
-                @apply absolute right-[30px]
+                @apply absolute right-[100px]
             }
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
-            @apply absolute top-[50%]
+            transform: translate(80%, -33vh);
+            @apply absolute
             }
         }
     }

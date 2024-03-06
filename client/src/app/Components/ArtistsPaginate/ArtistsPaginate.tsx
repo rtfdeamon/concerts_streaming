@@ -60,6 +60,7 @@ export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, a
           className={styles.paginate}
           breakLabel="..."
           nextLabel=">"
+          breakClassName={'hidden'}
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}

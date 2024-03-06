@@ -5,6 +5,7 @@ import HeaderWithoutBanner from "../Header/HeaderWithouBanner";
 import { ArtistsPaginate } from "../ArtistsPaginate/ArtistsPaginate";
 import RequestButton from "./RequestButton";
 import SponsorModal from "./SponsorModal";
+import PayPalModal from "./PayPalModal";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { IUser } from "@/app/types/interfaces";
@@ -43,23 +44,6 @@ const unFollowShow = async (id: string) => {
   return data;
 }
 
-const buyTicket = async (concert: string, user: Number) => {
-  try {
-    const res = await fetch(`${process.env.BACKEND_URL}/tickets/`, {
-      method: 'POST',
-      headers: {
-        'Authorization' : `Bearer ${await getTokenForApi()}`,
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({concert, user})
-    })
-    const data: any = await res.json();
-    return data;
-  } catch(e){
-    throw new Error();
-  }
-}
-
 export default function ShowPreview({params}:IPreviewParams) {
   let role : string | undefined;
   if (typeof window !== 'undefined' && typeof localStorage.getItem('role') !== undefined){
@@ -67,10 +51,48 @@ export default function ShowPreview({params}:IPreviewParams) {
   }
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [show, setShow] = useState<IEvent | null>(null);
-  const [token, setToken] = useState<string | undefined>(undefined);
+  const [token, setToken] = useState<string | undefined | null>(undefined);
   const [user, setUser] = useState<IUser | null>();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [paypalIsActive, setPaypalIsActive] = useState(false);
   const { toast } = useToast();
+
+  const paypalActiveHandler = () => {
+    setPaypalIsActive(prev => !prev)
+  }
+
+  const buyTicket = async (concert: string, user: Number) => {
+    try{
+        const res = await fetch(`${process.env.BACKEND_URL}/tickets/`, {
+          method: 'POST',
+          headers: {
+            'Authorization' : `Bearer ${await getTokenForApi()}`,
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({concert, user})
+        })
+        toast({
+          title: "You`ve successfully got a ticket",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+        const data: any = await res.json();
+        return data;
+      } catch(e){
+        toast({
+          title: "You already got a ticket",
+          variant: "destructive",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+      }
+    }
+const buyHandler = () => {
+  buyTicket(show?.id as string, user?.id as Number)
+}
+
 
   const onSubscribeHandler = async (id: string) => {
     const res: any = await followShow(id);
@@ -97,37 +119,26 @@ export default function ShowPreview({params}:IPreviewParams) {
     }
   }
 
-  const onBuyHandler = async (concert: string, user: Number) => {
-    buyTicket(concert, user)
-      .then(res => {
-        if (res.user){
-          toast({
-            title: "You`re successfully buy a ticket!",
-            action: (
-              <ToastAction altText="Hide">Hide</ToastAction>
-            ),
-          })
-        }
-      })
-      .catch(e => {
-        toast({
-          title: "You already bought a ticket",
-          variant: "destructive",
-          action: (
-            <ToastAction altText="Hide">Hide</ToastAction>
-          ),
-        })
-      })
-  }
-
   const modalHandler = () => {
     setModalIsOpen(true)
   }
 
+
   useEffect(() => {
-      fetch(`${process.env.BACKEND_URL}/concerts/${params.id}/`)
+    async function getConcert(){
+      fetch(`${process.env.BACKEND_URL}/concerts/${params.id}`, {
+        method: 'GET',
+        headers: token === null ?
+        {}
+        :
+        {
+          'Authorization':`Bearer ${await getTokenForApi()}`
+        }
+      })
       .then(res => res.json())
       .then(res => setShow(res))
+    }
+    getConcert()
   }, [])
   useEffect(() => {
     getTokenForApi()
@@ -153,7 +164,13 @@ export default function ShowPreview({params}:IPreviewParams) {
   return (
       <>
         <HeaderWithoutBanner />
-        {modalIsOpen && show && <SponsorModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} showId={show?.id} showTitle={show.name}/>}
+        {modalIsOpen && show &&
+          <SponsorModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} showId={show?.id} showTitle={show.name}/>}
+        {paypalIsActive && show &&
+          <PayPalModal 
+            isOpen={paypalIsActive} setIsOpen={setPaypalIsActive} showId={show?.id} showTitle={show.name}
+            price={show.ticket_price}
+            />}
         <section className={styles.section}>
           {show?.name ? 
           <>
@@ -161,13 +178,6 @@ export default function ShowPreview({params}:IPreviewParams) {
               <div className={styles.poster} style={{  backgroundImage: "url(" + { Women } + ")", backgroundSize: 'auto' }}>
                 <div className={styles.previewWrapper}>
                   <Image className={styles.preview} src={show.poster_url} width={600} height={300} alt={show.name} />
-                  {role === 'viewer' && 
-                            <Button
-                            onClick={() => onBuyHandler(show.id, user?.id as Number)}
-                            disabled={!role}
-                            className={styles.buyBtn}>
-                            Buy a ticket</Button>
-                  }
                   {role === 'artist' &&
                           <RequestButton id={params.id} />
                   }
@@ -176,6 +186,26 @@ export default function ShowPreview({params}:IPreviewParams) {
                       onClick={modalHandler}
                       className={styles.buyBtn}>
                       Become a sponsor</Button>
+                  }
+                  {role === 'viewer' &&
+                    <>
+                    {typeof show.ticket_price !== "object" ?
+                      <Button
+                      onClick={() => {
+                        // onBuyHandler(show.id, user?.id as Number)
+                        paypalActiveHandler()
+                      }}
+                      disabled={!role}
+                      className={styles.buyBtn}>
+                      Buy a ticket</Button>
+                    :
+                    <Button
+                      onClick={buyHandler}
+                      disabled={!role}
+                      className={styles.buyBtn}>
+                      Get a free ticket</Button>
+                    } 
+                    </>
                   }
                 </div>
                   <div className={styles.posterWrapper}>

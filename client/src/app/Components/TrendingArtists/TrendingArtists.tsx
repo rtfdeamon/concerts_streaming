@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
+import Loading from '../Loading/Loading';
 import { IArtist } from '@/app/types/interfaces';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,20 +9,22 @@ import styles from './TrendingArtists.module.scss';
 
 
 
-export default async function TrendingArtists() {
+export default function TrendingArtists() {
+  const [isLoaded, setIsLoaded] = useState(true);
   const [artists, setArtists] = useState<IArtist[]>([]);
   useEffect(() => {
     async function getShows(){
       const res = await fetch(`${process.env.BACKEND_URL}/artists/trending/`)
       const data = await res.json()
       setArtists(data);
+      setIsLoaded(false);
     }
     getShows()
   }, [])
   return (
     <section>
     <h5 className={styles.title}>Trending artists</h5>
-    {artists && artists.length >0 ?
+    {artists && artists.length >0 &&
           <div className={styles.requestWrapper}>
               {artists.map((a, i) => (
                       <Link key={i}  className={styles.showWrapper} href={`/artist/${a.id}`}>
@@ -30,11 +33,11 @@ export default async function TrendingArtists() {
                       </Link>
               ))}
           </div>
-          :
-          <div className={styles.showsException}>
-            Sorry! No trending artists yet 🥲
-          </div>
-        }
+      }
+      {isLoaded && <Loading />}
+      {!isLoaded && artists?.length === 0 && 
+        <h6 className={styles.showsException}>Sorry! No trending artists yet 🥲</h6>
+      }
 </section>
   )
 }

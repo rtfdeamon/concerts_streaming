@@ -4,6 +4,10 @@ const nextConfig = {
     env: {
         FRONTEND_URL: process.env.FRONTEND_URL,
         BACKEND_URL: process.env.BACKEND_URL,
+        clientId: process.env.BACKEND_URL,
+        clientSecret: process.env.BACKEND_URL,
+        currency: process.env.BACKEND_URL,
+        intent: process.env.BACKEND_URL
       },
     eslint:{
       ignoreDuringBuilds: true

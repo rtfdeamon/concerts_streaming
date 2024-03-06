@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { getTokenForApi } from '@/app/utils/getTokenForApi'
+import Loading from '../Loading/Loading'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ITicket } from '@/app/types/interfaces'
@@ -8,6 +9,7 @@ import styles from './TicketsList.module.scss'
 
 export default function TicketsList() {
     const [ticketInfo, setTicketInfo] = useState<ITicket[] | []>([]);
+    const [isLoaded, setIsLoaded] = useState(true);
     useEffect(() => {
         async function getTicketInfo(){
             const res = await fetch(`${process.env.BACKEND_URL}/tickets/`, {
@@ -19,10 +21,10 @@ export default function TicketsList() {
             })
             const data: any = await res.json();
             setTicketInfo(data);
+            setIsLoaded(false);
         }
         getTicketInfo();
     }, [])
-    console.log(ticketInfo)
     return (
     <section className={styles.sectionWrapper}>
         <div className={styles.titleWrapper}>
@@ -30,10 +32,10 @@ export default function TicketsList() {
         </div>
         <div className={styles.shows}>
             {
-                ticketInfo && ticketInfo.length > 0 ?
+                ticketInfo && ticketInfo.length > 0 &&
                     <div className={styles.ticketInfos}>
                         {ticketInfo.map((t) => (
-                            <Link className={styles.link} href={`${process.env.FRONTEND_URL}/preview/${t.id}`} >
+                            <Link key={t.id} className={styles.link} href={`${process.env.FRONTEND_URL}/preview/${t.concert.id}`} >
                                 <h5 className={styles.concTitle}>{t.concert.name}</h5>
                                 {t.concert.poster_url !== '' && typeof t.concert.poster_url !=='undefined' &&
                                 <Image className={styles.poster} src={t.concert.poster_url} width={250} height={150} alt='Poster' />}
@@ -41,7 +43,9 @@ export default function TicketsList() {
                             </Link>
                         ))}
                     </div>
-                :
+            }
+            {isLoaded && <Loading />}
+            {!isLoaded && ticketInfo?.length === 0 && 
                 <h6 className={styles.showsException}>Sorry! You haven't bought any tickets yet  🥲</h6>
             }
         </div>

@@ -1,20 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks/rtkHooks';
 import { getShowByFilter } from '@/app/store/shows/showsSlice';
 import ShowsByDate from './ShowsByDate/ShowsByDate';
 import CalendarComp from './Calendar/CalendarComp';
 import Link from 'next/link'
 import styles from './Shows.module.scss'
-
-// interface IShow{
-//     title: string,
-//     place: string,
-//     date: string
-// }
-// export interface  IShows{
-//     shows: IShow[]
-// }
 
 export default function Shows() {
     const dispatch = useAppDispatch();
@@ -23,122 +14,56 @@ export default function Shows() {
     const [monthIsOpen, setMonthIsOpen] = useState(false);
     const [calendarIsOpen, setCalendarIsOpen] = useState(false);
     const shows = useAppSelector(state => state.shows.events);
-    // const shows = [
-    //     {
-    //         title: 'Example 1',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 2',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 3',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 4',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 1',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 2',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 3',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 4',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 1',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 2',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 3',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 4',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 1',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 2',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 3',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     },
-    //     {
-    //         title: 'Example 4',
-    //         place: 'Berlin',
-    //         date: 'Feb 05 - 10:00 AM'
-    //     }
-    //   ]
 
     const todayIsOpenHandler = () => {
         setTodayIsOpen(!todayIsOpen);
         setMonthIsOpen(false);
         setWeekIsOpen(false);
         setCalendarIsOpen(false);
-        const today = new Date();
-        const yesterday = new Date(Date.now()-86400000)
-        dispatch(getShowByFilter({to: today.toISOString(), from: yesterday.toISOString()}))
+        let today: number | Date = new Date().setHours(0, 0, 0, 0);
+        let tomorrow: number | Date  = today + 86399000
+        today = new Date(today)
+        tomorrow = new Date(tomorrow)
+        console.log(today, tomorrow)
+        dispatch(getShowByFilter({to: tomorrow.toISOString(), from: today.toISOString()}))
     }
     const weekIsOpenHandler = () => {
         setWeekIsOpen(!weekIsOpen);
         setMonthIsOpen(false);
         setTodayIsOpen(false);
         setCalendarIsOpen(false);
-        const today = new Date();
-        const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-        dispatch(getShowByFilter({to: today.toISOString(), from: lastWeek.toISOString()}));
+        let today: number | Date = new Date().setHours(0, 0, 0, 0);
+        let lastDayOfWeek: number | Date  = today + 7 * 24 * 60 * 60 * 1000;
+        today = new Date(today)
+        lastDayOfWeek = new Date(lastDayOfWeek)
+        console.log(today, lastDayOfWeek)
+        dispatch(getShowByFilter({to: lastDayOfWeek.toISOString(), from: today.toISOString()}));
     }
     const monthIsOpenHandler = () => {
         setMonthIsOpen(!monthIsOpen);
         setTodayIsOpen(false);
         setWeekIsOpen(false);
         setCalendarIsOpen(false);
-        const today = new Date().toISOString();
-        const lastDayOfPrevMonth = new Date(new Date().setDate(0)).toISOString();
-        dispatch(getShowByFilter({to: today, from: lastDayOfPrevMonth}));
-    }
+        let today: number | Date = new Date().setHours(0, 0, 0, 0);
+        let lastDayOfPrevMonth: number | Date  = today + 8 * 24 * 60 * 60 * 1000 * 4;
+        today = new Date(today)
+        lastDayOfPrevMonth = new Date(lastDayOfPrevMonth)
+        console.log(today, lastDayOfPrevMonth)
+        dispatch(getShowByFilter({to: lastDayOfPrevMonth.toISOString(), from: today.toISOString()}));    }
     const calendarIsOpenHandler = () => {
         setCalendarIsOpen(!calendarIsOpen);
         setTodayIsOpen(false);
         setWeekIsOpen(false);
         setMonthIsOpen(false);
     }
+    useEffect(() => {
+        let today: number | Date = new Date().setUTCHours(0, 0, 0, 0);
+        let tomorrow: number | Date  = today + 86399000
+        today = new Date(today)
+        tomorrow = new Date(tomorrow)
+        dispatch(getShowByFilter({to: tomorrow.toISOString(), from: today.toISOString()}))
+    }, [])
+
   return (
     <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
