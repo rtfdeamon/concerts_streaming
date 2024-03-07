@@ -7,8 +7,11 @@
 .showsException{
     @apply block mt-14 text-3xl text-center 
 }
+.wrapper{
+    @apply flex flex-wrap justify-between
+}
 .artistsWrapper{
-    @apply flex flex-wrap justify-center
+    @apply flex flex-wrap justify-between
 }
 .artistWrapper{
     @apply w-[350px] mb-[40px] flex flex-col
@@ -36,5 +39,5 @@
     & li{
         @apply block mr-5
     }
-@apply absolute bottom-0 flex justify-center items-center pb-7 text-center
+@apply absolute bottom-0 left-[55%] flex items-center pb-7 text-center
 }

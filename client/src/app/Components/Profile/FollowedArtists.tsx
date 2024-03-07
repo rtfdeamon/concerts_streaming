@@ -10,7 +10,7 @@ import styles from './FollowedArtists.module.scss'
 
 export default function FollowedArtists() {
   const [artists, setArtists] = useState<IArtist[] | undefined>()
-  const [token, setToken] = useState<string | undefined>();
+  const [token, setToken] = useState<string | undefined | null>();
   const [isLoaded, setIsLoaded] = useState(true);
   useEffect(() => {
     getTokenForApi()

@@ -1,0 +1,33 @@
+.sectionWrapper{
+    @apply w-2/3 mx-auto py-10 flex flex-col items-center
+}
+.title{
+    @apply text-5xl text-center mb-6
+}
+.tariffWrapper{
+    @apply w-[70vw] h-[60vh] flex justify-evenly items-center text-center
+}
+.tariffItem{
+    &:hover{
+        box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.1);
+    }
+    @apply bg-white rounded-md py-5 px-10 h-[400px] w-[350px] cursor-pointer duration-500 transition-all
+}
+.image{
+    @apply block mx-auto
+}
+.subtitle{
+    @apply text-3xl mb-5
+}
+.btn{
+    &:hover{ 
+        @apply bg-blue-700
+    }
+    @apply block mx-auto mt-5 text-xl h-[60px] bg-blue-500 duration-500 transition-all w-[200px]
+}
+.price{
+    @apply block mt-3 text-blue-700
+}
+.concertsCount{
+    @apply block mt-3
+}

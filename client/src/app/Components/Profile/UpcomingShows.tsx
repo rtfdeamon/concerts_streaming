@@ -16,7 +16,7 @@ export default async function UpcomingShows() {
         <div className={styles.shows}>
             {
                 shows && shows.length > 0 ?
-                <PaginatedItems itemsPerPage={6} items={shows} type='followedShows'/>
+                <PaginatedItems itemsPerPage={6} items={shows} />
                 :
                 <h6 className={styles.error}>Sorry! No upcoming shows yet 🥲</h6>
             }

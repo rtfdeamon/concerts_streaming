@@ -10,7 +10,7 @@ import styles from './FollowedShows.module.scss'
 export default function FollowedShows() {
     const [shows, setShows] = useState<IEvent[] | undefined>();
     const [user, setUser] = useState<IUser>()
-    const [token, setToken] = useState<string | undefined>(undefined);
+    const [token, setToken] = useState<string | undefined | null>(undefined);
     const [isLoaded, setIsLoaded] = useState(true);
     useEffect(() => {
       getTokenForApi()
@@ -34,7 +34,7 @@ export default function FollowedShows() {
       <div className={styles.shows}>
         {
             shows && shows.length > 0 &&
-            <PaginatedItems itemsPerPage={6} items={shows} type='followedShows'/>
+            <PaginatedItems itemsPerPage={6} items={shows}/>
         }
         {isLoaded && <Loading />}
         {!isLoaded && shows?.length === 0 && 

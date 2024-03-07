@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, useLayoutEffect, memo } from "react";
 import { Centrifuge } from 'centrifuge';
 import InputEmojiWithRef from "react-input-emoji";
 import { IMessage, IUser } from "@/app/types/interfaces";
@@ -13,6 +13,11 @@ export default memo(function Chat({id}: {id: string}) {
     const [showMoreMessage, setShowMoreMessage] = useState<number>(-1);
     const [user, setUser] = useState<IUser>()
     const [sub, setSub] = useState(() => centrifuge.newSubscription(`concert-${id}`))
+
+    useLayoutEffect(() => {
+      centrifuge.disconnect()
+    }, [])
+
     useEffect(() => {
       sub.subscribe();
       centrifuge.connect();
@@ -22,7 +27,7 @@ export default memo(function Chat({id}: {id: string}) {
         const res = await fetch(`${process.env.BACKEND_URL}/users/current`, {
           method: 'GET',
           headers: {
-            'Authorization' : `Bearer ${await getTokenForApi}`
+            'Authorization' : `Bearer ${await getTokenForApi()}`
           }
         })
         const data = await res.json();

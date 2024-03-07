@@ -7,12 +7,12 @@ import { ToastAction } from "@radix-ui/react-toast";
 import { IUser } from "@/app/types/interfaces";
 
 
-export default function PayPalBtns({showId}: {showId: string}) {
+export default function TariffPaypalBtns({variant}: {variant: string}) {
   const [user, setUser] = useState<IUser>();
   const { toast } = useToast();
   const [res, setRes] = useState<any>();
   const createOrder = async () => {
-    const data = await buyTicket(showId, user?.id as number);
+    const data = await buyTicket(variant, user?.id as number);
     setRes(data)
        return fetch(`${process.env.BACKEND_URL}/orders/`, {
           method: "POST", 

@@ -9,8 +9,7 @@ async function getShows(){
 }
 
 export default async function LiveConcerts() {
-    let shows: IEvent[] = [];
-    // shows = await getShows();
+    let shows: IEvent[] = await getShows()
     return (
     <section>
         <div className={styles.titleWrapper}>

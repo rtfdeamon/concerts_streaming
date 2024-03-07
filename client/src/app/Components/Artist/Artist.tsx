@@ -45,7 +45,7 @@ export default function Artist({params}:IArtistParams) {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [artist, setArtist] = useState<IArtist | null>();
   const [user, setUser] = useState<IUser | null>();
-  const [token, setToken] = useState<string | undefined>();
+  const [token, setToken] = useState<string | undefined | null>();
   const userStatus = useAppSelector(state => state.userInfo.user?.role)
   const { toast } = useToast();
 
@@ -108,11 +108,15 @@ export default function Artist({params}:IArtistParams) {
             {artist ?
               <>
                   <div className={styles.poster}>
-                    <Image src={typeof artist?.avatar_url === 'object' ? User : artist?.avatar_url} width={200} height={200} alt="women" />
+                    <Image src={typeof artist?.avatar_url === 'object' ? User : artist?.avatar_url}
+                    width={200}
+                    height={200}
+                    className={styles.artistAvatar}
+                    alt="women" />
                   <div className={styles.posterWrapper}>
                         <h5 className={styles.artistTitle}>{artist?.name}</h5>
                         <p className={styles.desc}>
-                          genre
+                          {artist?.artist_genre}
                         </p>
                         {!isSubscribed ?
                           <Button

@@ -7,6 +7,9 @@
     }
     @apply flex justify-around bg-white px-5 py-10 rounded-lg
 }
+.artistAvatar{
+    @apply w-[200px] h-[200px] rounded-full
+}
 .posterWrapper{
     @apply flex flex-col items-center justify-center
 }

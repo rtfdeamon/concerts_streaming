@@ -15,6 +15,7 @@ const TicketsList = lazy(() => import('./TicketsList'))
 import Loading from "../Loading/Loading"
 import { checkAccessToken } from "@/app/utils/checkAccessToken"
 import styles from './Profile.module.scss'
+import Tariff from "./Tariff"
 
 export default function Profile() {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ export default function Profile() {
   const [scheduledShowsIsOpen, setScheduledShowsIsOpen] = useState(false);
   const [sponsoredShowsIsOpen, setSponsoredShowsIsOpen] = useState(false);
   const [ticketsListIsOpen, setTicketsListIsOpen] = useState(false);
+  const [tariffIsOpen, setTariffIsOpen] = useState(false);
 
   const router = useRouter();
 
@@ -39,6 +41,7 @@ export default function Profile() {
     setScheduledShowsIsOpen(false);
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const artistsHandler = () => {
     setArtistsIsOpen(true);
@@ -49,6 +52,7 @@ export default function Profile() {
     setScheduledShowsIsOpen(false);
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const showsHandler = () => {
     setShowsIsOpen(true);
@@ -59,6 +63,7 @@ export default function Profile() {
     setScheduledShowsIsOpen(false);
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const artistShowsHandler = () => {
     setArtistsShowsIsOpen(true);
@@ -69,6 +74,7 @@ export default function Profile() {
     setScheduledShowsIsOpen(false);
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const upcomingHandler = () => {
     setUpcomingIsOpen(true);
@@ -79,6 +85,7 @@ export default function Profile() {
     setScheduledShowsIsOpen(false);
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const scheduledShowsHandler = () => {
     setScheduledShowsIsOpen(true);
@@ -89,6 +96,7 @@ export default function Profile() {
     setArtistsShowsIsOpen(false);
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const sponsoredShowsHandler = () => {
     setSponsoredShowsIsOpen(true);
@@ -99,9 +107,23 @@ export default function Profile() {
     setArtistsShowsIsOpen(false);
     setScheduledShowsIsOpen(false);
     setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const ticketsListHandler = () => {
     setTicketsListIsOpen(true);
+    setSponsoredShowsIsOpen(false);
+    setUpcomingIsOpen(false);
+    setProfileIsOpen(false);
+    setArtistsIsOpen(false);
+    setShowsIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setScheduledShowsIsOpen(false);
+    setTariffIsOpen(false);
+  }
+
+  const tariffHandler = () => {
+    setTariffIsOpen(true);
+    setTicketsListIsOpen(false);
     setSponsoredShowsIsOpen(false);
     setUpcomingIsOpen(false);
     setProfileIsOpen(false);
@@ -135,6 +157,10 @@ export default function Profile() {
                 onClick={profileHandler}
                 className={profileIsOpen ? styles.active : styles.notActive}
               >My Profile</li>
+                <li
+                  onClick={tariffHandler}
+                  className={tariffIsOpen ? styles.active : styles.notActive}
+                >Tariff plan</li>
               <li
                 onClick={artistShowsHandler}
                 className={artistShowsIsOpen ? styles.active : styles.notActive}
@@ -230,6 +256,11 @@ export default function Profile() {
             {ticketsListIsOpen && 
               <Suspense fallback={<Loading />}>
                 <TicketsList />
+              </Suspense>
+            }
+            {tariffIsOpen && 
+              <Suspense fallback={<Loading />}>
+                <Tariff />
               </Suspense>
             }
           </div>
