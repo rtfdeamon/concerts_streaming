@@ -7,6 +7,12 @@
 .bold{
     @apply font-bold 
 }
+.link{
+        &:hover{
+            @apply text-blue-700
+        }
+        @apply text-blue-500 transition-all duration-500
+}
 .contentBlock{
     & ul {
         & li{
