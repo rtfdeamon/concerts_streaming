@@ -75,9 +75,11 @@ export default function SignUp() {
         async (data: IRegister) => {
             data['select'] = select;
             const res:any = await dispatch(signUp(data));
-            if (res.error){
+            console.log(res)
+            if (res.payload.error){
                 setErr(true);
-            } else {
+            } 
+            else {
                 router.push('/login');
             }
           }

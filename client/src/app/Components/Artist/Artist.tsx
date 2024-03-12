@@ -75,7 +75,7 @@ export default function Artist({params}:IArtistParams) {
   }
 
   useEffect(() => {
-      fetch(`${process.env.BACKEND_URL}/artists/${params.id}`)
+      fetch(`${process.env.BACKEND_URL}/artists/${params.id}/`)
       .then(res => res.json())
       .then(res => setArtist(res))
   }, [])
@@ -83,7 +83,7 @@ export default function Artist({params}:IArtistParams) {
     getTokenForApi()
       .then(res => setToken(res))
       if (typeof token !== 'undefined'){
-        fetch(`${process.env.BACKEND_URL}/users/current`, {
+        fetch(`${process.env.BACKEND_URL}/users/current/`, {
           method: 'GET',
           headers: {
             'Authorization' : `Bearer ${token}`
@@ -118,18 +118,22 @@ export default function Artist({params}:IArtistParams) {
                         <p className={styles.desc}>
                           {artist?.artist_genre}
                         </p>
-                        {!isSubscribed ?
-                          <Button
-                          onClick={() => onSubscribeHandler(artist?.id)}
-                          disabled={!userStatus}
-                          className={styles.btn}>
-                          Follow an artist</Button>
-                          :
-                          <Button
-                          onClick={() => onUnsubscribeHandler(artist?.id)}
-                          disabled={!userStatus}
-                          className={styles.btn}>
-                          Unsubcribe</Button>
+                        {user?.id as number !== +params.id && 
+                          <>
+                          {!isSubscribed ?
+                              <Button
+                              onClick={() => onSubscribeHandler(artist?.id)}
+                              disabled={!userStatus}
+                              className={styles.btn}>
+                              Follow an artist</Button>
+                              :
+                              <Button
+                              onClick={() => onUnsubscribeHandler(artist?.id)}
+                              disabled={!userStatus}
+                              className={styles.btn}>
+                              Unsubcribe</Button>
+                          }
+                          </>
                         }
                   </div>
                    </div>

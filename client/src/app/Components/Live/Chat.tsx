@@ -6,7 +6,7 @@ import { IMessage, IUser } from "@/app/types/interfaces";
 import styles from './Chat.module.scss';
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 
-const centrifuge = new Centrifuge('ws://192.168.100.101:8183/connection/websocket')
+const centrifuge = new Centrifuge('wss://concertplatform.mmvs.video:8443/connection/websocket')
 export default memo(function Chat({id}: {id: string}) {
     const [messageText, setMessageText] = useState('');
     const [chatMessageReceived, setChatMessageReceived] = useState<IMessage[]>([]);
@@ -24,7 +24,7 @@ export default memo(function Chat({id}: {id: string}) {
     }, [sub])
     useEffect(() => {
       async function getCurrUser(){
-        const res = await fetch(`${process.env.BACKEND_URL}/users/current`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
           method: 'GET',
           headers: {
             'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -39,6 +39,7 @@ export default memo(function Chat({id}: {id: string}) {
     useEffect(() => {
       sub.on('publication', function(ctx) {
         setChatMessageReceived(prev => [...prev, ctx.data])
+        console.log(ctx.data)
     });
     }, [centrifuge])
 

@@ -55,7 +55,6 @@ export default function ProfileDropdown() {
                   <DropdownMenuItem onClick={async () => {
                     accessToken !== 'undefined' && typeof accessToken !== 'undefined' && SignOut(accessToken)
                     dispatch(resetTokens())
-                    router.push(`${process.env.FRONTEND_URL}/login/`)
                   }}>
                           Logout
                   </DropdownMenuItem>

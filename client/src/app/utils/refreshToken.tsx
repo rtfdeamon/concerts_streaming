@@ -17,6 +17,10 @@ export async function RefreshTokens(accessToken: string, refreshToken: string){
     refreshTokens(accessToken, refreshToken)
     .then(res => res.json())
     .then(res => {
+        if (!res.ok){
+            localStorage.removeItem('authed')
+            routeHandler();
+        }
         if (res.access_token){
             localStorage.setItem('refreshToken', JSON.stringify(res.refresh_token))
             localStorage.setItem('accessToken', JSON.stringify(res.access_token))

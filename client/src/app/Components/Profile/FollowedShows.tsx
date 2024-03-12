@@ -15,7 +15,7 @@ export default function FollowedShows() {
     useEffect(() => {
       getTokenForApi()
       .then(res => setToken(res))
-      typeof token !== 'undefined' && fetch(`${process.env.BACKEND_URL}/users/current`, {
+      typeof token !== 'undefined' && fetch(`${process.env.BACKEND_URL}/users/current/`, {
         method: 'GET',
         headers: {
           'Authorization' : `Bearer ${token}`
@@ -36,7 +36,7 @@ export default function FollowedShows() {
             shows && shows.length > 0 &&
             <PaginatedItems itemsPerPage={6} items={shows}/>
         }
-        {isLoaded && <Loading />}
+        {isLoaded && <Loading isClient />}
         {!isLoaded && shows?.length === 0 && 
             <h6 className={styles.error}>Sorry! No followed shows yet 🥲</h6>
         }

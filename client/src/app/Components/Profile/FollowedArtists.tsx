@@ -17,7 +17,7 @@ export default function FollowedArtists() {
       .then(res => setToken(res))
   }, [])
   useEffect(() => {
-    typeof token !== 'undefined' && fetch(`${process.env.BACKEND_URL}/users/current`, {
+    typeof token !== 'undefined' && fetch(`${process.env.BACKEND_URL}/users/current/`, {
       method: 'GET',
       headers: {
         'Authorization' : `Bearer ${token}`

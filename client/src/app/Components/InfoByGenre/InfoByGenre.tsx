@@ -18,7 +18,7 @@ async function getData(id:string, isArtists?: boolean) {
         return data
     } 
     if (!isArtists){
-        res = await fetch(`${process.env.BACKEND_URL}/concerts?category=${id}`);
+        res = await fetch(`${process.env.BACKEND_URL}/concerts?category=${id}/`);
         const data = await res.json();
         return data
     }

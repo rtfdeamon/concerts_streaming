@@ -91,7 +91,7 @@ export default function TariffPaypalBtns({variant}: {variant: string}) {
 
   useEffect(() => {
     const getUser = async () => {
-      fetch(`${process.env.BACKEND_URL}/users/current`, {
+      fetch(`${process.env.BACKEND_URL}/users/current/`, {
         method: 'GET',
         headers: {
           'Authorization' : `Bearer ${await getTokenForApi()}`

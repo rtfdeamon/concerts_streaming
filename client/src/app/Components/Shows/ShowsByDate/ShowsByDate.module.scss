@@ -1,6 +1,9 @@
 .shows, .genresShows{
     @apply flex flex-wrap items-center justify-center relative text-xl my-7
 }
+// .shows{
+//     @apply h-[70vh]
+// }
 .genresShows{
     @apply h-[60vh]
 }
@@ -16,7 +19,7 @@
     @apply mb-6 mx-4
 }
 .typeWrapper{
-    @apply w-[500px]
+    @apply mb-5 w-[500px]
 }
 .title{
     @apply block text-center text-2xl

@@ -28,7 +28,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
       }
       const uploadFile = async (file: File) => {
         const link:any = await generateUploadLink('artist_demo');
-        const res = await fetch(`${link.url}`, {
+        const res = await fetch(`${link.url}/`, {
             method: 'PUT',
             headers: {
               'Content-type' : 'audio/mpeg'
@@ -61,6 +61,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
       }
       postArtistDemo()
         .then(res => {
+          console.log(res)
           toast({
             title: "Your request is sent",
             action: (

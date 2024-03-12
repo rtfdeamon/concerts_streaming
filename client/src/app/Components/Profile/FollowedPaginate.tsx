@@ -16,7 +16,7 @@ function Items(artists:{artists: IArtist[]}) {
     <div className={styles.wrapper}>
         {artists &&  artists.artists.map((a, i) => (
             <div className={styles.artistWrapper} key={i}>
-                <Link className={styles.linkWrapper} href={`/artists/${a.id}`}>
+                <Link className={styles.linkWrapper} href={`/artist/${a.id}`}>
                     <Image src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={100} height={100} alt={'fds'} />
                     <div className={styles.artistInfo}>
                     <p className={styles.artistName}>{a.name}</p>

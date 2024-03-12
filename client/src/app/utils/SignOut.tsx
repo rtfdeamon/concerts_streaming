@@ -12,6 +12,8 @@ export default function SignOut(token: string) {
             localStorage.removeItem('refreshToken');
             localStorage.removeItem('authed');
             localStorage.removeItem('role');
+            location.replace(`${process.env.FRONTEND_URL}/login`)
+
         }
         return res
     }
