@@ -170,3 +170,6 @@ if __name__ == '__main__':
             with get_ticket(api, show['id']) as t1, get_ticket(another_user, show['id']) as t2:
                 result = another_user.get(f'/concerts/{show["id"]}/')
                 print(result)
+                order_resp = api.post('/orders/', {'ticket_id': t2['id']})
+                order_capture_resp = api.post('/orders/capture/', {'order_id': order_resp['id']})
+                print(order_capture_resp)

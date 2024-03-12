@@ -54,6 +54,8 @@ from .schemas import (
     mail_subscription_request_dto,
     chat_send_request_dto,
     chat_history_query_parameters,
+    order_create_request_dto,
+    order_capture_request_dto,
 )
 from utils import paypal
 from utils.serializers import ReadWriteSerializerViewSetMixin
@@ -196,19 +198,19 @@ class ConcertsViewSet(ReadWriteSerializerViewSetMixin, ModelViewSet):
             message = ChatMessage(
                 concert_id=pk,
                 user_id=request.user.id,
-                message=request.data['message']
+                message=request.data['text']
             )
             message.save()
             message_data = ChatMessageSerializer(message).data
             client = Client(settings.CENTRIFUGO_SERVER + '/api', api_key=settings.CENTRIFUGO_API_KEY)
             client.publish(f"concert-{pk}", {
                 'sender': {
-                    'id': message_data['user']['id'],
-                    'name': message_data['user']['name'],
-                    'avatar_url': message_data['user']['avatar_url']
+                    'id': message_data['sender']['id'],
+                    'name': message_data['sender']['name'],
+                    'avatar_url': message_data['sender']['avatar_url']
                 },
                 'date': int(datetime.datetime.utcnow().timestamp()),
-                'text': request.data['message']
+                'text': request.data['text']
             })
             return Response({
                 'success': True,
@@ -377,6 +379,7 @@ class OrdersViewSet(ViewSet):
     authentication_classes = [JwtAuthentication]
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(request_body=order_create_request_dto)
     def create(self, request):
         ticket_id = request.data['ticket_id']
         ticket = ConcertTicket.objects.filter(id=ticket_id).first()
@@ -385,17 +388,20 @@ class OrdersViewSet(ViewSet):
         if ticket.status == ConcertTicketStatus.ACTIVATED:
             raise APIException('Ticket already activated')
         price = ticket.concert.ticket_price
+        if price is None:
+            return Response({ 'error': 'Cannot purchase ticket for this concert' }, status=400)
         description = f'Ticket for concert: "{ticket.concert.name}"'
         token = paypal.generate_access_token(settings.PAYPAL_CLIENT_ID, settings.PAYPAL_CLIENT_SECRET)
-        result = paypal.create_order(token, description, price)
-        return result
+        result = paypal.create_order(token, description, float(price))
+        return Response(result)
 
+    @swagger_auto_schema(request_body=order_capture_request_dto)
     @action(url_path='capture', methods=['POST'], detail=False)
     def capture(self, request):
         order_id = request.data['order_id']
         token = paypal.generate_access_token(settings.PAYPAL_CLIENT_ID, settings.PAYPAL_CLIENT_SECRET)
         result = paypal.capture_order(token, order_id)
-        return result
+        return Response(result)
 
 class SignInView(APIView):
     authentication_classes = []

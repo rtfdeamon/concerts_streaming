@@ -34,6 +34,7 @@ from api.views import (
     FileUploadView,
     RefreshTokenView,
     NewsletterSubscribeView,
+    OrdersViewSet
 )
 
 router = routers.DefaultRouter()
@@ -43,6 +44,7 @@ router.register('users', UserViewSet, 'user')
 router.register('artists', ArtistsViewSet, 'artist')
 router.register('sponsor-ads', SponsorAdsViewSet, 'sponsor_ads')
 router.register('tickets', ConcertTicketsViewSet, 'ticket')
+router.register('orders', OrdersViewSet, 'order')
 
 schema_view = get_schema_view(
    openapi.Info(

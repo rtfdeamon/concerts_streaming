@@ -228,7 +228,22 @@ class OrderCaptureSerializer(serializers.Serializer):
     order_id = serializers.CharField()
 
 class ChatMessageSerializer(serializers.ModelSerializer):
-    user = ExtendedUserSerializer(expand=False)
+    sender = serializers.SerializerMethodField()
+    text = serializers.SerializerMethodField()
+    date = serializers.SerializerMethodField()
+
+    @swagger_serializer_method(ExtendedUserSerializer)
+    def get_sender(self, instance):
+        return ExtendedUserSerializer(instance=instance.user, expand=False).data
+    
+    @swagger_serializer_method(serializers.CharField)
+    def get_text(self, instance: ChatMessage):
+        return instance.message
+
+    @swagger_serializer_method(serializers.IntegerField)
+    def get_date(self, instance: ChatMessage):
+        return instance.created_at.timestamp()
+
     class Meta:
         model = ChatMessage
-        fields = ['id', 'created_at', 'message', 'user']
+        fields = ['id', 'sender', 'text', 'date']
