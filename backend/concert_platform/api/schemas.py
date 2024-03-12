@@ -199,9 +199,23 @@ mail_subscription_request_dto = Schema(
 chat_send_request_dto = Schema(
     type=TYPE_OBJECT,
     properties={
-        'message': Schema(type=TYPE_STRING)
+        'text': Schema(type=TYPE_STRING)
     }
 )
 chat_history_query_parameters = [
     Parameter('last_messages', IN_QUERY, type=TYPE_INTEGER),
 ]
+
+order_create_request_dto = Schema(
+    type=TYPE_OBJECT,
+    properties={
+        'ticket_id': Schema(type=TYPE_STRING)
+    }
+)
+
+order_capture_request_dto = Schema(
+    type=TYPE_OBJECT,
+    properties={
+        'order_id': Schema(type=TYPE_STRING)
+    }
+)
