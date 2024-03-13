@@ -1,0 +1,39 @@
+.wrapper{
+    @apply flex justify-center flex-wrap w-[100%]
+ }
+ .requestWrapper{
+     @apply flex items-center justify-center relative mr-6
+ }
+ .request{
+     @apply flex items-center justify-between items-center
+ }
+ .showWrapper{
+     @apply w-[350px] bg-white rounded-md p-6 mb-8
+ }
+ .showLink{
+     &:hover{
+         @apply text-blue-500
+     }
+     @apply block text-center text-base text-blue-400 transition-all duration-500
+ }
+ .imageWrapper{
+     & p:hover{
+         @apply text-blue-500
+     }
+     & p{
+         @apply text-base text-center truncate transition-all duration-500 mt-3
+     }
+     & img{
+         @apply rounded-full block mx-auto
+     }
+     @apply block mx-auto
+ }
+ .image{
+    @apply rounded-full w-[80px] h-[80px]
+ }
+ .paginate{
+             & li{
+                 @apply block mr-5
+             }
+     @apply w-full absolute bottom-0 flex justify-center items-center pb-7 text-center
+ }

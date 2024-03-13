@@ -1,0 +1,15 @@
+ .content{
+     @apply flex flex-col items-center justify-center relative h-[80vh] w-[70vw]
+ }
+ .title{
+     @apply text-3xl my-5 text-center
+ }
+ .error{
+    @apply block mt-14 text-3xl text-center
+}
+ .items{
+    & a{
+        @apply w-[350px]
+    }
+    @apply flex flex-wrap justify-center
+ }

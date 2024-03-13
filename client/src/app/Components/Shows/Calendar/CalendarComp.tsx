@@ -1,46 +1,36 @@
 
 'use client'
 import React, { useState } from "react"
+import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks"
+import { getShowByFilter } from "@/app/store/shows/showsSlice"
 import { Calendar } from "@/shadComponents/ui/calendar"
 import ShowsByDate from "../ShowsByDate/ShowsByDate"
 import styles from './Calendar.module.scss'
 
 export default function CalendarComp() {
+  const dispatch = useAppDispatch();
+  const shows = useAppSelector(state => state.shows.events);
   const [date, setDate] = React.useState<Date | undefined>(new Date())
-  const shows = [
-    {
-        title: 'Example 1',
-        place: 'Berlin',
-        date: 'Feb 05 - 10:00 AM'
-    },
-    {
-        title: 'Example 2',
-        place: 'Berlin',
-        date: 'Feb 05 - 10:00 AM'
-    },
-    {
-        title: 'Example 3',
-        place: 'Berlin',
-        date: 'Feb 05 - 10:00 AM'
-    },
-    {
-        title: 'Example 4',
-        place: 'Berlin',
-        date: 'Feb 05 - 10:00 AM'
-    }
-  ]
+  const onSelectHandler = (e: Date | undefined) => {
+    setDate(e)
+    let today: Date | number | string = Date.parse(String(e))
+    let tomorrow: Date | number | string = Date.parse(String(e)) + 86399000
+    tomorrow =  new Date(tomorrow);
+    today =  new Date(today);
+    tomorrow = tomorrow.toISOString().split('T')[0];
+    today = today.toISOString().split('T')[0];
+    if (date) dispatch(getShowByFilter({to: tomorrow, from: today}))
+  }
+
   return (
     <>
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={(e) => onSelectHandler(e)}
           className={styles.Calendar}
         />
-        {shows.length > 0 ? 
           <ShowsByDate shows={shows} />
-          : <h5>Sorry! No upcoming shows!</h5> 
-        }
     </>
   )
 }

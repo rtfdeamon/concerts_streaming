@@ -1,77 +1,268 @@
 'use client'
-import { useState } from "react"
+import { useState, useEffect, lazy, Suspense } from "react"
+import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks"
+import { getCurrUser } from "@/app/store/user/userSlice"
+import { useRouter } from "next/navigation"
 import HeaderWithoutBanner from "../Header/HeaderWithouBanner"
 import ProfileSettings from "./ProfileSettings"
-import FollowedArtists from "./FollowedArtists"
-import FollowedShows from "./FollowedShows"
-import UpcomingShows from "./UpcomingShows"
+const FollowedArtists = lazy(() => import('./FollowedArtists'))
+const FollowedShows = lazy(() => import('./FollowedShows'))
+const UpcomingShows = lazy(() => import('./UpcomingShows'))
+const ArtistShows = lazy(() => import('./ArtistShows'))
+const ScheduledShows = lazy(() => import('./ScheduledShows'))
+const SponsoredShows = lazy(() => import('./SponsoredShows'))
+const TicketsList = lazy(() => import('./TicketsList'))
+import Loading from "../Loading/Loading"
+import { checkAccessToken } from "@/app/utils/checkAccessToken"
 import styles from './Profile.module.scss'
+import Tariff from "./Tariff"
 
 export default function Profile() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(state => state.userInfo.user)
   const [profileIsOpen, setProfileIsOpen] = useState(true);
   const [artistsIsOpen, setArtistsIsOpen] = useState(false);
   const [showsIsOpen, setShowsIsOpen] = useState(false);
   const [upcomingIsOpen, setUpcomingIsOpen] = useState(false);
-    // const router = useRouter();
-    // useEffect(() => {
-    //     if (typeof window !== undefined){
-    //         const authed = localStorage.getItem('authed')
-    //         alert(authed)
-    //         // if (!authed){
-    //         //     router.push('/')
-    //         // }
-    //     }
-    // }, [])
+  const [artistShowsIsOpen, setArtistsShowsIsOpen] = useState(false);
+  const [scheduledShowsIsOpen, setScheduledShowsIsOpen] = useState(false);
+  const [sponsoredShowsIsOpen, setSponsoredShowsIsOpen] = useState(false);
+  const [ticketsListIsOpen, setTicketsListIsOpen] = useState(false);
+  const [tariffIsOpen, setTariffIsOpen] = useState(false);
+
+  const router = useRouter();
+
   const profileHandler = () => {
     setProfileIsOpen(true);
     setArtistsIsOpen(false);
     setShowsIsOpen(false);
     setUpcomingIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setScheduledShowsIsOpen(false);
+    setSponsoredShowsIsOpen(false);
+    setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const artistsHandler = () => {
     setArtistsIsOpen(true);
     setProfileIsOpen(false);
     setShowsIsOpen(false);
     setUpcomingIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setScheduledShowsIsOpen(false);
+    setSponsoredShowsIsOpen(false);
+    setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const showsHandler = () => {
     setShowsIsOpen(true);
     setProfileIsOpen(false);
     setArtistsIsOpen(false);
     setUpcomingIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setScheduledShowsIsOpen(false);
+    setSponsoredShowsIsOpen(false);
+    setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
+  }
+  const artistShowsHandler = () => {
+    setArtistsShowsIsOpen(true);
+    setShowsIsOpen(false);
+    setProfileIsOpen(false);
+    setArtistsIsOpen(false);
+    setUpcomingIsOpen(false);
+    setScheduledShowsIsOpen(false);
+    setSponsoredShowsIsOpen(false);
+    setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
   }
   const upcomingHandler = () => {
     setUpcomingIsOpen(true);
     setProfileIsOpen(false);
     setArtistsIsOpen(false);
-    setShowsIsOpen(false);  }
+    setShowsIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setScheduledShowsIsOpen(false);
+    setSponsoredShowsIsOpen(false);
+    setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
+  }
+  const scheduledShowsHandler = () => {
+    setScheduledShowsIsOpen(true);
+    setUpcomingIsOpen(false);
+    setProfileIsOpen(false);
+    setArtistsIsOpen(false);
+    setShowsIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setSponsoredShowsIsOpen(false);
+    setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
+  }
+  const sponsoredShowsHandler = () => {
+    setSponsoredShowsIsOpen(true);
+    setUpcomingIsOpen(false);
+    setProfileIsOpen(false);
+    setArtistsIsOpen(false);
+    setShowsIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setScheduledShowsIsOpen(false);
+    setTicketsListIsOpen(false);
+    setTariffIsOpen(false);
+  }
+  const ticketsListHandler = () => {
+    setTicketsListIsOpen(true);
+    setSponsoredShowsIsOpen(false);
+    setUpcomingIsOpen(false);
+    setProfileIsOpen(false);
+    setArtistsIsOpen(false);
+    setShowsIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setScheduledShowsIsOpen(false);
+    setTariffIsOpen(false);
+  }
+
+  const tariffHandler = () => {
+    setTariffIsOpen(true);
+    setTicketsListIsOpen(false);
+    setSponsoredShowsIsOpen(false);
+    setUpcomingIsOpen(false);
+    setProfileIsOpen(false);
+    setArtistsIsOpen(false);
+    setShowsIsOpen(false);
+    setArtistsShowsIsOpen(false);
+    setScheduledShowsIsOpen(false);
+  }
+
+  useEffect(() => {
+    checkAccessToken();
+  }, [])
+  useEffect(() => {
+    dispatch(getCurrUser());
+    if (typeof window !== 'undefined'){
+        const authed = localStorage.getItem('authed')
+        if (!authed){
+            router.push('/')
+        }
+    }
+}, [])
+
   return (
     <>
         <HeaderWithoutBanner />
         <section className={styles.wrapper}>
           <div className={styles.content}>
-            <ul className={styles.nav}>
+            {user?.role.includes('artist') && 
+              <ul className={styles.nav}>
               <li
                 onClick={profileHandler}
                 className={profileIsOpen ? styles.active : styles.notActive}
               >My Profile</li>
+                <li
+                  onClick={tariffHandler}
+                  className={tariffIsOpen ? styles.active : styles.notActive}
+                >Tariff plan</li>
               <li
-                onClick={artistsHandler}
-                className={artistsIsOpen ? styles.active : styles.notActive}
-              >My Artists</li>
-              <li
-                onClick={showsHandler}
-                className={showsIsOpen ? styles.active : styles.notActive}
-              >Followed shows</li>
+                onClick={artistShowsHandler}
+                className={artistShowsIsOpen ? styles.active : styles.notActive}
+              >My shows</li>
               <li
                 onClick={upcomingHandler}
                 className={upcomingIsOpen ? styles.active : styles.notActive}
               >Upcoming shows</li>
-            </ul>
+                <li
+                  onClick={artistsHandler}
+                  className={artistsIsOpen ? styles.active : styles.notActive}
+                >Followed Artists</li>
+            </ul> }
+            {user?.role.includes('viewer') &&
+                <ul className={styles.nav}>
+                <li
+                  onClick={profileHandler}
+                  className={profileIsOpen ? styles.active : styles.notActive}
+                >My Profile</li>
+                <li
+                  onClick={artistsHandler}
+                  className={artistsIsOpen ? styles.active : styles.notActive}
+                >My Artists</li>
+                <li
+                  onClick={ticketsListHandler}
+                  className={ticketsListIsOpen ? styles.active : styles.notActive}
+                >My Tickets</li>
+                <li
+                  onClick={showsHandler}
+                  className={showsIsOpen ? styles.active : styles.notActive}
+                >Followed shows</li>
+              </ul>
+            }
+            {user?.role.includes('administrator') &&
+                <ul className={styles.nav}>
+                <li
+                  onClick={profileHandler}
+                  className={profileIsOpen ? styles.active : styles.notActive}
+                >My Profile</li>
+                <li
+                  onClick={upcomingHandler}
+                  className={upcomingIsOpen ? styles.active : styles.notActive}
+                >Upcoming shows</li>
+              </ul>
+            }
+            {user?.role.includes('sponsor') &&
+                <ul className={styles.nav}>
+                <li
+                  onClick={profileHandler}
+                  className={profileIsOpen ? styles.active : styles.notActive}
+                >My Profile</li>
+                <li
+                  onClick={scheduledShowsHandler}
+                  className={scheduledShowsIsOpen ? styles.active : styles.notActive}
+                >Scheduled shows</li>
+                <li
+                  onClick={sponsoredShowsHandler}
+                  className={sponsoredShowsIsOpen ? styles.active : styles.notActive}
+                >Shows sponsored by you</li>
+              </ul>
+            }
             {profileIsOpen && <ProfileSettings />}
-            {artistsIsOpen && <FollowedArtists />}
-            {showsIsOpen && <FollowedShows />}
-            {upcomingIsOpen && <UpcomingShows />}
+            {artistsIsOpen && 
+              <Suspense fallback={<Loading />}>
+                 <FollowedArtists />
+              </Suspense>
+            }
+            {showsIsOpen && 
+              <Suspense fallback={<Loading />}>
+                    <FollowedShows />
+              </Suspense>
+            }
+            {upcomingIsOpen && 
+              <Suspense fallback={<Loading />}>
+                  <UpcomingShows />
+              </Suspense>
+            }
+            {artistShowsIsOpen &&
+              <Suspense fallback={<Loading />}>
+                <ArtistShows />
+              </Suspense>
+            }
+            {scheduledShowsIsOpen &&
+              <Suspense fallback={<Loading />}>
+                <ScheduledShows />
+              </Suspense>
+            }
+            {sponsoredShowsIsOpen &&
+              <Suspense fallback={<Loading />}>
+                <SponsoredShows />
+              </Suspense>
+            }
+            {ticketsListIsOpen && 
+              <Suspense fallback={<Loading />}>
+                <TicketsList />
+              </Suspense>
+            }
+            {tariffIsOpen && 
+              <Suspense fallback={<Loading />}>
+                <Tariff />
+              </Suspense>
+            }
           </div>
         </section>
     </>

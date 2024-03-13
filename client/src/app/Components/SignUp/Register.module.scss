@@ -7,11 +7,17 @@
 .formWrapper{
     @apply block w-72 m-auto 
 }
+.select{
+    & button{
+        @apply text-black
+    }
+    @apply mb-2
+}
 .input{
-    @apply mb-5 mt-5 text-black
+    @apply mb-2 mt-2 text-black
 }
 .err{
-    @apply text-sm text-red-500 text-center
+    @apply text-sm font-bold text-red-500 text-center my-1
 }
 .link{
     & a{

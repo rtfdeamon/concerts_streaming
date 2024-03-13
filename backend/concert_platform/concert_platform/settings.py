@@ -140,7 +140,8 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-JWT_TTL = 3600 * 24 * 7
+ACCESS_TOKEN_LIFETIME = 3600 * 24
+REFRESH_TOKEN_LIFETIME = 3600 * 24 * 30
 
 SWAGGER_SETTINGS = {
    'SECURITY_DEFINITIONS': {
@@ -156,3 +157,14 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_METHODS = [
     "GET", "OPTIONS", "PATCH", "POST", "PUT", "DELETE"
 ]
+
+S3_ACCESS_KEY = os.environ.get('S3_ACCESS_KEY', '')
+S3_SECRET_KEY = os.environ.get('S3_SECRET_KEY', '')
+S3_ENDPOINT = os.environ.get('S3_ENDPOINT', '')
+S3_BUCKET = os.environ.get('S3_BUCKET', 'bucket')
+S3_PUBLIC_URL = os.environ.get('S3_PUBLIC_URL', S3_ENDPOINT)
+
+STREAMING_SERVER_BASE_URL = os.environ.get('STREAMING_BASE_URL', '')
+
+PAYPAL_CLIENT_ID = 'paypalclientid'
+PAYPAL_CLIENT_SECRET = 'paypalclientsecret'

@@ -1,5 +1,8 @@
 .title{
-    @apply text-3xl text-center font-medium leading-6 text-gray-900
+    @apply text-3xl mb-10 text-center font-medium leading-6 text-gray-900
+}
+.searchInput{
+    @apply  bg-transparent w-[400px] flex mx-auto mb-12 placeholder-black
 }
 .searching{
     @apply text-xl my-3
@@ -8,16 +11,23 @@
     @apply flex flex-row overflow-x-auto overflow-y-hidden items-center text-center mb-8 z-[99]
 }
 .Title{
-    @apply text-2xl text-center mb-3
+    @apply text-2xl text-center my-3
 }
 .artist{
     &:hover {
         @apply bg-slate-200
     }
-    @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[200px] min-w-[200px]
+    @apply block p-4 mx-auto transition-all duration-500 cursor-pointer min-h-[200px] min-w-[200px]
 }
 .Image{
-    @apply rounded-full
+    @apply block rounded-full mb-2 w-[150px] h-[150px]
+}
+.showImage{
+    @apply block mb-2 w-[250px] h-[250px] object-contain
+
+}
+.artistName{
+    @apply mt-2
 }
 .btn{
     &:hover{

@@ -2,11 +2,11 @@
     @apply w-2/3 mx-auto py-10 flex flex-col items-center
 }
 .title{
-    @apply text-5xl text-center mb-10
+    @apply text-5xl text-center mb-6
 }
 .shows{
-    @apply flex flex-wrap items-center justify-center relative text-xl my-7
+    @apply flex flex-wrap items-center justify-center relative text-xl my-2
 }
 .error{
-    @apply block mt-[40vh] text-5xl font-bold text-center
+    @apply block mt-14 text-3xl text-center
 }

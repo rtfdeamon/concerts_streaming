@@ -8,13 +8,10 @@
     & img{
         @apply mt-3
     }
-    @apply w-[80px] text-center mb-6
+    @apply text-center mb-6
 }
 .span{
     @apply text-xl
-}
-.avatar{
-    @apply rounded-full
 }
 .fileInput {
     & input{
@@ -23,6 +20,9 @@
     @apply w-[300px] mb-6
 }
 .profileName{
+    & button{
+        @apply mt-3
+    }
     & input{
         @apply mt-3
     }

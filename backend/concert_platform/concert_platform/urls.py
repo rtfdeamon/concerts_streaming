@@ -21,12 +21,30 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-from api.views import ArtistSessionViewSet, ConcertsViewSet, UserViewSet, SignInView, SignUpView
+from api.views import (
+    ArtistSessionViewSet,
+    ConcertsViewSet,
+    UserViewSet,
+    ArtistsViewSet,
+    SponsorAdsViewSet,
+    ConcertTicketsViewSet,
+    SignInView,
+    SignOutView,
+    SignUpView,
+    FileUploadView,
+    RefreshTokenView,
+    NewsletterSubscribeView,
+    OrdersViewSet
+)
 
 router = routers.DefaultRouter()
 router.register('concerts', ConcertsViewSet)
-router.register('sessions', ArtistSessionViewSet)
+router.register('sessions', ArtistSessionViewSet, 'session')
 router.register('users', UserViewSet, 'user')
+router.register('artists', ArtistsViewSet, 'artist')
+router.register('sponsor-ads', SponsorAdsViewSet, 'sponsor_ads')
+router.register('tickets', ConcertTicketsViewSet, 'ticket')
+router.register('orders', OrdersViewSet, 'order')
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -41,7 +59,12 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/signin", SignInView.as_view()),
+    path("auth/signout", SignOutView.as_view()),
     path("auth/signup", SignUpView.as_view()),
+    path("auth/refresh_token", RefreshTokenView.as_view()),
+
+    path("newsletter/subscribe", NewsletterSubscribeView.as_view()),
+    path("upload/generate-link", FileUploadView.as_view()),
 
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

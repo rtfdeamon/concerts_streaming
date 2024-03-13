@@ -1,0 +1,39 @@
+.sectionWrapper{
+    @apply w-2/3 mx-auto py-10 flex flex-col items-center
+}
+.titleWrapper{
+    & img{
+        @apply block mb-4
+    }
+    @apply flex justify-center text-5xl w-[85vw]
+}
+.title{
+    @apply block text-center text-5xl
+}
+.shows{
+    @apply mt-16
+}
+.showsException{
+    @apply block mt-14 ml-24 text-3xl text-center 
+}
+.ticketInfos{
+    @apply  flex flex-wrap h-auto justify-center text-center
+}
+.link{
+    &:hover{
+        @apply text-blue-500
+    }
+    @apply duration-500 transition-all mb-12 mr-8
+}
+.poster{
+    @apply block mb-3 rounded-md
+}
+.concTitle{
+    @apply text-2xl mb-2
+}
+.poster{
+    @apply h-[200px]
+}
+.genre{
+    @apply text-slate-400
+}

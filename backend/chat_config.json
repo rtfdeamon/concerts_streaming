@@ -1,0 +1,10 @@
+{
+   "token_hmac_secret_key": "VFJ2ATJK5DE2LTFW5435DAPJDME4P4KCLXLTNEL3GCZU2IWV",
+   "api_key": "DW6XQJYKQT22DUS2GOOGPLBOBV66STNBDISKPS5UEZ52NXKO",
+   "admin_password": "password",
+   "admin_secret": "NBN3GR45FA4GED2QQYFBDTSS4TH75DFYCZ4D3H4TA3CINVPE",
+   "admin": true,
+   "allowed_origins": ["*"],
+   "log_level": "debug",
+   "client_insecure": true
+}

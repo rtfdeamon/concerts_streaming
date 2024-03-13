@@ -1,16 +1,4 @@
-.inputHeader, .inputDefault{
-    & span{
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        transform: translate(50%, 65%);
-        background-image: url('../../../../public/search.svg');
-    }
-    & input{
-        @apply pl-10 py-6
-    }
-    @apply relative 
-}
+
 body[theme = "dark"] .inputHeader, .inputDefault{
         @apply opacity-80
 }
@@ -22,11 +10,10 @@ body[theme = "dark"] .inputHeader, .inputDefault{
 }
 .inputDefault{
     & input{
-        @apply  placeholder-black bg-blue-500 border-2
+        @apply  font-bold bg-blue-600 border-none
     }
     @apply w-[300px] flex  
 }
-
 @media screen and (max-width: 1366px){
     .inputHeader, .inputDefault{
         & input{

@@ -7,6 +7,9 @@
     }
     @apply flex justify-around bg-white px-5 py-10 rounded-lg
 }
+.artistAvatar{
+    @apply w-[200px] h-[200px] rounded-full
+}
 .posterWrapper{
     @apply flex flex-col items-center justify-center
 }
@@ -17,20 +20,35 @@
     word-wrap: break-word;
     @apply block max-w-[800px] mb-4 text-[#94A3B8]
 }
-.btn{
+.banner{
+    height: 500px;
+    background-image: url('../../../../public/banner2.jpg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 200% 15%;
+    @apply relative mt-5 px-14 py-20 bg-white rounded-md
+}
+.btnWrapper{
+    @apply absolute right-0 left-0 top-[50%]
+}
+.btnBanner{
     &:hover{
         @apply bg-blue-700
     }
     @apply flex mx-auto right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
 }
-.aboutWrapper{
-    @apply flex
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex mx-auto right-2 text-xl p-8 bg-blue-500 duration-500 transition-all w-[250px]
 }
 .upcomingShowsWrapper{
-    @apply w-1/2 max-h-[510px] relative overflow-hidden bg-white mr-4 my-5 px-5 py-10 rounded-lg transition-all duration-500
+    @apply max-h-[510px] relative overflow-hidden bg-white my-5 px-5 py-10 rounded-lg transition-all duration-500
 }
 .upcomingShowsWrapperActive{
-    @apply w-1/2 max-h-max relative overflow-hidden bg-white mr-4 my-5 px-5 py-10 rounded-lg transition-all duration-500
+    @apply max-h-max relative overflow-hidden bg-white my-5 px-5 py-10 rounded-lg transition-all duration-500
 }
 .upcomingShows{
     & .btn{
@@ -42,7 +60,7 @@
     @apply block
 }
 .upcomingDesc{
-    @apply block text-[#94A3B8]
+    @apply block text-[#94A3B8] truncate
 }
 .more{
     &:hover{
@@ -51,7 +69,10 @@
     @apply absolute bottom-0 right-0 left-0 pb-3 block bg-white text-center cursor-pointer border-t-2 pt-2 border-black duration-500 transition-all
 }
 .about{
-    @apply flex flex-col max-h-[600px] w-1/2 ml-4 bg-white my-5 px-5 py-10 rounded-lg
+    @apply flex flex-col w-[100%] h-5/6 bg-white my-5 px-5 py-10 rounded-lg
+}
+.aboutHalf{
+    @apply flex flex-col w-[48%] pl-6 h-5/6 bg-white my-5 px-5 py-10 rounded-lg
 }
 .aboutTitle{
     @apply text-xl text-center
@@ -59,4 +80,7 @@
 .aboutDesc{
     word-wrap: break-word;
     @apply block text-[#94A3B8] leading-loose indent-5
+}
+.aboutWrapper{
+    @apply  w-[100%] flex justify-between
 }
