@@ -1,3 +1,5 @@
+'use client'
+import { useState, useEffect } from 'react';
 import { IEvent } from '@/app/types/interfaces';
 import PaginatedItems from '../../Shows/Paginate/Paginate';
 import styles from './LiveConcerts.module.scss'
@@ -9,7 +11,12 @@ async function getShows(){
 }
 
 export default async function LiveConcerts() {
-    let shows: IEvent[] = await getShows()
+    const [shows, setShows] = useState<IEvent[]>()
+    useEffect(() => {
+        getShows()
+            .then(res => setShows(res))
+    }, [])
+
     return (
     <section>
         <div className={styles.titleWrapper}>

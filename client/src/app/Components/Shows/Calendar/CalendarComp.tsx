@@ -13,11 +13,13 @@ export default function CalendarComp() {
   const [date, setDate] = React.useState<Date | undefined>(new Date())
   const onSelectHandler = (e: Date | undefined) => {
     setDate(e)
-    let today: Date | number = Date.parse(String(e))
-    let tomorrow: Date | number = Date.parse(String(e)) + 86399000
+    let today: Date | number | string = Date.parse(String(e))
+    let tomorrow: Date | number | string = Date.parse(String(e)) + 86399000
     tomorrow =  new Date(tomorrow);
     today =  new Date(today);
-    if (date) dispatch(getShowByFilter({to: tomorrow.toISOString(), from: today.toISOString()}))
+    tomorrow = tomorrow.toISOString().split('T')[0];
+    today = today.toISOString().split('T')[0];
+    if (date) dispatch(getShowByFilter({to: tomorrow, from: today}))
   }
 
   return (

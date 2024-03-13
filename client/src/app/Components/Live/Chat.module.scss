@@ -64,10 +64,10 @@
     @apply absolute hidden
 }
 .userMessage{
-    @apply ml-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[60%] max-w-[80%] p-3 bg-slate-50 rounded-xl  mb-3
+    @apply mr-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[60%] max-w-[80%] p-3 bg-slate-50 rounded-xl  mb-3
 }
 .remoteMessage{
-    @apply mr-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[60%] max-w-[80%] p-3 bg-slate-50 rounded-xl  mb-3
+    @apply ml-auto flex flex-col min-h-[66%] h-fit w-fit min-w-[60%] max-w-[80%] p-3 bg-slate-50 rounded-xl  mb-3
 }
 .fileImage{
     width: 100%;
