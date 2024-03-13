@@ -13,9 +13,6 @@ const nextConfig = {
       ignoreDuringBuilds: true
     },
     images:{
-<<<<<<< HEAD
-      domains: ['192.168.100.101', 'mmvsds-test.ddns.net', 's3.test.local', 'ads.test.local', 'concertplatform.mmvs.video']
-=======
       domains: ['192.168.100.101', 
       'mmvsds-test.ddns.net',
       's3.test.local',
@@ -23,7 +20,6 @@ const nextConfig = {
       'concertplatform.mmvs.video',
       'example.com'
     ]
->>>>>>> de8eaea710239e3eed216c856b62731243c88f50
     }
 };
 
