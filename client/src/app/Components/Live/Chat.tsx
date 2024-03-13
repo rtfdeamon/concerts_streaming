@@ -15,7 +15,8 @@ export default memo(function Chat({id}: {id: string}) {
     const [sub, setSub] = useState(() => centrifuge.newSubscription(`concert-${id}`))
 
     useLayoutEffect(() => {
-      centrifuge.disconnect()
+      centrifuge.disconnect();
+      sub.unsubscribe();
     }, [])
 
     useEffect(() => {
@@ -108,7 +109,7 @@ export default memo(function Chat({id}: {id: string}) {
                   >{msg?.sender?.name}</span>
                   <span
                   className={styles.chatDate}
-              >{typeof msg.date !== 'undefined' && new Date(Math.round(msg.date)*1000).toDateString()}</span>
+              >{typeof msg.date !== 'undefined' && new Date(Math.round(msg.date)*1000).toTimeString().split('GMT')[0]}</span>
               </div>
               <p className={styles.messageText}
               >{msg.text}</p>

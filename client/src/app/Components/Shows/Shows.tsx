@@ -7,6 +7,8 @@ import CalendarComp from './Calendar/CalendarComp';
 import Link from 'next/link'
 import styles from './Shows.module.scss'
 
+
+
 export default function Shows() {
     const dispatch = useAppDispatch();
     const [todayIsOpen, setTodayIsOpen] = useState(true);
@@ -14,42 +16,46 @@ export default function Shows() {
     const [monthIsOpen, setMonthIsOpen] = useState(false);
     const [calendarIsOpen, setCalendarIsOpen] = useState(false);
     const shows = useAppSelector(state => state.shows.events);
-
     const todayIsOpenHandler = () => {
         setTodayIsOpen(!todayIsOpen);
         setMonthIsOpen(false);
         setWeekIsOpen(false);
         setCalendarIsOpen(false);
-        let today: number | Date = new Date().setHours(0, 0, 0, 0);
-        let tomorrow: number | Date  = today + 86399000
+        let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
+        let tomorrow: number | Date | string  = today + 86399000
         today = new Date(today)
         tomorrow = new Date(tomorrow)
-        console.log(today, tomorrow)
-        dispatch(getShowByFilter({to: tomorrow.toISOString(), from: today.toISOString()}))
+        // today.toISOString().split('T')[0]
+        // tomorrow.split('T')[0]
+        today = today.toISOString().split('T')[0]
+        tomorrow = tomorrow.toISOString().split('T')[0]
+        dispatch(getShowByFilter({to: tomorrow, from: today}))
     }
     const weekIsOpenHandler = () => {
         setWeekIsOpen(!weekIsOpen);
         setMonthIsOpen(false);
         setTodayIsOpen(false);
         setCalendarIsOpen(false);
-        let today: number | Date = new Date().setHours(0, 0, 0, 0);
-        let lastDayOfWeek: number | Date  = today + 7 * 24 * 60 * 60 * 1000;
+        let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
+        let lastDayOfWeek: number | Date | string  = today + 7 * 24 * 60 * 60 * 1000;
         today = new Date(today)
         lastDayOfWeek = new Date(lastDayOfWeek)
-        console.log(today, lastDayOfWeek)
-        dispatch(getShowByFilter({to: lastDayOfWeek.toISOString(), from: today.toISOString()}));
+        today = today.toISOString().split('T')[0];
+        lastDayOfWeek = lastDayOfWeek.toISOString().split('T')[0];
+        dispatch(getShowByFilter({to: lastDayOfWeek, from: today}));
     }
     const monthIsOpenHandler = () => {
         setMonthIsOpen(!monthIsOpen);
         setTodayIsOpen(false);
         setWeekIsOpen(false);
         setCalendarIsOpen(false);
-        let today: number | Date = new Date().setHours(0, 0, 0, 0);
-        let lastDayOfPrevMonth: number | Date  = today + 8 * 24 * 60 * 60 * 1000 * 4;
+        let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
+        let lastDayOfPrevMonth: number | Date | string  = today + 8 * 24 * 60 * 60 * 1000 * 4;
         today = new Date(today)
-        lastDayOfPrevMonth = new Date(lastDayOfPrevMonth)
-        console.log(today, lastDayOfPrevMonth)
-        dispatch(getShowByFilter({to: lastDayOfPrevMonth.toISOString(), from: today.toISOString()}));    }
+        lastDayOfPrevMonth = new Date(lastDayOfPrevMonth )
+        today = today.toISOString().split('T')[0];
+        lastDayOfPrevMonth = lastDayOfPrevMonth.toISOString().split('T')[0];
+        dispatch(getShowByFilter({to: lastDayOfPrevMonth, from: today}))};
     const calendarIsOpenHandler = () => {
         setCalendarIsOpen(!calendarIsOpen);
         setTodayIsOpen(false);
