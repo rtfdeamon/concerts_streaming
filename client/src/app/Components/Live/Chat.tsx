@@ -1,28 +1,33 @@
 'use client'
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, useLayoutEffect, memo } from "react";
 import { Centrifuge } from 'centrifuge';
 import InputEmojiWithRef from "react-input-emoji";
 import { IMessage, IUser } from "@/app/types/interfaces";
 import styles from './Chat.module.scss';
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 
-const centrifuge = new Centrifuge('ws://192.168.100.101:8183/connection/websocket')
+const centrifuge = new Centrifuge('wss://concertplatform.mmvs.video:8443/connection/websocket')
 export default memo(function Chat({id}: {id: string}) {
     const [messageText, setMessageText] = useState('');
     const [chatMessageReceived, setChatMessageReceived] = useState<IMessage[]>([]);
     const [showMoreMessage, setShowMoreMessage] = useState<number>(-1);
     const [user, setUser] = useState<IUser>()
     const [sub, setSub] = useState(() => centrifuge.newSubscription(`concert-${id}`))
+
+    useLayoutEffect(() => {
+      centrifuge.disconnect()
+    }, [])
+
     useEffect(() => {
       sub.subscribe();
       centrifuge.connect();
     }, [sub])
     useEffect(() => {
       async function getCurrUser(){
-        const res = await fetch(`${process.env.BACKEND_URL}/users/current`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
           method: 'GET',
           headers: {
-            'Authorization' : `Bearer ${await getTokenForApi}`
+            'Authorization' : `Bearer ${await getTokenForApi()}`
           }
         })
         const data = await res.json();
@@ -34,6 +39,7 @@ export default memo(function Chat({id}: {id: string}) {
     useEffect(() => {
       sub.on('publication', function(ctx) {
         setChatMessageReceived(prev => [...prev, ctx.data])
+        console.log(ctx.data)
     });
     }, [centrifuge])
 

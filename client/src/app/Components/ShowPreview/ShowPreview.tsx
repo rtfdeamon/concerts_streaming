@@ -55,6 +55,7 @@ export default function ShowPreview({params}:IPreviewParams) {
   const [user, setUser] = useState<IUser | null>();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [paypalIsActive, setPaypalIsActive] = useState(false);
+  const [isSponsored, setIsSponsored] = useState(false);
   const { toast } = useToast();
 
   const paypalActiveHandler = () => {
@@ -126,7 +127,7 @@ const buyHandler = () => {
 
   useEffect(() => {
     async function getConcert(){
-      fetch(`${process.env.BACKEND_URL}/concerts/${params.id}`, {
+      fetch(`${process.env.BACKEND_URL}/concerts/${params.id}/`, {
         method: 'GET',
         headers: token === null ?
         {}
@@ -161,6 +162,11 @@ const buyHandler = () => {
       setIsSubscribed(true)
     }
   }, [user])
+  useEffect(() => {
+    user?.ads.forEach(ad => {
+      ad.concert.id === params.id && setIsSponsored(true)
+    })
+  }, [user])
   return (
       <>
         <HeaderWithoutBanner />
@@ -181,7 +187,7 @@ const buyHandler = () => {
                   {role === 'artist' &&
                           <RequestButton id={params.id} />
                   }
-                  {role && role === 'sponsor' &&
+                  {role && role === 'sponsor' && !isSponsored &&
                       <Button
                       onClick={modalHandler}
                       className={styles.buyBtn}>

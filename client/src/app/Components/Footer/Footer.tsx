@@ -8,6 +8,7 @@ export default function Footer() {
       <div className={styles.links}>
         <Link href={'/about'} className={styles.link}>About us</Link>
         <Link href={'/faq'} className={styles.link}>F.A.Q.</Link>
+        <Link href={'/terms'} className={styles.link}>Terms of use</Link>
         <Link href={'/privacy'} className={styles.link}>Privacy policy</Link>
       </div>
       <div className={styles.logoWrapper}>

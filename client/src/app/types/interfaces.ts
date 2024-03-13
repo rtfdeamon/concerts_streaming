@@ -82,7 +82,8 @@ export interface IUser {
   avatar_url: string,
   username: number,
   artists_followed: IArtist[],
-  concerts_followed: IEvent[]
+  concerts_followed: IEvent[],
+  ads: IAd[]
 }
 export interface IToken {
   accessToken : string,

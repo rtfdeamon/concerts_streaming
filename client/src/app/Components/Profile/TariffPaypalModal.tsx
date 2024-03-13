@@ -2,12 +2,10 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { Dispatch, SetStateAction } from 'react'
-import { Button } from '@/shadComponents/ui/button'
-import PayPalBtns from './PayPalBtns'
-import styles from './ShowPreview.module.scss'
+import TariffPaypalBtns from './TariffPaypalBtns'
 
-export default function PayPalModal({isOpen, setIsOpen, showId, showTitle, price} :
-    {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, showId: string, showTitle: string, price: string}) {
+export default function TariffPaypalModal({isOpen, setIsOpen, variant} :
+    {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, variant: string}) {
     const closeModal = () => {
         setIsOpen(false)
     }
@@ -43,16 +41,11 @@ export default function PayPalModal({isOpen, setIsOpen, showId, showTitle, price
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment for {showTitle}
+                    Payment for <span className='capitalize'>{variant}</span> plan
                   </Dialog.Title>
-                  {typeof price !== "object" &&
-                    <div className="mt-4">
-                      <p>Cost: {price}$</p>
-                    </div>
-                  }
                   <div className="mt-4">
-                      <div className={styles.paypalWrapper}>
-                          <PayPalBtns showId={showId} setIsOpen={setIsOpen} />          
+                      <div>
+                          <TariffPaypalBtns variant={variant} />          
                       </div>
                   </div>
                 </Dialog.Panel>

@@ -4,16 +4,15 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
-import { Dispatch, SetStateAction } from 'react'
 import { IUser } from "@/app/types/interfaces";
 
 
-export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
+export default function TariffPaypalBtns({variant}: {variant: string}) {
   const [user, setUser] = useState<IUser>();
   const { toast } = useToast();
   const [res, setRes] = useState<any>();
   const createOrder = async () => {
-    const data = await buyTicket(showId, user?.id as number);
+    const data = await buyTicket(variant, user?.id as number);
     setRes(data)
        return fetch(`${process.env.BACKEND_URL}/orders/`, {
           method: "POST", 
@@ -65,7 +64,6 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
         ),
       })
     })
-    .finally(() => setIsOpen(false))
     ;
   }
   const buyTicket = async (concert: string, user: Number) => {
@@ -106,7 +104,10 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
   }, [])
   return (
     <PayPalScriptProvider
-    options={{ clientId: "test" }}
+    options={{
+      clientId: process.env.clientId as string,
+      currency: process.env.currency,
+      intent: process.env.intent}}
     >
             <PayPalButtons
               style={{

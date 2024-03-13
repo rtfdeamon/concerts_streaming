@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { getTokenForApi } from '@/app/utils/getTokenForApi';
 import HeaderWithoutBanner from '../Header/HeaderWithouBanner'
 import { ArtistsPaginate } from '../ArtistsPaginate/ArtistsPaginate';
+import Loading from '../Loading/Loading';
 import PaginatedItems from '../Shows/Paginate/Paginate';
 import { IPreviewParams } from '@/app/genre/[id]/page'
 import { IArtist, IEvent } from '@/app/types/interfaces';
@@ -17,12 +18,12 @@ async function getData(id:string, isArtists?: boolean) {
         return data
     } 
     if (!isArtists){
-        res = await fetch(`${process.env.BACKEND_URL}/concerts?category=${id}/`);
+        res = await fetch(`${process.env.BACKEND_URL}/concerts/?category=${id}`);
         const data = await res.json();
         return data
     }
     if (isArtists){
-        res = await fetch(`${process.env.BACKEND_URL}/artists?category=${id}/`);
+        res = await fetch(`${process.env.BACKEND_URL}/artists/?category=${id}`);
         const data = await res.json();
         return data
     }
@@ -36,6 +37,7 @@ async function getData(id:string, isArtists?: boolean) {
 export default function InfoByGenre({params, isArtists}:{params: IPreviewParams, isArtists?: boolean}) {
     const [artistData, setArtistData] = useState<IArtist[]>([]);
     const [eventData, setEventData] = useState<IEvent[]>([]);
+    const [isLoaded, setIsLoaded] = useState(true);
     const id = params.params.id;
     useEffect(() => {
         getData(id, isArtists)
@@ -46,6 +48,9 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
                 :
                     setEventData(res)
             })
+            .finally(() => {
+                setIsLoaded(false)
+            })
     }, [])
     return (
     <section>
@@ -53,22 +58,21 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
         <h5 className={styles.title}>{isArtists ? <span>{id} artists</span> : <span>{id} shows</span>}</h5>
         <div className={styles.wrapper}>
             {isArtists ? 
-                artistData && artistData.length >0 ? <ArtistsPaginate  itemsPerPage={15} artists={artistData}/>
-                :
+                !isLoaded  && artistData.length === 0 ?
                 <div className={styles.showsException}>
                     Sorry! No artist in {id} genre yet 🥲
                 </div>
                 :
-                eventData.length >0 ? <PaginatedItems  itemsPerPage={6} items={eventData} type='genres'/>
+                <ArtistsPaginate  itemsPerPage={15} artists={artistData}/>
                 :
-                <div className={styles.showsException}>
-                    Sorry! No shows in {id} genre yet 🥲
-                </div>
+                !isLoaded && eventData.length === 0 ? 
+                    <div className={styles.showsException}>
+                        Sorry! No shows in {id} genre yet 🥲
+                    </div>
+                :
+                <PaginatedItems  itemsPerPage={6} items={eventData} type='genres'/>
             }
             {isLoaded && <Loading />}
-            {!isLoaded && shows?.length === 0 && 
-            <h6 className={styles.showsException}>Sorry! No scheduled shows yet 🥲</h6>
-            }
         </div>
     </section>
   )

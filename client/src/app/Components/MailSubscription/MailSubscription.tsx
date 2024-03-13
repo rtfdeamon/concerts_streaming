@@ -26,7 +26,7 @@ export default function MailSubscription() {
             if (testRes){
                 // логика для пост запроса
                 // if (res.ok) toast(true)
-                const res = await fetch(`${process.env.BACKEND_URL}/newsletter/subscribe/`, {
+                const res = await fetch(`${process.env.BACKEND_URL}/newsletter/subscribe`, {
                     method: 'POST',
                     headers: {
                         'Content-type':'application/json'
@@ -34,7 +34,7 @@ export default function MailSubscription() {
                     body: JSON.stringify({email})
                 })
                 const data = await res.json();
-                if (data.access){
+                if (data.success){
                     toast({
                         title: "Email newsletter",
                         description: "You have successfully subscribed to our newsletter",

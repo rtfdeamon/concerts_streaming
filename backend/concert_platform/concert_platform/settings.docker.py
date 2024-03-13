@@ -164,8 +164,8 @@ S3_PUBLIC_URL = os.environ.get('S3_PUBLIC_URL', S3_ENDPOINT)
 
 STREAMING_SERVER_BASE_URL = os.environ.get('STREAMING_BASE_URL', '')
 
-PAYPAL_CLIENT_ID = 'paypalclientid'
-PAYPAL_CLIENT_SECRET = 'paypalclientsecret'
+PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID', 'paypalclientid')
+PAYPAL_CLIENT_SECRET = os.environ.get('PAYPAL_CLIENT_SECRET', 'paypalclientsecret')
 
 CENTRIFUGO_SERVER = os.environ.get('CENTRIFUGO_SERVER', 'http://localhost:8183')
 CENTRIFUGO_API_KEY = os.environ.get('CENTRIFUGO_API_KEY', '')

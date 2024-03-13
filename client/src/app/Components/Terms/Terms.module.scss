@@ -7,29 +7,25 @@
 .bold{
     @apply font-bold 
 }
+.link{
+        &:hover{
+            @apply text-blue-700
+        }
+        @apply text-blue-500 transition-all duration-500
+}
 .contentBlock{
+    & ul {
+        & li{
+            @apply my-5
+        }
+        @apply flex flex-col
+    }
     @apply mb-10
 }
 .subtitle{
     @apply text-3xl font-bold my-4 text-center
 }
-.text{
-    @apply block my-3 indent-8
-}
-.list{
-    & a {
-        &:hover{
-            @apply text-blue-700
-        }
-        @apply text-blue-500 transition-all duration-500
-    }
-}
 .listItem{
     @apply block my-3 indent-8
 }
-.row{
-    @apply border-2 border-black font-medium
-}
-.col{
-    @apply border-2 border-black
-}
+

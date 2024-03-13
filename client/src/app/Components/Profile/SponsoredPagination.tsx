@@ -29,7 +29,6 @@ function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
                     <span className={styles.title}>{s.concert.name}</span>
                         <p className={styles.suggested}>Suggested banner:</p>
                         <Image className={styles.img}  src={s.banner_url} width={300} height={150} alt='banner'/>
-                        <span>Status: {s.status}</span>
                         {/* <Image className={styles.img} src={s.concert.poster_url} width={300} height={200}  alt={s.concert.name}/> */}
                         <span className={styles.date}>
                         <Image src={CalendarIcon} width={30} height={20} alt={s.concert.name}/>

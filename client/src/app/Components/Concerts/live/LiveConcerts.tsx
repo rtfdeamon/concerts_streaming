@@ -9,15 +9,14 @@ async function getShows(){
 }
 
 export default async function LiveConcerts() {
-    let shows: IEvent[] = [];
-    // shows = await getShows();
+    let shows: IEvent[] = await getShows()
     return (
     <section>
         <div className={styles.titleWrapper}>
             <span className={styles.span}></span>
             <h5 className={styles.title}>Live</h5>
-        </div>
-        <div className={styles.shows}>
+        </div> 
+        <div className={styles.shows}>  
         {
             shows && shows.length > 0 ?
             <PaginatedItems itemsPerPage={6} items={shows} type='followedShows'/>

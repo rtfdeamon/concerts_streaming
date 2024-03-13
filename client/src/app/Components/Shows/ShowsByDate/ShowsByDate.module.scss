@@ -1,6 +1,9 @@
 .shows, .genresShows{
     @apply flex flex-wrap items-center justify-center relative text-xl my-7
 }
+// .shows{
+//     @apply h-[70vh]
+// }
 .genresShows{
     @apply h-[60vh]
 }
@@ -16,7 +19,7 @@
     @apply mb-6 mx-4
 }
 .typeWrapper{
-    @apply w-[500px]
+    @apply mb-5 w-[500px]
 }
 .title{
     @apply block text-center text-2xl
@@ -37,16 +40,16 @@
     & ul {
         & li{
             &:first-child{
-                @apply absolute left-[-40px]
+                @apply absolute left-[-54px]
             }
             &:last-child{
-                @apply absolute right-[2px]
+                @apply absolute right-[-4px]
             }
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
             transform: translate(80%, -20%);
-            @apply absolute
+            @apply absolute top-1/2
         }
     }
 }
@@ -54,7 +57,7 @@
     & ul {
         & li{
             &:first-child{
-                @apply absolute left-[100px]
+                @apply absolute left-[30px]
             }
             &:last-child{
                 @apply absolute right-[100px]
@@ -62,7 +65,7 @@
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
-            transform: translate(80%, -33vh);
+            transform: translate(80%, -30vh);
             @apply absolute
             }
         }

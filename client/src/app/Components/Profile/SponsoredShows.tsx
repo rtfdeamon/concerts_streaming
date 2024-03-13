@@ -36,7 +36,7 @@ export default function SponsoredShows() {
                 }
                 {isLoaded && <Loading />}
                 {!isLoaded && ads?.length === 0 && 
-                <h6 className={styles.showsException}>Sorry! No scheduled shows yet 🥲</h6>
+                <h6 className={styles.showsException}>Sorry! No shows sponsored by you yet 🥲</h6>
                 }
             </div>
         </section>

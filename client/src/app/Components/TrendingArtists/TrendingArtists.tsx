@@ -24,6 +24,7 @@ export default function TrendingArtists() {
   return (
     <section>
     <h5 className={styles.title}>Trending artists</h5>
+    <div>
     {artists && artists.length >0 &&
           <div className={styles.requestWrapper}>
               {artists.map((a, i) => (
@@ -34,6 +35,7 @@ export default function TrendingArtists() {
               ))}
           </div>
       }
+    </div>
       {isLoaded && <Loading />}
       {!isLoaded && artists?.length === 0 && 
         <h6 className={styles.showsException}>Sorry! No trending artists yet 🥲</h6>

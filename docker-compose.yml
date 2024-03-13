@@ -20,9 +20,14 @@ services:
       S3_ENDPOINT: "http://filestorage:9000"
       S3_BUCKET: "concertstreaming"
       S3_PUBLIC_URL: "${S3_PUBLIC_URL}"
-
+      CENTRIFUGO_SERVER: "http://chat:8000"
+      CENTRIFUGO_API_KEY: "DW6XQJYKQT22DUS2GOOGPLBOBV66STNBDISKPS5UEZ52NXKO"
+      PAYPAL_CLIENT_ID: "${PAYPAL_CLIENT_ID}"
+      PAYPAL_CLIENT_SECRET: "${PAYPAL_CLIENT_SECRET}"
     depends_on:
       - db
+      - filestorage
+      - chat
     ports:
       - "8180:8080"
 
@@ -30,13 +35,13 @@ services:
     build:
       context: client
       args:
-        - BACKEND_URL=https://concertplatform.mmvs.video/api #http://mmvsds-test.ddns.net:8180
+        - BACKEND_URL=https://concertplatform.mmvs.video/operations #http://mmvsds-test.ddns.net:8180
         - FRONTEND_URL=https://concertplatform.mmvs.video # http://mmvsds-test.ddns.net:8188
 
     depends_on:
       - db
     environment:
-      BACKEND_URL: "https://concertplatform.mmvs.video/api" # "http://mmvsds-test.ddns.net:8180"
+      BACKEND_URL: "https://concertplatform.mmvs.video/operations" # "http://mmvsds-test.ddns.net:8180"
       FRONTEND_URL: "https://concertplatform.mmvs.video" # "http://mmvsds-test.ddns.net:8188"
     ports:
       - "8188:3000"
@@ -51,3 +56,10 @@ services:
       - "${STORAGE_CONSOLE_PORT}:9001"
     command: server /data --console-address ":9001"
 
+  chat:
+    image: centrifugo/centrifugo:v5
+    volumes:
+      - ./backend/chat_config.json:/centrifugo/config.json
+    command: centrifugo -c config.json
+    ports:
+      - "8183:8000"
