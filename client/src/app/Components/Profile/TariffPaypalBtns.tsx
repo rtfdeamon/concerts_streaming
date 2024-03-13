@@ -104,7 +104,10 @@ export default function TariffPaypalBtns({variant}: {variant: string}) {
   }, [])
   return (
     <PayPalScriptProvider
-    options={{ clientId: "test" }}
+    options={{
+      clientId: process.env.clientId as string,
+      currency: process.env.currency,
+      intent: process.env.intent}}
     >
             <PayPalButtons
               style={{

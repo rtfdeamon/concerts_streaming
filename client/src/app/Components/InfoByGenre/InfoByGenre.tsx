@@ -13,22 +13,22 @@ async function getData(id:string, isArtists?: boolean) {
     console.log(!isArtists && id ==='all')
     let res
     if (!isArtists && id ==='all'){
-        res = await fetch(`${process.env.BACKEND_URL}/concerts`);
+        res = await fetch(`${process.env.BACKEND_URL}/concerts/`);
         const data = await res.json();
         return data
     } 
     if (!isArtists){
-        res = await fetch(`${process.env.BACKEND_URL}/concerts?category=${id}/`);
+        res = await fetch(`${process.env.BACKEND_URL}/concerts/?category=${id}`);
         const data = await res.json();
         return data
     }
     if (isArtists){
-        res = await fetch(`${process.env.BACKEND_URL}/artists?category=${id}`);
+        res = await fetch(`${process.env.BACKEND_URL}/artists/?category=${id}`);
         const data = await res.json();
         return data
     }
     if (isArtists && id ==='all'){
-        res = await fetch(`${process.env.BACKEND_URL}/artists`);
+        res = await fetch(`${process.env.BACKEND_URL}/artists/`);
         const data = await res.json();
         return data
     }

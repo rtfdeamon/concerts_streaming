@@ -4,10 +4,11 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
+import { Dispatch, SetStateAction } from 'react'
 import { IUser } from "@/app/types/interfaces";
 
 
-export default function PayPalBtns({showId}: {showId: string}) {
+export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
   const [user, setUser] = useState<IUser>();
   const { toast } = useToast();
   const [res, setRes] = useState<any>();
@@ -64,6 +65,7 @@ export default function PayPalBtns({showId}: {showId: string}) {
         ),
       })
     })
+    .finally(() => setIsOpen(false))
     ;
   }
   const buyTicket = async (concert: string, user: Number) => {

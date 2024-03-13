@@ -24,11 +24,11 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
             const file = e.target.files[0];
             uploadFile(file)
         }
-        // .then((data) => sendFileMessage(data));
+        // .then((data) => sendFileMessage(data)); 
       }
       const uploadFile = async (file: File) => {
         const link:any = await generateUploadLink('artist_demo');
-        const res = await fetch(`${link.url}/`, {
+        const res = await fetch(`${link.url}`, {
             method: 'PUT',
             headers: {
               'Content-type' : 'audio/mpeg'

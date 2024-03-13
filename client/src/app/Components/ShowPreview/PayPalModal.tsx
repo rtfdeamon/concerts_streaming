@@ -52,7 +52,7 @@ export default function PayPalModal({isOpen, setIsOpen, showId, showTitle, price
                   }
                   <div className="mt-4">
                       <div className={styles.paypalWrapper}>
-                          <PayPalBtns showId={showId} />          
+                          <PayPalBtns showId={showId} setIsOpen={setIsOpen} />          
                       </div>
                   </div>
                 </Dialog.Panel>
