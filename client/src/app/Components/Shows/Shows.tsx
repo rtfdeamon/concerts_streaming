@@ -27,8 +27,10 @@ export default function Shows() {
         tomorrow = new Date(tomorrow)
         // today.toISOString().split('T')[0]
         // tomorrow.split('T')[0]
+        
         today = today.toISOString().split('T')[0]
         tomorrow = tomorrow.toISOString().split('T')[0]
+        console.log(today, tomorrow);
         dispatch(getShowByFilter({to: tomorrow, from: today}))
     }
     const weekIsOpenHandler = () => {
