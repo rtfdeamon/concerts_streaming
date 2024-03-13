@@ -5,7 +5,7 @@ import { IToken } from "@/app/types/interfaces";
 export const login = createAsyncThunk<IToken, ILogin>(
     '@@login/userLogin',
     async ({username, password}) => {
-        const res = await fetch(`${process.env.BACKEND_URL}/auth/signin`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/auth/signin/`, {
             method: 'POST',
             headers:{
                 'Content-type' : 'application/json'
