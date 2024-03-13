@@ -5,7 +5,7 @@ import { IArtistRequest } from "@/app/types/interfaces";
 export const loadSessions = createAsyncThunk<IArtistRequest[], void>(
     '@@sessions/loadSessions',
     async () => {
-        const res = await fetch(`${process.env.BACKEND_URL}/sessions/?select=all/`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/sessions/?select=all`, {
             method: 'GET',
             headers: {
                 'Authorization':`Bearer ${await getTokenForApi()}`,

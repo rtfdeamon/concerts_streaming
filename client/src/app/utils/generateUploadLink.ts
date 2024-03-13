@@ -4,7 +4,7 @@ export interface ILink{
     link: string
 }
 export async function generateUploadLink(uploadType: string){
-    const res = await fetch(`${process.env.BACKEND_URL}/upload/generate-link/`, {
+    const res = await fetch(`${process.env.BACKEND_URL}/upload/generate-link`, {
         method: 'POST',
         headers:{
             'Content-type' : 'application/json',

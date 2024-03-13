@@ -5,7 +5,7 @@ import { IAd } from "@/app/types/interfaces";
 export const loadAds = createAsyncThunk<IAd[], void>(
     '@@ads/loadAds',
     async () => {
-        const res = await fetch(`${process.env.BACKEND_URL}/sponsor-ads/?status=pending&select=all/`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/sponsor-ads/?status=pending&select=all`, {
             method: 'GET',
             headers: {
                 'Authorization' : `Bearer ${await getTokenForApi()}`

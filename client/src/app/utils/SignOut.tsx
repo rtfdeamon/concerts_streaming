@@ -1,7 +1,7 @@
 
 export default function SignOut(token: string) {
     const signOutHandler = async (token: string) => {
-        const res = await fetch(`${process.env.BACKEND_URL}/auth/signout/`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/auth/signout`, {
             method: 'POST',
             headers: {
                 'Authorization' : `Bearer ${token}`
