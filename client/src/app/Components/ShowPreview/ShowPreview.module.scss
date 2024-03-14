@@ -14,7 +14,7 @@
     @apply relative
 }
 .preview{
-    @apply block mx-auto mb-8 rounded-md object-fill w-full
+    @apply block mx-auto mb-8 rounded-md object-fill w-full h-[800px] w-[800px] object-contain
 }
 .buyBtn{
     & {
