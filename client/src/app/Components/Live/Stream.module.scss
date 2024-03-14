@@ -1,8 +1,11 @@
 .section{
-    @apply flex flex-col justify-center items-center
+    @apply flex flex-col justify-center items-center relative
+}
+.backBtn{
+    @apply absolute left-[160px] top-[70px] w-[100px]
 }
 .banner{
-    @apply block mx-auto mt-10
+    @apply block mx-auto mt-10 w-[1200px] h-[320px] object-fill
 }
 .videoWrapper{
     @apply h-[80vh] w-[80vw]

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { getTokenForApi } from '@/app/utils/getTokenForApi';
 import { MediaPlayer, MediaProvider } from '@vidstack/react';
 import { Poster, type PosterProps } from '@vidstack/react';
@@ -14,6 +15,7 @@ import { VolumeSlider, VolumeSliderInstance } from '@vidstack/react';
 import { FullscreenButton } from '@vidstack/react';
 import { FullscreenExitIcon, FullscreenIcon } from '@vidstack/react/icons';
 import { useMediaState, MediaPlayerInstance } from '@vidstack/react';
+import { Button } from '@/shadComponents/ui/button';
 import BufferingSpinner from './BufferingSpinner';
 import { IShow } from '@/app/types/interfaces';
 import Image from 'next/image';
@@ -21,12 +23,18 @@ import '@vidstack/react/player/styles/base.css';
 import styles from './Stream.module.scss'
 
 export default function Stream({id}: {id: string}) {
+  const router = useRouter();
   const [show, setShow] = useState<IShow | undefined>();
   const player = useRef<MediaPlayerInstance>(null);
   const isActive = useMediaState('pictureInPicture', player);
   const [bufferingIsActive, setBufferingIsActive] = useState(false);
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
-  const volumeRef = useRef<VolumeSliderInstance>(null)
+  const volumeRef = useRef<VolumeSliderInstance>(null);
+
+  const routerHandler = () => {
+    router.back();
+  }
+
   useEffect(() => {
     const getShow = async (id: string) => {
       const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/`, {
@@ -46,6 +54,7 @@ export default function Stream({id}: {id: string}) {
   }, [show])
   return (
     <section className={styles.section}>
+        <Button className={styles.backBtn} onClick={routerHandler}>Back</Button>
         <div className={styles.videoWrapper}>
         <MediaPlayer
           ref={player}
