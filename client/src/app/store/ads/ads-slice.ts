@@ -5,7 +5,7 @@ import { IAd } from "@/app/types/interfaces";
 export const loadAds = createAsyncThunk<IAd[], void>(
     '@@ads/loadAds',
     async () => {
-        const res = await fetch(`${process.env.BACKEND_URL}/sponsor-ads/?status=pending&select=all`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/sponsor-images/?status=pending&select=all`, {
             method: 'GET',
             headers: {
                 'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -24,7 +24,7 @@ export interface IChangeAd {
 export const resAd = createAsyncThunk<string, IChangeAd>(
     '@@ads/acceptAd',
     async ({id, status}) => {
-        await fetch(`${process.env.BACKEND_URL}/sponsor-ads/${id}/`, {
+        await fetch(`${process.env.BACKEND_URL}/sponsor-images/${id}/`, {
           method : 'PATCH',
           headers: {
             'Authorization' : `Bearer ${await getTokenForApi()}`,

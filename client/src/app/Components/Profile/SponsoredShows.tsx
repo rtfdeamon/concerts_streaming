@@ -12,7 +12,7 @@ export default function SponsoredShows() {
     const [isLoaded, setIsLoaded] = useState(true);
     useEffect(() => {
         const getAds = async () => {
-            const res = await fetch(`${process.env.BACKEND_URL}/sponsor-ads/`, {
+            const res = await fetch(`${process.env.BACKEND_URL}/sponsor-images/`, {
                 method: 'GET',
                 headers: {
                     'Authorization' : `Bearer ${await getTokenForApi()}`
