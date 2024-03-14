@@ -17,10 +17,14 @@
     @apply block mx-auto mb-8 rounded-md object-fill w-full
 }
 .buyBtn{
+    & {
+        top: calc(60% - 60px);
+        left: calc(62% - 300px);
+    }
     &:hover{
         @apply bg-blue-700
     }
-    @apply flex absolute top-[48%] right-[40%] text-3xl mx-auto p-8 bg-blue-500 duration-500 transition-all
+    @apply flex absolute w-[300px] h-[60px] text-3xl mx-auto p-8 bg-blue-500 duration-500 transition-all
 }
 .paypalWrapper{
     @apply block h-[230px] mt-4 mx-auto p-8 text-3xl

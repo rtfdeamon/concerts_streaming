@@ -42,7 +42,7 @@
     &:hover{
         @apply bg-blue-700
     }
-    @apply flex mx-auto right-2 text-xl p-8 bg-blue-500 duration-500 transition-all w-[250px]
+    @apply flex items-center justify-center h-[60px] py-8 text-white right-2 text-xl bg-blue-500 duration-500 transition-all w-[250px]
 }
 .upcomingShowsWrapper{
     @apply max-h-[510px] relative overflow-hidden bg-white my-5 px-5 py-10 rounded-lg transition-all duration-500
@@ -60,7 +60,7 @@
     @apply block
 }
 .upcomingDesc{
-    @apply block text-[#94A3B8] truncate
+    @apply block text-[#94A3B8] truncate w-[200px] text-center
 }
 .more{
     &:hover{

@@ -19,14 +19,17 @@ export default function ShowsCalendar({concerts, isAbout}: {concerts: IEvent[], 
                         <p className={styles.upcomingDate}>{new Date(c.date).toLocaleString()}</p>
                         <p className={styles.upcomingDesc}>{c.description}</p>
                         <Link href={`/shows/$showID`}>
-                            <Link href={`${process.env.FRONTEND_URL}/${c.id}`} className={styles.btn}>Go to the show</Link>
+                            <Link href={`${process.env.FRONTEND_URL}/preview/${c.id}`} className={styles.btn}>Go to the show</Link>
                         </Link>
                     </li>
             ))}
-            <span
-            onClick={onOpenHandler}
-            className={styles.more}
-            >show more</span>
+            {
+                concerts.length > 5 && 
+                <span
+                onClick={onOpenHandler}
+                className={styles.more}
+                >show more</span>
+            }
         </ul>
   )
 }

@@ -1,6 +1,6 @@
 import Loading from '../Loading/Loading'
 import { IArtist } from '@/app/types/interfaces'
-import Women from '../../../../public/women.jpg'
+import User from '../../../../public/user (1).svg'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Recommendations.module.scss'
@@ -24,7 +24,7 @@ export default async function Recommendations() {
                 ? artists.map((a, i) => (
                   <div className={styles.artistWrapper} key={i}>
                       <Link className={styles.linkWrapper} href={`/artist/${a.id}`}>
-                          <Image src={typeof a.avatar_url !== 'object' ? a.avatar_url : Women} width={120} height={120} alt={'fds'} />
+                          <Image src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={120} height={120} alt={'fds'} />
                           <div className={styles.artistInfo}>
                             <p className={styles.artistName}>{a.name}</p>
                             {/* <span className={styles.genre}>{a.}</span> */}

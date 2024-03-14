@@ -10,6 +10,7 @@ import styles from './TicketsList.module.scss'
 export default function TicketsList() {
     const [ticketInfo, setTicketInfo] = useState<ITicket[] | []>([]);
     const [isLoaded, setIsLoaded] = useState(true);
+    const filteredArray = ticketInfo.filter(t => t.status === 'activated');
     useEffect(() => {
         async function getTicketInfo(){
             const res = await fetch(`${process.env.BACKEND_URL}/tickets/`, {
@@ -32,9 +33,9 @@ export default function TicketsList() {
         </div>
         <div className={styles.shows}>
             {
-                ticketInfo && ticketInfo.length > 0 &&
+                filteredArray && filteredArray.length > 0 &&
                     <div className={styles.ticketInfos}>
-                        {ticketInfo.map((t) => (
+                        {filteredArray.map((t) => (
                             <Link key={t.id} className={styles.link} href={`${process.env.FRONTEND_URL}/preview/${t.concert.id}`} >
                                 <h5 className={styles.concTitle}>{t.concert.name}</h5>
                                 {t.concert.poster_url !== '' && typeof t.concert.poster_url !=='undefined' &&
@@ -45,7 +46,7 @@ export default function TicketsList() {
                     </div>
             }
             {isLoaded && <Loading />}
-            {!isLoaded && ticketInfo?.length === 0 && 
+            {!isLoaded && filteredArray?.length === 0 && 
                 <h6 className={styles.showsException}>Sorry! You haven't bought any tickets yet  🥲</h6>
             }
         </div>

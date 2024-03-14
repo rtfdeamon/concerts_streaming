@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import { useToast } from "@/shadComponents/ui/use-toast";
@@ -11,10 +11,10 @@ import { IUser } from "@/app/types/interfaces";
 export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
   const [user, setUser] = useState<IUser>();
   const { toast } = useToast();
-  const [res, setRes] = useState<any>();
+  const orderId = useRef<any>('');
+
   const createOrder = async () => {
     const data = await buyTicket(showId, user?.id as number);
-    setRes(data)
        return fetch(`${process.env.BACKEND_URL}/orders/`, {
           method: "POST", 
           headers: {
@@ -25,7 +25,7 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
         })
         .then((response) => response.json())
         .then((order) => {
-          console.log(order)
+          orderId.current = order.id;
           return order.id
         })
         .catch(e => {
@@ -46,7 +46,7 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
         "Content-Type": "application/json",
         'Authorization': `Bearer ${await getTokenForApi()}`
       },
-      body: JSON.stringify({ticket_id:  res.id})
+      body: JSON.stringify({order_id:  orderId.current})
   })
     .then(res => {
       toast({
@@ -106,7 +106,7 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
   }, [])
   return (
     <PayPalScriptProvider
-    options={{ clientId: "test" }}
+    options={{ clientId: "AfuXJhSUZp9UWT6r25qjWiQZGWRkFdhsTTn33s3AvZ71XMUCow329IFA-xea1iYFV_Gaxt-dnKQQhsCb" }}
     >
             <PayPalButtons
               style={{
