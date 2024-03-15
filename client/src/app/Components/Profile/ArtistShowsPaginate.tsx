@@ -68,7 +68,9 @@ export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = sessions.slice(itemOffset, endOffset);
+  const filteredByStatus = sessions.filter(s => s.status === 'accepted')
+  const filteredByUserId = filteredByStatus.filter(s => s.user?.id == user?.id)
+  const currentItems = filteredByUserId.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(sessions.length / itemsPerPage);
 
   // Invoke when user click to request another page.
@@ -79,10 +81,7 @@ export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
     );
     setItemOffset(newOffset);
   };
-  const filteredByStatus = currentItems.filter(s => s.status === 'accepted')
-  const filteredByUserId = filteredByStatus.filter(s => s.user?.id == user?.id)
-  console.log(filteredByStatus)
-  console.log(user);
+
   
   return (
     <>
