@@ -14,13 +14,13 @@
     @apply rounded-full h-[80px]
 }
 .showWrapper{
-    @apply w-[600px] bg-white rounded-md p-6 mb-8
+    @apply w-[700px] min-h-[200px] bg-white rounded-md p-6 mb-8
 }
 .showLink{
     &:hover{
         @apply text-blue-500
     }
-    @apply block text-center text-base text-blue-400 transition-all duration-500
+    @apply mb-5 block text-center text-base text-blue-400 transition-all duration-500
 }
 .imageWrapper{
     & p:hover{
@@ -30,8 +30,12 @@
         @apply text-base text-center truncate transition-all duration-500
     }
     & img{
-        @apply rounded-full
+        @apply block mx-auto rounded-full object-fill
     }
+    @apply w-[150px]
+}
+.artistName{
+    @apply max-w-[150px] truncate
 }
 .fileWrapper{
     & p{
@@ -50,6 +54,10 @@
         @apply cursor-pointer transition-all duration-500 rounded-full p-2
     }
     @apply flex
+}
+.artistMessage{
+    word-break: break-all;
+    @apply  block mt-5 mb-3 ml-6
 }
 .paginate{
     transform: translate(115%, -20%);

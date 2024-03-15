@@ -21,7 +21,7 @@
 }
 .prevBtn{
     &:hover{
-        @apply scale-105
+        @apply opacity-100
     }
-    @apply flex items-center justify-center transition-all duration-500 cursor-pointer will-change-transform
+    @apply flex items-center justify-center transition-all cursor-pointer duration-500 opacity-70
 }

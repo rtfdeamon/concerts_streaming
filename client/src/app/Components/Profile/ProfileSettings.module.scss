@@ -10,6 +10,9 @@
     }
     @apply text-center mb-6
 }
+.avatar{
+    @apply w-[500px] h-[400px] object-contain
+}
 .span{
     @apply text-xl
 }

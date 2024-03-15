@@ -25,10 +25,9 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
                   <div className={styles.request}>
                   <Link href={`/artist/${a.user?.id}`} className={styles.imageWrapper}>
                       <Image src={typeof a.user?.avatar_url !== 'object' ? a.user?.avatar_url : User} className={styles.image} width={80} height={80} alt="artistIcon" />
-                      <p>{a.user?.name}</p>
+                      <p className={styles.artistName}>{a.user?.name}</p>
                   </Link>
                   <div className={styles.fileWrapper}>
-                      <span className={styles.desc}>{a.description}</span>
                       <audio controls src={`${a.artist_demo_url}`}>
                       </audio>
                   </div>
@@ -40,6 +39,9 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
                         onClick={() => dispatch(changeSessionStatus({id: a.id as string, status: 'rejected'}))}
                         src={X} width={40} height={40} alt="x" title="Decline" />
                   </div>
+                  </div>
+                  <div className={styles.artistMessage}>
+                    <span>Request message: </span><span className={styles.desc}>{a.description}</span>
                   </div>
               </div>
             </div>
