@@ -14,8 +14,19 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
   const orderId = useRef<any>('');
 
   const createOrder = async () => {
-    const data = await buyTicket(showId, user?.id as number);
-       return fetch(`${process.env.BACKEND_URL}/orders/`, {
+    const data:any = await buyTicket(showId, user?.id as number);
+    console.log('FSDFS', data)
+      if(data.status === 'activated'){
+        toast({
+          title: "You already bought this ticket",
+          variant: "destructive",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+        return;
+      }
+      else{ return fetch(`${process.env.BACKEND_URL}/orders/`, {
           method: "POST", 
           headers: {
               "Content-Type": "application/json",
@@ -37,6 +48,7 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
             ),
           })
         })
+      }
   }
 
   const onApprove = async (data: any) => {

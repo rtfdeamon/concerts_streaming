@@ -32,7 +32,10 @@ function Items(artists:{artists: IArtist[]}) {
 
 
 
-export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, artists: IArtist[]}) {
+export function ArtistsPaginate(
+  {itemsPerPage, artists, all, isArtistList}
+  :{itemsPerPage: number, artists: IArtist[],
+    all?: boolean, isArtistList?: boolean}) {
   const [itemOffset, setItemOffset] = useState(0);
   
     // Simulate fetching items from another resources.
@@ -51,13 +54,25 @@ export function ArtistsPaginate({itemsPerPage, artists}:{itemsPerPage: number, a
       );
       setItemOffset(newOffset);
   };
-
   return (
     <>
       <Items artists={currentItems} />
-      {artists.length > 4 &&
+      {typeof all !== 'undefined' && artists.length > 15 && 
+              <ReactPaginate
+              className={styles.paginate}
+              breakLabel="..."
+              nextLabel=">"
+              breakClassName={'hidden'}
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+          />
+      }
+      {typeof all === 'undefined' && artists.length > 4 &&
         <ReactPaginate
-          className={styles.paginate}
+          className={isArtistList ? styles.listPaginate : styles.paginate}
           breakLabel="..."
           nextLabel=">"
           breakClassName={'hidden'}

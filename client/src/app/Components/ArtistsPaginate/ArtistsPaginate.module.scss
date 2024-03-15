@@ -37,3 +37,9 @@
              }
      @apply w-full absolute bottom-0 flex justify-center items-center pb-7 text-center
  }
+.listPaginate{
+    & li{
+        @apply block mr-5
+    }
+@apply w-full bottom-0 flex justify-center items-center pb-7 text-center
+}

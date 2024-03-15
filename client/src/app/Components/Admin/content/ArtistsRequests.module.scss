@@ -39,6 +39,9 @@
     }
     @apply text-center
 }
+.desc{
+    @apply text-slate-400 mb-2
+}
 .controls{
     & img:hover{
         @apply bg-slate-400
@@ -49,7 +52,7 @@
     @apply flex
 }
 .paginate{
-    transform: translate(200%, -20%);
+    transform: translate(115%, -20%);
             & li{
                 @apply block mr-5
             }

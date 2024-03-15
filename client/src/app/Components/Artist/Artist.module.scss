@@ -3,7 +3,7 @@
 }
 .poster{
     & img{
-        @apply rounded-full
+        @apply rounded-full object-cover
     }
     @apply flex justify-around bg-white px-5 py-10 rounded-lg
 }

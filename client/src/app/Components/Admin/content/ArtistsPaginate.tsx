@@ -28,7 +28,7 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
                       <p>{a.user?.name}</p>
                   </Link>
                   <div className={styles.fileWrapper}>
-                      <span>{a.description}</span>
+                      <span className={styles.desc}>{a.description}</span>
                       <audio controls src={`${a.artist_demo_url}`}>
                       </audio>
                   </div>

@@ -61,7 +61,7 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
             const req: any = await reqResponse.json();
             if (reqResponse.ok){
               toast({
-                title: "Request sended",
+                title: "Request  was sent",
                 description: "Please, wait for admin to approve your request",
                 action: (
                   <ToastAction altText="Hide">Hide</ToastAction>

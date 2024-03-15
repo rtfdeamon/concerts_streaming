@@ -22,7 +22,7 @@ export default function AllArtists() {
     <section>
         <h5 className={styles.title}>All artists</h5>
         {artists && artists.length >0 &&
-          <ArtistsPaginate itemsPerPage={15} artists={artists} />
+          <ArtistsPaginate itemsPerPage={15} artists={artists} all />
         }
         {isLoaded && <Loading />}
         {!isLoaded && artists?.length === 0 && 

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react"
+import { useState, useRef } from "react"
 import { Dispatch, SetStateAction, Fragment } from "react"
 import { Dialog, Transition } from '@headlessui/react'
 import { getTokenForApi } from "@/app/utils/getTokenForApi"
@@ -11,10 +11,9 @@ import { useToast } from '@/shadComponents/ui/use-toast'
 import { ChangeEvent } from "react"
 
 export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, id: string}) {
-  const [artistDemo, setArtistDemo] = useState('');
   const [desc, setDesc] = useState('');
   const { toast } = useToast();
-
+  const artistDemoRef = useRef('');
     const descChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
       setDesc(e.target.value);
     }
@@ -36,7 +35,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
             body: file
           })
         if (res.ok){
-            setArtistDemo((link.url.split('?')[0]))
+          artistDemoRef.current = (link.url.split('?')[0])
         }
     }
     async function postArtistDemo(){
@@ -46,11 +45,11 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
           'Authorization':`Bearer ${await getTokenForApi()}`,
           'Content-type':'application/json'
         },
-        body: JSON.stringify({name: 'testtest', description: desc, artist_demo_url: artistDemo, user: null, concert: id})
+        body: JSON.stringify({name: 'testtest', description: desc, artist_demo_url: artistDemoRef.current, user: null, concert: id})
       })
     }
     const requestHandler = async () => {
-      if (desc === '' || artistDemo === ''){
+      if (desc === '' || artistDemoRef.current === ''){
         toast({
           title: "Please, fill all required fields",
           action: (
@@ -61,7 +60,6 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
       }
       postArtistDemo()
         .then(res => {
-          console.log(res)
           toast({
             title: "Your request is sent",
             action: (
@@ -124,7 +122,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="block mx-auto rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="block mx-auto rounded-md cursor-pointer border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={requestHandler}
                     >
                       Send request

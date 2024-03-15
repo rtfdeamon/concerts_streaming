@@ -20,7 +20,7 @@
     @apply rounded-md h-[300px] object-fill
 }
 .desc{
-    @apply text-slate-500 my-2
+    @apply text-slate-500 my-2 mb-8 indent-4
 }
 .infoWrapper{
     @apply flex justify-evenly w-[80%]
