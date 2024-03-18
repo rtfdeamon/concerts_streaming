@@ -17,8 +17,9 @@ export default function CalendarComp() {
     let tomorrow: Date | number | string = Date.parse(String(e)) + 86399000
     tomorrow =  new Date(tomorrow);
     today =  new Date(today);
-    tomorrow = tomorrow.toISOString().split('T')[0];
-    today = today.toISOString().split('T')[0];
+    tomorrow = tomorrow.toISOString();
+    today = today.toISOString();
+    console.log(today, tomorrow)
     if (date) dispatch(getShowByFilter({to: tomorrow, from: today}))
   }
 
