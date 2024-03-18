@@ -5,10 +5,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Recommendations.module.scss'
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic"
 
 async function getShows(){
-  const res = await fetch(`${process.env.BACKEND_URL}/artists/trending/`)
+  const res = await fetch(`${process.env.BACKEND_URL}/artists/trending/`, {
+    cache: 'no-store'
+  })
   const data = await res.json()
   return data;
 }

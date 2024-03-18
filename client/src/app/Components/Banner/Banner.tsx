@@ -1,6 +1,7 @@
 import { Button } from '@/shadComponents/ui/button'
 import Link from 'next/link'
 import styles from './Banner.module.scss'
+import Loading from '../Loading/Loading'
 
 export default function Banner() {
   return (

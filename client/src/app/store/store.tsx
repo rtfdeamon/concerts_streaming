@@ -24,7 +24,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
     }),
-    devTools: true
+    devTools: typeof window !== "undefined" && process.env.NODE_ENV !== "production"
 })
 
 export type RootState = ReturnType<typeof store.getState>;

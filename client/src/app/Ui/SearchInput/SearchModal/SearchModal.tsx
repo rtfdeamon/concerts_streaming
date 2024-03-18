@@ -1,8 +1,9 @@
 'use client'
-import { useAppDispatch, useAppSelector } from '@/app/hooks/rtkHooks'
+import { useAppSelector } from '@/app/hooks/rtkHooks'
 import { useEffect } from 'react'
 import { setInputState } from '@/app/store/searchInput/searchInput-slice'
 import { getArtists, getShows } from '../SearchInput'
+import useDispatch from '@/app/hooks/useDispatch'
 import useDebounce from '@/app/hooks/useDebounce'
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
@@ -22,7 +23,7 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching, se
     results: IResult | undefined, isSearching: boolean, setResults: Dispatch<SetStateAction<IResult | undefined>>
     setIsSearching: Dispatch<SetStateAction<boolean>>
     }) {
-      const dispatch = useAppDispatch();
+      const {dispatch} = useDispatch();
       const inputValue = useAppSelector(state => state.inputValue.value);
       const debouncedSearchTerm = useDebounce(inputValue, 500);
 
