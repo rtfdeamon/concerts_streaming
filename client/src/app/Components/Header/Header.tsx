@@ -141,7 +141,7 @@ export default function Header({type, children}:{type: string, children?: React.
                             <NavigationMenuLink href="/genre/indie" title="Typography">
                               Indie
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/other" title="Typography">
+                            <NavigationMenuLink href="/genre/all" title="Typography">
                               All events
                             </NavigationMenuLink>
                         </div>
@@ -216,7 +216,7 @@ export default function Header({type, children}:{type: string, children?: React.
                             <NavigationMenuLink href="/artists/genre/indie" title="Typography">
                               Indie
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/other" title="Typography">
+                            <NavigationMenuLink href="/artists/genre/all" title="Typography">
                               All artists
                             </NavigationMenuLink>
                         </div>
