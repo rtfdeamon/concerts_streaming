@@ -134,3 +134,16 @@ export interface IMessage {
   date: number,
   text: string
 }
+
+export interface IStreamingInfo {
+  status: string,
+  playback_url: string,
+  publish_credentials: {
+    primary_server: string,
+    host_port: number,
+    stream_name: string,
+    username: string,
+    password: string
+  }
+}
+

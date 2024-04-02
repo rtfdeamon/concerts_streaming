@@ -13,10 +13,12 @@ import { VolumeSlider, VolumeSliderInstance } from '@vidstack/react';
 import { FullscreenButton } from '@vidstack/react';
 import { FullscreenExitIcon, FullscreenIcon } from '@vidstack/react/icons';
 import { useMediaState, MediaPlayerInstance } from '@vidstack/react';
+import { IStreamingInfo } from '@/app/types/interfaces';
+import { getTokenForApi } from '@/app/utils/getTokenForApi';
 import '@vidstack/react/player/styles/base.css';
 import styles from './PreviewStream.module.scss'
 
-export default function PreviewStream() {
+export default function PreviewStream({steamingInfo}:{steamingInfo?: IStreamingInfo}) {
   const player = useRef<MediaPlayerInstance>(null);
   const isActive = useMediaState('pictureInPicture', player);
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
@@ -24,6 +26,7 @@ export default function PreviewStream() {
 
   return (
     <div className={styles.videoWrapper}>
+      {steamingInfo && 
         <MediaPlayer
           ref={player}
           className={styles.video}
@@ -31,9 +34,10 @@ export default function PreviewStream() {
           streamType="live"
           aspectRatio="16/9"
           crossOrigin
+          
           load="idle"
           title="Sprite Fight"
-          src={"https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"}>
+          src={steamingInfo?.playback_url}>
             <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
               <div className="flex-1" />
               <div className="flex-1" />
@@ -75,6 +79,7 @@ export default function PreviewStream() {
             </Controls.Root>
           <MediaProvider />
         </MediaPlayer>
+      }
     </div>
   )
 }

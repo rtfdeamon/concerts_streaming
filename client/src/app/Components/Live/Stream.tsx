@@ -22,7 +22,7 @@ import Image from 'next/image';
 import '@vidstack/react/player/styles/base.css';
 import styles from './Stream.module.scss'
 
-export default function Stream({id}: {id: string}) {
+export default function Stream({id, concertInfo}: {id: string, concertInfo: any}) {
   const router = useRouter();
   const [show, setShow] = useState<IShow | undefined>();
   const player = useRef<MediaPlayerInstance>(null);
@@ -30,7 +30,7 @@ export default function Stream({id}: {id: string}) {
   const [bufferingIsActive, setBufferingIsActive] = useState(false);
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
   const volumeRef = useRef<VolumeSliderInstance>(null);
-
+  const timeDiff = useRef<String>('')
   const routerHandler = () => {
     router.back();
   }
@@ -52,10 +52,19 @@ export default function Stream({id}: {id: string}) {
     console.log(show)
 
   }, [show])
+if (show){
+  const showTime = new Date(show?.date as string);
+  const DateNow = new Date();
+  timeDiff.current = String(Math.abs(showTime.getTime() - DateNow.getTime()));
+  console.log(showTime, DateNow)
+}
   return (
     <section className={styles.section}>
         <Button className={styles.backBtn} onClick={routerHandler}>Back</Button>
         <div className={styles.videoWrapper}>
+          <span className='text-center mt-4 block mx-auto'>
+            Time to show: {timeDiff.current}
+          </span>
         <MediaPlayer
           ref={player}
           className={styles.video}
@@ -67,10 +76,10 @@ export default function Stream({id}: {id: string}) {
           load="idle"
           posterLoad="idle"
           title="Sprite Fight"
-          src="https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8">
+          src={concertInfo ? concertInfo.playback_url : ''}>
           <Poster
             className={styles.poster}
-            src="https://media-files.vidstack.io/sprite-fight/poster.webp"
+            src={show?.poster_url}
             alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
           />
             <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">

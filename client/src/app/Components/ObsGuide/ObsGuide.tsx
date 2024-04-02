@@ -6,6 +6,7 @@ import Second from '../../../../public/auto-config-2.png'
 import Third from '../../../../public/auto-config-3.png'
 import Fourth from '../../../../public/auto-config-3a.png'
 import Fifth from '../../../../public/auto-config-4.png'
+import Sixth from '../../../../public/obs_concert_streaming.png'
 import styles from './ObsGuide.module.scss'
 
 export default function ObsGuide() {
@@ -13,7 +14,7 @@ export default function ObsGuide() {
     <>
         <HeaderWithoutBanner />
         <article className={styles.article}>
-        <h5 className={styles.title}>Getting started in 5 steps</h5>
+        <h5 className={styles.title}>Getting started in 6 steps</h5>
         <div>
             1.
             <Link className = {styles.link} href={`https://obsproject.com/download`}>Download OBS Studio from official source</Link>
@@ -45,6 +46,11 @@ export default function ObsGuide() {
             Double check that all your settings are how you want them in Settings → Output. Then, click Start Recording or Start Streaming on the Controls Dock (pictured left).
             We strongly encourage running a test for a few minutes to make sure that there are no issues, rather than just jumping in to your first stream or recording.
             <Image src={Fifth} width={400} height={200} alt='Fifth image' />
+        </div>
+        <div>
+            6.
+            Follow this example
+            <Image src={Sixth} width={400} height={200} alt='Fifth image' />
         </div>
     </article>
     </>
