@@ -25,7 +25,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     const [streamStatus, setStreamStatus] = useState<IStreamStatus>()
     const { toast } = useToast();
     const startStream = async () => {
-        const res = await fetch(`${process.env.BACKEND_URL}/streaming/start/`, {
+        const res = await fetch(`http://concertplatform.mmvs.video/streaming/start/`, {
             method: 'POST',
             headers: {
                 'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -41,7 +41,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
 
     const stopStream = async () => {
         try{
-            const res = await fetch(`${process.env.BACKEND_URL}/streaming/stop/`, {
+            const res = await fetch(`http://concertplatform.mmvs.video/streaming/stop/`, {
                 method: 'POST',
                 headers: {
                     'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -63,7 +63,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     }
     useEffect(() => {
         async function getStreamStatus() {
-            const res = await fetch(`${process.env.BACKEND_URL}/streaming/status/`, {
+            const res = await fetch(`http://concertplatform.mmvs.video/streaming/status/`, {
                 method: 'GET',
                 headers: {
                     'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -76,7 +76,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     }, [playIsActive])
     useEffect(() => {
         async function getStreamingInfo() {
-            const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {
+            const res = await fetch(`http://concertplatform.mmvs.video/streaming/info/`, {
                 method: 'GET',
                 headers: {
                     'Authorization' : `Bearer ${await getTokenForApi()}`
