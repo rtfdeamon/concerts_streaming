@@ -125,7 +125,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
                                {steamingInfo && <PreviewStream  steamingInfo={steamingInfo}/> }
                                <div className="flex justify-center cursor-pointer">
                                    <Button style={{marginRight: '20px'}} onClick={startStream} >Start stream</Button>
-                                   <Button onClick={startStream} >Close stream</Button>
+                                   <Button onClick={stopStream} >Close stream</Button>
                                 {
                                     // playIsActive ? 
                                     //     <Pause height={40} width={40} onClick={stopStream} />
