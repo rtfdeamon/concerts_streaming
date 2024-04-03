@@ -25,7 +25,7 @@ export default function Live({params}:ILiveParams) {
       })
       if (!res.ok){
         toast({
-          title: "You have not buy a ticket for this show!",
+          title: "You have no buy a ticket for this show!",
           action: (
             <ToastAction altText="Hide">Hide</ToastAction>
           ),
@@ -33,7 +33,6 @@ export default function Live({params}:ILiveParams) {
         router.back()
       }
       const data = await res.json();
-      console.log('conccv', data)
       setConcertInfo(data)
     }
     getConcertInfo({id: params.id})

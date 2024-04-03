@@ -75,6 +75,7 @@ export interface IAcceptedShow {
   poster_url: string
 }
 
+
 export interface IUser {
   id: number,
   role:	string,
@@ -83,7 +84,8 @@ export interface IUser {
   username: number,
   artists_followed: IArtist[],
   concerts_followed: IEvent[],
-  ads: IAd[]
+  ads: IAd[],
+  tickets?: ITicket[]
 }
 export interface IToken {
   accessToken : string,

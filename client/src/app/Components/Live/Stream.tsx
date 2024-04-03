@@ -31,6 +31,10 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
   const volumeRef = useRef<VolumeSliderInstance>(null);
   const timeDiff = useRef<String>('')
+  const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
+  const [tick, setTick] = useState(false);
+  const timerId = useRef<NodeJS.Timeout>()
+
   const routerHandler = () => {
     router.back();
   }
@@ -49,90 +53,126 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
     getShow(id);
   }, [])
   useEffect(() => {
-    console.log(show)
-
+    const timerID = setInterval(() => setTick(!tick), 1000);
+    return () => clearInterval(timerID);
   }, [show])
 if (show){
   const showTime = new Date(show?.date as string);
   const DateNow = new Date();
   timeDiff.current = String(Math.abs(showTime.getTime() - DateNow.getTime()));
-  console.log(showTime, DateNow)
+  // console.log(new Date(+timeDiff.current).toUTCString())
 }
+useEffect(()=> {
+    const showTime = new Date(show?.date as string);
+    const finishTime = showTime.getTime() / 1000
+    const diff = (finishTime - new Date().getTime() / 1000)
+    console.log(diff)
+    if (diff < 0) {
+      setDiff([
+          NaN,
+          NaN,
+          NaN,
+          NaN
+      ])
+      clearInterval(timerId.current)
+      return
+    }
+    setDiff([
+      Math.floor(diff / 86400), 
+      Math.floor((diff / 3600) % 24), 
+      Math.floor((diff / 60) % 60), 
+      Math.floor(diff % 60)
+    ]) 
+}, [tick])
+useEffect(()=>{
+  timerId.current = setInterval(() => setTick(!tick), 1000);
+  return () => clearInterval(timerId.current);
+}, [tick])
+
   return (
     <section className={styles.section}>
         <Button className={styles.backBtn} onClick={routerHandler}>Back</Button>
         <div className={styles.videoWrapper}>
-          <span className='text-center mt-4 block mx-auto'>
-            Time to show: {timeDiff.current}
-          </span>
-        <MediaPlayer
-          ref={player}
-          className={styles.video}
-          autoPlay
-          streamType="live"
-          aspectRatio="16/9"
-          onLoad={() => setBufferingIsActive(true)}
-          crossOrigin
-          load="idle"
-          posterLoad="idle"
-          title="Sprite Fight"
-          src={concertInfo ? concertInfo.playback_url : ''}>
-          <Poster
-            className={styles.poster}
-            src={show?.poster_url}
-            alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
-          />
-            <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
-              <Controls.Group className="pointer-events-auto w-full flex items-center px-2">
-                  <LiveButton className="w-10 h-10 flex items-center justify-center cursor-pointer group">
-                    <span className="bg-gray-300 rounded-sm text-gray-950 text-xs font-semibold py-px px-1 group-data-[edge]:bg-red-600 group-data-[edge]:text-white group-data-[focus]:ring-4 ring-sky-400 tracking-wider">
-                      LIVE
-                    </span>
-                  </LiveButton>
-              </Controls.Group>
-              <div className="flex-1" />
-              <Controls.Group className="pointer-events-auto w-full flex items-center px-2">
-                {bufferingIsActive && <BufferingSpinner />}
-              </Controls.Group>
-              <div className="flex-1" />
-              <Controls.Group className={styles.bottomControls}>
-                <div className={styles.muteWrapper}
-                  onMouseEnter={() => setVolumeIsOpen(true)}
-                  onMouseLeave={() => setVolumeIsOpen(false)}
-                >
-                  <MuteButton
-                      className="group ring-sky-400 relative inline-flex h-3 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4">
-                      <MuteIcon className="w-8 h-8 hidden group-data-[state='muted']:block" />
-                      <VolumeLowIcon className="w-8 h-8 hidden group-data-[state='low']:block" />
-                      <VolumeHighIcon className="w-8 h-8 hidden group-data-[state='high']:block" />
-                    </MuteButton>
-                    {volumeIsOpen && 
-                      <VolumeSlider.Root 
-                        className={"block bg-white group ring-sky-400 relative my-3 h-2 w-20 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4"} ref={volumeRef}>
-                      <VolumeSlider.Track className="vds-slider-track" />
-                      <VolumeSlider.TrackFill className="vds-slider-track-fill vds-slider-track h-2" />
-                      <VolumeSlider.Preview className="vds-slider-preview">
-                        <VolumeSlider.Value className="text-sm" />
-                      </VolumeSlider.Preview>
-                      <VolumeSlider.Thumb className="vds-slider-thumb" />
-                    </VolumeSlider.Root>
-                    }
-                </div>
-                  <PlayButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 mr-4">
-                    <PlayIcon className="w-8 h-8 hidden group-data-[paused]:block" />
-                    <PauseIcon className="w-8 h-8 group-data-[paused]:hidden" />
-                  </PlayButton>
-                  <FullscreenButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 aria-hidden:hidden">
-                    <FullscreenIcon className="w-8 h-8 group-data-[active]:hidden" />
-                    <FullscreenExitIcon className="w-8 h-8 hidden group-data-[active]:block" />
-                  </FullscreenButton>
-                  <PIPButton>
-                    {!isActive ? <PictureInPictureIcon /> : <PictureInPictureExitIcon />}
-                  </PIPButton>  
-              </Controls.Group>
-            </Controls.Root>
-          <MediaProvider />
-        </MediaPlayer>
+          {
+            !isNaN(diffDays) && 
+            <div className='text-center mt-4 absolute top-[20px] left-[45%]'>
+              <span >Time before show</span>
+              <p>{`${diffDays} days ${diffH.toString().padStart(2, '0')}:${diffM
+              .toString()
+              .padStart(2, '0')}:${diffS.toString().padStart(2, '0')}`}</p>
+            </div>
+          }
+          {
+            concertInfo && concertInfo.playback_url &&
+            <MediaPlayer
+              ref={player}
+              className={styles.video}
+              autoPlay
+              streamType="live"
+              aspectRatio="16/9"
+              onLoad={() => setBufferingIsActive(true)}
+              crossOrigin
+              load="idle"
+              posterLoad="idle"
+              title="Sprite Fight"
+              src={concertInfo ? concertInfo[0].playback_url : ''}>
+              <Poster
+                className={styles.poster}
+                src={show?.poster_url}
+                alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
+              />
+                <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
+                  <Controls.Group className="pointer-events-auto w-full flex items-center px-2">
+                      <LiveButton className="w-10 h-10 flex items-center justify-center cursor-pointer group">
+                        <span className="bg-gray-300 rounded-sm text-gray-950 text-xs font-semibold py-px px-1 group-data-[edge]:bg-red-600 group-data-[edge]:text-white group-data-[focus]:ring-4 ring-sky-400 tracking-wider">
+                          LIVE
+                        </span>
+                      </LiveButton>
+                  </Controls.Group>
+                  <div className="flex-1" />
+                  <Controls.Group className="pointer-events-auto w-full flex items-center px-2">
+                    {bufferingIsActive && <BufferingSpinner />}
+                  </Controls.Group>
+                  <div className="flex-1" />
+                  <Controls.Group className={styles.bottomControls}>
+                    <div className={styles.muteWrapper}
+                      onMouseEnter={() => setVolumeIsOpen(true)}
+                      onMouseLeave={() => setVolumeIsOpen(false)}
+                    >
+                      <MuteButton
+                          className="group ring-sky-400 relative inline-flex h-3 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4">
+                          <MuteIcon className="w-8 h-8 hidden group-data-[state='muted']:block" />
+                          <VolumeLowIcon className="w-8 h-8 hidden group-data-[state='low']:block" />
+                          <VolumeHighIcon className="w-8 h-8 hidden group-data-[state='high']:block" />
+                        </MuteButton>
+                        {volumeIsOpen && 
+                          <VolumeSlider.Root 
+                            className={"block bg-white group ring-sky-400 relative my-3 h-2 w-20 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4"} ref={volumeRef}>
+                          <VolumeSlider.Track className="vds-slider-track" />
+                          <VolumeSlider.TrackFill className="vds-slider-track-fill vds-slider-track h-2" />
+                          <VolumeSlider.Preview className="vds-slider-preview">
+                            <VolumeSlider.Value className="text-sm" />
+                          </VolumeSlider.Preview>
+                          <VolumeSlider.Thumb className="vds-slider-thumb" />
+                        </VolumeSlider.Root>
+                        }
+                    </div>
+                      <PlayButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 mr-4">
+                        <PlayIcon className="w-8 h-8 hidden group-data-[paused]:block" />
+                        <PauseIcon className="w-8 h-8 group-data-[paused]:hidden" />
+                      </PlayButton>
+                      <FullscreenButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 aria-hidden:hidden">
+                        <FullscreenIcon className="w-8 h-8 group-data-[active]:hidden" />
+                        <FullscreenExitIcon className="w-8 h-8 hidden group-data-[active]:block" />
+                      </FullscreenButton>
+                      <PIPButton>
+                        {!isActive ? <PictureInPictureIcon /> : <PictureInPictureExitIcon />}
+                      </PIPButton>  
+                  </Controls.Group>
+                </Controls.Root>
+              <MediaProvider />
+            </MediaPlayer>
+          }
     </div>
     {show?.ads && typeof show?.ads[0]?.banner_url !== 'undefined' &&
      <Image className={styles.banner} src={show.ads[0].banner_url} width={1200} height={320} alt='Banner'/>}

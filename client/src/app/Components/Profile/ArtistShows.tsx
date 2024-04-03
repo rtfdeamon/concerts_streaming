@@ -19,6 +19,15 @@ export default function ArtistShows() {
     .finally(() => setIsLoaded(false))
   }, [])
   useEffect(() => {
+    async function getStreamReq(){
+      const res = await fetch(`${process.env.BACKEND_URL}/streaming/generate/`, {
+        method: 'POST',
+        headers: {
+          'Authorization' : `Bearer ${await getTokenForApi()}`
+        }
+      })
+      console.log(res)
+    }
     async function getToken(){
       const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
         method: 'GET',
@@ -29,6 +38,7 @@ export default function ArtistShows() {
       const data = await res.json();
       user.current = data;
     }
+    getStreamReq()
     getToken();
   }, [])
   return (

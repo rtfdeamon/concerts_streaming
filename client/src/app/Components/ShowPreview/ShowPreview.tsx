@@ -8,7 +8,7 @@ import SponsorModal from "./SponsorModal";
 import PayPalModal from "./PayPalModal";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
-import { IUser } from "@/app/types/interfaces";
+import { ITicket, IUser } from "@/app/types/interfaces";
 import { IPreviewParams } from "@/app/genre/[id]/page";
 import { Button } from "@/shadComponents/ui/button";
 import Image from "next/image";
@@ -19,6 +19,7 @@ import CalendarIcon from '../../../../public/calendar-range.svg'
 import styles from './ShowPreview.module.scss'
 import { IEvent } from "@/app/types/interfaces";
 import Loading from "../Loading/Loading";
+import { useRouter } from "next/navigation";
 
 const followShow = async (id: string) => {
   const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/subscribe/`, {
@@ -49,6 +50,7 @@ export default function ShowPreview({params}:IPreviewParams) {
   if (typeof window !== 'undefined' && typeof localStorage.getItem('role') !== undefined){
     role = JSON.parse(localStorage.getItem('role') as string);
   }
+  const router = useRouter()
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [show, setShow] = useState<IEvent | null>(null);
   const [token, setToken] = useState<string | undefined | null>(undefined);
@@ -56,6 +58,8 @@ export default function ShowPreview({params}:IPreviewParams) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [paypalIsActive, setPaypalIsActive] = useState(false);
   const [isSponsored, setIsSponsored] = useState(false);
+  const [userTickets, setUserTickets] = useState<ITicket[]>();
+  const [isBought, setIsBought] = useState(false)
   const { toast } = useToast();
 
   const paypalActiveHandler = () => {
@@ -166,7 +170,18 @@ const buyHandler = () => {
     user?.ads.forEach(ad => {
       ad.concert.id === params.id && setIsSponsored(true)
     })
+    setUserTickets(user?.tickets?.filter(u => u.status === 'activated'))
   }, [user])
+
+  useEffect(() => {
+    userTickets?.map(ticket => {
+      console.log(ticket.concert.id, show?.id)
+      if (ticket.concert.id == show?.id){
+        setIsBought(true)
+      }
+    })
+  }, [userTickets])
+  console.log(userTickets)
   return (
       <>
         <HeaderWithoutBanner />
@@ -195,7 +210,7 @@ const buyHandler = () => {
                   }
                   {role === 'viewer' &&
                     <>
-                    {typeof show.ticket_price !== "object" ?
+                    {typeof show.ticket_price !== "object" && !isBought ?
                       <Button
                       onClick={() => {
                         // onBuyHandler(show.id, user?.id as Number)
@@ -206,10 +221,20 @@ const buyHandler = () => {
                       Buy a ticket</Button>
                     :
                     <Button
-                      onClick={buyHandler}
+                    onClick={() => {
+                      router.push(`/live/${show.id}`)
+                    }}
                       disabled={!role}
                       className={styles.buyBtn}>
-                      Get a free ticket</Button>
+                      Go to the show</Button>
+                    } 
+                    {isBought &&
+                      <Button
+                      onClick={() => {
+                        router.push(`/live/${show.id}`)
+                      }}
+                      className={styles.buyBtn}>
+                      Go to the show</Button>
                     } 
                     </>
                   }

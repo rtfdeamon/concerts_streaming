@@ -15,6 +15,7 @@ import { FullscreenExitIcon, FullscreenIcon } from '@vidstack/react/icons';
 import { useMediaState, MediaPlayerInstance } from '@vidstack/react';
 import { IStreamingInfo } from '@/app/types/interfaces';
 import { getTokenForApi } from '@/app/utils/getTokenForApi';
+import Loading from '../.././../../public/images.png'
 import '@vidstack/react/player/styles/base.css';
 import styles from './PreviewStream.module.scss'
 
@@ -23,7 +24,6 @@ export default function PreviewStream({steamingInfo}:{steamingInfo?: IStreamingI
   const isActive = useMediaState('pictureInPicture', player);
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
   const volumeRef = useRef<VolumeSliderInstance>(null)
-
   return (
     <div className={styles.videoWrapper}>
       {steamingInfo && 
@@ -34,13 +34,17 @@ export default function PreviewStream({steamingInfo}:{steamingInfo?: IStreamingI
           streamType="live"
           aspectRatio="16/9"
           crossOrigin
-          
           load="idle"
           title="Sprite Fight"
           src={steamingInfo?.playback_url}>
             <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
               <div className="flex-1" />
               <div className="flex-1" />
+              <Poster
+                className='w-full h-[500px] bg-slate-200 rounded-xl'
+                src={'../.././../../public/images.png'}
+                alt="Poster"
+              />
               <Controls.Group className={styles.bottomControls}>
                 <div className={styles.muteWrapper}
                   onMouseEnter={() => setVolumeIsOpen(true)}

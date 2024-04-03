@@ -8,7 +8,7 @@
     @apply block mx-auto  w-[1200px] h-[320px] object-fill
 }
 .videoWrapper{
-    @apply h-[68vh] w-[80vw]
+    @apply h-auto w-[80vw]
 }
 .video{
     @apply relative block w-[80%] h-[55vh] mx-auto top-[8vh]

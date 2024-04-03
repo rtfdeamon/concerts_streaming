@@ -25,7 +25,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     const [streamStatus, setStreamStatus] = useState<IStreamStatus>()
     const { toast } = useToast();
     const startStream = async () => {
-        const res = await fetch(`http://concertplatform.mmvs.video/streaming/start/`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/streaming/start/`, {
             method: 'POST',
             headers: {
                 'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -41,7 +41,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
 
     const stopStream = async () => {
         try{
-            const res = await fetch(`http://concertplatform.mmvs.video/streaming/stop/`, {
+            const res = await fetch(`${process.env.BACKEND_URL}/streaming/stop/`, {
                 method: 'POST',
                 headers: {
                     'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -63,7 +63,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     }
     useEffect(() => {
         async function getStreamStatus() {
-            const res = await fetch(`http://concertplatform.mmvs.video/streaming/status/`, {
+            const res = await fetch(`${process.env.BACKEND_URL}/streaming/status/`, {
                 method: 'GET',
                 headers: {
                     'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -76,7 +76,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     }, [playIsActive])
     useEffect(() => {
         async function getStreamingInfo() {
-            const res = await fetch(`http://concertplatform.mmvs.video/streaming/info/`, {
+            const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {
                 method: 'GET',
                 headers: {
                     'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -119,18 +119,20 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
                             as="h3"
                             className="text-lg font-medium leading-6 text-gray-900 text-center"
                         >
-                            Show preview
+                            Stream preview
                         </Dialog.Title>
-                        {steamingInfo && 
-                        <Dialog.Title
-                            as="h3"
-                            className="text-lg font-medium leading-6 text-gray-900 text-center my-4"
-                        >
-                            Status: {steamingInfo.status}
-                        </Dialog.Title>
-                        }
                             <div className="mt-4">
                                {steamingInfo && <PreviewStream  steamingInfo={steamingInfo}/> }
+                               <div className="flex justify-center cursor-pointer">
+                                   <Button style={{marginRight: '20px'}} onClick={startStream} >Start stream</Button>
+                                   <Button onClick={startStream} >Close stream</Button>
+                                {
+                                    // playIsActive ? 
+                                    //     <Pause height={40} width={40} onClick={stopStream} />
+                                    // :
+                                        // <Play height={40} width={40} onClick={startStream} />
+                                }     
+                                    </div>
                             </div>
                             <div className="mt-4">
                                 <span className="block mt-2">Server</span>
@@ -148,13 +150,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
                                 >How to use OBS</Link>
                             </div>
                             <div className="mt-4">
-                            <div className="flex justify-center cursor-pointer">
-                                {
-                                    playIsActive ? 
-                                        <Pause onClick={stopStream} />
-                                    :
-                                        <Play onClick={startStream} />
-                            }        
+                            <div className="flex justify-center cursor-pointer">   
                             </div>
                             </div>
                         </Dialog.Panel>

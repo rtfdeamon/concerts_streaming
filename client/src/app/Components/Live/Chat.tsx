@@ -22,6 +22,9 @@ export default memo(function Chat({id}: {id: string}) {
     useEffect(() => {
       sub.subscribe();
       centrifuge.connect();
+      return () => {
+        sub.unsubscribe();
+      }
     }, [sub])
     useEffect(() => {
       async function getCurrUser(){
