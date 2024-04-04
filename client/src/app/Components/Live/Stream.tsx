@@ -30,6 +30,9 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   const [bufferingIsActive, setBufferingIsActive] = useState(false);
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
   const volumeRef = useRef<VolumeSliderInstance>(null);
+  // const [currIndex, setCurrIndex] = useState(0)
+  const [currentStream, setCurrentStream] = useState('')
+  // const [currentDate, setCurrentDate] = useState<Date>(new Date())
   const timeDiff = useRef<String>('')
   const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
   const [tick, setTick] = useState(false);
@@ -38,6 +41,13 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   const routerHandler = () => {
     router.back();
   }
+
+  // useEffect(() => {
+  //   if (typeof concertInfo.current !== 'undefined'){
+  //     setCurrentDate(concertInfo.current[currIndex].date)
+  //   }
+  // }, [concertInfo.current])
+
 
   useEffect(() => {
     const getShow = async (id: string) => {
@@ -74,7 +84,6 @@ useEffect(()=> {
           NaN,
           NaN
       ])
-      clearInterval(timerId.current)
       return
     }
     setDiff([
@@ -84,11 +93,27 @@ useEffect(()=> {
       Math.floor(diff % 60)
     ]) 
 }, [tick])
+
+useEffect(() => {
+  if (typeof concertInfo.current !== 'undefined'){
+    const now = new Date();
+    concertInfo.current.forEach((performance: { start_date: string | number | Date; end_date: string | number | Date; playback_url: any; }) => {
+      var startAt = new Date(performance.start_date);
+      if(now < startAt) return;
+      var endAt = new Date(performance.end_date);
+      if(now > endAt) return; 
+      if(currentStream != performance.playback_url) {
+          setCurrentStream(performance.playback_url);
+      }
+  })
+  }
+
+}, [tick])
+
 useEffect(()=>{
   timerId.current = setInterval(() => setTick(!tick), 1000);
   return () => clearInterval(timerId.current);
 }, [tick])
-
   return (
     <section className={styles.section}>
         <Button className={styles.backBtn} onClick={routerHandler}>Back</Button>
@@ -103,7 +128,7 @@ useEffect(()=>{
             </div>
           }
           {
-            concertInfo && concertInfo.playback_url &&
+            currentStream && 
             <MediaPlayer
               ref={player}
               className={styles.video}
@@ -115,7 +140,7 @@ useEffect(()=>{
               load="idle"
               posterLoad="idle"
               title="Sprite Fight"
-              src={concertInfo ? concertInfo[0].playback_url : ''}>
+              src={currentStream}>
               <Poster
                 className={styles.poster}
                 src={show?.poster_url}

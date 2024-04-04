@@ -24,6 +24,7 @@ export default memo(function Chat({id}: {id: string}) {
       centrifuge.connect();
       return () => {
         sub.unsubscribe();
+        centrifuge.disconnect();
       }
     }, [sub])
     useEffect(() => {

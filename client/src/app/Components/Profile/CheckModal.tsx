@@ -24,19 +24,34 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     const [playIsActive, setPlayIsActive] = useState(true)
     const [streamStatus, setStreamStatus] = useState<IStreamStatus>()
     const { toast } = useToast();
-    const startStream = async () => {
-        const res = await fetch(`${process.env.BACKEND_URL}/streaming/start/`, {
-            method: 'POST',
+    async function getStreamStatus() {
+        const res = await fetch(`${process.env.BACKEND_URL}/streaming/status/`, {
+            method: 'GET',
             headers: {
                 'Authorization' : `Bearer ${await getTokenForApi()}`
             }
         })
         const data = await res.json();
-        console.log(data.status)
-        if (data.status === "starting"){
-            setPlayIsActive(true);
+        setStreamStatus(data);
+    }
+    const startStream = async () => {
+        try{
+            const res = await fetch(`${process.env.BACKEND_URL}/streaming/start/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization' : `Bearer ${await getTokenForApi()}`
+                }
+            })
+            const data = await res.json();
+            console.log(data.status)
+            if (data.status === "starting"){
+                setPlayIsActive(true);
+            }
+            console.log(data)
+            
+        } catch{
+            getStreamStatus()
         }
-        console.log(data)
     }
 
     const stopStream = async () => {
@@ -59,19 +74,10 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
                   <ToastAction altText="Hide">Hide</ToastAction>
                 ),
               })
+              getStreamStatus()
         }
     }
     useEffect(() => {
-        async function getStreamStatus() {
-            const res = await fetch(`${process.env.BACKEND_URL}/streaming/status/`, {
-                method: 'GET',
-                headers: {
-                    'Authorization' : `Bearer ${await getTokenForApi()}`
-                }
-            })
-            const data = await res.json();
-            setStreamStatus(data);
-        }
         getStreamStatus()
     }, [playIsActive])
     useEffect(() => {
@@ -86,8 +92,8 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
             setStreamingInfo(data)
           }
         getStreamingInfo()
-    }, [])
-    console.log(streamStatus)
+    }, [streamStatus])
+
     return (
         <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
@@ -122,15 +128,23 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
                             Stream preview
                         </Dialog.Title>
                             <div className="mt-4">
-                               {steamingInfo && <PreviewStream  steamingInfo={steamingInfo}/> }
-                               <div className="flex justify-center cursor-pointer">
-                                   <Button style={{marginRight: '20px'}} onClick={startStream} >Start stream</Button>
-                                   <Button onClick={stopStream} >Close stream</Button>
                                 {
-                                    // playIsActive ? 
-                                    //     <Pause height={40} width={40} onClick={stopStream} />
-                                    // :
-                                        // <Play height={40} width={40} onClick={startStream} />
+                                    streamStatus?.status === 'stopped' ?
+                                    <div
+                                    className='w-full h-[500px] bg-slate-100 rounded-xl'
+                                    >
+                                    </div>
+                                    :
+                                    <PreviewStream streamStatus={streamStatus as IStreamingInfo} steamingInfo={steamingInfo} />
+                                }
+                               <div className="flex justify-center cursor-pointer">
+                                   {/* <Button style={{marginRight: '20px'}} onClick={startStream} >Start stream</Button>
+                                   <Button onClick={stopStream} >Close stream</Button> */}
+                                {
+                                    streamStatus?.status === 'starting' || streamStatus?.status === 'started' ? 
+                                    <Pause height={40} width={40} onClick={stopStream} />
+                                    :
+                                    <Play height={40} width={40} onClick={startStream} />
                                 }     
                                     </div>
                             </div>

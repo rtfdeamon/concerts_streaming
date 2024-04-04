@@ -19,14 +19,13 @@ import Loading from '../.././../../public/images.png'
 import '@vidstack/react/player/styles/base.css';
 import styles from './PreviewStream.module.scss'
 
-export default function PreviewStream({steamingInfo}:{steamingInfo?: IStreamingInfo}) {
+export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus: IStreamingInfo ,steamingInfo?: IStreamingInfo}) {
   const player = useRef<MediaPlayerInstance>(null);
   const isActive = useMediaState('pictureInPicture', player);
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
   const volumeRef = useRef<VolumeSliderInstance>(null)
   return (
     <div className={styles.videoWrapper}>
-      {steamingInfo && 
         <MediaPlayer
           ref={player}
           className={styles.video}
@@ -37,14 +36,9 @@ export default function PreviewStream({steamingInfo}:{steamingInfo?: IStreamingI
           load="idle"
           title="Sprite Fight"
           src={steamingInfo?.playback_url}>
-            <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
+            <Controls.Root className="bg-slate-100 rounded-xl data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
               <div className="flex-1" />
               <div className="flex-1" />
-              <Poster
-                className='w-full h-[500px] bg-slate-200 rounded-xl'
-                src={'../.././../../public/images.png'}
-                alt="Poster"
-              />
               <Controls.Group className={styles.bottomControls}>
                 <div className={styles.muteWrapper}
                   onMouseEnter={() => setVolumeIsOpen(true)}
@@ -67,11 +61,11 @@ export default function PreviewStream({steamingInfo}:{steamingInfo?: IStreamingI
                       <VolumeSlider.Thumb className="vds-slider-thumb" />
                     </VolumeSlider.Root>
                     }
-                </div>
-                  <PlayButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 mr-4">
+                  {/* <PlayButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 mr-4">
                     <PlayIcon className="w-8 h-8 hidden group-data-[paused]:block" />
                     <PauseIcon className="w-8 h-8 group-data-[paused]:hidden" />
-                  </PlayButton>
+                  </PlayButton> */}
+                </div>
                   <FullscreenButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 aria-hidden:hidden">
                     <FullscreenIcon className="w-8 h-8 group-data-[active]:hidden" />
                     <FullscreenExitIcon className="w-8 h-8 hidden group-data-[active]:block" />
@@ -83,7 +77,7 @@ export default function PreviewStream({steamingInfo}:{steamingInfo?: IStreamingI
             </Controls.Root>
           <MediaProvider />
         </MediaPlayer>
-      }
+
     </div>
   )
 }

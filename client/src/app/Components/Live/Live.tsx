@@ -1,5 +1,6 @@
 'use client'
 import { Centrifuge } from 'centrifuge';
+import { useRef } from 'react';
 import { ILiveParams } from '@/app/live/[id]/page'
 import Stream from './Stream'
 import Chat from './Chat'
@@ -14,7 +15,7 @@ import { useRouter } from 'next/navigation';
 export default function Live({params}:ILiveParams) {
   const {toast} = useToast()
   const router = useRouter()
-  const [concertInfo, setConcertInfo] = useState<any>()
+  const concertInfo = useRef<any>()
   useEffect(() => {
     const getConcertInfo = async ({id}:{id: string}) => {
       const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/playlist/`, {
@@ -33,7 +34,7 @@ export default function Live({params}:ILiveParams) {
         router.back()
       }
       const data = await res.json();
-      setConcertInfo(data)
+      concertInfo.current = data
     }
     getConcertInfo({id: params.id})
   }, [])
