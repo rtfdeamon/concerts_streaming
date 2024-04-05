@@ -8,7 +8,7 @@ ENV BACKEND_URL $BACKEND_URL
 RUN mkdir -p /src/app
 COPY . /src/app
 WORKDIR /src/app
-RUN npm install && npm run build
+RUN npm install --force && npm run build
 
 FROM node:latest
 WORKDIR /client-react
