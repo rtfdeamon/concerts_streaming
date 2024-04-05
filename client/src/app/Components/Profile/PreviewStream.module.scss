@@ -1,9 +1,12 @@
 
+.videoWrapper{
+    @apply relative
+}
 .video{
     @apply relative block mx-auto top-0
 }
 .bottomControls{
-    @apply absolute bottom-[45px] pointer-events-auto w-full flex justify-center items-baseline h-0 px-2 bg-gray-300
+    @apply bottom-[45px] pointer-events-auto w-full flex justify-center items-baseline h-0 px-2 bg-slate-100
 }
 .muteWrapper{
     @apply flex items-center

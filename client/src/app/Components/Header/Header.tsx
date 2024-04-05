@@ -236,7 +236,7 @@ export default function Header({type, children}:{type: string, children?: React.
                   <Link className={styles.link} href={'/signup'}>Sign up</Link>
                 </>
               }
-              <ThemeSwitcher />
+              {/* <ThemeSwitcher /> */}
           </div>
       </div>
         {/* <RegionSelector /> */}

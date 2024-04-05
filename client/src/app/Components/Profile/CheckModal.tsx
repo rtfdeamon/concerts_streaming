@@ -80,6 +80,16 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     useEffect(() => {
         getStreamStatus()
     }, [playIsActive])
+    async function getStreamingInfo() {
+        const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {
+            method: 'GET',
+            headers: {
+                'Authorization' : `Bearer ${await getTokenForApi()}`
+            }
+        })
+        const data: IStreamingInfo = await res.json()
+        setStreamingInfo(data)
+      }
     useEffect(() => {
         async function getStreamingInfo() {
             const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {
@@ -137,7 +147,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
                                     :
                                     <PreviewStream streamStatus={streamStatus as IStreamingInfo} steamingInfo={steamingInfo} />
                                 }
-                               <div className="flex justify-center cursor-pointer">
+                               <div className="flex justify-center cursor-pointer mt-12">
                                    {/* <Button style={{marginRight: '20px'}} onClick={startStream} >Start stream</Button>
                                    <Button onClick={stopStream} >Close stream</Button> */}
                                 {

@@ -232,7 +232,7 @@ export default function HeaderWithoutBanner() {
                   <Link className={styles.link} href={'/signup'}>Sign up</Link>
                 </>
               }
-              <ThemeSwitcher />
+              {/* <ThemeSwitcher /> */}
           </div>
         </div>
     </header>

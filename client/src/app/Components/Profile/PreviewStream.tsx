@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
+import ReactHlsPlayer from 'react-hls-player';
 import { MediaPlayer, MediaProvider } from '@vidstack/react';
 import { Poster, type PosterProps } from '@vidstack/react';
 import { PIPButton, type PIPButtonProps } from "@vidstack/react";
@@ -24,9 +25,19 @@ export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus
   const isActive = useMediaState('pictureInPicture', player);
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
   const volumeRef = useRef<VolumeSliderInstance>(null)
+  console.log(steamingInfo?.playback_url)
   return (
     <div className={styles.videoWrapper}>
-        <MediaPlayer
+      {steamingInfo?.playback_url && 
+      <ReactHlsPlayer
+        src={steamingInfo?.playback_url}
+        autoPlay={true}
+        playsInline
+        width="100%"
+        height="auto"
+      />  
+      }
+        {/* <MediaPlayer
           ref={player}
           className={styles.video}
           autoPlay
@@ -36,7 +47,7 @@ export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus
           load="idle"
           title="Sprite Fight"
           src={steamingInfo?.playback_url}>
-            <Controls.Root className="bg-slate-100 rounded-xl data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none">
+            <Controls.Root className="data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col  transition-opacity pointer-events-none">
               <div className="flex-1" />
               <div className="flex-1" />
               <Controls.Group className={styles.bottomControls}>
@@ -61,10 +72,6 @@ export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus
                       <VolumeSlider.Thumb className="vds-slider-thumb" />
                     </VolumeSlider.Root>
                     }
-                  {/* <PlayButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 mr-4">
-                    <PlayIcon className="w-8 h-8 hidden group-data-[paused]:block" />
-                    <PauseIcon className="w-8 h-8 group-data-[paused]:hidden" />
-                  </PlayButton> */}
                 </div>
                   <FullscreenButton className="group ring-sky-400 relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4 aria-hidden:hidden">
                     <FullscreenIcon className="w-8 h-8 group-data-[active]:hidden" />
@@ -76,7 +83,7 @@ export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus
               </Controls.Group>
             </Controls.Root>
           <MediaProvider />
-        </MediaPlayer>
+        </MediaPlayer> */}
 
     </div>
   )
