@@ -21,11 +21,11 @@ import '@vidstack/react/player/styles/base.css';
 import styles from './PreviewStream.module.scss'
 
 export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus: IStreamingInfo ,steamingInfo?: IStreamingInfo}) {
-  const player = useRef<MediaPlayerInstance>(null);
-  const isActive = useMediaState('pictureInPicture', player);
-  const [volumeIsOpen, setVolumeIsOpen] = useState(false);
+  const player = useRef<MediaPlayerInstance>(null)
+  const isActive = useMediaState('pictureInPicture', player)
+  const [volumeIsOpen, setVolumeIsOpen] = useState(false)
   const volumeRef = useRef<VolumeSliderInstance>(null)
-  console.log(steamingInfo?.playback_url)
+
   return (
     <div className={styles.videoWrapper}>
       {steamingInfo?.playback_url && 
