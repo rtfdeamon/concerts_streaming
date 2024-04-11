@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Women from '../../../../public/women.jpg'
 import { IArtistRequest, IUser } from '@/app/types/interfaces';
+import { useRef } from 'react';
 import styles from './ArtistShows.module.scss';
 
 interface ISelect{
@@ -29,6 +30,7 @@ function Items({ filteredSessions }: {filteredSessions: IArtistRequest[]}) {
         setId(id);
         setOptionsModalIsOpen(true);
     }
+    console.log('fdsfsd', filteredSessions)
     return (
     <>
      <CheckModal concertId={concertId} id={currShowId} isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
@@ -67,19 +69,23 @@ function Items({ filteredSessions }: {filteredSessions: IArtistRequest[]}) {
 
 export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
   {itemsPerPage: number, sessions: IArtistRequest[], user: IUser | undefined}) {
+    console.log('user', user)
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
-
+  const filteredByStatus = useRef<IArtistRequest[]>([])
+  const filteredByUserId = useRef<IArtistRequest[]>([])
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const filteredByStatus = sessions.filter(s => s.status === 'accepted')
-  const filteredByUserId = filteredByStatus.filter(s => s.user?.id == user?.id)
-  const currentItems = filteredByUserId.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(sessions.length / itemsPerPage);
+  filteredByStatus.current = sessions.filter(s => s.status === 'accepted')
+  console.log('1', user?.id)
+  filteredByUserId.current = filteredByStatus.current.filter(s => s.user?.id == user?.id)
+  console.log('2', filteredByStatus, filteredByUserId)
+  const currentItems = filteredByUserId.current.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(sessions.length / itemsPerPage)
 
   // Invoke when user click to request another page.
   const handlePageClick = (event: ISelect) => {
@@ -89,12 +95,11 @@ export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
     );
     setItemOffset(newOffset);
   };
-
   
   return (
     <>
-      <Items filteredSessions={filteredByUserId} />
-      {filteredByUserId.length > 4 &&
+      <Items filteredSessions={filteredByUserId.current} />
+      {filteredByUserId.current.length > 4 &&
         <ReactPaginate
           className={styles.paginate}
           breakLabel="..."

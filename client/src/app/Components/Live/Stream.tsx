@@ -133,6 +133,7 @@ useEffect(()=>{
               <ReactHlsPlayer
                 src={currentStream}
                 autoPlay={true}
+                // muted
                 playsInline
                 width="100%"
                 height="auto"

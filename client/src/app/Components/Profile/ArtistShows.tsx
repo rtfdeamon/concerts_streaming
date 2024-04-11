@@ -13,7 +13,7 @@ export default function ArtistShows() {
   const dispatch = useAppDispatch();
   const sessions = useAppSelector(state => state.sessions.entities);
   const [isLoaded, setIsLoaded] = useState(true);
-  const user = useRef<IUser>();
+  const [user, setUser] = useState<IUser>()
   useEffect(() => {
     dispatch(loadSessions())
     .finally(() => setIsLoaded(false))
@@ -31,11 +31,11 @@ export default function ArtistShows() {
       const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
         method: 'GET',
         headers: {
-          'Authorization' : `Bearer ${await getTokenForApi()}`
+          'Authorization' : `Bearer ${await getTokenForApi()}`,
         }
       })
       const data = await res.json();
-      user.current = data;
+      setUser(data)
     }
     getStreamReq()
     getToken();
@@ -44,9 +44,9 @@ export default function ArtistShows() {
     <section className={styles.wrapper}>
       <h5 className={styles.title}>My shows</h5>
       {
-          sessions.length >0 && <ArtistShowsPaginate  itemsPerPage={4} sessions={sessions} user={user.current}/>
+          typeof user !== "undefined" && sessions.length > 0 && <ArtistShowsPaginate  itemsPerPage={4} sessions={sessions} user={user}/>
       }
-      {isLoaded && <Loading />}
+      {isLoaded || typeof user == 'undefined' && <Loading />}
       {!isLoaded && sessions?.length === 0 && 
           <div className={styles.showsException}>
             Sorry! No shows yet 🥲

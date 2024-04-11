@@ -32,6 +32,7 @@ export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus
       <ReactHlsPlayer
         src={steamingInfo?.playback_url}
         autoPlay={true}
+        // muted
         playsInline
         width="100%"
         height="auto"

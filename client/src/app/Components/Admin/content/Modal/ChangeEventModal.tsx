@@ -109,7 +109,8 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
 
     const changeOrder = async () => {
-        if (order.length !== perfomanceOrder.length){
+        console.log(order.length)
+        if (order.length !== 0 && order.length !== perfomanceOrder.length){
             toast({
                 title: "You need to select all artists",
                 action: (
@@ -117,24 +118,25 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                 ),
               })
               throw new Error
-        }
-        const res = await fetch(`${process.env.BACKEND_URL}/concerts/${eventId}/rearrange/`, {
-            method: 'POST',
-            headers: {
-                'Content-type' :'application/json',
-                'Authorization' : `Bearer ${await getTokenForApi()}`
-            },
-            body: JSON.stringify(order)
-        })
-        if (res.ok){
-            getShow
-        } else{
-            toast({
-                title: "You`re successfully subscribed!",
-                action: (
-                  <ToastAction altText="Hide">Hide</ToastAction>
-                ),
-              })
+        } else if (order.length !== 0 && order.length == perfomanceOrder.length){
+            const res = await fetch(`${process.env.BACKEND_URL}/concerts/${eventId}/rearrange/`, {
+                method: 'POST',
+                headers: {
+                    'Content-type' :'application/json',
+                    'Authorization' : `Bearer ${await getTokenForApi()}`
+                },
+                body: JSON.stringify(order)
+            })
+            if (res.ok){
+                getShow
+            } else{
+                toast({
+                    title: "You`re successfully subscribed!",
+                    action: (
+                      <ToastAction altText="Hide">Hide</ToastAction>
+                    ),
+                  })
+            }
         }
     }
 

@@ -14,6 +14,7 @@ import { Pause } from "lucide-react"
 import { IStreamingInfo } from "@/app/types/interfaces"
 import { getTokenForApi } from "@/app/utils/getTokenForApi"
 import { useToast } from "@/shadComponents/ui/use-toast"
+import TimerCheckModal from "./TimerCheckModal"
 
 interface IStreamStatus {
     status: string
@@ -24,12 +25,9 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
     const [playIsActive, setPlayIsActive] = useState(true)
     const [streamStatus, setStreamStatus] = useState<IStreamStatus>()
     const { toast } = useToast();
-    const intervalId = useRef<NodeJS.Timeout>()
     const startDate = useRef<string>()
     const endDate = useRef<string>()
-    const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
-    const [tick, setTick] = useState(false);
-    const timerId = useRef<NodeJS.Timeout>()
+
 
     async function getStreamStatus() {
         const res = await fetch(`${process.env.BACKEND_URL}/streaming/status/`, {
@@ -42,11 +40,6 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
         setStreamStatus(data);
     }
     
-    useEffect(() => {
-        const timerID = setInterval(() => setTick(!tick), 1000)
-        getStreamStatus()
-        return () => clearInterval(timerID)
-      }, [tick])
 
     // intervalId.current =  setInterval(() => {
     //     getStreamStatus()
@@ -125,28 +118,6 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
     }, [concertId])
     
 
-    useEffect(()=> {
-            const showTime = new Date(startDate.current as string).getTime() / 1000
-            const finishTime = new Date().getTime() / 1000
-            console.log('123', showTime, finishTime)
-            const diff = (showTime - finishTime)
-            console.log(diff)
-            if (diff < 0) {
-              setDiff([
-                  NaN,
-                  NaN,
-                  NaN,
-                  NaN
-              ])
-              return
-            }
-            setDiff([
-              Math.floor(diff / 86400), 
-              Math.floor((diff / 3600) % 24), 
-              Math.floor((diff / 60) % 60), 
-              Math.floor(diff % 60)
-            ]) 
-    }, [tick, startDate])
     useEffect(() => {
         async function getStreamingInfo() {
             const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {
@@ -194,17 +165,7 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
                         >
                             Stream preview
                         </Dialog.Title>
-                            <div className="mt-4">
-                                {
-                                    !isNaN(diffDays) && 
-                                    <div className='text-center mt-4 top-[20px] w-full'>
-                                    <span >Time before show</span>
-                                    <p>{`${diffDays} days ${diffH.toString().padStart(2, '0')}:${diffM
-                                    .toString()
-                                    .padStart(2, '0')}:${diffS.toString().padStart(2, '0')}`}</p>
-                                    </div>
-                                }
-                            </div>
+                            <TimerCheckModal startDate={startDate} />
                             <div className="mt-4">
                                 {
                                     streamStatus?.status === 'stopped' ?
