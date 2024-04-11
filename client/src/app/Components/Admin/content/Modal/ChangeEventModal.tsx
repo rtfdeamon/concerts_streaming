@@ -2,7 +2,7 @@
 import { useAppDispatch } from "@/app/hooks/rtkHooks"
 import { changeShow } from "@/app/store/shows/showsSlice"
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { generateUploadLink } from "@/app/utils/generateUploadLink"
 import { Input } from "@/shadComponents/ui/input"
 import { Button } from "@/shadComponents/ui/button"
@@ -31,7 +31,14 @@ import CalendarIcon from '../../../../../../public/calendar-range.svg'
 import Image from "next/image"
 import { Dispatch, SetStateAction } from "react"
 import { ChangeEvent } from "react"
+import { getTokenForApi } from "@/app/utils/getTokenForApi"
+import { IShow } from "@/app/types/interfaces"
 import styles from './modal.module.scss'
+import { ToastAction } from "@radix-ui/react-toast"
+import { useToast } from "@/shadComponents/ui/use-toast"
+
+
+export const dynamic = 'force-dynamic'
 
 export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, eventId: string}) {
     const dispatch = useAppDispatch();
@@ -45,6 +52,31 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const [category, setCategory] = useState<string | undefined>(undefined);
     const [access, setAccess] = useState<string | undefined>(undefined);
     const [price, setPrice] = useState<string | undefined>(undefined);
+    const [show, setShow] = useState<any>();
+    const [perfomanceOrder, setPerfomanceOrder] = useState<any>()
+    const [order, setOrder] = useState<number[] | []>([])
+    const [orderOpen, setOrderOpen] = useState(false)
+    const [selectIndex, setSelectIndex] = useState<number[]>()
+    const { toast } = useToast()
+    async function getShow(){
+        const res = await fetch(`${process.env.BACKEND_URL}/concerts/${eventId}/`, {
+            method: 'GET',
+            headers: {
+                'Authorization' : `Bearer ${await getTokenForApi()}`,
+                'Content-type' : 'application/json'
+            },
+        })
+        const data: IShow = await res.json();
+        setShow(data)
+    }
+    useEffect(() => {
+        getShow()
+    }, [isOpen])
+
+    useEffect(() => {
+        const filteredArr = show?.performances
+            setPerfomanceOrder(filteredArr)
+    }, [show])
     const accessChangeHandler = (e: string) => {
         setAccess(e);
     }
@@ -69,19 +101,53 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     }
     
 
-    const onChangeHandler = async () => {
-        const stringDate = date?.toISOString() as string;
-        const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
-            slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
-        if (res.payload.id){
-            setIsOpen(false)
-        } else{
-            setErr (true)
-        }
-    }
+
 
     const onCloseHandler = () => {
 
+    }
+
+
+    const changeOrder = async () => {
+        if (order.length !== perfomanceOrder.length){
+            toast({
+                title: "You need to select all artists",
+                action: (
+                  <ToastAction altText="Hide">Hide</ToastAction>
+                ),
+              })
+              throw new Error
+        }
+        const res = await fetch(`${process.env.BACKEND_URL}/concerts/${eventId}/rearrange/`, {
+            method: 'POST',
+            headers: {
+                'Content-type' :'application/json',
+                'Authorization' : `Bearer ${await getTokenForApi()}`
+            },
+            body: JSON.stringify(order)
+        })
+        if (res.ok){
+            getShow
+        } else{
+            toast({
+                title: "You`re successfully subscribed!",
+                action: (
+                  <ToastAction altText="Hide">Hide</ToastAction>
+                ),
+              })
+        }
+    }
+
+    const onChangeHandler = async () => {
+            changeOrder()
+                const stringDate = date?.toISOString() as string;
+                const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
+                slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
+                if (res.payload.id){
+                    setIsOpen(false)
+                } else{
+                    setErr (true)
+                }
     }
 
     return (
@@ -208,7 +274,35 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                             </Popover>
                         </div>
                         <div className="mt-4">
-                            <Input onChange={(e) => setPerfomanceTime(parseInt(e.target.value))} type="number" min={1} placeholder="Set perfomance time" />
+                            <Input onChange={(e) => setPerfomanceTime(parseInt(e.target.value))} type="number" min={1} placeholder="Default perfomance time" />
+                        </div>
+                        <div className="mt-4">
+                                <div>
+                                    <p onClick={() => setOrderOpen(prev => !prev)}
+                                    className="cursor-pointer border-[1px] border-slate-200 py-3 px-3 rounded-lg text-[#69788f] opacity-60">Artists order</p>
+                                    {orderOpen &&
+                                    <div className="border-[1px] border-slate-100 rounded-lg"> 
+                                        {perfomanceOrder?.map((perf: any, i: number) => (
+                                            <div key={perf.id} className="cursor-pointer border-[1px] py-3 px-3 rounded-lg text-[#69788f]
+                                            opacity-60 hover:bg-slate-300 transition-all duration-500 hover:text-white"
+                                            //@ts-ignore
+                                            style={order.includes(perf.id) ? {background: '#8ea0bb', color: 'white'} : {outline: 'none'}}
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                //@ts-ignore
+                                                if (order.includes(perf.id)){
+                                                    //@ts-ignore
+                                                    //@ts-ignore
+                                                    setOrder(prev => prev.filter(p => p != perf.id))
+                                                    return
+                                                } else {
+                                                setOrder(prev => [...prev, perf.id])
+                                                }
+                                            }}>{perf.user.name}</div>
+                                        ))}
+                                    </div>
+                                    }
+                                </div>
                         </div>
                         <div className="mt-4">
                             <Textarea onChange={e => setDescription(e.target.value)} placeholder="Type your description" />

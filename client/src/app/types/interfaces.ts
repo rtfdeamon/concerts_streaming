@@ -122,7 +122,8 @@ export interface IArtistRequest {
   stream_key?: string,
   artist_demo_url?: string,
   user?: IUser, 
-  concert?: IShow
+  concert?: IShow,
+  performance_time: number
 }
 
 export interface IChat {

@@ -1,5 +1,5 @@
 .wrapper{
-   @apply h-[90vh] overflow-hidden
+   @apply h-[110vh] overflow-hidden
 }
 .requestWrapper{
     @apply flex flex-col items-center justify-center relative
@@ -14,13 +14,13 @@
     @apply rounded-full h-[80px]
 }
 .showWrapper{
-    @apply w-[700px] min-h-[200px] bg-white rounded-md p-6 mb-8
+    @apply w-[700px] min-h-[200px] bg-white rounded-md py-2 px-6 mb-8
 }
 .showLink{
     &:hover{
         @apply text-blue-500
     }
-    @apply mb-5 block text-center text-base text-blue-400 transition-all duration-500
+    @apply mb-0 block text-center text-base text-blue-400 transition-all duration-500
 }
 .imageWrapper{
     & p:hover{
@@ -60,9 +60,8 @@
     @apply  block mt-5 mb-3 ml-6
 }
 .paginate{
-    transform: translate(115%, -20%);
             & li{
                 @apply block mr-5
             }
-    @apply absolute bottom-0 flex justify-center items-center pb-7 text-center
+    @apply bottom-0 flex justify-center items-center pb-7 text-center left-[54vw] 
 }

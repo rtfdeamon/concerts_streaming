@@ -19,19 +19,20 @@ export const loadSessions = createAsyncThunk<IArtistRequest[], void>(
 
 export interface IChangeSession {
     id: string,
-    status: string
+    status: string,
+    performance_time?: number
 }
 
 export const changeSessionStatus = createAsyncThunk<string, IChangeSession>(
     '@@sessions/changeSession',
-    async ({id, status}) => {
+    async ({id, status, performance_time}) => {
         const res = await fetch(`${process.env.BACKEND_URL}/sessions/${id}/`, {
             method: 'PATCH',
             headers: {
                 'Authorization':`Bearer ${await getTokenForApi()}`,
                 'Content-type':'application/json'
             },
-            body: JSON.stringify({status})
+            body: JSON.stringify({status, performance_time})
         });
         return id;
     }

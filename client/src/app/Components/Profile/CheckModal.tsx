@@ -19,7 +19,7 @@ interface IStreamStatus {
     status: string
 }
 
-export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
+export default function CheckModal({id, isOpen, setIsOpen}:{id: string | undefined, isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
     const [steamingInfo, setStreamingInfo] = useState<IStreamingInfo>()
     const [playIsActive, setPlayIsActive] = useState(true)
     const [streamStatus, setStreamStatus] = useState<IStreamStatus>()
@@ -34,6 +34,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
         const data = await res.json();
         setStreamStatus(data);
     }
+    console.log(id)
     const startStream = async () => {
         try{
             const res = await fetch(`${process.env.BACKEND_URL}/streaming/start/`, {
@@ -80,16 +81,7 @@ export default function CheckModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOp
     useEffect(() => {
         getStreamStatus()
     }, [playIsActive])
-    async function getStreamingInfo() {
-        const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {
-            method: 'GET',
-            headers: {
-                'Authorization' : `Bearer ${await getTokenForApi()}`
-            }
-        })
-        const data: IStreamingInfo = await res.json()
-        setStreamingInfo(data)
-      }
+
     useEffect(() => {
         async function getStreamingInfo() {
             const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {

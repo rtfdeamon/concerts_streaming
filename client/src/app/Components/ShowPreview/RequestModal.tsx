@@ -14,6 +14,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
   const [desc, setDesc] = useState('');
   const { toast } = useToast();
   const artistDemoRef = useRef('');
+  // const [perfomanceTime, setPerfomanceTime] = useState<number>(10)
     const descChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
       setDesc(e.target.value);
     }
@@ -39,15 +40,16 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         }
     }
     async function postArtistDemo(){
-      const res = await fetch(`${process.env.BACKEND_URL}/sessions/`, {
-        method: 'POST',
-        headers: {
-          'Authorization':`Bearer ${await getTokenForApi()}`,
-          'Content-type':'application/json'
-        },
-        body: JSON.stringify({name: 'testtest', description: desc, artist_demo_url: artistDemoRef.current, user: null, concert: id})
-      })
-    }
+        const res = await fetch(`${process.env.BACKEND_URL}/sessions/`, {
+          method: 'POST',
+          headers: {
+            'Authorization':`Bearer ${await getTokenForApi()}`,
+            'Content-type':'application/json'
+          },
+          body: JSON.stringify({name: 'testtest', description: desc, artist_demo_url: artistDemoRef.current,
+          user: null, concert: id})
+        })
+      }
     const requestHandler = async () => {
       if (desc === '' || artistDemoRef.current === ''){
         toast({
@@ -119,6 +121,11 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
                     <Label htmlFor="audio">Audio</Label>
                     <Input onChange={(e) => handleChange(e)} id="audio" type="file" accept="audio/mp3,audio/*;capture=microphone" />
                 </div>
+                {/* <div className="mt-4">
+                 <Input onChange={(e) => {
+                    setPerfomanceTime(+e.target.value)
+                 }} type="number" placeholder="Perfomance time" />
+                </div> */}
                   <div className="mt-4">
                     <button
                       type="button"

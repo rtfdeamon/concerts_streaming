@@ -9,6 +9,7 @@ import User from '../../../../../public/user (1).svg'
 import X from '../../../../../public/xBlack.svg'
 import Accept from '../../../../../public/plus.svg'
 import styles from './ArtistsRequests.module.scss'
+import { Input } from '@/shadComponents/ui/input';
 
 interface ISelect{
     selected: number;
@@ -16,12 +17,16 @@ interface ISelect{
 
 function Items({sessions}: {sessions:IArtistRequest[]}) {
   const dispatch = useAppDispatch();
+  const [perfomanceTime, setPerfomanceTime] = useState(10);
   return (
     <>
         {sessions &&  sessions.map((a, i) => (
             <div key={i} className={styles.requestWrapper}>
                 <div className={styles.showWrapper}>
                 <Link className={styles.showLink} href={`/preview/${a.concert?.id}`} >Show: {a.concert?.name}</Link>
+                {a.concert?.performance_time && <div className='flex items-center my-1 justify-center'>
+                      <p style={{marginBottom: '-1px', marginLeft: '5px', fontSize: '14px', textAlign: 'center', display: 'block'}} className={styles.desc}>perfomance time: {a.concert?.performance_time}</p>
+                    </div>}
                   <div className={styles.request}>
                   <Link href={`/artist/${a.user?.id}`} className={styles.imageWrapper}>
                       <Image src={typeof a.user?.avatar_url !== 'object' ? a.user?.avatar_url : User} className={styles.image} width={80} height={80} alt="artistIcon" />
@@ -33,7 +38,9 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
                   </div>
                   <div className={styles.controls}>
                       <Image
-                        onClick={() => dispatch(changeSessionStatus({id: a.id as string, status: 'accepted'}))}
+                        onClick={() => {
+                          dispatch(changeSessionStatus({id: a.id as string, status: 'accepted', performance_time: perfomanceTime}))
+                        }}
                         src={Accept} width={40} height={40} alt="accept" title="Accept" />
                       <Image
                         onClick={() => dispatch(changeSessionStatus({id: a.id as string, status: 'rejected'}))}
@@ -43,6 +50,7 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
                   <div className={styles.artistMessage}>
                     <span>Request message: </span><span className={styles.desc}>{a.description}</span>
                   </div>
+                  <Input className='mb-4 w-[95%] mx-auto' placeholder='Set perfomance time' type='number' min={1}  onChange={(e) => setPerfomanceTime(+e.target.value)} />
               </div>
             </div>
         ))}
