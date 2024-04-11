@@ -43,8 +43,9 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
     }
     
     useEffect(() => {
-        const timerID = setInterval(() => setTick(!tick), 1000);
-        return () => clearInterval(timerID);
+        const timerID = setInterval(() => setTick(!tick), 1000)
+        getStreamStatus()
+        return () => clearInterval(timerID)
       }, [tick])
 
     // intervalId.current =  setInterval(() => {
@@ -196,7 +197,7 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
                             <div className="mt-4">
                                 {
                                     !isNaN(diffDays) && 
-                                    <div className='text-center mt-4 absolute top-[20px] left-[45%]'>
+                                    <div className='text-center mt-4 top-[20px] w-full'>
                                     <span >Time before show</span>
                                     <p>{`${diffDays} days ${diffH.toString().padStart(2, '0')}:${diffM
                                     .toString()

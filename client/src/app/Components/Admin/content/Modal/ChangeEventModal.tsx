@@ -278,9 +278,11 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                         </div>
                         <div className="mt-4">
                                 <div>
-                                    <p onClick={() => setOrderOpen(prev => !prev)}
-                                    className="cursor-pointer border-[1px] border-slate-200 py-3 px-3 rounded-lg text-[#69788f] opacity-60">Artists order</p>
-                                    {orderOpen &&
+                                    {perfomanceOrder?.length > 0 && 
+                                        <p onClick={() => setOrderOpen(prev => !prev)}
+                                        className="cursor-pointer border-[1px] border-slate-200 py-3 px-3 rounded-lg text-[#69788f] opacity-60">Artists order</p>
+                                    }
+                                    {perfomanceOrder?.length > 0 && orderOpen &&
                                     <div className="border-[1px] border-slate-100 rounded-lg"> 
                                         {perfomanceOrder?.map((perf: any, i: number) => (
                                             <div key={perf.id} className="cursor-pointer border-[1px] py-3 px-3 rounded-lg text-[#69788f]
