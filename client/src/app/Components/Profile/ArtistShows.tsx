@@ -26,7 +26,6 @@ export default function ArtistShows() {
           'Authorization' : `Bearer ${await getTokenForApi()}`
         }
       })
-      console.log(res)
     }
     async function getToken(){
       const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {

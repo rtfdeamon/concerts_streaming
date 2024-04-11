@@ -1,7 +1,7 @@
 'use client'
 import { Button } from "@/shadComponents/ui/button"
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 import { Input } from "@/shadComponents/ui/input"
 import { Dispatch, SetStateAction } from "react"
 import PreviewStream from "./PreviewStream"
@@ -19,11 +19,18 @@ interface IStreamStatus {
     status: string
 }
 
-export default function CheckModal({id, isOpen, setIsOpen}:{id: string | undefined, isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
+export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId: string, id: string | undefined, isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
     const [steamingInfo, setStreamingInfo] = useState<IStreamingInfo>()
     const [playIsActive, setPlayIsActive] = useState(true)
     const [streamStatus, setStreamStatus] = useState<IStreamStatus>()
     const { toast } = useToast();
+    const intervalId = useRef<NodeJS.Timeout>()
+    const startDate = useRef<string>()
+    const endDate = useRef<string>()
+    const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
+    const [tick, setTick] = useState(false);
+    const timerId = useRef<NodeJS.Timeout>()
+
     async function getStreamStatus() {
         const res = await fetch(`${process.env.BACKEND_URL}/streaming/status/`, {
             method: 'GET',
@@ -34,7 +41,22 @@ export default function CheckModal({id, isOpen, setIsOpen}:{id: string | undefin
         const data = await res.json();
         setStreamStatus(data);
     }
-    console.log(id)
+    
+    useEffect(() => {
+        const timerID = setInterval(() => setTick(!tick), 1000);
+        return () => clearInterval(timerID);
+      }, [tick])
+
+    // intervalId.current =  setInterval(() => {
+    //     getStreamStatus()
+    // }, 6000)
+
+    // useEffect(() => {
+    //     return () => {
+    //         clearInterval(intervalId.current);
+    //     }
+    // }, [])
+
     const startStream = async () => {
         try{
             const res = await fetch(`${process.env.BACKEND_URL}/streaming/start/`, {
@@ -81,7 +103,49 @@ export default function CheckModal({id, isOpen, setIsOpen}:{id: string | undefin
     useEffect(() => {
         getStreamStatus()
     }, [playIsActive])
+    useEffect(() => {
+        async function getStreamInfo(){
+            if (typeof concertId !== 'undefined'){
+                const res = await fetch(`${process.env.BACKEND_URL}/concerts/${concertId}/playlist/`, {
+                                method: 'GET',
+                                headers: {
+                                    'Authorization' : `Bearer ${await getTokenForApi()}`
+                                }
+                            })
+                            const data = await res.json()
+                            const filteredData = data.filter((d: {
+                                id: string | undefined | undefined 
+                                }) => d.id === id)
+                            startDate.current = filteredData[0].start_date
+                            endDate.current = filteredData[0].end_date
+            }
+            }
+            getStreamInfo()
+    }, [concertId])
+    
 
+    useEffect(()=> {
+            const showTime = new Date(startDate.current as string).getTime() / 1000
+            const finishTime = new Date().getTime() / 1000
+            console.log('123', showTime, finishTime)
+            const diff = (showTime - finishTime)
+            console.log(diff)
+            if (diff < 0) {
+              setDiff([
+                  NaN,
+                  NaN,
+                  NaN,
+                  NaN
+              ])
+              return
+            }
+            setDiff([
+              Math.floor(diff / 86400), 
+              Math.floor((diff / 3600) % 24), 
+              Math.floor((diff / 60) % 60), 
+              Math.floor(diff % 60)
+            ]) 
+    }, [tick, startDate])
     useEffect(() => {
         async function getStreamingInfo() {
             const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {
@@ -129,6 +193,17 @@ export default function CheckModal({id, isOpen, setIsOpen}:{id: string | undefin
                         >
                             Stream preview
                         </Dialog.Title>
+                            <div className="mt-4">
+                                {
+                                    !isNaN(diffDays) && 
+                                    <div className='text-center mt-4 absolute top-[20px] left-[45%]'>
+                                    <span >Time before show</span>
+                                    <p>{`${diffDays} days ${diffH.toString().padStart(2, '0')}:${diffM
+                                    .toString()
+                                    .padStart(2, '0')}:${diffS.toString().padStart(2, '0')}`}</p>
+                                    </div>
+                                }
+                            </div>
                             <div className="mt-4">
                                 {
                                     streamStatus?.status === 'stopped' ?

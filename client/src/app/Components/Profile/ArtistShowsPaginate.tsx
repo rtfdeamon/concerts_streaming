@@ -20,6 +20,7 @@ function Items({ filteredSessions }: {filteredSessions: IArtistRequest[]}) {
     const [posterUrl, setPosterUrl] = useState('');
     const [currShowId, setCurrShowId] = useState<string | undefined>('')
     const [id, setId] = useState('');
+    const [concertId, setConcertId] = useState<string>('')
     const onPreviewHandler = () => {
         setModalIsOpen(true);
     }
@@ -30,7 +31,7 @@ function Items({ filteredSessions }: {filteredSessions: IArtistRequest[]}) {
     }
     return (
     <>
-     <CheckModal id={currShowId} isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
+     <CheckModal concertId={concertId} id={currShowId} isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
      <OptionsModal isOpen={optionsModalIsOpen} setIsOpen={setOptionsModalIsOpen}  id={id} posterUrl={posterUrl} />
         {filteredSessions.length > 0 ? filteredSessions.map(s => (
             <div key={s.id} className={styles.requestWrapper}>
@@ -46,6 +47,7 @@ function Items({ filteredSessions }: {filteredSessions: IArtistRequest[]}) {
                   <Button onClick={() => 
                     {
                       setCurrShowId(s.id)
+                      setConcertId(s.concert?.id as string)
                       onPreviewHandler()
                     }
                     } className={styles.btn}>Sound and video check</Button>
