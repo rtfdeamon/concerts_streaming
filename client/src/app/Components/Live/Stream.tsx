@@ -78,7 +78,7 @@ useEffect(()=> {
     const showTime = new Date(show?.date as string);
     const finishTime = showTime.getTime() / 1000
     const diff = (finishTime - new Date().getTime() / 1000)
-    console.log(diff)
+    // console.log(diff)
     if (diff < 0) {
       setDiff([
           NaN,

@@ -46,7 +46,6 @@ export default React.memo(function Player({currentStream}:{currentStream: string
       // player.current.width = 800
   }}
       controls
-      controlsList='volume'
       hlsConfig={{ 
         maxLoadingDelay: 4,
         minAutoBitrate: 0,

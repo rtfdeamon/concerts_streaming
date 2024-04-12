@@ -2,7 +2,7 @@
     @apply flex flex-col justify-center items-center relative
 }
 .backBtn{
-    @apply absolute left-[160px] top-[30px] w-[100px]
+    @apply absolute left-[160px] top-[30px] w-[100px] mb-9
 }
 .banner{
     @apply block mx-auto  w-[1200px] h-[320px] object-fill mt-20

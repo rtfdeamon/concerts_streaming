@@ -7,33 +7,41 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     const [currSrc, setCurrSrc] = useState(currentStream)
     console.log(player)
   return (
-      <ReactHlsPlayer
-      playerRef={player}
-      src={currSrc}
-      autoPlay={true}
-      onPlay={() => {
-        setCurrSrc(prev => "")
-        console.log(currSrc)
-        setCurrSrc(prev => currentStream)
-        console.log(currSrc)
+    <ReactHlsPlayer
+        playerRef={player}
+        src={currSrc}
+        autoPlay={true}
+        onLoad={() => {
+            player.current.play()
+        }}
+        onPlay={() => {
+        // setCurrSrc(prev => "")
+        // setCurrSrc(prev => currentStream)
+        // player.current.width = 800
+        console.log('play')
+        // setCurrSrc(currentStream)
+        // getStreamingInfo() 
     }}
     onPause={() => {
-      setCurrSrc(prev => "")
-      console.log(currSrc)
-      setCurrSrc(prev => currentStream)
-      console.log(currSrc)
-  }}
-      controls
-      controlsList='volume'
-      hlsConfig={{ 
-        maxLoadingDelay: 400,
+        console.log('pause')
+        // setCurrSrc(currentStream)
+        // getStreamingInfo() 
+        // setCurrSrc(prev => "")
+        // setCurrSrc(prev => currentStream)
+        // setCurrSrc(prev => "")
+        // setCurrSrc(prev => currentStream)
+        // player.current.width = 800
+    }}
+        controls
+        hlsConfig={{ 
+        maxLoadingDelay: 4,
         minAutoBitrate: 0,
         lowLatencyMode: true,
-      }}
-      // muted
-      playsInline
-      width="100%"
-      height="auto"
+        }}
+        // muted
+        playsInline
+        width="100%"
+        height="auto"
     /> 
-  )
+    )
 })

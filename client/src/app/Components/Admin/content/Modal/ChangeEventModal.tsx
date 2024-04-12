@@ -61,6 +61,9 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const [tick, setTick] = useState(false)
     const timerId = useRef<NodeJS.Timeout>()
     const { toast } = useToast()
+    const [orderWithId, setOrderWithId] = useState<any>([])
+    const orderNumber = useRef(0)
+
 
     useEffect(() => {
         const timerID = setInterval(() => setTick(!tick), 4000)
@@ -308,11 +311,24 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                                                     //@ts-ignore
                                                     //@ts-ignore
                                                     setOrder(prev => prev.filter(p => p != perf.id))
-                                                    return
                                                 } else {
                                                 setOrder(prev => [...prev, perf.id])
                                                 }
-                                            }}>{perf.user.name}</div>
+                                                if (orderWithId.map((o: { id: any }) => o.id).includes(perf.id)){
+                                                    orderNumber.current = orderNumber.current - 1
+                                                    setOrderWithId(orderWithId.filter((o: { id: any }) => o.id !== perf.id))
+                                                } else {
+                                                    orderNumber.current = orderNumber.current + 1
+                                                    setOrderWithId((prev: any) => [...prev, {order: orderNumber.current, id: perf.id}])
+                                                }
+                                            }}>
+                                                {perf.user.name}
+                                                {/* <span className="ml-4 pt-4">
+                                                    {
+                                                        orderWithId.length > 0 &&  orderWithId.filter((o: { id: any }) => o?.id == perf?.id)[0]?.order
+                                                    }
+                                                </span> */}
+                                            </div>
                                         ))}
                                     </div>
                                     }

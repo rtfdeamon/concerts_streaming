@@ -190,7 +190,7 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
                                 }     
                                     </div>
                             </div>
-                            <Button onClick={getStreamStatus}>Status</Button>
+                            {/* <Button onClick={getStreamStatus}>Status</Button> */}
                             <div className="mt-4">
                                 <span className="block mt-2">Server</span>
                                 <Input type="text"  value={steamingInfo?.publish_credentials?.primary_server}/>

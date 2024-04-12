@@ -17,7 +17,7 @@ interface ISelect{
 
 function Items({sessions}: {sessions:IArtistRequest[]}) {
   const dispatch = useAppDispatch();
-  const [perfomanceTime, setPerfomanceTime] = useState(10);
+  const [perfomanceTime, setPerfomanceTime] = useState<number | undefined>();
   return (
     <>
         {sessions &&  sessions.map((a, i) => (
@@ -25,7 +25,7 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
                 <div className={styles.showWrapper}>
                 <Link className={styles.showLink} href={`/preview/${a.concert?.id}`} >Show: {a.concert?.name}</Link>
                 {a.concert?.performance_time && <div className='flex items-center my-1 justify-center'>
-                      <p style={{marginBottom: '-1px', marginLeft: '5px', fontSize: '14px', textAlign: 'center', display: 'block'}} className={styles.desc}>perfomance time: {a.concert?.performance_time}</p>
+                      <p style={{marginBottom: '-1px', marginLeft: '5px', fontSize: '14px', textAlign: 'center', display: 'block'}} className={styles.desc}>default perfomance time: {a.concert?.performance_time}</p>
                     </div>}
                   <div className={styles.request}>
                   <Link href={`/artist/${a.user?.id}`} className={styles.imageWrapper}>
