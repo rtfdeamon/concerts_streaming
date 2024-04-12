@@ -27,7 +27,7 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
     const { toast } = useToast();
     const startDate = useRef<string>()
     const endDate = useRef<string>()
-
+    const player = useRef<HTMLVideoElement>()
 
     async function getStreamStatus() {
         const res = await fetch(`${process.env.BACKEND_URL}/streaming/status/`, {
@@ -65,7 +65,7 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
                 setPlayIsActive(true);
             }
             console.log(data)
-            
+            getStreamStatus()
         } catch{
             getStreamStatus()
         }
@@ -174,19 +174,23 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
                                     >
                                     </div>
                                     :
-                                    <PreviewStream streamStatus={streamStatus as IStreamingInfo} steamingInfo={steamingInfo} />
+                                    <PreviewStream  streamStatus={streamStatus as IStreamingInfo} steamingInfo={steamingInfo} />
                                 }
                                <div className="flex justify-center cursor-pointer mt-12">
                                    {/* <Button style={{marginRight: '20px'}} onClick={startStream} >Start stream</Button>
                                    <Button onClick={stopStream} >Close stream</Button> */}
                                 {
-                                    streamStatus?.status === 'starting' || streamStatus?.status === 'started' ? 
+                                    streamStatus?.status == "starting" || streamStatus?.status == 'started' ? 
+                                    <div className="flex flex-col items-center justify-center">
                                     <Pause height={40} width={40} onClick={stopStream} />
+                                    <h5 className="block mx-auto text-center my-3 text-slate-400">Don't forget to start your obs stream</h5>
+                                    </div>
                                     :
                                     <Play height={40} width={40} onClick={startStream} />
                                 }     
                                     </div>
                             </div>
+                            <Button onClick={getStreamStatus}>Status</Button>
                             <div className="mt-4">
                                 <span className="block mt-2">Server</span>
                                 <Input type="text"  value={steamingInfo?.publish_credentials?.primary_server}/>

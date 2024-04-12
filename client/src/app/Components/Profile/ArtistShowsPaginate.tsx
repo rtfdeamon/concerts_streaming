@@ -30,7 +30,6 @@ function Items({ filteredSessions }: {filteredSessions: IArtistRequest[]}) {
         setId(id);
         setOptionsModalIsOpen(true);
     }
-    console.log('fdsfsd', filteredSessions)
     return (
     <>
      <CheckModal concertId={concertId} id={currShowId} isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
@@ -69,7 +68,6 @@ function Items({ filteredSessions }: {filteredSessions: IArtistRequest[]}) {
 
 export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
   {itemsPerPage: number, sessions: IArtistRequest[], user: IUser | undefined}) {
-    console.log('user', user)
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -79,17 +77,14 @@ export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   filteredByStatus.current = sessions.filter(s => s.status === 'accepted')
-  console.log('1', user?.id)
   filteredByUserId.current = filteredByStatus.current.filter(s => s.user?.id == user?.id)
-  console.log('2', filteredByStatus, filteredByUserId)
   const currentItems = filteredByUserId.current.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(sessions.length / itemsPerPage)
+  const pageCount = Math.ceil(filteredByUserId.current.length / itemsPerPage)
 
   // Invoke when user click to request another page.
-  const handlePageClick = (event: ISelect) => {
-    const newOffset = (event.selected * itemsPerPage) % sessions.length;
+  const handlePageClick = (event:ISelect) => {
+    const newOffset = (event.selected * itemsPerPage) % filteredByUserId.current.length;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
@@ -98,8 +93,8 @@ export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
   
   return (
     <>
-      <Items filteredSessions={filteredByUserId.current} />
-      {filteredByUserId.current.length > 4 &&
+      <Items filteredSessions={currentItems} />
+      {currentItems.length > 4 &&
         <ReactPaginate
           className={styles.paginate}
           breakLabel="..."

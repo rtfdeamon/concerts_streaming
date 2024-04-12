@@ -59,7 +59,7 @@ function Items({shows}: {shows: IEvent[]}) {
         <Items shows={currentItems} />
         <div className={styles.paginate}>
           {
-              items.length > 6 &&
+              items.length > 4 &&
                 <ReactPaginate
                   nextLabel=">"
                   onPageChange={handlePageClick}

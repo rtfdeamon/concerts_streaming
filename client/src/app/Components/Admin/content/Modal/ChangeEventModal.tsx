@@ -36,28 +36,38 @@ import { IShow } from "@/app/types/interfaces"
 import styles from './modal.module.scss'
 import { ToastAction } from "@radix-ui/react-toast"
 import { useToast } from "@/shadComponents/ui/use-toast"
-
+import { C } from "@vidstack/react/dist/types/vidstack.js"
+import { useRef } from "react"
 
 export const dynamic = 'force-dynamic'
 
 export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, eventId: string}) {
-    const dispatch = useAppDispatch();
-    const [date, setDate] = useState<Date | undefined>();
-    const [name, setName] = useState<string | undefined>(undefined);
-    const [description, setDescription] = useState<string | undefined>(undefined);
-    const [slots, setSlots] = useState<number | undefined>(undefined);
-    const [perfomanceTime, setPerfomanceTime] = useState<number | undefined>(undefined);
-    const [err, setErr] = useState(false);
-    const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
-    const [category, setCategory] = useState<string | undefined>(undefined);
-    const [access, setAccess] = useState<string | undefined>(undefined);
-    const [price, setPrice] = useState<string | undefined>(undefined);
+    const dispatch = useAppDispatch()
+    const [date, setDate] = useState<Date | undefined>()
+    const [name, setName] = useState<string | undefined>(undefined)
+    const [description, setDescription] = useState<string | undefined>(undefined)
+    const [slots, setSlots] = useState<number | undefined>(undefined)
+    const [perfomanceTime, setPerfomanceTime] = useState<number | undefined>(undefined)
+    const [err, setErr] = useState(false)
+    const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined)
+    const [category, setCategory] = useState<string | undefined>(undefined)
+    const [access, setAccess] = useState<string | undefined>(undefined)
+    const [price, setPrice] = useState<string | undefined>(undefined)
     const [show, setShow] = useState<any>();
     const [perfomanceOrder, setPerfomanceOrder] = useState<any>()
     const [order, setOrder] = useState<number[] | []>([])
     const [orderOpen, setOrderOpen] = useState(false)
     const [selectIndex, setSelectIndex] = useState<number[]>()
+    const [tick, setTick] = useState(false)
+    const timerId = useRef<NodeJS.Timeout>()
     const { toast } = useToast()
+
+    useEffect(() => {
+        const timerID = setInterval(() => setTick(!tick), 4000)
+        // getStreamStatus()
+        return () => clearInterval(timerID)
+      }, [tick])
+
     async function getShow(){
         const res = await fetch(`${process.env.BACKEND_URL}/concerts/${eventId}/`, {
             method: 'GET',
@@ -141,15 +151,15 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     }
 
     const onChangeHandler = async () => {
-            changeOrder()
-                const stringDate = date?.toISOString() as string;
-                const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
-                slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
-                if (res.payload.id){
-                    setIsOpen(false)
-                } else{
-                    setErr (true)
-                }
+            order.length !== 0 && await changeOrder()
+            const stringDate = date?.toISOString() as string;
+            const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
+            slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
+            if (res.payload.id){
+                setIsOpen(false)
+            } else{
+                setErr (true)
+            }
     }
 
     return (
@@ -293,7 +303,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                                             style={order.includes(perf.id) ? {background: '#8ea0bb', color: 'white'} : {outline: 'none'}}
                                             onClick={(e) => {
                                                 e.preventDefault()
-                                                //@ts-ignore
+                                                //@ts-ignoreF
                                                 if (order.includes(perf.id)){
                                                     //@ts-ignore
                                                     //@ts-ignore

@@ -22,6 +22,7 @@ import { IShow } from '@/app/types/interfaces';
 import Image from 'next/image';
 import '@vidstack/react/player/styles/base.css';
 import styles from './Stream.module.scss'
+import Player from './Player';
 
 export default function Stream({id, concertInfo}: {id: string, concertInfo: any}) {
   const router = useRouter();
@@ -130,14 +131,7 @@ useEffect(()=>{
           }
           {
             currentStream && 
-              <ReactHlsPlayer
-                src={currentStream}
-                autoPlay={true}
-                // muted
-                playsInline
-                width="100%"
-                height="auto"
-              />  
+            <Player currentStream={currentStream} />
             // <MediaPlayer
             //   ref={player}
             //   className={styles.video}

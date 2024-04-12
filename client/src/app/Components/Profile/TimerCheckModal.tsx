@@ -13,7 +13,6 @@ export default function TimerCheckModal({startDate}: {startDate: any}) {
       useEffect(()=> {
         const showTime = new Date(startDate.current as string).getTime() / 1000
         const finishTime = new Date().getTime() / 1000
-        console.log('123', showTime, finishTime)
         const diff = (showTime - finishTime)
         console.log(diff)
         if (diff < 0) {

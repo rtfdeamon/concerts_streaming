@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef } from 'react';
+import {memo,  useState, useEffect, useRef } from 'react';
 import ReactHlsPlayer from 'react-hls-player';
 import { MediaPlayer, MediaProvider } from '@vidstack/react';
 import { Poster, type PosterProps } from '@vidstack/react';
@@ -19,24 +19,30 @@ import { getTokenForApi } from '@/app/utils/getTokenForApi';
 import Loading from '../.././../../public/images.png'
 import '@vidstack/react/player/styles/base.css';
 import styles from './PreviewStream.module.scss'
+import { useToast } from '@/shadComponents/ui/use-toast';
+import { ToastAction } from '@/shadComponents/ui/toast';
+import { RefObject } from 'react';
+import Player from './Player';
 
 export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus: IStreamingInfo ,steamingInfo?: IStreamingInfo}) {
-  const player = useRef<MediaPlayerInstance>(null)
-  const isActive = useMediaState('pictureInPicture', player)
-  const [volumeIsOpen, setVolumeIsOpen] = useState(false)
-  const volumeRef = useRef<VolumeSliderInstance>(null)
+  const { toast } = useToast()
+  //@ts-ignore
+  const player = useRef<HTMLVideoElement>([])
+  const toastHandler = () => {
+    toast({
+      description: "Playlist is loading. Please, wait",
+      variant: 'destructive',
+      action: (
+        <ToastAction altText="Hide">Hide</ToastAction>
+      ),
+    })
+  }
+
 
   return (
     <div className={styles.videoWrapper}>
       {steamingInfo?.playback_url && 
-      <ReactHlsPlayer
-        src={steamingInfo?.playback_url}
-        autoPlay={true}
-        // muted
-        playsInline
-        width="100%"
-        height="auto"
-      />  
+      <Player currentStream={steamingInfo?.playback_url} />
       }
         {/* <MediaPlayer
           ref={player}
