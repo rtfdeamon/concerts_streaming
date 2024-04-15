@@ -33,12 +33,13 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   const [volumeIsOpen, setVolumeIsOpen] = useState(false);
   const volumeRef = useRef<VolumeSliderInstance>(null);
   // const [currIndex, setCurrIndex] = useState(0)
-  const [currentStream, setCurrentStream] = useState('')
+  const [currentStream, setCurrentStream] = useState<string>('')
   // const [currentDate, setCurrentDate] = useState<Date>(new Date())
   const timeDiff = useRef<String>('')
   const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
   const [tick, setTick] = useState(false);
   const timerId = useRef<NodeJS.Timeout>()
+  const [isSwitching, setIsSwitching] = useState(false)
 
   const routerHandler = () => {
     router.back();
@@ -96,21 +97,23 @@ useEffect(()=> {
     ]) 
 }, [tick])
 
+
 useEffect(() => {
   if (typeof concertInfo.current !== 'undefined'){
     const now = new Date();
     concertInfo.current.forEach((performance: { start_date: string | number | Date; end_date: string | number | Date; playback_url: any; }) => {
-      var startAt = new Date(performance.start_date);
+      const startAt = new Date(performance.start_date);
+      console.log(now, startAt)
       if(now < startAt) return;
-      var endAt = new Date(performance.end_date);
+      const endAt = new Date(performance.end_date);
       if(now > endAt) return; 
-      if(currentStream != performance.playback_url) {
-          setCurrentStream(performance.playback_url);
+      if(currentStream != performance.playback_url) {  
+        setCurrentStream(performance.playback_url)
       }
   })
   }
-
 }, [tick])
+
 
 useEffect(()=>{
   timerId.current = setInterval(() => setTick(!tick), 1000);

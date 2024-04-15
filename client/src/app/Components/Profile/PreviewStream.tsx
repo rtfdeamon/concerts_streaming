@@ -1,27 +1,10 @@
 'use client'
-import {memo,  useState, useEffect, useRef } from 'react';
-import ReactHlsPlayer from 'react-hls-player';
-import { MediaPlayer, MediaProvider } from '@vidstack/react';
-import { Poster, type PosterProps } from '@vidstack/react';
-import { PIPButton, type PIPButtonProps } from "@vidstack/react";
-import { Controls } from '@vidstack/react';
-import { LiveButton } from '@vidstack/react';
-import { PlayButton } from '@vidstack/react';
-import { PauseIcon, PlayIcon, PictureInPictureExitIcon, PictureInPictureIcon } from '@vidstack/react/icons';
-import { MuteButton } from '@vidstack/react';
-import { MuteIcon, VolumeHighIcon, VolumeLowIcon } from '@vidstack/react/icons';
-import { VolumeSlider, VolumeSliderInstance } from '@vidstack/react';
-import { FullscreenButton } from '@vidstack/react';
-import { FullscreenExitIcon, FullscreenIcon } from '@vidstack/react/icons';
-import { useMediaState, MediaPlayerInstance } from '@vidstack/react';
+import { useRef } from 'react';
 import { IStreamingInfo } from '@/app/types/interfaces';
-import { getTokenForApi } from '@/app/utils/getTokenForApi';
-import Loading from '../.././../../public/images.png'
 import '@vidstack/react/player/styles/base.css';
 import styles from './PreviewStream.module.scss'
 import { useToast } from '@/shadComponents/ui/use-toast';
 import { ToastAction } from '@/shadComponents/ui/toast';
-import { RefObject } from 'react';
 import Player from './Player';
 
 export default function PreviewStream({streamStatus, steamingInfo}:{streamStatus: IStreamingInfo ,steamingInfo?: IStreamingInfo}) {

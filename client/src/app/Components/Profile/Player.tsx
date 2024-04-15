@@ -2,8 +2,10 @@ import React, {useRef, useState} from "react"
 import ReactHlsPlayer from "react-hls-player"
 import { getTokenForApi } from "@/app/utils/getTokenForApi"
 import { IStreamingInfo } from "@/app/types/interfaces"
+import { MediaPlayer } from "@vidstack/react"
+import { MediaProvider } from "@vidstack/react"
 
-export default React.memo(function Player({currentStream}:{currentStream: string}) {
+export default function Player({currentStream}:{currentStream: string}) {
     //@ts-ignore
     const player = useRef<HTMLVideoElement>([])
     const [currSTR, setCurrStr] = useState('')
@@ -56,5 +58,32 @@ export default React.memo(function Player({currentStream}:{currentStream: string
       width="100%"
       height="auto"
     /> 
+
+//       <MediaPlayer
+//       // ref={player}
+//       // className={styles.video}
+//       autoPlay
+//       streamType="live"
+//       aspectRatio="16/9"
+//       // onLoad={() => setBufferingIsActive(true)}
+//       // controls
+//       onHlsError={() => {
+//             setCurrSrc(currentStream)
+//             console.log('err')
+//           //   location.reload()
+//       }}
+//       crossOrigin
+//       load="idle"
+//       posterLoad="idle"
+//       title="Sprite Fight"
+//       src={currSrc}>
+//       {/* <Poster
+//         className={styles.poster}
+//         src={show?.poster_url}
+//         alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
+//       /> */}
+
+//   <MediaProvider />
+// </MediaPlayer>
   )
-})
+}
