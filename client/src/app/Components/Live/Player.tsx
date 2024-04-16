@@ -72,9 +72,15 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     controls={true}
     onError={() => {
       // location.reload()
+      currSrc.current = ''
+      currSrc.current = currentStream
+      forceUpdate()
     }}
     onHlsError={(err) => {
       currSrc.current = currentStream
+      currSrc.current = ''
+      currSrc.current = currentStream
+      forceUpdate()
           // player.current.play()
           // player.current.refresh()
           // console.log('err', err)

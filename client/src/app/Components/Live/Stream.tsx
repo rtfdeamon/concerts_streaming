@@ -39,7 +39,7 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
   const [tick, setTick] = useState(false);
   const timerId = useRef<NodeJS.Timeout>()
-  const [isSwitching, setIsSwitching] = useState(false)
+  const [lastStream, setLastStream] = useState<any>();
 
   const routerHandler = () => {
     router.back();
@@ -51,6 +51,15 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   //   }
   // }, [concertInfo.current])
 
+
+  useEffect(() => {
+    if (typeof concertInfo.current !== 'undefined' && !lastStream){
+      const lastStream = concertInfo.current[concertInfo.current.length - 1]
+      console.log('lastStre', lastStream)
+      console.log('all', concertInfo.current)
+      setLastStream(lastStream)
+    }
+  }, [tick])
 
   useEffect(() => {
     const getShow = async (id: string) => {
@@ -110,6 +119,13 @@ useEffect(() => {
       if(currentStream != performance.playback_url) {  
         setCurrentStream(performance.playback_url)
       }
+      if (currentStream === lastStream.playback_url){
+        const endAt = new Date(lastStream.end_date)
+        if (now > endAt) {
+          setCurrentStream('')
+        }
+      }
+      
   })
   }
 }, [tick])
