@@ -1,10 +1,12 @@
 import HeaderWithoutBanner from "../Components/Header/HeaderWithouBanner"
-import Faq from "../Components/FAQ/Faq"
+import ViewShows from "../Components/ViewShows/ViewShows"
+
 export default function page() {
+
   return (
     <>
       <HeaderWithoutBanner />
-      <Faq />
+      <ViewShows title="Todays shows" type="today" />
     </>
   )
 }

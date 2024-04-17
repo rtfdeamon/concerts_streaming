@@ -12,8 +12,8 @@ export default function CallToAction() {
             </div>
             <div className={styles.content}>
                 <h5>Big show</h5>
-                <h6>The last days before the epic show</h6>
-                <p>Don’t forget to search your artists or events and secure your ticket for your seat</p>
+                <h6>Don’t miss the next epic show!</h6>
+                <p>Registration is easy, simple, and free for viewers and listeners. Sign up and get your seat for the next epic show.  Wide variety of artists so you can choose 1, 2 or more. Thinking you want to perform at a live event? Simply sign up as an artist and follow the process. Thanks for visiting <Link className='text-blue-400 hover:text-blue-500 transition-all duration-500' href={'/'}>DigitalPlatformEnt.com</Link>  – “Because you deserve it…”</p>
                 <Link href={`${process.env.FRONTEND_URL}/scheduled`}>
                   <Button className={styles.btn}>Take a ticket</Button>
                 </Link>

@@ -34,7 +34,7 @@
     }
 }
 .iconsWrapper{
-    @apply flex flex-wrap w-[800px] justify-end
+    @apply flex flex-wrap w-[800px] justify-end cursor-pointer
 }
 .iconWrapper{
     &:nth-child(1), &:nth-child(2),

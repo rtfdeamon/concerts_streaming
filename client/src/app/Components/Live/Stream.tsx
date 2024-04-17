@@ -25,21 +25,19 @@ import styles from './Stream.module.scss'
 import Player from './Player';
 
 export default function Stream({id, concertInfo}: {id: string, concertInfo: any}) {
-  const router = useRouter();
-  const [show, setShow] = useState<IShow | undefined>();
-  const player = useRef<MediaPlayerInstance>(null);
-  const isActive = useMediaState('pictureInPicture', player);
-  const [bufferingIsActive, setBufferingIsActive] = useState(false);
-  const [volumeIsOpen, setVolumeIsOpen] = useState(false);
-  const volumeRef = useRef<VolumeSliderInstance>(null);
+  const router = useRouter()
+  const [show, setShow] = useState<IShow | undefined>()
+  const player = useRef<MediaPlayerInstance>(null)
+  const [endStream, setEndStream] = useState(false)
+
   // const [currIndex, setCurrIndex] = useState(0)
   const [currentStream, setCurrentStream] = useState<string>('')
   // const [currentDate, setCurrentDate] = useState<Date>(new Date())
   const timeDiff = useRef<String>('')
-  const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
-  const [tick, setTick] = useState(false);
+  const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0])
+  const [tick, setTick] = useState(false)
   const timerId = useRef<NodeJS.Timeout>()
-  const [lastStream, setLastStream] = useState<any>();
+  const [lastStream, setLastStream] = useState<any>()
 
   const routerHandler = () => {
     router.back();
@@ -121,8 +119,10 @@ useEffect(() => {
       }
       if (currentStream === lastStream.playback_url){
         const endAt = new Date(lastStream.end_date)
+        console.log('test', now > endAt)
         if (now > endAt) {
           setCurrentStream('')
+          setEndStream(true)
         }
       }
       
@@ -149,7 +149,7 @@ useEffect(()=>{
             </div>
           }
           {
-            currentStream && 
+            currentStream && endStream == false &&
             <Player currentStream={currentStream} />
             // <MediaPlayer
             //   ref={player}
@@ -220,6 +220,7 @@ useEffect(()=>{
             //   <MediaProvider />
             // </MediaPlayer>
           }
+          {endStream && <span className='text-xl text-center'>Show is over</span>}
     </div>
     {show?.ads && typeof show?.ads[0]?.banner_url !== 'undefined' &&
      <Image className={styles.banner} src={show.ads[0].banner_url} width={1200} height={320} alt='Banner'/>}

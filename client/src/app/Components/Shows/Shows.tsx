@@ -77,16 +77,19 @@ export default function Shows() {
         <h2 className={styles.sectionTitle}>
             Choose by your pleasures
         </h2>
-        <span className={styles.subtitle}>Find a concert by your genre, artist or date</span>
+        <span className={styles.subtitle}>Find a show by your genre, artist or date</span>
         <div className={styles.concertCategories}>
             <Link href={'/liveconcerts'}>Live concerts</Link>
             <Link href={'/scheduled'}>Scheduled concerts</Link>
         </div>
         <div className={styles.dates}>
-            <span onClick={todayIsOpenHandler} className={todayIsOpen ? styles.spanActive : ''}>Today</span>
+            {/* <span onClick={todayIsOpenHandler} className={todayIsOpen ? styles.spanActive : ''}>Today</span>
             <span onClick={weekIsOpenHandler} className={weekIsOpen ? styles.spanActive : ''}>This Week</span>
-            <span onClick={monthIsOpenHandler} className={monthIsOpen ? styles.spanActive : ''}>This Month</span>
-            <span onClick={calendarIsOpenHandler} className={calendarIsOpen ? styles.spanActive : ''}>Choose dates</span>
+            <span onClick={monthIsOpenHandler} className={monthIsOpen ? styles.spanActive : ''}>This Month</span> */}
+            <Link href={'/today'} className={todayIsOpen ? styles.spanActive : ''}>Today</Link>
+            <Link href={'/week'} className={weekIsOpen ? styles.spanActive : ''}>This Week</Link>
+            <Link href={'/month'} className={monthIsOpen ? styles.spanActive : ''}>This Month</Link>
+            {/* <span onClick={calendarIsOpenHandler} className={calendarIsOpen ? styles.spanActive : ''}>Choose dates</span> */}
         </div>
         {
             todayIsOpen && <ShowsByDate shows={shows} />
