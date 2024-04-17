@@ -7,7 +7,7 @@ export default function Banner() {
   return (
     <section className={styles.section}>
         <div className={styles.promo}>
-            <h1>Enjoy your favourite musicians shows!</h1>
+            <h1>Enjoy your favorite musicians or artists!</h1>
             <Link href={`${process.env.FRONTEND_URL}/events/month`}>
               <Button className={styles.btn}>Look for shows</Button>            
             </Link>

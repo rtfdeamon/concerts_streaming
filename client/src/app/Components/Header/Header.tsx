@@ -82,7 +82,7 @@ export default function Header({type, children}:{type: string, children?: React.
           <div className={styles.wrapper}>
               <Logo variant='light' />
               <SearchInput
-                placeholder='Search for some artists or concerts'
+                placeholder='Search artists & events'
                 variant='header'/>
           </div>
           <div className={styles.events}>

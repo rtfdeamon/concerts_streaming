@@ -92,7 +92,7 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching, se
                 className={styles.searchInput}
                 type="text"
                 value={inputValue}
-                placeholder={'Search for some artists or concerts'} />
+                placeholder={'Search artists & events'} />
               {typeof results !== 'undefined' && results?.artists.length > 0 ?  
                   <h5 className={styles.Title}>Artists</h5>
                   :

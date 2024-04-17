@@ -78,7 +78,7 @@ export default function HeaderWithoutBanner() {
           <div className={styles.wrapper}>
               <Logo variant='light' />
               <SearchInput
-                placeholder='Search for some artists or concerts'
+                placeholder='Search artists & events'
                 variant='default'/>
           </div>
           <div className={styles.events}>

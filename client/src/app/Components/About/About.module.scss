@@ -56,7 +56,7 @@
     & {
         word-wrap: break-word;
     }
-    @apply block max-w-[230px] mx-auto
+    @apply block max-w-[230px] mx-auto text-center
 }
 @media screen and (max-width: 1650px){
     .iconWrapper{
