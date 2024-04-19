@@ -79,7 +79,6 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     ref={player}
     // className={styles.video}
     autoPlay
-    muted
     streamType="live"
     aspectRatio="16/9"
     // onLoad={() => setBufferingIsActive(true)}

@@ -11,59 +11,59 @@ import styles from './Shows.module.scss'
 
 export default function Shows() {
     const dispatch = useAppDispatch();
-    const [todayIsOpen, setTodayIsOpen] = useState(true);
-    const [weekIsOpen, setWeekIsOpen] = useState(false);
-    const [monthIsOpen, setMonthIsOpen] = useState(false);
-    const [calendarIsOpen, setCalendarIsOpen] = useState(false);
-    const shows = useAppSelector(state => state.shows.events);
-    const todayIsOpenHandler = () => {
-        setTodayIsOpen(!todayIsOpen);
-        setMonthIsOpen(false);
-        setWeekIsOpen(false);
-        setCalendarIsOpen(false);
-        let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
-        let tomorrow: number | Date | string  = today + 86399000
-        today = new Date(today)
-        tomorrow = new Date(tomorrow)
-        // today.toISOString().split('T')[0]
-        // tomorrow.split('T')[0]
+    // const [todayIsOpen, setTodayIsOpen] = useState(true);
+    // const [weekIsOpen, setWeekIsOpen] = useState(false);
+    // const [monthIsOpen, setMonthIsOpen] = useState(false);
+    // const [calendarIsOpen, setCalendarIsOpen] = useState(false);
+    // const shows = useAppSelector(state => state.shows.events);
+    // const todayIsOpenHandler = () => {
+    //     setTodayIsOpen(!todayIsOpen);
+    //     setMonthIsOpen(false);
+    //     setWeekIsOpen(false);
+    //     setCalendarIsOpen(false);
+    //     let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
+    //     let tomorrow: number | Date | string  = today + 86399000
+    //     today = new Date(today)
+    //     tomorrow = new Date(tomorrow)
+    //     // today.toISOString().split('T')[0]
+    //     // tomorrow.split('T')[0]
         
-        today = today.toISOString().split('T')[0]
-        tomorrow = tomorrow.toISOString().split('T')[0]
-        console.log(today, tomorrow);
-        dispatch(getShowByFilter({to: tomorrow, from: today}))
-    }
-    const weekIsOpenHandler = () => {
-        setWeekIsOpen(!weekIsOpen);
-        setMonthIsOpen(false);
-        setTodayIsOpen(false);
-        setCalendarIsOpen(false);
-        let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
-        let lastDayOfWeek: number | Date | string  = today + 7 * 24 * 60 * 60 * 1000;
-        today = new Date(today)
-        lastDayOfWeek = new Date(lastDayOfWeek)
-        today = today.toISOString().split('T')[0];
-        lastDayOfWeek = lastDayOfWeek.toISOString().split('T')[0];
-        dispatch(getShowByFilter({to: lastDayOfWeek, from: today}));
-    }
-    const monthIsOpenHandler = () => {
-        setMonthIsOpen(!monthIsOpen);
-        setTodayIsOpen(false);
-        setWeekIsOpen(false);
-        setCalendarIsOpen(false);
-        let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
-        let lastDayOfPrevMonth: number | Date | string  = today + 8 * 24 * 60 * 60 * 1000 * 4;
-        today = new Date(today)
-        lastDayOfPrevMonth = new Date(lastDayOfPrevMonth )
-        today = today.toISOString().split('T')[0];
-        lastDayOfPrevMonth = lastDayOfPrevMonth.toISOString().split('T')[0];
-        dispatch(getShowByFilter({to: lastDayOfPrevMonth, from: today}))};
-    const calendarIsOpenHandler = () => {
-        setCalendarIsOpen(!calendarIsOpen);
-        setTodayIsOpen(false);
-        setWeekIsOpen(false);
-        setMonthIsOpen(false);
-    }
+    //     today = today.toISOString().split('T')[0]
+    //     tomorrow = tomorrow.toISOString().split('T')[0]
+    //     console.log(today, tomorrow);
+    //     dispatch(getShowByFilter({to: tomorrow, from: today}))
+    // }
+    // const weekIsOpenHandler = () => {
+    //     setWeekIsOpen(!weekIsOpen);
+    //     setMonthIsOpen(false);
+    //     setTodayIsOpen(false);
+    //     setCalendarIsOpen(false);
+    //     let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
+    //     let lastDayOfWeek: number | Date | string  = today + 7 * 24 * 60 * 60 * 1000;
+    //     today = new Date(today)
+    //     lastDayOfWeek = new Date(lastDayOfWeek)
+    //     today = today.toISOString().split('T')[0];
+    //     lastDayOfWeek = lastDayOfWeek.toISOString().split('T')[0];
+    //     dispatch(getShowByFilter({to: lastDayOfWeek, from: today}));
+    // }
+    // const monthIsOpenHandler = () => {
+    //     setMonthIsOpen(!monthIsOpen);
+    //     setTodayIsOpen(false);
+    //     setWeekIsOpen(false);
+    //     setCalendarIsOpen(false);
+    //     let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
+    //     let lastDayOfPrevMonth: number | Date | string  = today + 8 * 24 * 60 * 60 * 1000 * 4;
+    //     today = new Date(today)
+    //     lastDayOfPrevMonth = new Date(lastDayOfPrevMonth )
+    //     today = today.toISOString().split('T')[0];
+    //     lastDayOfPrevMonth = lastDayOfPrevMonth.toISOString().split('T')[0];
+    //     dispatch(getShowByFilter({to: lastDayOfPrevMonth, from: today}))};
+    // const calendarIsOpenHandler = () => {
+    //     setCalendarIsOpen(!calendarIsOpen);
+    //     setTodayIsOpen(false);
+    //     setWeekIsOpen(false);
+    //     setMonthIsOpen(false);
+    // }
     useEffect(() => {
         let today: number | Date = new Date().setUTCHours(0, 0, 0, 0);
         let tomorrow: number | Date  = today + 86399000
@@ -86,12 +86,12 @@ export default function Shows() {
             {/* <span onClick={todayIsOpenHandler} className={todayIsOpen ? styles.spanActive : ''}>Today</span>
             <span onClick={weekIsOpenHandler} className={weekIsOpen ? styles.spanActive : ''}>This Week</span>
             <span onClick={monthIsOpenHandler} className={monthIsOpen ? styles.spanActive : ''}>This Month</span> */}
-            <Link href={'/today'} className={todayIsOpen ? styles.spanActive : ''}>Today</Link>
-            <Link href={'/week'} className={weekIsOpen ? styles.spanActive : ''}>This Week</Link>
-            <Link href={'/month'} className={monthIsOpen ? styles.spanActive : ''}>This Month</Link>
+            <Link href={'/today'}>Today</Link>
+            <Link href={'/week'}>This Week</Link>
+            <Link href={'/month'}>This Month</Link>
             {/* <span onClick={calendarIsOpenHandler} className={calendarIsOpen ? styles.spanActive : ''}>Choose dates</span> */}
         </div>
-        {
+        {/* {
             todayIsOpen && <ShowsByDate shows={shows} />
         }
         {
@@ -102,7 +102,7 @@ export default function Shows() {
         }
         {
             calendarIsOpen && <CalendarComp />
-        }
+        } */}
         <div className={styles.genres}>
             <Link href={'/genre/country'}>Country</Link>
             <Link href={'/genre/electronic'}>Electronic</Link>

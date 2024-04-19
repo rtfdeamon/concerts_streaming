@@ -83,6 +83,8 @@ export default function ShowPreview({params}:IPreviewParams) {
           ),
         })
         const data: any = await res.json();
+        console.log('tset')
+        await getConcert()
         return data;
       } catch(e){
         toast({
@@ -92,6 +94,7 @@ export default function ShowPreview({params}:IPreviewParams) {
             <ToastAction altText="Hide">Hide</ToastAction>
           ),
         })
+        await getConcert()
       }
     }
 const buyHandler = () => {
@@ -129,20 +132,20 @@ const buyHandler = () => {
   }
 
 
+  async function getConcert(){
+    fetch(`${process.env.BACKEND_URL}/concerts/${params.id}/`, {
+      method: 'GET',
+      headers: token === null ?
+      {}
+      :
+      {
+        'Authorization':`Bearer ${await getTokenForApi()}`
+      }
+    })
+    .then(res => res.json())
+    .then(res => setShow(res))
+  }
   useEffect(() => {
-    async function getConcert(){
-      fetch(`${process.env.BACKEND_URL}/concerts/${params.id}/`, {
-        method: 'GET',
-        headers: token === null ?
-        {}
-        :
-        {
-          'Authorization':`Bearer ${await getTokenForApi()}`
-        }
-      })
-      .then(res => res.json())
-      .then(res => setShow(res))
-    }
     getConcert()
   }, [])
   useEffect(() => {

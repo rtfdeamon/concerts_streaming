@@ -53,8 +53,6 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   useEffect(() => {
     if (typeof concertInfo.current !== 'undefined' && !lastStream){
       const lastStream = concertInfo.current[concertInfo.current.length - 1]
-      console.log('lastStre', lastStream)
-      console.log('all', concertInfo.current)
       setLastStream(lastStream)
     }
   }, [tick])
@@ -110,7 +108,7 @@ useEffect(() => {
     const now = new Date();
     concertInfo.current.forEach((performance: { start_date: string | number | Date; end_date: string | number | Date; playback_url: any; }) => {
       const startAt = new Date(performance.start_date);
-      console.log(now, startAt)
+      // console.log(now, startAt)
       if(now < startAt) return;
       const endAt = new Date(performance.end_date);
       if(now > endAt) return; 
@@ -119,8 +117,9 @@ useEffect(() => {
       }
       if (currentStream === lastStream.playback_url){
         const endAt = new Date(lastStream.end_date)
-        console.log('test', now > endAt)
-        if (now > endAt) {
+        console.log(now,  endAt)
+        if (now >= endAt) {
+          console.log('end')
           setCurrentStream('')
           setEndStream(true)
         }
@@ -148,6 +147,7 @@ useEffect(()=>{
               .padStart(2, '0')}:${diffS.toString().padStart(2, '0')}`}</p>
             </div>
           }
+          <span>{endStream ? 'end' : 'start'}</span>
           {
             currentStream && endStream == false &&
             <Player currentStream={currentStream} />

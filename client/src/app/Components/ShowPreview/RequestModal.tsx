@@ -53,7 +53,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
     const requestHandler = async () => {
       if (desc === '' || artistDemoRef.current === ''){
         toast({
-          title: "Please, fill all required fields",
+          title: "Please, fill all required fields/wait till audio will be loaded",
           action: (
             <ToastAction altText="Hide">Hide</ToastAction>
           ),

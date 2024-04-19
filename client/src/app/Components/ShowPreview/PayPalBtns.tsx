@@ -15,7 +15,6 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
 
   const createOrder = async () => {
     const data:any = await buyTicket(showId, user?.id as number);
-    console.log('FSDFS', data)
       if(data.status === 'activated'){
         toast({
           title: "You already bought this ticket",
@@ -24,6 +23,7 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
             <ToastAction altText="Hide">Hide</ToastAction>
           ),
         })
+        location.reload();
         return;
       }
       else{ return fetch(`${process.env.BACKEND_URL}/orders/`, {
@@ -67,6 +67,7 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
           <ToastAction altText="Hide">Hide</ToastAction>
         ),
       })
+      location.reload();
     })
     .catch(e => {
       toast({
