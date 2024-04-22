@@ -77,6 +77,7 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     />  */}
     <MediaPlayer
     ref={player}
+    className="mt-[60px] h-[50vh] w-[50vw]"
     // className={styles.video}
     autoPlay
     streamType="live"
@@ -107,6 +108,7 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     load="idle"
     posterLoad="idle"
     title="Sprite Fight"
+    volume={0.7}
     src={currSrc.current}>
     {/* <Poster
       className={styles.poster}

@@ -16,6 +16,7 @@ import { VolumeSlider } from '@vidstack/react';
 import { FullscreenButton } from '@vidstack/react';
 import { FullscreenExitIcon, FullscreenIcon } from '@vidstack/react/icons';
 import { MediaPlayerInstance } from '@vidstack/react';
+import { G } from "@vidstack/react/dist/types/vidstack.js"
 
 export default function Player({currentStream}:{currentStream: string}) {
     //@ts-ignore
@@ -36,6 +37,8 @@ export default function Player({currentStream}:{currentStream: string}) {
       forceUpdate()
   }, [currentStream])
 
+
+  
     async function getStreamingInfo() {
       const res = await fetch(`${process.env.BACKEND_URL}/streaming/info/`, {
           method: 'GET',
@@ -86,22 +89,24 @@ export default function Player({currentStream}:{currentStream: string}) {
   ref={player}
   // className={styles.video}
   autoPlay
-  muted
   streamType="live"
   aspectRatio="16/9"
   // onLoad={() => setBufferingIsActive(true)}
-  controls={true}
+  controls={player.current?.state?.playing ? false : true}
   onError={() => {
     // location.reload()
     currSrc.current = ''
     currSrc.current = currentStream
     forceUpdate()
+    player.current.play()
+  
   }}
   onHlsError={(err) => {
     currSrc.current = currentStream
     currSrc.current = ''
     currSrc.current = currentStream
     forceUpdate()
+    player.current.play()
         // player.current.play()
         // player.current.refresh()
         // console.log('err', err)
