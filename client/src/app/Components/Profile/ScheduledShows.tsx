@@ -24,7 +24,7 @@ export default function ScheduledConcerts() {
     return (
     <section className={styles.sectionWrapper}>
         <div className={styles.titleWrapper}>
-          <Image src={CalendarIcon} width={50} height={50} alt='calendar' />
+          {/* <Image src={CalendarIcon} width={50} height={50} alt='calendar' /> */}
             <h5 className={styles.title}>Scheduled shows</h5>
         </div>
         <div className={styles.shows}>

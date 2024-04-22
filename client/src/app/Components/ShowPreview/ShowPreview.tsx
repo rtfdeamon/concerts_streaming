@@ -83,8 +83,6 @@ export default function ShowPreview({params}:IPreviewParams) {
           ),
         })
         const data: any = await res.json();
-        console.log('tset')
-        await getConcert()
         return data;
       } catch(e){
         toast({
@@ -94,7 +92,6 @@ export default function ShowPreview({params}:IPreviewParams) {
             <ToastAction altText="Hide">Hide</ToastAction>
           ),
         })
-        await getConcert()
       }
     }
 const buyHandler = () => {

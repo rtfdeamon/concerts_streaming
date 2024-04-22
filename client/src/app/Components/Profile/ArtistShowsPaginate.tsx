@@ -94,7 +94,7 @@ export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
   return (
     <>
       <Items filteredSessions={currentItems} />
-      {currentItems.length > 4 &&
+      {filteredByUserId.current.length  > 4 &&
         <ReactPaginate
           className={styles.paginate}
           breakLabel="..."

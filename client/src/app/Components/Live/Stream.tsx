@@ -53,6 +53,8 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   useEffect(() => {
     if (typeof concertInfo.current !== 'undefined' && !lastStream){
       const lastStream = concertInfo.current[concertInfo.current.length - 1]
+      console.log('lastStre', lastStream)
+      console.log('all', concertInfo.current)
       setLastStream(lastStream)
     }
   }, [tick])
@@ -108,21 +110,15 @@ useEffect(() => {
     const now = new Date();
     concertInfo.current.forEach((performance: { start_date: string | number | Date; end_date: string | number | Date; playback_url: any; }) => {
       const startAt = new Date(performance.start_date);
-      // console.log(now, startAt)
+      console.log(now, startAt)
       if(now < startAt) return;
       const endAt = new Date(performance.end_date);
-      if(now > endAt) return; 
-      if(currentStream != performance.playback_url) {  
-        setCurrentStream(performance.playback_url)
-      }
-      if (currentStream === lastStream.playback_url){
-        const endAt = new Date(lastStream.end_date)
-        console.log(now,  endAt)
-        if (now >= endAt) {
-          console.log('end')
-          setCurrentStream('')
-          setEndStream(true)
-        }
+      console.log(now, new Date(lastStream?.end_date))
+      if(currentStream === lastStream?.playback_url && now >= new Date(lastStream?.end_date)) {
+        setEndStream(true)
+      }; 
+      if(currentStream != performance?.playback_url && currentStream !== lastStream?.playback_url) {  
+        setCurrentStream(performance?.playback_url)
       }
       
   })
@@ -138,6 +134,7 @@ useEffect(()=>{
     <section className={styles.section}>
         <Button className={styles.backBtn} onClick={routerHandler}>Back</Button>
         <div className={styles.videoWrapper}>
+        {endStream && <span className='text-2xl block mx-auto text-center'>Show is over</span>}
           {
             !isNaN(diffDays) && 
             <div className='text-center mt-4 absolute top-[20px] left-[45%]'>
@@ -147,7 +144,6 @@ useEffect(()=>{
               .padStart(2, '0')}:${diffS.toString().padStart(2, '0')}`}</p>
             </div>
           }
-          <span>{endStream ? 'end' : 'start'}</span>
           {
             currentStream && endStream == false &&
             <Player currentStream={currentStream} />
@@ -220,7 +216,6 @@ useEffect(()=>{
             //   <MediaProvider />
             // </MediaPlayer>
           }
-          {endStream && <span className='text-xl text-center'>Show is over</span>}
     </div>
     {show?.ads && typeof show?.ads[0]?.banner_url !== 'undefined' &&
      <Image className={styles.banner} src={show.ads[0].banner_url} width={1200} height={320} alt='Banner'/>}

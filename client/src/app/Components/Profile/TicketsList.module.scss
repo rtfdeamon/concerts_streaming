@@ -23,13 +23,13 @@
     &:hover{
         @apply text-blue-500
     }
-    @apply duration-500 transition-all mb-12 mr-8
+    @apply duration-500 transition-all mb-6 mr-8
 }
 .poster{
     @apply block mb-3 rounded-md
 }
 .concTitle{
-    @apply text-2xl mb-2
+    @apply text-xl mb-2
 }
 .poster{
     @apply h-[200px]

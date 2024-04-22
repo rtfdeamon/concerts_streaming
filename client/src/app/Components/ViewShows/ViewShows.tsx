@@ -24,13 +24,11 @@ export default function ViewShows({title, type}:{title: string, type: string}) {
       dispatch(getShowByFilter({to: lastDayOfWeek, from: today}));
   }
   const monthHandler = () => {
-      let today: number | Date | string = new Date().setHours(0, 0, 0, 0);
-      let lastDayOfPrevMonth: number | Date | string  = today + 8 * 24 * 60 * 60 * 1000 * 4;
-      today = new Date(today)
-      lastDayOfPrevMonth = new Date(lastDayOfPrevMonth )
-      today = today.toISOString().split('T')[0];
-      lastDayOfPrevMonth = lastDayOfPrevMonth.toISOString().split('T')[0];
-      dispatch(getShowByFilter({to: lastDayOfPrevMonth, from: today}))};
+      let today: number | Date | string = new Date()
+      // let lastDayOfPrevMonth: number | Date | string  = today + 8 * 24 * 60 * 60 * 1000 * 4;
+      var firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
+      var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
+      dispatch(getShowByFilter({to: lastDay, from: firstDay}))};
 
     const todayHandler = () => {
       let today: number | Date | string = new Date().setHours(0, 0, 0, 0);

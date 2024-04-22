@@ -19,11 +19,11 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
             shows.map((s, i) => (
               <Link href={`/preview/${s.id}`} className={!type ? styles.wrapper : styles.typeWrapper} key={i}>
                 <span className={styles.title}>{s.name}</span>
-                <span className={styles.place}>{s.description}</span>
+                {/* <span className={styles.place}>{s.description}</span> */}
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
                 <span className={styles.date}>
-                  <Image src={CalendarIcon} width={30} height={20} alt={s.name}/>
-                  {new Date(s.date).toUTCString()}
+                  {/* <Image src={CalendarIcon} width={30} height={20} alt={s.name}/> */}
+                  {new Date(s.date).toISOString().split('T')[0]} {new Date(s.date).toISOString().split('T')[1].split('.')[0]}
                 </span>
             </Link>
             ))}

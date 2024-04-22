@@ -6,7 +6,7 @@ export default function ShowsByDate({shows}:{shows: IEvent[]}) {
   return (
     <div className={styles.shows}>
         {shows.length >0 ?
-          <PaginatedItems itemsPerPage={4} items={shows} />
+          <PaginatedItems itemsPerPage={8} items={shows} />
           :
           <div className={styles.showsException}>
             Sorry! No shows yet 🥲

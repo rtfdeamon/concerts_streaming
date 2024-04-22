@@ -16,13 +16,19 @@
     @apply my-5 text-3xl
 }
 .wrapper{
-    @apply mb-6 mx-4
+    & img{
+        @apply w-[350px]
+    }
+    @apply mb-6 mx-8
 }
 .typeWrapper{
     @apply mb-5 w-[500px]
 }
+.wrapper, .typeWrapper{
+    @apply transition-all duration-500 hover:text-blue-500
+}
 .title{
-    @apply block text-center text-2xl
+    @apply block text-center text-xl
 }
 .place{
     @apply block text-center text-slate-400 m-1 max-w-[150px] truncate mx-auto
@@ -34,21 +40,21 @@
     @apply flex items-center justify-center text-base
 }
 .img{
-    @apply block mx-auto my-4 w-[300px] h-[200px]
+    @apply block mx-auto my-2 w-[300px] h-[200px] rounded-md
 }
 .paginate {
     & ul {
         & li{
             &:first-child{
-                @apply absolute left-[-54px]
+                @apply absolute left-[5px]
             }
             &:last-child{
-                @apply absolute right-[-4px]
+                @apply absolute right-[5px]
             }
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
-            transform: translate(80%, -20%);
+            transform: translate(0%, -80%);
             @apply absolute top-1/2
         }
     }

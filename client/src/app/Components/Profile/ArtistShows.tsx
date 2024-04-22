@@ -44,7 +44,7 @@ export default function ArtistShows() {
     <section className={styles.wrapper}>
       <h5 className={styles.title}>My shows</h5>
       {
-          typeof user !== "undefined" && sessions.length > 0 && <ArtistShowsPaginate  itemsPerPage={4} sessions={sessions} user={user}/>
+          typeof user !== "undefined" && sessions.length > 0 && <ArtistShowsPaginate  itemsPerPage={5} sessions={sessions} user={user}/>
       }
       {isLoaded || typeof user == 'undefined' && <Loading />}
       {!isLoaded && sessions?.length === 0 && 
