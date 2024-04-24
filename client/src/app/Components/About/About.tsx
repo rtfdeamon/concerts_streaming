@@ -15,7 +15,8 @@ export default function About() {
             <div className={styles.infoWrapper}>
                 <h6>About our service</h6>
                 <h5>Digital Platform Entertainment</h5>
-                <p>Bringing the newest digital platform live stream for aspiring artists of all genres. So, take a look or book a show, or perform at a show, and advertise in our shows… All for one cause, personal growth!  Welcome to DPE – “Because you deserve it…”</p>
+                <p>Bringing the newest digital live stream platform to live stream for aspiring artists of all genres. So, take a look or book a show, or perform at a show, and advertise in our shows… All for one cause, personal growth in the community! !  Welcome to DPE – 
+                <span className='font-bold italic'>“Because you deserve it…”</span></p>
             </div>
             <div className={styles.iconsWrapper}>
                 <Link href={'/login'} className={styles.iconWrapper}>

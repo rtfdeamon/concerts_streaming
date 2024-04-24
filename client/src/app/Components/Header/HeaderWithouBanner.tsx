@@ -212,7 +212,7 @@ export default function HeaderWithoutBanner() {
                             <NavigationMenuLink href="/artists/genre/indie" title="Typography">
                               Indie
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/all" title="Typography">
+                            <NavigationMenuLink href="/artists/all" title="Typography">
                               All artists
                             </NavigationMenuLink>
                         </div>

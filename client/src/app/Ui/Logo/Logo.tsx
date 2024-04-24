@@ -9,11 +9,11 @@ export default function Logo({variant} : {variant: string}) {
       {
         variant === 'light' ?
         <Link href={process.env.FRONTEND_URL !}>
-          <Image src={LightLogo} width={200} height={20} alt="logo"/>
+          <Image src={LightLogo} width={150} height={10} alt="logo"/>
         </Link>
         :
         <Link href={process.env.FRONTEND_URL !}>
-          <Image src={Dark} width={100} height={5} alt="logo"/>
+          <Image src={Dark} width={150} height={10} alt="logo"/>
         </Link>
       }
     </>

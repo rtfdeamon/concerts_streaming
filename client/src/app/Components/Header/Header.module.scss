@@ -31,7 +31,7 @@
             opacity: 1; /* Firefox */
           }
     }
-    border-bottom: 2px solid #3b82f6;
+    border-bottom: 1px solid #3b82f6;
     @apply relative flex flex-col items-center justify-center h-[15vh] w-[100vw] text-black
 }
 body[theme = "dark"] .header{
