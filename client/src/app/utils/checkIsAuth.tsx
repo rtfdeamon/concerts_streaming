@@ -29,7 +29,6 @@ export default function CheckIsAuth({type}:{type?: string}) {
   }
   if (typeof window !== 'undefined' && localStorage.getItem('authed') !== null){
     isAuth = JSON.parse(localStorage.getItem('authed') as string) as boolean
-    console.log(isAuth)
     if (!isAuth && typeof window !== 'undefined'){
       toast({
         title: "Sorry, you need to be sign in for this page",
