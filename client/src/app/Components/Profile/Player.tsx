@@ -27,20 +27,9 @@ export default function Player({currentStream}:{currentStream: string}) {
   return (
       <ReactHlsPlayer
       playerRef={player}
-      src={currSrc}
-      autoPlay={true}
-      onCanPlay={() => {
-        // setCurrSrc(prev => "")
-        // setCurrSrc(prev => currentStream)
-        // player.current.width = 800
-        console.log('play')
-        setCurrSrc(currentStream)
-        getStreamingInfo() 
-    }}
+      src={currSrc === '' ? currentStream : currSrc}  
+      autoPlay
       onPlay={() => {
-        // setCurrSrc(prev => "")
-        // setCurrSrc(prev => currentStream)
-        // player.current.width = 800
         console.log('play')
         setCurrSrc(currentStream)
         getStreamingInfo() 
@@ -49,11 +38,6 @@ export default function Player({currentStream}:{currentStream: string}) {
       console.log('pause')
       setCurrSrc(currentStream)
       getStreamingInfo() 
-      // setCurrSrc(prev => "")
-      // setCurrSrc(prev => currentStream)
-      // setCurrSrc(prev => "")
-      // setCurrSrc(prev => currentStream)
-      // player.current.width = 800
   }}
       controls
       hlsConfig={{ 

@@ -13,12 +13,15 @@ const nextConfig = {
     ignoreDuringBuilds: true
   },
     images:{
-      domains: ['192.168.100.101', 
+      domains: 
+    [
+      '192.168.100.101', 
       'mmvsds-test.ddns.net',
       's3.test.local',
       'ads.test.local',
       'concertplatform.mmvs.video',
-      'example.com'
+      'example.com',
+      'dp-ent.com'
     ]
     }
 };
