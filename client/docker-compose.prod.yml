@@ -1,0 +1,13 @@
+services:
+
+  frontend:
+    build:
+      context: .
+      args:
+        - BACKEND_URL=${HOST_NAME}/operations 
+        - FRONTEND_URL=${HOST_NAME}    
+    environment:
+      BACKEND_URL: "${HOST_NAME}/operations" 
+      FRONTEND_URL: "${HOST_NAME}"
+    ports:
+      - "8188:3000"
