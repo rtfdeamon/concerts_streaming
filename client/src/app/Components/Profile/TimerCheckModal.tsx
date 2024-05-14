@@ -14,7 +14,6 @@ export default function TimerCheckModal({startDate}: {startDate: any}) {
         const showTime = new Date(startDate.current as string).getTime() / 1000
         const finishTime = new Date().getTime() / 1000
         const diff = (showTime - finishTime)
-        console.log(diff)
         if (diff < 0) {
           setDiff([
               NaN,

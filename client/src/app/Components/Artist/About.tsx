@@ -1,7 +1,6 @@
 'use client'
 import styles from './Artist.module.scss'
 export default function About({id, description, isCalendar}:{id:string, description: string | undefined, isCalendar: boolean}) {
-  console.log(isCalendar);
   
   return (
     <div className={isCalendar ? styles.aboutHalf : styles.about }>

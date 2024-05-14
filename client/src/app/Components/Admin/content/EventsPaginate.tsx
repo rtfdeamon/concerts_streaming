@@ -78,16 +78,12 @@ export function EventsPaginate({itemsPerPage, events}:{itemsPerPage: number, eve
     // (This could be items from props; or items loaded in a local state
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = events.events.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(events.events.length / itemsPerPage);
   
     // Invoke when user click to request another page.
     const handlePageClick = (event:ISelect) => {
       const newOffset = (event.selected * itemsPerPage) % events.events.length;
-      console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );
       setItemOffset(newOffset);
     };
 

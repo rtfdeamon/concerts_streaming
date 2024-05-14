@@ -19,7 +19,6 @@ export default function CalendarComp() {
     today =  new Date(today);
     tomorrow = tomorrow.toISOString();
     today = today.toISOString();
-    console.log(today, tomorrow)
     if (date) dispatch(getShowByFilter({to: tomorrow, from: today}))
   }
 

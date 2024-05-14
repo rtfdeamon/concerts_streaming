@@ -94,7 +94,6 @@ export default function Artist({params}:IArtistParams) {
       }
   }, [token])
   useEffect(() => {
-    console.log(user?.artists_followed.every(u => u.id != params.id))
     if (user?.artists_followed.every(u => u.id != params.id)){
       setIsSubscribed(false)
     } else{

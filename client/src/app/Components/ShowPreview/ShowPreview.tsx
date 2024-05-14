@@ -175,13 +175,11 @@ const buyHandler = () => {
 
   useEffect(() => {
     userTickets?.map(ticket => {
-      console.log(ticket.concert.id, show?.id)
       if (ticket.concert.id == show?.id){
         setIsBought(true)
       }
     })
   }, [userTickets])
-  console.log(userTickets)
   return (
       <>
         <HeaderWithoutBanner />

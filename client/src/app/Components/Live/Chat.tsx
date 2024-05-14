@@ -44,7 +44,6 @@ export default memo(function Chat({id}: {id: string}) {
     useEffect(() => {
       sub.on('publication', function(ctx) {
         setChatMessageReceived(prev => [...prev, ctx.data])
-        console.log(ctx.data)
     });
     }, [centrifuge])
 

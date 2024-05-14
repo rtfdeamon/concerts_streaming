@@ -53,8 +53,6 @@ export default function Stream({id, concertInfo}: {id: string, concertInfo: any}
   useEffect(() => {
     if (typeof concertInfo.current !== 'undefined' && !lastStream){
       const lastStream = concertInfo.current[concertInfo.current.length - 1]
-      console.log('lastStre', lastStream)
-      console.log('all', concertInfo.current)
       setLastStream(lastStream)
     }
   }, [tick])
@@ -110,10 +108,8 @@ useEffect(() => {
     const now = new Date();
     concertInfo.current.forEach((performance: { start_date: string | number | Date; end_date: string | number | Date; playback_url: any; }) => {
       const startAt = new Date(performance.start_date);
-      console.log(now, startAt)
       if(now < startAt) return;
       const endAt = new Date(performance.end_date);
-      console.log(now, new Date(lastStream?.end_date))
       if(currentStream === lastStream?.playback_url && now >= new Date(lastStream?.end_date)) {
         setEndStream(true)
       }; 

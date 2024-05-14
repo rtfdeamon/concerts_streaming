@@ -25,7 +25,6 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     const forceUpdate = () => setRerender(!rerender);
 
     useEffect(() => {
-        console.log('change', currentStream)
         // location.reload()
         currSrc.current = currentStream
         forceUpdate()

@@ -24,7 +24,6 @@ export default function TariffPaypalBtns({variant}: {variant: string}) {
         })
         .then((response) => response.json())
         .then((order) => {
-          console.log(order)
           return order.id
         })
         .catch(e => {

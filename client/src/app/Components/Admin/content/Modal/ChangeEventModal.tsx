@@ -122,7 +122,6 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
 
     const changeOrder = async () => {
-        console.log(order.length)
         if (order.length !== 0 && order.length !== perfomanceOrder.length){
             toast({
                 title: "You need to select all artists",

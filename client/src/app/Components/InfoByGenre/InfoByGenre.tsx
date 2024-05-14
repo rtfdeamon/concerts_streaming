@@ -10,7 +10,6 @@ import { IArtist, IEvent } from '@/app/types/interfaces';
 import styles from './InfoByGenre.module.scss'
 
 async function getData(id:string, isArtists?: boolean) {
-    console.log(!isArtists && id ==='all')
     let res
     if (!isArtists && id ==='all'){
         res = await fetch(`${process.env.BACKEND_URL}/concerts/`);

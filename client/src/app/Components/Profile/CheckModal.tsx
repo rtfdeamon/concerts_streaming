@@ -60,11 +60,9 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
                 }
             })
             const data = await res.json();
-            console.log(data.status)
             if (data.status === "starting"){
                 setPlayIsActive(true);
             }
-            console.log(data)
             getStreamStatus()
         } catch{
             getStreamStatus()

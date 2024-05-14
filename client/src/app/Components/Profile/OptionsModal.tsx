@@ -44,7 +44,6 @@ export default function OptionsModal({isOpen, setIsOpen, id, posterUrl}:{isOpen:
         }
         const stringDate = date.toISOString();
         const res = await dispatch(changeShow({id, name, description, date: stringDate, slots}));
-        console.log(res)
         // if (res.payload.ok) setIsOpen(false) : setErr (true)
     }
     return (

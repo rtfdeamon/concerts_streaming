@@ -49,9 +49,6 @@ export default function Header({type, children}:{type: string, children?: React.
       setIsMobile(true);
     }
   }, [])
-  const testHandler = () => {
-    console.log('test')
-  }
   return (
     <header className={styles.header}>
       {

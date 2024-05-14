@@ -40,7 +40,6 @@ export default function ViewShows({title, type}:{title: string, type: string}) {
       
       today = today.toISOString().split('T')[0]
       tomorrow = tomorrow.toISOString().split('T')[0]
-      console.log(today, tomorrow);
       dispatch(getShowByFilter({to: tomorrow, from: today}))
   }
   return (
