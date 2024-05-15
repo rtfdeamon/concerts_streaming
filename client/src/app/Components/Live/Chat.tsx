@@ -6,7 +6,7 @@ import { IMessage, IUser } from "@/app/types/interfaces";
 import styles from './Chat.module.scss';
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 
-const centrifuge = new Centrifuge('wss://concertplatform.mmvs.video:8443/connection/websocket')
+const centrifuge = new Centrifuge('wss://dp-ent.com:8443/connection/websocket')
 export default memo(function Chat({id}: {id: string}) {
     const [messageText, setMessageText] = useState('');
     const [chatMessageReceived, setChatMessageReceived] = useState<IMessage[]>([]);

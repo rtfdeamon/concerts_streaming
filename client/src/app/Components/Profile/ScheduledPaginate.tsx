@@ -23,7 +23,7 @@ function Items({shows}: {shows: IEvent[]}) {
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
                 <span className={styles.date}>
                   <Image src={CalendarIcon} width={30} height={20} alt={s.name}/>
-                  {new Date(s.date).toUTCString()}
+                  {new Date(s.date).toISOString()}
                 </span>
             </Link>
             ))}
