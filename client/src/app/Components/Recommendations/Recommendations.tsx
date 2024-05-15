@@ -19,6 +19,8 @@ export default async function Recommendations() {
   let artists: IArtist[] = await getShows();
   return (
     <>
+    {
+      artists.length > 0 &&
         <section className={styles.section}>
             <h5 className={styles.title}>Trending artists</h5>
             <div className={styles.artistsWrapper}>
@@ -38,6 +40,7 @@ export default async function Recommendations() {
               }
             </div>
         </section>
+    }
     </>
   )
 }
