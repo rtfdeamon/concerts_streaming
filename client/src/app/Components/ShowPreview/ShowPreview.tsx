@@ -226,7 +226,7 @@ const buyHandler = () => {
                       className={styles.buyBtn}>
                       Go to the show</Button>
                     } 
-                    {isBought &&
+                    {isBought  &&
                       <Button
                       onClick={() => {
                         router.push(`/live/${show.id}`)
@@ -241,6 +241,12 @@ const buyHandler = () => {
                       <p className={styles.desc}>
                         {show.description}
                       </p>
+                      <Button
+                      className="bg-blue-500 h-[60px]"
+                      onClick={() => {
+                        router.push(`/live/${show.id}`)
+                      }}>
+                      Go to the show</Button>
                       <div className={styles.calendar}>
                           <div className={styles.live}>
                               <Image className={styles.LiveIcon} src={Live} height={50} width={50} alt="live" />
