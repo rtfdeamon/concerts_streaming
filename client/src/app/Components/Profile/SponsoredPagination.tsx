@@ -50,7 +50,7 @@ function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
                       <Image className={styles.img} src={s.banner_url} width={300} height={150} alt='banner'/>
                       <span className={styles.date}>
                       <Image src={CalendarIcon} width={30} height={20} alt={s.concert.name}/>
-                      {new Date(s.concert.date).toISOString()}
+                      {new Date(s.concert.date).toLocaleString()}
                     </span>
               </Link>
                 <div className={styles.controls}>

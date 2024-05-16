@@ -23,7 +23,7 @@ function Items({shows, type}: {shows: IEvent[], type?: string}) {
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
                 <span className={styles.date}>
                   {/* <Image src={CalendarIcon} width={30} height={20} alt={s.name}/> */}
-                  {new Date(s.date).toISOString().split('T')[0]} {new Date(s.date).toISOString().split('T')[1].split('.')[0]}
+                  {new Date(s.date).toLocaleString()}
                 </span>
             </Link>
             ))}

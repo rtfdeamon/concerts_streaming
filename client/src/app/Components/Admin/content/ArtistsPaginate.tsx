@@ -81,7 +81,7 @@ export function ArtistsPaginate({itemsPerPage, sessions}:{itemsPerPage: number, 
   return (
     <>
       <Items sessions={currentItems} />
-      {sessions.length > 4 && 
+      {sessions.length >= 3 && 
         <ReactPaginate
           className={styles.paginate}
           breakLabel="..."

@@ -14,11 +14,12 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
   const [desc, setDesc] = useState('');
   const { toast } = useToast();
   const artistDemoRef = useRef('');
+  const [isFetching, setIsFetching] = useState(false)
   // const [perfomanceTime, setPerfomanceTime] = useState<number>(10)
     const descChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
       setDesc(e.target.value);
     }
-
+    
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         if (e.target.files){
             const file = e.target.files[0];
@@ -27,6 +28,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         // .then((data) => sendFileMessage(data)); 
       }
       const uploadFile = async (file: File) => {
+        setIsFetching(true)
         const link:any = await generateUploadLink('artist_demo');
         const res = await fetch(`${link.url}`, {
             method: 'PUT',
@@ -37,6 +39,9 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
           })
         if (res.ok){
           artistDemoRef.current = (link.url.split('?')[0])
+          setIsFetching(false)
+        }else {
+          setIsFetching(false)
         }
     }
     async function postArtistDemo(){
@@ -51,34 +56,36 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         })
       }
     const requestHandler = async () => {
-      if (desc === '' || artistDemoRef.current === ''){
+      if (desc === ''){
         toast({
-          title: "Please, fill all required fields/wait till audio will be loaded",
+          title: "Please, fill all required fields",
           action: (
             <ToastAction altText="Hide">Hide</ToastAction>
           ),
         })
         return
       }
-      postArtistDemo()
-        .then(res => {
-          toast({
-            title: "Your request is sent",
-            action: (
-              <ToastAction altText="Hide">Hide</ToastAction>
-            ),
-          })
-          setIsOpen(false)
+        setIsFetching(true)
+        postArtistDemo().then(res => {
+        toast({
+          title: "Your request is sent",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
         })
-        .catch(e => {
-          toast({
-            title: "Something went wrong",
-            variant: "destructive",
-            action: (
-              <ToastAction altText="Hide">Hide</ToastAction>
-            ),
-          })
+        setIsOpen(false)
+        setIsFetching(false)
+      })
+      .catch(e => {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
         })
+      })
+      .finally(() => setIsFetching(false))
     }
   return (
 <Transition appear show={isOpen} as={Fragment}>
@@ -130,9 +137,10 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
                     <button
                       type="button"
                       className="block mx-auto rounded-md cursor-pointer border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      disabled={isFetching}
                       onClick={requestHandler}
                     >
-                      Send request
+                      {isFetching ? <span>Loading...</span> : <span>Send request</span>}
                     </button>
                   </div>
                 </Dialog.Panel>

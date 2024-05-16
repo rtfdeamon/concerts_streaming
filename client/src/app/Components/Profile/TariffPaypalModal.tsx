@@ -45,7 +45,8 @@ export default function TariffPaypalModal({isOpen, setIsOpen, variant} :
                   </Dialog.Title>
                   <div className="mt-4">
                       <div>
-                          <TariffPaypalBtns variant={variant} />          
+                          {/* <TariffPaypalBtns variant={variant} />           */}
+                          This feature is in progress
                       </div>
                   </div>
                 </Dialog.Panel>

@@ -45,6 +45,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
     const [category, setCategory] = useState("");
     const [access, setAccess] = useState("");
     const [price, setPrice] = useState("");
+    const [isFetching, setIsFetching] = useState(false)
     const categoryChangeHandler = (e: string) => {
         setCategory(e);
     }
@@ -52,6 +53,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
         setAccess(e);
     }
     const onUploadHanler = async (e:ChangeEvent<HTMLInputElement>) => {
+        setIsFetching(true)
         if (e.target.files){
             const link:any = await generateUploadLink('poster');
             const res = await fetch(`${link.url}`, {
@@ -64,9 +66,9 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
             if (res.ok){
                 setPosterUrl((link.url.split('?')[0]))
             }
+            setIsFetching(false)
         }
     }
-
     const onCreateHandler = async () => {
         if (name === '' || description === "" || slots < 1 || typeof date === 'undefined'
         || perfomanceTime === 0 || typeof posterUrl === 'undefined' || category === '' || access === ""){
@@ -81,6 +83,15 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
             } else{
                 setErr (true);
             }
+            setName('')
+            setDescription('')
+            setDate(undefined)
+            setPosterUrl(undefined)
+            setAccess('')
+            setCategory('')
+            setPerfomanceTime(0)
+            setSlots(1)
+            
         }
     }
     const onCloseHandler = () => {
@@ -219,7 +230,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                         </div>
                             </div>
                         <div className="mt-4">
-                            <Button onClick={onCreateHandler} className={styles.btn}>Create</Button>
+                            <Button  disabled={isFetching} onClick={onCreateHandler} className={styles.btn}>Create</Button>
                         </div>
                             {/* <div>
                                 <Image src={Show} width={500} height={400}  alt="image" />
