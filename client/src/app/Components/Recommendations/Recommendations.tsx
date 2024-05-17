@@ -1,3 +1,4 @@
+'use client'
 import Loading from '../Loading/Loading'
 import { IArtist } from '@/app/types/interfaces'
 import User from '../../../../public/user (1).svg'
@@ -15,8 +16,11 @@ async function getShows(){
   return data;
 }
 
-export default async function Recommendations() {
-  let artists: IArtist[] = await getShows();
+export default function Recommendations() {
+  let artists: IArtist[] =  []
+  getShows()
+  .then((res) => res.json())
+  .then((res) => {artists = res});
   return (
     <>
     {
