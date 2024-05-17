@@ -12,19 +12,46 @@ export default memo(function Chat({id}: {id: string}) {
     const [chatMessageReceived, setChatMessageReceived] = useState<IMessage[]>([]);
     const [showMoreMessage, setShowMoreMessage] = useState<number>(-1);
     const [user, setUser] = useState<IUser>()
-    const [sub, setSub] = useState(() => centrifuge.newSubscription(`concert-${id}`))
-
-    useLayoutEffect(() => {
-      centrifuge.disconnect();
-      sub.unsubscribe();
-    }, [])
+    const [sub, setSub] = useState(() => {
+      try {
+        const test = centrifuge.newSubscription(`concert-${id}`)
+        return test
+      } catch(e){
+        return null
+      }
+    })
 
     useEffect(() => {
-      sub.subscribe();
+      setSub(() => {
+        try {
+          const test = centrifuge.newSubscription(`concert-${id}`)
+          return test
+        } catch(e){
+          console.log(e)
+          return null
+        }
+      })
+    }, [centrifuge])
+    useEffect(() => {
+      if (!sub){
+        setSub(() => {
+          try {
+            const test = centrifuge.newSubscription(`concert-${id}`)
+            test?.subscribe();
+            centrifuge.connect();
+            return test
+          } catch(e){
+            console.log(e)
+            return null
+          }
+        })
+      }
+    })
+    useEffect(() => {
+      sub?.subscribe();
       centrifuge.connect();
       return () => {
-        sub.unsubscribe();
-        centrifuge.disconnect();
+        // centrifuge.removeSubscription(sub)
       }
     }, [sub])
     useEffect(() => {
@@ -42,7 +69,7 @@ export default memo(function Chat({id}: {id: string}) {
     }, [])
 
     useEffect(() => {
-      sub.on('publication', function(ctx) {
+      sub?.on('publication', function(ctx) {
         setChatMessageReceived(prev => [...prev, ctx.data])
     });
     }, [centrifuge])
