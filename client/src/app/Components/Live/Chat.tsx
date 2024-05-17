@@ -112,7 +112,7 @@ export default memo(function Chat({id}: {id: string}) {
                   >{msg?.sender?.name}</span>
                   <span
                   className={styles.chatDate}
-              >{typeof msg.date !== 'undefined' && new Date(Math.round(msg.date)*1000).toTimeString().split('GMT')[0]}</span>
+              >{typeof msg.date !== 'undefined' && new Date(Math.round(msg.date)*1000).toLocaleString().split(',')[1]}</span>
               </div>
               <p className={styles.messageText}
               >{msg.text}</p>

@@ -2,8 +2,6 @@ import React, {useRef, useState} from "react"
 import ReactHlsPlayer from "react-hls-player"
 import { getTokenForApi } from "@/app/utils/getTokenForApi"
 import { IStreamingInfo } from "@/app/types/interfaces"
-import { MediaPlayer } from "@vidstack/react"
-import { MediaProvider } from "@vidstack/react"
 
 export default function Player({currentStream}:{currentStream: string}) {
     //@ts-ignore
