@@ -132,7 +132,7 @@ const buyHandler = () => {
   async function getConcert(){
     fetch(`${process.env.BACKEND_URL}/concerts/${params.id}/`, {
       method: 'GET',
-      headers: token === null ?
+      headers: !role ?
       {}
       :
       {
@@ -145,7 +145,7 @@ const buyHandler = () => {
   useEffect(() => {
     getConcert()
   }, [])
-  useEffect(() => {
+  useEffect(() => { 
     getTokenForApi()
       .then(res => setToken(res))
       if (typeof token !== 'undefined'){
@@ -180,6 +180,7 @@ const buyHandler = () => {
       }
     })
   }, [userTickets])
+  console.log('role', role)
   return (
       <>
         <HeaderWithoutBanner />
@@ -241,7 +242,7 @@ const buyHandler = () => {
                       <p className={styles.desc}>
                         {show.description}
                       </p>
-                      {role !== 'viewer' && 
+                      {role !== 'viewer' && role && 
                                             <Button
                                             className="bg-blue-500 h-[60px]"
                                             onClick={() => {

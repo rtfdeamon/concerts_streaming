@@ -5,6 +5,7 @@ import User from '../../../../public/user (1).svg'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Recommendations.module.scss'
+import { useEffect, useState } from 'react'
 
 export const dynamic = "force-dynamic"
 
@@ -17,10 +18,15 @@ async function getShows(){
 }
 
 export default function Recommendations() {
-  let artists: IArtist[] =  []
-  getShows()
-  .then((res) => res.json())
-  .then((res) => {artists = res});
+  let [artists, setArtists] = useState<IArtist[]>([])
+  useEffect(() => {
+    getShows()
+    .then((res) => {
+      setArtists(res)
+    })
+    .catch(e => console.log(e))
+  }, [])
+
   return (
     <>
     {

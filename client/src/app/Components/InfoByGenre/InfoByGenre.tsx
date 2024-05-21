@@ -38,6 +38,8 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
     const [eventData, setEventData] = useState<IEvent[]>([]);
     const [isLoaded, setIsLoaded] = useState(true);
     const id = params.params.id;
+    console.log(id)
+    const shownId = id?.split('%26')?.join('&')
     useEffect(() => {
         getData(id, isArtists)
             .then(res => {
@@ -54,19 +56,19 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
     return (
     <section>
         <HeaderWithoutBanner />
-        <h5 className={styles.title}>{isArtists ? <span>{id} artists</span> : <span>{id} shows</span>}</h5>
+        <h5 className={styles.title}>{isArtists ? <span>{shownId} artists</span> : <span>{shownId} shows</span>}</h5>
         <div className={styles.wrapper}>
             {isArtists ? 
                 !isLoaded  && artistData.length === 0 ?
                 <div className={styles.showsException}>
-                    Sorry! No artist in {id} genre yet 🥲
+                    Sorry! No artist in {shownId} genre yet 🥲
                 </div>
                 :
                 <ArtistsPaginate  itemsPerPage={15} artists={artistData}/>
                 :
                 !isLoaded && eventData.length === 0 ? 
                     <div className={styles.showsException}>
-                        Sorry! No shows in {id} genre yet 🥲
+                        Sorry! No shows in {shownId} genre yet 🥲
                     </div>
                 :
                 <PaginatedItems  itemsPerPage={6} items={eventData} type='genres'/>
