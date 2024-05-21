@@ -154,7 +154,6 @@ export default memo(function Chat({id}: {id: string}) {
     <div className={styles.input}>
     <InputEmojiWithRef
               // inputClass={styles.input}
-              height={60}
               keepOpened
               language="ru"
               value={messageText}
