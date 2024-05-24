@@ -75,6 +75,9 @@ body[theme = "dark"] .section{
     .artistWrapper{
         @apply w-[350px]
     }
+    .artistName{
+        @apply max-w-[150px]
+    }
 }
 @media screen and (max-width:850px) {
     .artistWrapper{
@@ -99,7 +102,10 @@ body[theme = "dark"] .section{
 }
 @media screen and (max-width:650px) {
     .artistWrapper{
-        @apply w-[150px]
+        @apply w-[150px] text-center
+    }
+    .artistName{
+        @apply max-w-[90px]
     }
     .linkWrapper{
         @apply flex flex-col items-center justify-center

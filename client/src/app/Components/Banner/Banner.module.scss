@@ -47,6 +47,9 @@ body[theme = "dark"] .promo{
         & h1{
            @apply text-4xl
         }
+        & span{
+            @apply text-2xl
+         }
     }
    }
    @media screen and (max-width: 768px){
@@ -57,10 +60,22 @@ body[theme = "dark"] .promo{
         @apply w-[100vw]
     }
    }
-   @media screen and (max-width: 420px){
+   @media screen and (max-width: 550px){
+    .promo{
+        & span{
+            @apply mr-[0px]
+         }
+        @apply pl-8
+    }
+   }
+   @media screen and (max-width: 460px){
     .promo{
         & h1{
            @apply text-2xl
         }
+        & span{
+            @apply text-xl
+         }
+         @apply pl-4
     }
    }

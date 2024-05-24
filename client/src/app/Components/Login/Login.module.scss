@@ -5,7 +5,7 @@
     @apply flex flex-col
 }
 .formWrapper{
-    @apply block w-72 m-auto 
+    @apply block w-72 m-auto z-[2]
 }
 .input{
     @apply mb-5 mt-5 text-black

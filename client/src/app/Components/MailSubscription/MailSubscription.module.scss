@@ -28,17 +28,22 @@
     .formWrapper{
         @apply max-w-[85vw]
     }
-}
-@media screen and (max-width: 576px) {
-    .formWrapper{
-        & button{
-            @apply mt-10
+    .form {
+        & h5{
+            @apply text-2xl
         }
-        @apply max-w-[75vw] flex flex-col items-center justify-center
+    }
+    .btn{
+        @apply text-sm
+    }
+}
+@media screen and (max-width: 580px) {
+    .formWrapper{
+        @apply max-w-[80vw]
     }
     .form{
         & h5{
-            @apply text-2xl
+            @apply text-xl
         }
     }
 }

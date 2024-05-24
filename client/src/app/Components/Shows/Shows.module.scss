@@ -66,6 +66,15 @@ body[theme = "dark"] .section{
             @apply mt-5
         }
     }
+    .dates a:last-child{
+        @apply mt-5
+    }
+    .dates a{
+        @apply mr-2 ml-2
+    }
+    .artists a{
+        @apply mr-0
+    }
     .sectionTitle{
         @apply text-center
     }

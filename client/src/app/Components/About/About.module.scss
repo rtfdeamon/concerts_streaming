@@ -137,6 +137,9 @@
     } 
 }
 @media screen and (max-width: 620px){
+    .section{
+        @apply py-12
+    }
     .infoWrapper{
         & h5{
             @apply text-2xl
@@ -149,11 +152,15 @@
         &:nth-child(2n){
             @apply ml-2
         }
+        &:nth-child(5n), &:nth-child(6n){
+            @apply mb-5
+        }
         @apply w-[160px]
     }
     .iconText{
         @apply text-sm
     } 
+    
 }
 @media screen and (max-width: 480px){
     .iconWrapper{

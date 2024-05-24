@@ -51,11 +51,11 @@ body[theme = "dark"] .header{
         z-index: 100;
 }
 .headerMobileWrapper{
-    @apply absolute top-[-300vh] py-32 flex flex-col justify-start items-center bottom-0 right-0 left-0 transition-all duration-200
+    @apply absolute top-[-300vh] py-32 flex flex-col justify-start items-center bottom-0 right-0 left-0 transition-all duration-200 z-[1] text-white
 }
 body[burgerIsActive = "close"] .headerMobileWrapper{
     background: rgba(0,0,0, 0.85);
-    @apply top-[0px] z-50
+    @apply top-[0px] z-[50] h-[100vh]
 }
 .wrapper{
     & img{
@@ -150,6 +150,15 @@ body[theme = "dark"] .events button{
         @apply mr-16
     }
 }
+
+@media screen and (max-width: 550px){
+    .header{
+        & a{
+            @apply mr-0
+        }
+    }
+}
+
 @media screen and (max-width:480px) {
     .events{
         @apply flex flex-col justify-center items-center

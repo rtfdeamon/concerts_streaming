@@ -18,7 +18,7 @@
     @apply flex items-center
 }
 
-@media screen and (max-width:576px) {
+@media screen and (max-width:800px) {
     .link:not(:last-child){
         @apply mr-8
     }
@@ -26,12 +26,22 @@
         @apply mr-0
     }
     .logoWrapper{
+        & a{
+            @apply mb-4
+        }
         @apply flex-col items-center justify-center
     }
     .copyright{
         @apply mx-0
     }
 }
+
+@media screen and (max-width: 580px) {
+    .footer, .link{
+        @apply text-sm text-center
+    }
+}
+
 @media screen and (max-width:420px) {
     .link:not(:last-child){
         @apply mr-8
