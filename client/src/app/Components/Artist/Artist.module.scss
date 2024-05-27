@@ -14,7 +14,7 @@
     @apply flex flex-col items-center justify-center
 }
 .artistTitle{
-    @apply text-3xl font-semibold mb-4
+    @apply text-3xl font-semibold mb-4 max-w-[400px] truncate
 }
 .desc{
     word-wrap: break-word;
@@ -83,4 +83,45 @@
 }
 .aboutWrapper{
     @apply  w-[100%] flex justify-between
+}
+
+@media screen and (max-width: 1024px) {
+    .upcomingDesc{
+        @apply max-w-[120px] truncate
+    }
+    .banner{
+        @apply h-[350px] mt-0
+    }
+}
+@media screen and (max-width: 780px) {
+    .artistAvatar{
+        @apply h-[120px] w-[120px]
+    }
+    .artistTitle{
+        @apply text-xl max-w-[200px]
+    }
+    .banner{
+        background-position: unset;
+    }
+    .btn{
+        @apply w-[170px] text-[16px]
+    }
+    .btnBanner{
+        @apply text-[16px]
+    }
+    .upcomingDesc{
+        @apply max-w-[120px] truncate
+    }
+    .upcomingDate{
+        @apply w-[100px] text-wrap text-center
+    }
+    .banner{
+        @apply h-[350px] mt-0
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .artistTitle{
+        @apply max-w-[120px]
+    }
 }
