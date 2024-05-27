@@ -5,6 +5,7 @@ import { FollowedPaginate } from './FollowedPaginate'
 import Loading from '../Loading/Loading'
 import { IArtist } from '@/app/types/interfaces'
 import styles from './FollowedArtists.module.scss'
+import { ArtistsPaginate } from '../ArtistsPaginate/ArtistsPaginate'
 
 
 
@@ -33,7 +34,7 @@ export default function FollowedArtists() {
       <div className={styles.artistsWrapper}>
         {
           typeof artists !== 'undefined'  && artists.length > 0 &&
-              <FollowedPaginate itemsPerPage={9} artists={artists} />
+              <ArtistsPaginate itemsPerPage={9} artists={artists} />
         }
         {isLoaded && <Loading />}
         {!isLoaded && artists?.length === 0 && 

@@ -1,24 +1,49 @@
 .title{
-    @apply text-5xl text-center my-10 mr-28
+    @apply text-5xl text-center my-10
 }
 .showsException{
     @apply block mt-14 text-3xl text-center 
 }
 .requestWrapper{
-    @apply flex flex-wrap justify-center mx-auto
+    @apply flex flex-wrap justify-around items-center mx-auto
 }
 .showWrapper{
     &:hover{
         @apply text-blue-500
     }
-    @apply w-[400px] mr-10 text-center bg-white rounded-md p-6 mb-8 transition-all duration-500
+    @apply w-[400px] text-center bg-white rounded-md p-6 mb-8 transition-all duration-500
 }
 .image{
     @apply block mx-auto w-[80px] h-[80px] rounded-full
 }
 .name{
-    @apply mt-2
+    @apply mt-2 max-w-[80px] truncate mx-auto
 }
 .genre{
     @apply text-slate-500
+}
+
+@media screen and (max-width:1024px) {
+    .showWrapper{
+        @apply w-[300px]
+    }
+}
+
+@media screen and (max-width:768px) {
+    .requestWrapper{
+        @apply justify-evenly
+    }
+    .showWrapper{
+        & img{
+            width: 60px;
+            height: 60px;
+        }
+        @apply w-[200px] mr-[10px]
+    }
+}
+
+@media screen and (max-width:570px) {
+    .showWrapper{
+        @apply w-[150px]
+    }
 }

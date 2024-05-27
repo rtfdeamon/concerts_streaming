@@ -10,3 +10,9 @@
 .btn{
     @apply bg-blue-500
 }
+
+@media screen and (max-width:800px) {
+    .profileImage{
+        @apply mr-0 mt-2
+    }
+}

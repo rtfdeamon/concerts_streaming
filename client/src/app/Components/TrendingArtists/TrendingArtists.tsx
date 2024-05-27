@@ -24,7 +24,7 @@ export default function TrendingArtists() {
   return (
     <section>
     <h5 className={styles.title}>Trending artists</h5>
-    <div>
+    <div className={styles.wrapper}>
     {artists && artists.length >0 &&
           <div className={styles.requestWrapper}>
               {artists.map((a, i) => (

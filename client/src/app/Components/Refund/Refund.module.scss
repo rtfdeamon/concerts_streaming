@@ -1,5 +1,5 @@
 .wrapper{
-    @apply max-w-[1500px] mx-auto
+    @apply max-w-[1500px] mx-auto px-5
 }
 .title{
     @apply block text-5xl text-center my-12
@@ -32,4 +32,27 @@
 }
 .col{
     @apply border-2 border-black
+}
+
+@media screen and (max-width:1280px){
+    .title{
+        @apply text-3xl
+    }
+    .subtitle{
+        @apply text-xl
+    }
+}
+@media screen and (max-width:1024px){
+    .title{
+        @apply text-2xl
+    }
+    .subtitle, .col{
+        @apply text-xl
+    }
+    .text{
+        @apply text-base
+    }
+    .wrapper li, .wrapper ul, .listItem {
+        @apply text-base
+    }
 }

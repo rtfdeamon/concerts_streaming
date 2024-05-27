@@ -38,7 +38,6 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
     const [eventData, setEventData] = useState<IEvent[]>([]);
     const [isLoaded, setIsLoaded] = useState(true);
     const id = params.params.id;
-    console.log(id)
     const shownId = id?.split('%26')?.join('&')
     useEffect(() => {
         getData(id, isArtists)

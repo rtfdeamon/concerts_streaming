@@ -87,7 +87,7 @@ export default function Privacy() {
             Information relating to our use of cookies and similar technologies is set out in our <Link href={`${process.env.FRONTEND_URL}/cookie}`}>Cookie Policy</Link>, which forms part of the Privacy Policy. When we refer to the Privacy Policy, we are referring to the Privacy Policy and Cookie Policy.
             Please take some time to read this Privacy Policy, along with our <Link href={`${process.env.FRONTEND_URL}/terms}`}>Terms of Use</Link>, to ensure you understand and are comfortable with our use and disclosure of your personal data.
             Please note that this Privacy Policy only applies to the Website, Apps and Services (together, the “Platform”). When using the Platform, you may find links to other websites, apps and services, or tools that enable you to share information with other websites, apps and services. Digital Platform Entertainment, LLC is not responsible for the privacy practices of these other websites, apps and services and we recommend that you review the privacy policies of each of these websites, apps or services before connecting your Digital Platform Entertainment, LLC account or sharing any personal data.
-            If you do not agree to any of the provisions of this Privacy Policy, you should not use the Platform. If you have any questions or concerns about this Privacy Policy, you can contact us at <span className={styles.bold}>digitalplatformentertainment@gmail.com</span>
+            If you do not agree to any of the provisions of this Privacy Policy, you should not use the Platform. If you have any questions or concerns about this Privacy Policy, you can contact us at <span className={styles.bold}>digitalplatformentertainment@gmail.com </span>
             Digital Platform Entertainment, LLC is committed to putting its users first and believes you should know what personal data we collect about you, why we collect it, and how we use and share it. That’s why we’ve designed this Privacy Policy to give you simple, clear, and actionable information about our privacy and data protection practices.
             We believe users should also have meaningful choices over the personal data we collect, use and share as described in this Privacy Policy. 
             </p>
@@ -396,7 +396,7 @@ export default function Privacy() {
             </tr>
             <tr className={styles.row}>
               <th className={styles.col} scope="row">Commercial information, such as revenue and/or transaction information related to your content and use of the Platform and Digital Platform Entertainment, LLC Direct Monetization</th>
-              <td>HAffiliates; service providers; business partners; joint marketing partners; contest sponsors</td>
+              <td>Affiliates; service providers; business partners; joint marketing partners; contest sponsors</td>
               <td className={styles.col}>None</td>
             </tr>
             <tr className={styles.row}>

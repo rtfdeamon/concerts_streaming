@@ -50,6 +50,12 @@
     }
 }
 @media screen and (max-width: 520px) {
+    .wrapper{
+        @apply justify-around
+    }
+    .requestWrapper{
+        @apply mr-0
+    }
     .showWrapper{
         @apply w-[150px]
     }

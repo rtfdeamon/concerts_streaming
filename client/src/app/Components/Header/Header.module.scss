@@ -15,7 +15,7 @@
                 opacity: 1; /* Firefox */
               }
         }
-        @apply relative flex flex-col h-[100vh] w-[100vw] text-white
+        @apply flex flex-col h-[100vh] w-[100vw] text-white relative
         
 }
 .headerWithoutBanner{
@@ -32,7 +32,7 @@
           }
     }
     border-bottom: 1px solid #3b82f6;
-    @apply relative flex flex-col items-center justify-center h-[15vh] w-[100vw] text-black
+    @apply flex flex-col items-center justify-center h-[15vh] w-[100vw] text-black
 }
 body[theme = "dark"] .header{
     background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../../public/banner.jpg');
@@ -45,17 +45,17 @@ body[theme = "dark"] .header{
     @apply flex justify-between items-center w-[95vw] mx-auto text-xl py-5 px-10 bg-transparent
 }
 .burger, .burgerClose{
-        position: absolute;
+        position: fixed;
         right: 40px;
         top: 20px;
         z-index: 100;
 }
 .headerMobileWrapper{
-    @apply absolute top-[-300vh] py-32 flex flex-col justify-start items-center bottom-0 right-0 left-0 transition-all duration-200 z-[1] text-white
+    @apply fixed top-[-300vh] py-32 flex flex-col justify-start items-center right-0 left-0 transition-all duration-200 z-[1] text-white
 }
 body[burgerIsActive = "close"] .headerMobileWrapper{
     background: rgba(0,0,0, 0.85);
-    @apply top-[0px] z-[50] h-[100vh]
+    @apply top-[0px] z-[50] h-full
 }
 .wrapper{
     & img{
