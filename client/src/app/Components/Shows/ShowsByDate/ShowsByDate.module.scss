@@ -6,6 +6,7 @@
 // }
 .genresShows{
     height: 100% !important;
+    min-height: 80vh;
 }
 .genresShows {
     & div{
@@ -74,7 +75,7 @@
             & a{
                 @apply text-5xl transition-all duration-500 opacity-50 hover:opacity-100
             }
-            transform: translate(80%, -30vh);
+            transform: translate(80%, -45vh);
             @apply absolute
             }
         }

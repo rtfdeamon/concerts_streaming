@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useLayoutEffect, memo } from "react";
+import { useState, useEffect, memo } from "react";
 import { Centrifuge } from 'centrifuge';
 import InputEmojiWithRef from "react-input-emoji";
 import { IMessage, IUser } from "@/app/types/interfaces";

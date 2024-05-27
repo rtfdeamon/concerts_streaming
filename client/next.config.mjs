@@ -1,3 +1,8 @@
+const { NODE_ENV } = process.env;
+
+const prod = NODE_ENV === "production";
+const dev = NODE_ENV === "development";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',

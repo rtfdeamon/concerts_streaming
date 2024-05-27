@@ -60,15 +60,18 @@ body[theme = "dark"] .promo{
         & h1{
            @apply text-3xl
         }
-        @apply w-[100vw]
+        & .btn{
+            @apply right-0 p-8
+        }
+        @apply mx-auto w-[100vw] right-[0] left-0 pl-0
     }
+
    }
    @media screen and (max-width: 550px){
     .promo{
         & span{
             @apply mr-[0px]
          }
-        @apply pl-8
     }
    }
    @media screen and (max-width: 460px){
@@ -79,6 +82,5 @@ body[theme = "dark"] .promo{
         & span{
             @apply text-xl
          }
-         @apply pl-4
     }
    }

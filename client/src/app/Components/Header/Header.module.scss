@@ -45,10 +45,13 @@ body[theme = "dark"] .header{
     @apply flex justify-between items-center w-[95vw] mx-auto text-xl py-5 px-10 bg-transparent
 }
 .burger, .burgerClose{
-        position: fixed;
+        position: absolute;
         right: 40px;
         top: 20px;
         z-index: 100;
+}
+.burgerClose{
+    position: fixed;
 }
 .headerMobileWrapper{
     @apply fixed top-[-300vh] py-32 flex flex-col justify-start items-center right-0 left-0 transition-all duration-200 z-[1] text-white
@@ -121,15 +124,20 @@ body[theme = "dark"] .events button{
         }
 }
 }
-@media screen and (max-width:900pX) {
+@media screen and (max-width:900px) {
     .events{
         @apply mb-6
+    }
+    .headerWithoutBanner a{
+        @apply mr-0
     }
 }
 @media screen and (max-width:850px) {
     .events{
         @apply mr-12
     }
+}
+@media screen and (max-width: 800px) {
 }
 @media screen and (max-width:768px) {
     .header, .headerWithoutBanner{
