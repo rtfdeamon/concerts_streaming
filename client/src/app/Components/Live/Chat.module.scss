@@ -58,7 +58,7 @@
     @apply w-[40px] h-[40px] mt-[10px] ml-[20px] cursor-pointer
 }
 .sendButton{
-    @apply bg-[#0058dc] text-white rounded-xl p-4 block mx-auto w-[90%]
+    @apply bg-[#0058dc] text-white rounded-xl h-[50px] p-4 flex justify-center items-center mx-auto w-[90%]
 }
 .inputUpload{
     @apply absolute hidden
@@ -74,4 +74,68 @@
 }
 .file{
     margin: 0 auto;
+}
+
+@media screen and (max-width:1280px) {
+    .input >div >div{
+        font-size: 13px !important;
+    }
+}
+
+@media screen and (max-width:1100px) {
+    .chat{
+        @apply w-[25vw]
+    }
+}
+@media screen and (max-width:1000px) {
+    .chat{
+        @apply w-[35vw]
+    }
+}
+@media screen and (max-width:900px) {
+    .chat{
+        @apply w-[45vw]
+    }
+}
+@media screen and (max-width:780px) {
+    .chat{
+        @apply w-[55vw]
+    }
+    .input >div >div{
+        font-size: 11px !important;
+    }
+    .sendButton{
+        @apply text-[14px]
+    }
+}
+@media screen and (max-width:680px) {
+    .chat{
+        @apply w-[80vw]
+    }
+}
+@media screen and (max-width:580px) {
+    .chat{
+        @apply w-[100vw]
+    }
+}
+@media screen and (max-width:520px) {
+    .chat{
+        @apply w-[110vw]
+    }
+}
+@media screen and (max-width:500px) {
+    .chat{
+        @apply w-[130vw]
+    }
+    .input{
+        @apply left-[-20px] w-[130%]
+    }
+    .sendButton{
+        @apply w-full
+    }
+}
+@media screen and (max-width:400px) {
+    .chat{
+        @apply w-[160vw]
+    }
 }

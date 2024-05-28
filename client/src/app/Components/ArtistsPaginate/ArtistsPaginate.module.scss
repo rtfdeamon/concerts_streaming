@@ -7,8 +7,8 @@
  .request{
      @apply flex items-center justify-center
  }
- .showWrapper{
-     @apply w-[350px] bg-white rounded-md p-6 mb-8
+ .showWrapper, .showProfileWrapper{
+     @apply w-[350px] bg-white rounded-md p-6 mb-8 mr-2 ml-2
  }
  .showLink{
      &:hover{
@@ -44,11 +44,24 @@
 @apply w-full bottom-0 flex justify-center items-center pb-7 text-center
 }
 
-@media screen and (max-width: 800px) {
-    .showWrapper{
-        @apply w-[220px]
+@media screen and (max-width: 1280px){
+    .showProfileWrapper{
+        @apply w-[170px]
     }
 }
+
+@media screen and (max-width: 1024px) {
+    .showWrapper{
+        @apply w-[200px]
+    }
+}
+
+@media screen and (max-width:700px) {
+    .showProfileWrapper{
+        @apply w-[130px]
+    }
+}
+
 @media screen and (max-width: 520px) {
     .wrapper{
         @apply justify-around
@@ -60,8 +73,11 @@
         @apply w-[150px]
     }
 }
-@media screen and (max-width: 390px) {
-    .showWrapper{
-        @apply w-[130px]
+@media screen and (max-width: 440px) {
+    .showProfileWrapper{
+        & img{
+            @apply w-[50px] h-[50px]
+        }
+        @apply w-[100px]
     }
 }

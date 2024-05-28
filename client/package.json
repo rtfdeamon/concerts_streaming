@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "browserslist": [">0.3%", "not dead", "not op_mini all"],
+  "browserslist": { "production": [ ">0.2%", "not dead", "not op_mini all" ], "development": [ "Chrome 118", "last 1 chrome version", "last 1 edge version", "last 1 firefox version", "last 5 safari version" ] },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@paypal/checkout-server-sdk": "^1.0.3",

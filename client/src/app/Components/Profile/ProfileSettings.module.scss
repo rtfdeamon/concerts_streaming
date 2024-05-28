@@ -35,5 +35,71 @@
     &:hover{
         @apply bg-blue-700
     }
-    @apply flex mx-auto mt-5 right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
+    @apply flex mx-auto mt-5 right-2 text-xl h-[64px] bg-blue-500 duration-500 transition-all
+}
+
+@media screen and (max-width: 1280px) {
+    .title{
+        @apply text-4xl
+    }
+    .btn{
+        @apply text-base
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .avatar{
+        @apply max-w-[400px] max-h-[300px]
+    }
+    .title{
+        @apply text-3xl
+    }
+    .btn{
+        @apply text-base
+    }
+    .span{
+        @apply text-base
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .avatar{
+        @apply max-w-[350px] max-h-[200px]
+    }
+    .title{
+        @apply mb-[10px]
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .avatar{
+        @apply max-w-[300px]
+    }
+    .fileInput, .profileName{
+        @apply w-[250px]
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .avatar{
+        @apply max-w-[270px]
+    }
+    .fileInput, .profileName{
+        @apply w-[220px]
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .avatar{
+        @apply max-w-[250px]
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .avatar{
+        @apply max-w-[230px]
+    }
+    .fileInput, .profileName{
+        @apply w-[200px]
+    }
 }

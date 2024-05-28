@@ -17,13 +17,13 @@
     @apply block mt-14 ml-24 text-3xl text-center 
 }
 .ticketInfos{
-    @apply  flex flex-wrap h-auto justify-center text-center
+    @apply  flex flex-wrap h-auto justify-evenly text-center
 }
 .link{
     &:hover{
         @apply text-blue-500
     }
-    @apply duration-500 transition-all mb-6 mr-8
+    @apply duration-500 transition-all mb-6 mx-2
 }
 .poster{
     @apply block mb-3 rounded-md
@@ -36,4 +36,32 @@
 }
 .genre{
     @apply text-slate-400
+}
+
+@media screen and (max-width: 1024px) {
+    .poster{
+            @apply w-[180px] h-[120px]
+        }
+}
+@media screen and (max-width: 800px) {
+    .poster{
+            @apply w-[160px]
+        }
+}
+
+@media screen and (max-width: 580px) {
+    .poster{
+            @apply w-[140px] h-[115px] object-cover
+        }
+}
+
+@media screen and (max-width: 480px) {
+    .poster{
+            @apply w-[120px] h-[100px]
+        }
+}
+@media screen and (max-width: 440px) {
+    .poster{
+            @apply w-[100px] h-[80px]
+        }
 }

@@ -21,7 +21,7 @@
         &:hover{
             @apply bg-blue-700
         }
-        @apply right-2 text-xl mt-8 p-8 bg-blue-500 duration-500 transition-all
+        @apply right-2 text-xl mt-8 h-[64px] bg-blue-500 duration-500 transition-all
     }
     @apply absolute top-[50%] right-[5vw] flex-col items-center justify-center text-center pl-16 flex
 }
@@ -61,7 +61,7 @@ body[theme = "dark"] .promo{
            @apply text-3xl
         }
         & .btn{
-            @apply right-0 p-8
+            @apply right-0
         }
         @apply mx-auto w-[100vw] right-[0] left-0 pl-0
     }

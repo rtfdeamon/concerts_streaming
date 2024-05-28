@@ -12,6 +12,7 @@ import { VolumeSlider } from '@vidstack/react';
 import { FullscreenButton } from '@vidstack/react';
 import { FullscreenExitIcon, FullscreenIcon } from '@vidstack/react/icons';
 import { MediaPlayerInstance } from '@vidstack/react';
+import styles from './Player.module.scss'
 
 export default React.memo(function Player({currentStream}:{currentStream: string}) {
     //@ts-ignore
@@ -76,8 +77,7 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     />  */}
     <MediaPlayer
     ref={player}
-    className="mt-[60px] h-[50vh] w-[50vw]"
-    // className={styles.video}
+    className={styles.video}
     autoPlay
     streamType="live"
     aspectRatio="16/9"
@@ -108,7 +108,9 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     posterLoad="idle"
     title="Sprite Fight"
     volume={0.7}
-    src={currSrc.current}>
+    // src={currSrc.current}
+    src={'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'}
+    >
     {/* <Poster
       className={styles.poster}
       src={show?.poster_url}

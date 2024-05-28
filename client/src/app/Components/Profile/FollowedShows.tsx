@@ -5,6 +5,7 @@ import Loading from '../Loading/Loading'
 import PaginatedItems from '../Shows/Paginate/Paginate'
 import { IEvent, IUser } from '@/app/types/interfaces'
 import styles from './FollowedShows.module.scss'
+import ProfilePaginatedItems from '../Shows/Paginate/ProfilePaginate'
 
 
 export default function FollowedShows() {
@@ -34,7 +35,7 @@ export default function FollowedShows() {
       <div className={styles.shows}>
         {
             shows && shows.length > 0 &&
-            <PaginatedItems itemsPerPage={6} items={shows}/>
+            <ProfilePaginatedItems isProfile itemsPerPage={6} items={shows}/>
         }
         {!isLoaded && shows?.length === 0 && 
             <h6 className={styles.error}>Sorry! No followed shows yet 🥲</h6>

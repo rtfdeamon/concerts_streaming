@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import CalendarIcon from '../../../../../public/../public/calendar-range.svg'
 import { IEvent } from '@/app/types/interfaces';
-import styles from '..//ShowsByDate/ShowsByDate.module.scss'
+import styles from './ProfilePaginate.module.scss'
 
 interface ISelect{
         selected: number;
@@ -14,10 +14,10 @@ interface ISelect{
 function Items({shows, type, isProfile}: {shows: IEvent[], type?: string, isProfile?: boolean}) {
     return (
       <>
-      <div className={type && !isProfile ? styles.genresShows : styles.shows}>
+      <div className={styles.profileShows}>
           {shows &&
             shows.map((s, i) => (
-              <Link href={`/preview/${s.id}`} className={!type && !isProfile ? styles.wrapper : styles.typeWrapper} key={i}>
+              <Link href={`/preview/${s.id}`} className={styles.profileType} key={i}>
                 <span className={styles.title}>{s.name}</span>
                 {/* <span className={styles.place}>{s.description}</span> */}
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
@@ -32,7 +32,7 @@ function Items({shows, type, isProfile}: {shows: IEvent[], type?: string, isProf
     );
   }
 
-  export default function PaginatedItems({itemsPerPage, items, type, isProfile}: {itemsPerPage: number, items: IEvent[], type?: string, isProfile?: boolean}){
+  export default function ProfilePaginatedItems({itemsPerPage, items, type, isProfile}: {itemsPerPage: number, items: IEvent[], type?: string, isProfile?: boolean}){
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);

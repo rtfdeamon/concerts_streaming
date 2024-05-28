@@ -34,7 +34,7 @@ export default function FollowedArtists() {
       <div className={styles.artistsWrapper}>
         {
           typeof artists !== 'undefined'  && artists.length > 0 &&
-              <ArtistsPaginate itemsPerPage={9} artists={artists} />
+              <ArtistsPaginate isProfile itemsPerPage={9} artists={artists} />
         }
         {isLoaded && <Loading />}
         {!isLoaded && artists?.length === 0 && 

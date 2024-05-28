@@ -20,7 +20,7 @@
     &:hover{
         @apply bg-blue-700
     }
-    @apply flex absolute w-[300px] h-[60px] text-3xl mx-auto p-8 bg-blue-500 duration-500 transition-all top-1/2
+    @apply flex absolute w-[300px] h-[64px] text-3xl mx-auto bg-blue-500 duration-500 transition-all top-1/2
 }
 .paypalWrapper{
     @apply block h-[230px] mt-4 mx-auto p-8 text-3xl
@@ -39,13 +39,13 @@
     &:hover{
         @apply bg-blue-500 text-white
     }
-    @apply flex mx-auto text-black right-2 text-xl p-8 bg-transparent border-2 border-blue-500 duration-500 transition-all
+    @apply flex mx-auto text-black right-2 text-xl h-[64px] bg-transparent border-2 border-blue-500 duration-500 transition-all
 }
 .btnBanner{
     &:hover{
         @apply bg-blue-700
     }
-    @apply flex mx-auto right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
+    @apply flex mx-auto right-2 text-xl h-[64px] bg-blue-500 duration-500 transition-all
 }
 .aboutWrapper{
     @apply flex

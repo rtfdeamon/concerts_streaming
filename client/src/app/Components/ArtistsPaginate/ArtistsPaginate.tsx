@@ -11,12 +11,96 @@ interface ISelect{
     selected: number;
 }
 
-function Items(artists:{artists: IArtist[]}) {
+function Items({artists, isProfile}:{artists: IArtist[], isProfile?: boolean}) {
   return (
     <div className={styles.wrapper}>
-        {artists &&  artists.artists.map((a, i) => (
+        {artists &&  artists.map((a, i) => (
             <div key={i} className={styles.requestWrapper}>
-                <div className={styles.showWrapper}>
+                <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
+                  <div className={styles.request}>
+                  <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.name}</p>
+                  </Link>
+                  </div>
+              </div>
+            </div>
+        ))}
+                {artists &&  artists.map((a, i) => (
+            <div key={i} className={styles.requestWrapper}>
+                <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
+                  <div className={styles.request}>
+                  <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.name}</p>
+                  </Link>
+                  </div>
+              </div>
+            </div>
+        ))}
+                {artists &&  artists.map((a, i) => (
+            <div key={i} className={styles.requestWrapper}>
+                <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
+                  <div className={styles.request}>
+                  <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.name}</p>
+                  </Link>
+                  </div>
+              </div>
+            </div>
+        ))}
+                {artists &&  artists.map((a, i) => (
+            <div key={i} className={styles.requestWrapper}>
+                <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
+                  <div className={styles.request}>
+                  <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.name}</p>
+                  </Link>
+                  </div>
+              </div>
+            </div>
+        ))}
+                {artists &&  artists.map((a, i) => (
+            <div key={i} className={styles.requestWrapper}>
+                <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
+                  <div className={styles.request}>
+                  <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.name}</p>
+                  </Link>
+                  </div>
+              </div>
+            </div>
+        ))}
+                {artists &&  artists.map((a, i) => (
+            <div key={i} className={styles.requestWrapper}>
+                <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
+                  <div className={styles.request}>
+                  <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.name}</p>
+                  </Link>
+                  </div>
+              </div>
+            </div>
+        ))}
+                {artists &&  artists.map((a, i) => (
+            <div key={i} className={styles.requestWrapper}>
+                <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
+                  <div className={styles.request}>
+                  <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <p>{a.name}</p>
+                  </Link>
+                  </div>
+              </div>
+            </div>
+        ))}
+                {artists &&  artists.map((a, i) => (
+            <div key={i} className={styles.requestWrapper}>
+                <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
                   <div className={styles.request}>
                   <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
                       <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
@@ -33,9 +117,9 @@ function Items(artists:{artists: IArtist[]}) {
 
 
 export function ArtistsPaginate(
-  {itemsPerPage, artists, all, isArtistList}
+  {itemsPerPage, artists, all, isArtistList, isProfile}
   :{itemsPerPage: number, artists: IArtist[],
-    all?: boolean, isArtistList?: boolean}) {
+    all?: boolean, isArtistList?: boolean, isProfile?: boolean}) {
   const [itemOffset, setItemOffset] = useState(0);
   
     // Simulate fetching items from another resources.
@@ -52,7 +136,7 @@ export function ArtistsPaginate(
   };
   return (
     <>
-      <Items artists={currentItems} />
+      <Items artists={currentItems} isProfile={isProfile} />
       {typeof all !== 'undefined' && artists.length > 15 && 
               <ReactPaginate
               className={styles.paginate}

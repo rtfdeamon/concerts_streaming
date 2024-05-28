@@ -155,7 +155,7 @@ body[theme = "dark"] .events button{
         @apply mb-10 w-[90vw] mr-0 justify-center
     }
     .profileWrapper a:first-child{
-        @apply mr-16
+        @apply ml-8 mr-16
     }
 }
 
@@ -177,6 +177,6 @@ body[theme = "dark"] .events button{
         }
     }
     .profileWrapper a:first-child{
-        @apply mr-4
+        @apply ml-0 mr-4
     }
 }
