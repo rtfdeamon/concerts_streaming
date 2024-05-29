@@ -32,7 +32,7 @@ function Items({shows, type, isProfile}: {shows: IEvent[], type?: string, isProf
     );
   }
 
-  export default function ProfilePaginatedItems({itemsPerPage, items, type, isProfile}: {itemsPerPage: number, items: IEvent[], type?: string, isProfile?: boolean}){
+  export default function ProfilePaginatedItems({itemsPerPage, items, type, isProfile, isMobile}: {itemsPerPage: number, items: IEvent[], type?: string, isProfile?: boolean, isMobile?: boolean}){
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
@@ -54,7 +54,7 @@ function Items({shows, type, isProfile}: {shows: IEvent[], type?: string, isProf
       <>
         <Items shows={currentItems} type={type} isProfile />
         <div className={!type ? styles.paginate : styles.followedShowsPaginate}>
-          {!type ?
+          {!type && !isMobile &&
               items.length > 4 &&
                   <ReactPaginate
                     nextLabel=">"
@@ -67,8 +67,23 @@ function Items({shows, type, isProfile}: {shows: IEvent[], type?: string, isProf
                     previousLabel="<"
                     renderOnZeroPageCount={null}
                 />
-              :
+          }
+              {type && !isMobile && 
               items.length > 6 &&
+                <ReactPaginate
+                  nextLabel=">"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={0}
+                  activeClassName={'active hidden'}
+                  pageClassName={'hidden'}
+                  breakClassName={'hidden'}
+                  pageCount={pageCount}
+                  previousLabel="<"
+                  renderOnZeroPageCount={null}
+              />
+            }
+          {isMobile && 
+              items.length > 3 &&
                 <ReactPaginate
                   nextLabel=">"
                   onPageChange={handlePageClick}

@@ -1,0 +1,10 @@
+.title{
+    @apply text-3xl text-center mt-5
+}
+
+@media screen and (max-width: 720px) {
+    .title{
+        @apply text-xl
+    }
+    
+}

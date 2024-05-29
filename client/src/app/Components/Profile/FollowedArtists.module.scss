@@ -41,3 +41,9 @@
     }
 @apply absolute bottom-0 left-[55%] flex items-center pb-7 text-center
 }
+
+@media screen and (max-width: 720px) {
+    .title{
+        @apply text-2xl
+    }
+}

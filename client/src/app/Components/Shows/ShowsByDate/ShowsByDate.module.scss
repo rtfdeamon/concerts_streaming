@@ -301,6 +301,9 @@
             @apply flex justify-center relative
         }
     }
+    .showsException{
+        @apply text-xl
+    }
 }
 
 @media screen and (max-width: 690px) {

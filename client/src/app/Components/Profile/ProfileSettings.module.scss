@@ -67,7 +67,7 @@
         @apply max-w-[350px] max-h-[200px]
     }
     .title{
-        @apply mb-[10px]
+        @apply mb-[10px] text-[18px]
     }
 }
 
@@ -93,13 +93,16 @@
     .avatar{
         @apply max-w-[250px]
     }
+    .menuWrapper{
+        @apply items-center mx-auto text-center justify-center
+    }
 }
 
 @media screen and (max-width: 420px) {
     .avatar{
-        @apply max-w-[230px]
+        @apply max-w-[220px]
     }
     .fileInput, .profileName{
-        @apply w-[200px]
+        @apply w-[190px]
     }
 }

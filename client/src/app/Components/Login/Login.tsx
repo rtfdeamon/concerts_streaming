@@ -74,7 +74,7 @@ export default function Login() {
   return (
     <>
       <div className={styles.formWrapper}>
-        <h1 className={styles.title}>Login</h1>
+        <h1 className={styles.title}>Log in</h1>
         {error && <span className={styles.err}>Please, input correct username/password</span>}
           <form className={styles.form}
             onSubmit={onSubmit}
@@ -110,7 +110,7 @@ export default function Login() {
               <Button
                   className={styles.btn}
                   type="submit"
-              >Login</Button>
+              >Log in</Button>
           </form>
           <p className={styles.link}>Did not register yet? <Link href='/signup'> Sign up</Link></p>
         </div>

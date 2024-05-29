@@ -146,7 +146,7 @@ export default memo(function Chat({id}: {id: string}) {
               {msg.text?.length > 27 && 
                   <span
                   onClick={() => showMoreMessageHandler(i)}
-                  className={styles.moreMessage}>Ещё</span>
+                  className={styles.moreMessage}>More</span>
               }
         </div>
       ))}

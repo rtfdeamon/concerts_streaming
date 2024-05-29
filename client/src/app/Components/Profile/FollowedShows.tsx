@@ -13,6 +13,7 @@ export default function FollowedShows() {
     const [user, setUser] = useState<IUser>()
     const [token, setToken] = useState<string | undefined | null>(undefined);
     const [isLoaded, setIsLoaded] = useState(true);
+    const isMobile = window.innerWidth < 480
     useEffect(() => {
       getTokenForApi()
       .then(res => setToken(res))
@@ -35,7 +36,7 @@ export default function FollowedShows() {
       <div className={styles.shows}>
         {
             shows && shows.length > 0 &&
-            <ProfilePaginatedItems isProfile itemsPerPage={6} items={shows}/>
+            <ProfilePaginatedItems isProfile isMobile itemsPerPage={!isMobile ? 6 : 3} items={shows}/>
         }
         {!isLoaded && shows?.length === 0 && 
             <h6 className={styles.error}>Sorry! No followed shows yet 🥲</h6>

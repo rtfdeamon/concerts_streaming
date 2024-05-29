@@ -107,28 +107,52 @@
     .sendButton{
         @apply text-[14px]
     }
+    .remoteMessage{
+        width: 75%;
+    }
+    .remoteMessage, .userMessage, .chatDate, .chatUser{
+        font-size: 10px;
+    }
+    .chatDate, .chatUser{
+        @apply mr-1
+    }
+    .messageText{
+        @apply max-w-[200px]
+    }
 }
 @media screen and (max-width:680px) {
     .chat{
         @apply w-[80vw]
     }
+    .messageText{
+        @apply max-w-[170px]
+    }
 }
 @media screen and (max-width:580px) {
     .chat{
-        @apply w-[100vw]
+        @apply w-[100vw] p-2
+    }
+    .messageText{
+        @apply max-w-[140px]
+    }
+    .input{
+        @apply w-[170px] mx-auto
     }
 }
 @media screen and (max-width:520px) {
     .chat{
         @apply w-[110vw]
     }
+    .remoteMessage{
+        width: 100%;
+    }
+    .remoteMessage, .userMessage, .chatDate, .chatUser{
+        font-size: 10px;
+    }
 }
 @media screen and (max-width:500px) {
     .chat{
         @apply w-[130vw]
-    }
-    .input{
-        @apply left-[-20px] w-[130%]
     }
     .sendButton{
         @apply w-full

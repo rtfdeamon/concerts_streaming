@@ -3,6 +3,7 @@ import {useEffect} from 'react'
 import { useAppDispatch, useAppSelector } from '@/app/hooks/rtkHooks';
 import { getShowByFilter } from '@/app/store/shows/showsSlice';
 import ShowsByDate from '../Shows/ShowsByDate/ShowsByDate';
+import styles from './view-shows.module.scss'
 
 export default function ViewShows({title, type}:{title: string, type: string}) {
     const dispatch = useAppDispatch();
@@ -44,7 +45,7 @@ export default function ViewShows({title, type}:{title: string, type: string}) {
   }
   return (
         <>
-            <h5 className='text-3xl text-center mt-5'>{title}</h5>
+            <h5 className={styles.title}>{title}</h5>
             <ShowsByDate shows={shows} />
         </>
   )

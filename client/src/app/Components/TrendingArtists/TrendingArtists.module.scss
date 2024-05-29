@@ -42,6 +42,16 @@
     }
 }
 
+@media screen and (max-width: 720px){
+    .title{
+        @apply text-2xl
+    }
+    .showsException{
+        @apply text-xl
+    }
+    
+}
+
 @media screen and (max-width:570px) {
     .showWrapper{
         @apply w-[150px]

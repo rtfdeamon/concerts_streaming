@@ -38,25 +38,50 @@
 
 @media screen and (max-width:768px) {
     .artist{
-        @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[150px] min-w-[180px]
-    }
-    .Image{
-        @apply block w-[150px] h-[150px]
-    }
-}
-@media screen and (max-width:576px) {
-    .artist{
-        @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[140] min-w-[160px]
+        @apply block p-4 transition-all duration-500 cursor-pointer min-h-[120px] min-w-[120px]
     }
     .Image{
         @apply block w-[120px] h-[120px]
     }
+    .searchInput{
+        @apply  w-[300px]
+    }
+    .Title{
+        @apply text-xl
+    }
+    .title{
+        @apply text-2xl
+    }
 }
-@media screen and (max-width:376px) {
+
+@media screen and (max-width: 650px){
     .artist{
-        @apply block p-4 mr-[20px] transition-all duration-500 cursor-pointer min-h-[120px] min-w-[120px]
+        @apply min-h-[120px] min-w-[150px]
     }
     .Image{
-        @apply block w-[80px] h-[80px]
+        @apply w-[100px] h-[100px]
+    }
+    .showImage{
+        @apply w-[180px] h-[150px]
+    }
+}
+
+@media screen and (max-width:576px) {
+    .artist{
+        @apply min-h-[100px] min-w-[120px]
+    }
+    .Image{
+        @apply w-[80px] h-[80px]
+    }
+    .showImage{
+        @apply w-[150px] h-[120px]
+    }
+}
+@media screen and (max-width:440px) {
+    .Image{
+        @apply w-[80px] h-[80px]
+    }
+    .showImage{
+        @apply w-[130px] h-[100px]
     }
 }

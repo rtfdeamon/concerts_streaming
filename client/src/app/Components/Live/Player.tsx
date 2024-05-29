@@ -35,46 +35,6 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     }, [currentStream, currSrc])
   return (
     <>
-
-     {/* <ReactHlsPlayer
-        playerRef={player}
-        src={currentStream}
-        autoPlay={true}
-        onLoadedData={() => {
-          player.current.play()
-        }}
-        onLoad={() => {
-            player.current.play()
-        }}
-        onPlay={() => {
-        // setCurrSrc(prev => "")
-        // setCurrSrc(prev => currentStream)
-        // player.current.width = 800
-        console.log('play')
-        // setCurrSrc(currentStream)
-        // getStreamingInfo() 
-    }}
-    onPause={() => {
-        console.log('pause')
-        // setCurrSrc(currentStream)
-        // getStreamingInfo() 
-        // setCurrSrc(prev => "")
-        // setCurrSrc(prev => currentStream)
-        // setCurrSrc(prev => "")
-        // setCurrSrc(prev => currentStream)
-        // player.current.width = 800
-    }}
-        controls
-        hlsConfig={{ 
-        maxLoadingDelay: 4,
-        minAutoBitrate: 0,
-        lowLatencyMode: true,
-        }}
-        // muted
-        playsInline
-        width="100%"
-        height="auto"
-    />  */}
     <MediaPlayer
     ref={player}
     className={styles.video}
@@ -108,8 +68,8 @@ export default React.memo(function Player({currentStream}:{currentStream: string
     posterLoad="idle"
     title="Sprite Fight"
     volume={0.7}
-    // src={currSrc.current}
-    src={'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'}
+    src={currSrc.current}
+    // src={'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'}
     >
     {/* <Poster
       className={styles.poster}

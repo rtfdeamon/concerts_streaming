@@ -47,6 +47,15 @@
     .poster{
             @apply w-[160px]
         }
+        .concTitle{
+            @apply text-[16px]
+        }
+}
+
+@media screen and (max-width: 720px){
+    .title{
+        @apply text-2xl
+    }
 }
 
 @media screen and (max-width: 580px) {

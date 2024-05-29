@@ -16,3 +16,8 @@
         @apply text-3xl
     }
 }
+@media screen and (max-width: 720px){
+    .title{
+        @apply text-2xl
+    }
+}
