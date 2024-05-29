@@ -50,3 +50,13 @@
         }
     }
 }
+
+
+@media screen and (max-width: 720px) {
+    .titleWrapper{
+        @apply text-2xl
+    }
+    .showsException{
+        @apply text-xl
+    }
+}

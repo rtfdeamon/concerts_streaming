@@ -13,3 +13,12 @@
     }
     @apply flex flex-wrap justify-center
  }
+
+ @media screen and (max-width: 720px) {
+    .title{
+        @apply text-2xl
+    }
+    .error{
+       @apply text-xl
+   }
+ }
