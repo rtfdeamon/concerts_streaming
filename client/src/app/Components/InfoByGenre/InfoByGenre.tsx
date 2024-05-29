@@ -48,6 +48,9 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
                 :
                     setEventData(res)
             })
+            .catch(() => {
+                setIsLoaded(false)   
+            })
             .finally(() => {
                 setIsLoaded(false)
             })
