@@ -19,6 +19,9 @@
     }
     @apply absolute top-0 left-0 right-0 bottom-0 z-50 w-[100%] h-[55vh] inset-0 block rounded-md opacity-0 transition-opacity data-[visible]:opacity-100 [&>img]:h-full [&>img]:w-full [&>img]:object-cover
 }
+.showIsOver{
+    @apply text-2xl block mx-auto text-center
+}
 .bottomControls{
     @apply absolute bottom-[-40px] pointer-events-auto w-full flex justify-center items-baseline px-2 bg-gray-300
 }
@@ -58,6 +61,10 @@
   }
 
 
+.timeBefore{
+    @apply text-center mt-4 absolute top-[20px] left-[45%]
+}
+
   @media screen and (max-width: 1280px) {
     .backBtn{
         @apply left-[100px]
@@ -74,13 +81,19 @@
     .backBtn{
         @apply left-[60px]
     }
-    .banner{
-
+    .showIsOver{
+        @apply text-xl
+    }
+    .timeBefore{
+        @apply text-[16px] top-[100px] left-[20%]
     }
   }
   @media screen and (max-width: 680px) {
     .backBtn{
         @apply left-[40px]
+    }
+    .showIsOver{
+        @apply text-[16px]
     }
   }
   @media screen and (max-width: 580px) {

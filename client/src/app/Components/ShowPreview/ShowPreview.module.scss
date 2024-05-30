@@ -99,7 +99,7 @@
     }
     .buyBtn{
         top: calc(40%);
-        @apply w-[200px]
+        @apply w-auto
     }
     .btn{
         @apply w-[175px] text-sm

@@ -130,10 +130,10 @@ useEffect(()=>{
     <section className={styles.section}>
         <Button className={styles.backBtn} onClick={routerHandler}>Back</Button>
         <div className={styles.videoWrapper}>
-        {endStream && <span className='text-2xl block mx-auto text-center'>Show is over</span>}
+        {endStream && <span className={styles.showIsOver}>Show is over</span>}
           {
             !isNaN(diffDays) && 
-            <div className='text-center mt-4 absolute top-[20px] left-[45%]'>
+            <div className={styles.timeBefore}>
               <span >Time before show</span>
               <p>{`${diffDays} days ${diffH.toString().padStart(2, '0')}:${diffM
               .toString()

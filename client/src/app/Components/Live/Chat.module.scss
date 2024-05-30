@@ -130,7 +130,7 @@
 }
 @media screen and (max-width:580px) {
     .chat{
-        @apply w-[100vw] p-2
+        @apply p-2
     }
     .messageText{
         @apply max-w-[140px]
@@ -140,9 +140,6 @@
     }
 }
 @media screen and (max-width:520px) {
-    .chat{
-        @apply w-[110vw]
-    }
     .remoteMessage{
         width: 100%;
     }
@@ -151,15 +148,7 @@
     }
 }
 @media screen and (max-width:500px) {
-    .chat{
-        @apply w-[130vw]
-    }
     .sendButton{
         @apply w-full
-    }
-}
-@media screen and (max-width:400px) {
-    .chat{
-        @apply w-[160vw]
     }
 }

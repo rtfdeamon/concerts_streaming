@@ -65,10 +65,10 @@ body[theme = "dark"] .section{
         @apply justify-center
     }
     .artistWrapper{
-        &:last-child{
-            display: none;
-        }
         @apply w-[400px]
+    }
+    .section{
+        min-height: unset;
     }
 }
 @media screen and (max-width:950px) {
