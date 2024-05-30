@@ -71,7 +71,6 @@ export default function Header({type, children}:{type: string, children?: React.
        </div>
       }
       {
-            isMobille.current &&
             <div className={typeof window !== 'undefined' && window.innerWidth <= 900? styles.headerMobileWrapper : styles.headerWrapper}>
             <div className={styles.wrapper}>
                 <Logo variant='light' />
