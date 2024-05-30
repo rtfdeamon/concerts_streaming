@@ -22,7 +22,7 @@ import X from '../../../../public/x.svg'
 import Menu from '../../../../public/menu.svg'
 
 export default function Header({type, children}:{type: string, children?: React.ReactNode}) {
-  const [isMobille, setIsMobile] = useState(false);
+  const [isMobille, setIsMobile] = useState(window.innerWidth <= 900);
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const modalIsOpen = useAppSelector(state => state.modal?.isOpen);
   const [isClient, setIsClient] = useState(true);
@@ -44,11 +44,6 @@ export default function Header({type, children}:{type: string, children?: React.
     setBurgerIsOpen(false);
   }, [modalIsOpen])
 
-  useEffect(() => {
-    if (window.innerWidth <= 900){
-      setIsMobile(true);
-    }
-  }, [])
   return (
     <header className={styles.header}>
       {
