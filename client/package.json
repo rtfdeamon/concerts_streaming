@@ -8,7 +8,20 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "browserslist": { "production": [ ">0.2%", "not dead", "not op_mini all" ], "development": [ "Chrome 118", "last 1 chrome version", "last 1 edge version", "last 1 firefox version", "last 5 safari version" ] },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "Chrome 118",
+      "last 1 chrome version",
+      "last 1 edge version",
+      "last 1 firefox version",
+      "last 5 safari version"
+    ]
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@paypal/checkout-server-sdk": "^1.0.3",
@@ -48,7 +61,8 @@
     "sharp": "^0.33.2",
     "socket.io-client": "^4.7.4",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.4",

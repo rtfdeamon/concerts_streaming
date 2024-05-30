@@ -21,15 +21,15 @@ import Link from 'next/link'
 import X from '../../../../public/x.svg'
 import Menu from '../../../../public/menu.svg'
 
+export const dynamic = 'force-dynamic'
+
 export default function Header({type, children}:{type: string, children?: React.ReactNode}) {
-  const isMobille = useRef(typeof window !== 'undefined' && window.innerWidth <= 900);
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const modalIsOpen = useAppSelector(state => state.modal?.isOpen);
-  const [isClient, setIsClient] = useState(true);
+  const [isVisible, setVisible] = useState(false)
   let authed
-  if (typeof window !== 'undefined') {
-    authed = window?.localStorage?.getItem('authed')
-  }
+  const isMobille = useRef(typeof window !== 'undefined' && window.innerWidth <= 900);
+
   const burgerHandler = () => {
     setBurgerIsOpen(!burgerIsOpen)
     if (burgerIsOpen){
@@ -40,6 +40,16 @@ export default function Header({type, children}:{type: string, children?: React.
   }
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(true)
+    }, 0)
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [])
+
+  useEffect(() => {
+    
     document.body.setAttribute('burgerIsActive', 'open');
     setBurgerIsOpen(false);
   }, [modalIsOpen])
@@ -47,7 +57,7 @@ export default function Header({type, children}:{type: string, children?: React.
   return (
     <header className={styles.header}>
       {
-        isMobille.current === true && 
+        isVisible && isMobille?.current === true && 
         <div
           onClick={() => burgerHandler()}
           className={!burgerIsOpen ? styles.burger : styles.burgerClose}
@@ -71,167 +81,169 @@ export default function Header({type, children}:{type: string, children?: React.
        </div>
       }
       {
-            <div className={typeof window !== 'undefined' && window.innerWidth <= 900? styles.headerMobileWrapper : styles.headerWrapper}>
-            <div className={styles.wrapper}>
-                <Logo variant='light' />
-                <SearchInput
-                  placeholder='Search artists & events'
-                  variant='header'/>
-            </div>
-            <div className={styles.events}>
-            <Link className={styles.link} href={'/'}>Home</Link>
-                <NavigationMenu>
-                    <NavigationMenuList>
-                      <NavigationMenuItem>
-                        <NavigationMenuTrigger>Events</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                        <ul className="flex items-center justify-around w-[350px] text-center p-6">
-                          <div className='flex flex-col'>
-                          <NavigationMenuLink href="/genre/electronic" title="Introduction">
-                              Electronic
+        isVisible === true && (
+          <div className={isMobille?.current === true ? styles.headerMobileWrapper : styles.headerWrapper}>
+          <div className={styles.wrapper}>
+              <Logo variant='light' />
+              <SearchInput
+                placeholder='Search artists & events'
+                variant='header'/>
+          </div>
+          <div className={styles.events}>
+          <Link className={styles.link} href={'/'}>Home</Link>
+              <NavigationMenu>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Events</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                      <ul className="flex items-center justify-around w-[350px] text-center p-6">
+                        <div className='flex flex-col'>
+                        <NavigationMenuLink href="/genre/electronic" title="Introduction">
+                            Electronic
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/country" title="Installation">     
+                            Country
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/hiphop" title="Typography">
+                            Hip hop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/funk" title="Typography">
+                            Funk
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/jazz" title="Typography">
+                            Jazz
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/latin" title="Typography">
+                            Latin
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/pop" title="Typography">
+                            Pop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/genre/punk" title="Typography">
+                            Punk
+                          </NavigationMenuLink>
+                        </div>
+                        <div className='flex flex-col'>
+                          <NavigationMenuLink href="/genre/alternative" title="Typography">
+                              Alternative
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/country" title="Installation">     
-                              Country
+                            <NavigationMenuLink href="/genre/classical" title="Typography">
+                              Classical
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/hiphop" title="Typography">
-                              Hip hop
+                            <NavigationMenuLink href="/genre/r&b" title="Typography">
+                              R&B
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/funk" title="Typography">
-                              Funk
+                            <NavigationMenuLink href="/genre/rock" title="Typography">
+                              Rock
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/jazz" title="Typography">
-                              Jazz
+                            <NavigationMenuLink href="/genre/blues" title="Typography">
+                              Blues
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/latin" title="Typography">
-                              Latin
+                            <NavigationMenuLink href="/genre/metal" title="Typography">
+                              Metal
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/pop" title="Typography">
-                              Pop
+                            <NavigationMenuLink href="/genre/indie" title="Typography">
+                              Indie
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/punk" title="Typography">
-                              Punk
+                            <NavigationMenuLink href="/genre/all" title="Typography">
+                              All events
                             </NavigationMenuLink>
-                          </div>
-                          <div className='flex flex-col'>
-                            <NavigationMenuLink href="/genre/alternative" title="Typography">
-                                Alternative
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/genre/classical" title="Typography">
-                                Classical
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/genre/r&b" title="Typography">
-                                R&B
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/genre/rock" title="Typography">
-                                Rock
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/genre/blues" title="Typography">
-                                Blues
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/genre/metal" title="Typography">
-                                Metal
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/genre/indie" title="Typography">
-                                Indie
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/genre/all" title="Typography">
-                                All events
-                              </NavigationMenuLink>
-                          </div>
-                          </ul>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                      <NavigationMenuItem>
-                        <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                        <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
-                            <NavigationMenuLink href="/artists/followed" title="Introduction">
-                              Followed Artists
+                        </div>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                      <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
+                          <NavigationMenuLink href="/artists/followed" title="Introduction">
+                            Followed Artists
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/trending" title="Installation">
+                            Trending Artists
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/all" title="Typography">
+                            All Artists
+                          </NavigationMenuLink>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Music</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                      <ul className="flex items-center justify-around w-[350px] text-center p-6">
+                        <div className='flex flex-col'>
+                        <NavigationMenuLink href="/artists/genre/electronic" title="Introduction">
+                            Electronic
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/country" title="Installation">     
+                            Country
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
+                            Hip hop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/funk" title="Typography">
+                            Funk
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/jazz" title="Typography">
+                            Jazz
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/latin" title="Typography">
+                            Latin
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/pop" title="Typography">
+                            Pop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/punk" title="Typography">
+                            Punk
+                          </NavigationMenuLink>
+                        </div>
+                        <div className='flex flex-col'>
+                          <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
+                              Alternative
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/trending" title="Installation">
-                              Trending Artists
+                            <NavigationMenuLink href="/artists/genre/classical" title="Typography">
+                              Classical
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/r&b" title="Typography">
+                              R&B
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/rock" title="Typography">
+                              Rock
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/blues" title="Typography">
+                              Blues
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/metal" title="Typography">
+                              Metal
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/indie" title="Typography">
+                              Indie
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/artists/all" title="Typography">
-                              All Artists
+                              All artists
                             </NavigationMenuLink>
-                          </ul>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                      <NavigationMenuItem>
-                        <NavigationMenuTrigger>Music</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                        <ul className="flex items-center justify-around w-[350px] text-center p-6">
-                          <div className='flex flex-col'>
-                          <NavigationMenuLink href="/artists/genre/electronic" title="Introduction">
-                              Electronic
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/country" title="Installation">     
-                              Country
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
-                              Hip hop
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/funk" title="Typography">
-                              Funk
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/jazz" title="Typography">
-                              Jazz
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/latin" title="Typography">
-                              Latin
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/pop" title="Typography">
-                              Pop
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/punk" title="Typography">
-                              Punk
-                            </NavigationMenuLink>
-                          </div>
-                          <div className='flex flex-col'>
-                            <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
-                                Alternative
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/artists/genre/classical" title="Typography">
-                                Classical
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/artists/genre/r&b" title="Typography">
-                                R&B
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/artists/genre/rock" title="Typography">
-                                Rock
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/artists/genre/blues" title="Typography">
-                                Blues
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/artists/genre/metal" title="Typography">
-                                Metal
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/artists/genre/indie" title="Typography">
-                                Indie
-                              </NavigationMenuLink>
-                              <NavigationMenuLink href="/artists/all" title="Typography">
-                                All artists
-                              </NavigationMenuLink>
-                          </div>
-                          </ul>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                    </NavigationMenuList>
-                </NavigationMenu>
-            </div>
-            <div className={styles.profileWrapper}>
-                  {
-                  authed == "true" ?
-                  <ProfileDropdown />
-                  :
-                  <>
-                    <Link className={styles.link} href={'/login'}>Login</Link>
-                    <Link className={styles.link} href={'/signup'}>Sign up</Link>
-                  </>
-                }
-                {/* <ThemeSwitcher /> */}
-            </div>
-        </div>
+                        </div>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+              </NavigationMenu>
+          </div>
+          <div className={styles.profileWrapper}>
+                {
+                authed == "true" ?
+                <ProfileDropdown />
+                :
+                <>
+                  <Link className={styles.link} href={'/login'}>Login</Link>
+                  <Link className={styles.link} href={'/signup'}>Sign up</Link>
+                </>
+              }
+              {/* <ThemeSwitcher /> */}
+          </div>
+      </div>
+        )
       }
         {/* <RegionSelector /> */}
         {type === 'errorPage' && <h5 className={styles.error}>Sorry! Page does not exist 🥲</h5>}
