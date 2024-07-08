@@ -174,6 +174,25 @@ export default function Profile() {
                   className={artistsIsOpen ? styles.active : styles.notActive}
                 >Followed Artists</li>
             </ul> }
+            {user?.role.includes('advertiser') && 
+              <ul className={styles.nav}>
+              <li
+                onClick={profileHandler}
+                className={profileIsOpen ? styles.active : styles.notActive}
+              >My Profile</li>
+                <li
+                  onClick={tariffHandler}
+                  className={tariffIsOpen ? styles.active : styles.notActive}
+                >Tariff plan</li>
+              <li
+                onClick={upcomingHandler}
+                className={upcomingIsOpen ? styles.active : styles.notActive}
+              >Upcoming shows</li>
+                <li
+                  onClick={artistsHandler}
+                  className={artistsIsOpen ? styles.active : styles.notActive}
+                >Followed Artists</li>
+            </ul> }
             {user?.role.includes('viewer') &&
                 <ul className={styles.nav}>
                 <li

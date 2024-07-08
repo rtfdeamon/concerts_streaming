@@ -103,8 +103,33 @@ export default function SignUp() {
                         <SelectGroup>
                           <SelectLabel>Who you are?</SelectLabel>
                           <SelectItem value="viewer">Viewer</SelectItem>
-                          <SelectItem value="artist">Artist</SelectItem>
                           <SelectItem value="sponsor">Sponsor</SelectItem>
+                          <SelectItem value="sponsor">Modeling</SelectItem>
+                          <SelectItem value="sponsor">Culinary</SelectItem>
+                          <SelectItem value="sponsor">Comedy</SelectItem>
+                          <SelectItem value="sponsor">Videography</SelectItem>
+                          <SelectItem value="sponsor">Bloggers</SelectItem>
+                          <SelectItem value="sponsor">Authors</SelectItem>
+                          <SelectItem value="sponsor">Actors</SelectItem>
+                          <SelectItem value="sponsor">Fashion</SelectItem>
+                          <SelectItem value="sponsor">Cosmetology</SelectItem>
+                          <SelectItem value="sponsor">Producer</SelectItem>
+                          <SelectItem value="sponsor">Dancer</SelectItem>
+                          <SelectItem value="sponsor">Painter</SelectItem>
+                          <SelectItem value="sponsor">Photography</SelectItem>
+                          <SelectItem value="sponsor">Podcaster</SelectItem>
+                          <SelectItem value="sponsor">Writer</SelectItem>
+                          <SelectItem value="sponsor">Director</SelectItem>
+                          <SelectItem value="sponsor">Design</SelectItem>
+                          <SelectItem value="sponsor">Sound Engineer</SelectItem>
+                          <SelectItem value="sponsor">Cheer</SelectItem>
+                          <SelectItem value="sponsor">Hair-Nail-Skin</SelectItem>
+                          <SelectLabel>Music Artist</SelectLabel>
+                          <SelectItem value="??">Подкатегория 1</SelectItem>
+                          <SelectItem value="??">Подкатегория 2</SelectItem>
+                          <SelectItem value="??">Подкатегория 3</SelectItem>
+                          <SelectItem value="??">Подкатегория 4</SelectItem>
+                          <SelectItem value="??">Подкатегория 5</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>

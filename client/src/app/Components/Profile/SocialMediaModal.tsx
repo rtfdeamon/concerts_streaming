@@ -3,13 +3,15 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { Dispatch, SetStateAction } from 'react'
 import TariffPaypalBtns from './TariffPaypalBtns'
-import PayPalBtns from '../ShowPreview/PayPalBtns'
+import { Input } from '@/shadComponents/ui/input'
+import { Button } from '@/shadComponents/ui/button'
 
-export default function TariffPaypalModal({isOpen, setIsOpen, variant} :
-    {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, variant: string}) {
+export default function SocialMediaModal({isOpen, setIsOpen, media} :
+    {isOpen: boolean, setIsOpen: (value: SetStateAction<string | undefined>) => void, media: string}) {
     const closeModal = () => {
-        setIsOpen(false)
+      setIsOpen(undefined)
     }
+    const [link, setLink] = useState<string | undefined>()
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -42,13 +44,16 @@ export default function TariffPaypalModal({isOpen, setIsOpen, variant} :
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment for <span className='capitalize'>{variant}</span> plan
+                    <span className='capitalize'>Add or change link you your media</span>
                   </Dialog.Title>
                   <div className="mt-4">
                       <div>
-                          <TariffPaypalBtns variant={variant} setIsOpen={closeModal} />          
-                          {/* This feature is in progress */}
-                          {/* <PayPalBtns /> */}
+                        <Input onChange={(e) => setLink(e.target.value)} type="text" placeholder="Put your link" />
+                      </div>
+                  </div>
+                  <div className="mt-4">
+                      <div>
+                        <Button variant={'secondary'} >Save changes</Button>
                       </div>
                   </div>
                 </Dialog.Panel>

@@ -15,6 +15,16 @@ import { Input } from "@/shadComponents/ui/input";
 import { Textarea } from "@/shadComponents/ui/textarea";
 import styles from './ProfileSettings.module.scss';
 
+import InstIcon from '../../../../public/instagram-icon.svg'
+import LinkedInIcon from '../../../../public/linkedin-icon.svg'
+import SnapChatIcon from '../../../../public/snapchat-icon.svg'
+import SpotifyIcon from '../../../../public/spotify-icon.svg'
+import TikTokIcon from '../../../../public/tiktok-icon.svg'
+import TwitterIcon from '../../../../public/twitter-icon.svg'
+import YoutubeIcon from '../../../../public/youtube-icon.svg'
+import SocialMediaModal from "./SocialMediaModal";
+
+
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userInfo.user);
@@ -23,6 +33,7 @@ export default function ProfileSettings() {
   const [desc, setDesc] = useState<string | undefined>(undefined);
   const [category, setCategory] = useState<string | undefined>(undefined);
   const { toast } = useToast();
+  const [selectedSocial, setSelectedSocial] = useState<string | undefined>()
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
@@ -118,12 +129,60 @@ export default function ProfileSettings() {
   useEffect(() => {
     typeof user?.role !== 'undefined' && setStorageUserRole(user?.role);
   }, [user?.role])
+  console.log(selectedSocial)
   return (
     <div className={styles.menuWrapper}>
+        {selectedSocial && <SocialMediaModal isOpen={Boolean(selectedSocial)} setIsOpen={setSelectedSocial} media={selectedSocial} />}
         <h5 className={styles.title}>Profile of {user?.name}</h5>
         <div className={styles.imageWrapper}>
          {user?.avatar_url && <Image className={styles.avatar} src={user?.avatar_url as string} width={500} height={400} alt="Image" /> }
         </div>
+        {user?.role === 'viewer' && (
+          <ul className={styles.socialItems}>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('inst')}
+            >
+              <Image src={InstIcon} alt="inst" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('snapchat')}
+            >
+              <Image src={SnapChatIcon} alt="snapchat" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('spotify')}
+            >
+              <Image src={SpotifyIcon} alt="spotify" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('inst')}
+            >
+              <Image src={TikTokIcon} alt="inst" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('twitter')}
+            >
+              <Image src={TwitterIcon} alt="twitter" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('youtube')}
+            >
+              <Image src={YoutubeIcon} alt="youtube" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('linkedin')}
+            >
+              <Image src={LinkedInIcon} alt="linkedin" />
+            </li>
+          </ul>
+        )}
         <div className={styles.fileInput}>
           <Label className={styles.span} htmlFor="picture">Picture</Label>
           <Input onChange={(e) => onUploadHandler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg" />
@@ -131,7 +190,23 @@ export default function ProfileSettings() {
         <div className={styles.profileName}>
           {/* <span>Profile's name</span> <Input type="text" placeholder={User.Name} /> */}
           <span className={styles.span}>Profile's name</span>
-          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Test" />
+          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Name" />
+        </div>
+        <div className={styles.profileName}>
+          <span className={styles.span}>Phone number</span>
+          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Phone" />
+        </div>
+        <div className={styles.profileName}>
+          <span className={styles.span}>Business name</span>
+          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Bussiness name" />
+        </div>
+        <div className={styles.profileName}>
+          <span className={styles.span}>Website url</span>
+          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Website" />
+        </div>
+        <div className={styles.profileName}>
+          <span className={styles.span}>EIN number</span>
+          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="EIN" />
         </div>
         {user?.role === 'artist' &&
           <>

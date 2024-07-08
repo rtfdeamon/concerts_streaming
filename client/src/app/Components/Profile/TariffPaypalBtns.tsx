@@ -1,20 +1,32 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
+import { Dispatch, SetStateAction } from 'react'
 import { IUser } from "@/app/types/interfaces";
 
 
-export default function TariffPaypalBtns({variant}: {variant: string}) {
+export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
   const [user, setUser] = useState<IUser>();
   const { toast } = useToast();
-  const [res, setRes] = useState<any>();
+  const orderId = useRef<any>('');
+
   const createOrder = async () => {
-    const data = await buyTicket(variant, user?.id as number);
-    setRes(data)
-       return fetch(`${process.env.BACKEND_URL}/orders/`, {
+    const data:any = await buyTicket('1', user?.id as number);
+      if(data.status === 'activated'){
+        toast({
+          title: "You already bought this plan",
+          variant: "destructive",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+        location.reload();
+        return;
+      }
+      else{ return fetch(`${process.env.BACKEND_URL}/orders/`, {
           method: "POST", 
           headers: {
               "Content-Type": "application/json",
@@ -24,6 +36,7 @@ export default function TariffPaypalBtns({variant}: {variant: string}) {
         })
         .then((response) => response.json())
         .then((order) => {
+          orderId.current = order.id;
           return order.id
         })
         .catch(e => {
@@ -35,6 +48,7 @@ export default function TariffPaypalBtns({variant}: {variant: string}) {
             ),
           })
         })
+      }
   }
 
   const onApprove = async (data: any) => {
@@ -44,25 +58,27 @@ export default function TariffPaypalBtns({variant}: {variant: string}) {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${await getTokenForApi()}`
       },
-      body: JSON.stringify({ticket_id:  res.id})
+      body: JSON.stringify({order_id:  orderId.current})
   })
     .then(res => {
       toast({
-        title: "You`re successfully buy a ticket!",
+        title: "You`re successfully buy a plan!",
         action: (
           <ToastAction altText="Hide">Hide</ToastAction>
         ),
       })
+      location.reload();
     })
     .catch(e => {
       toast({
-        title: "You already bought a ticket",
+        title: "You already bought a plan",
         variant: "destructive",
         action: (
           <ToastAction altText="Hide">Hide</ToastAction>
         ),
       })
     })
+    .finally(() => setIsOpen(false))
     ;
   }
   const buyTicket = async (concert: string, user: Number) => {
@@ -79,7 +95,7 @@ export default function TariffPaypalBtns({variant}: {variant: string}) {
         return data;
       } catch(e){
         toast({
-          title: "You already bought a ticket",
+          title: "You already bought a plan",
           variant: "destructive",
           action: (
             <ToastAction altText="Hide">Hide</ToastAction>
@@ -103,10 +119,7 @@ export default function TariffPaypalBtns({variant}: {variant: string}) {
   }, [])
   return (
     <PayPalScriptProvider
-    options={{
-      clientId: process.env.clientId as string,
-      currency: process.env.currency,
-      intent: process.env.intent}}
+    options={{ clientId: "AfuXJhSUZp9UWT6r25qjWiQZGWRkFdhsTTn33s3AvZ71XMUCow329IFA-xea1iYFV_Gaxt-dnKQQhsCb" }}
     >
             <PayPalButtons
               style={{
