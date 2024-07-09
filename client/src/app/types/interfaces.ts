@@ -80,6 +80,8 @@ export interface IUser {
   id: number,
   role:	string,
   name: string,
+  category: string,
+  subcategory: string,
   avatar_url: string,
   username: number,
   artists_followed: IArtist[],

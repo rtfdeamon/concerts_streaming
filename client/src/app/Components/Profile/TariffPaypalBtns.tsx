@@ -26,13 +26,13 @@ export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIs
         location.reload();
         return;
       }
-      else{ return fetch(`${process.env.BACKEND_URL}/orders/`, {
+      else{ return fetch(`${process.env.BACKEND_URL}/orders/plan/`, {
           method: "POST", 
           headers: {
               "Content-Type": "application/json",
               'Authorization': `Bearer ${await getTokenForApi()}`
           },
-          body: JSON.stringify({ticket_id:  data.id}),
+          body: JSON.stringify({plan_id:  data.id}),
         })
         .then((response) => response.json())
         .then((order) => {
@@ -52,7 +52,7 @@ export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIs
   }
 
   const onApprove = async (data: any) => {
-    return fetch(`${process.env.BACKEND_URL}/orders/capture/`, {
+    return fetch(`${process.env.BACKEND_URL}/orders/plan/capture/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

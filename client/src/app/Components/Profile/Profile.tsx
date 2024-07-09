@@ -14,8 +14,10 @@ const SponsoredShows = lazy(() => import('./SponsoredShows'))
 const TicketsList = lazy(() => import('./TicketsList'))
 import Loading from "../Loading/Loading"
 import { checkAccessToken } from "@/app/utils/checkAccessToken"
-import styles from './Profile.module.scss'
 import Tariff from "./Tariff"
+
+import styles from './Profile.module.scss'
+import Services from "./Services"
 
 export default function Profile() {
   const dispatch = useAppDispatch();
@@ -29,6 +31,8 @@ export default function Profile() {
   const [sponsoredShowsIsOpen, setSponsoredShowsIsOpen] = useState(false);
   const [ticketsListIsOpen, setTicketsListIsOpen] = useState(false);
   const [tariffIsOpen, setTariffIsOpen] = useState(false);
+  const [servicesIsOpen, setServicesIsOpen] = useState(false);
+
 
   const router = useRouter();
 
@@ -122,7 +126,21 @@ export default function Profile() {
   }
 
   const tariffHandler = () => {
-    setTariffIsOpen(true);
+    setServicesIsOpen(false)
+    setTariffIsOpen(true)
+    setTicketsListIsOpen(false)
+    setSponsoredShowsIsOpen(false)
+    setUpcomingIsOpen(false)
+    setProfileIsOpen(false)
+    setArtistsIsOpen(false)
+    setShowsIsOpen(false)
+    setArtistsShowsIsOpen(false)
+    setScheduledShowsIsOpen(false)
+  }
+
+  const servicesHandler = () => {
+    setServicesIsOpen(true)
+    setTariffIsOpen(false);
     setTicketsListIsOpen(false);
     setSponsoredShowsIsOpen(false);
     setUpcomingIsOpen(false);
@@ -161,6 +179,10 @@ export default function Profile() {
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}
                 >Tariff plan</li>
+                <li
+                  onClick={servicesHandler}
+                  className={servicesIsOpen ? styles.active : styles.notActive}
+                >Services</li>
               <li
                 onClick={artistShowsHandler}
                 className={artistShowsIsOpen ? styles.active : styles.notActive}
@@ -181,6 +203,10 @@ export default function Profile() {
                 className={profileIsOpen ? styles.active : styles.notActive}
               >My Profile</li>
                 <li
+                  onClick={servicesHandler}
+                  className={servicesIsOpen ? styles.active : styles.notActive}
+                >Services</li>
+                <li
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}
                 >Tariff plan</li>
@@ -192,6 +218,21 @@ export default function Profile() {
                   onClick={artistsHandler}
                   className={artistsIsOpen ? styles.active : styles.notActive}
                 >Followed Artists</li>
+            </ul> }
+            {user?.role.includes('services') && 
+              <ul className={styles.nav}>
+              <li
+                onClick={profileHandler}
+                className={profileIsOpen ? styles.active : styles.notActive}
+              >My Profile</li>
+                <li
+                  onClick={servicesHandler}
+                  className={servicesIsOpen ? styles.active : styles.notActive}
+                >My services</li>
+              <li
+                onClick={upcomingHandler}
+                className={upcomingIsOpen ? styles.active : styles.notActive}
+              >Upcoming shows</li>
             </ul> }
             {user?.role.includes('viewer') &&
                 <ul className={styles.nav}>
@@ -280,6 +321,11 @@ export default function Profile() {
             {tariffIsOpen && 
               <Suspense fallback={<Loading />}>
                 <Tariff />
+              </Suspense>
+            }
+            {servicesIsOpen && 
+              <Suspense fallback={<Loading />}>
+                <Services />
               </Suspense>
             }
           </div>

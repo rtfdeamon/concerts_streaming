@@ -19,39 +19,44 @@ export const getCurrUser = createAsyncThunk<IUser, void>(
     }
 )
 
-export const changeCurrUserName = createAsyncThunk<IUser, string>(
-    '@@user/changeCurrUserName',
-    async (name) => {
-        const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
-            method: 'PUT',
-            headers:{
-                'Content-type' : 'application/json',
-                'Authorization' : `Bearer ${await getTokenForApi()}`
-            },
-            body: JSON.stringify({name})
-        })
-        const data = await res.json();
-        return data;
-    }
-)
+// export const changeCurrUserName = createAsyncThunk<IUser, string>(
+//     '@@user/changeCurrUserName',
+//     async (name) => {
+//         const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
+//             method: 'PUT',
+//             headers:{
+//                 'Content-type' : 'application/json',
+//                 'Authorization' : `Bearer ${await getTokenForApi()}`
+//             },
+//             body: JSON.stringify({name})
+//         })
+//         const data = await res.json();
+//         return data;
+//     }
+// )
 
 export interface IArtistChange {
-    name: string | undefined,
-    description: string | undefined,
+    name: string | undefined
+    description: string | undefined
     artist_genre: string | undefined
+    category: string | undefined
+    subcategory: string | undefined
+    ein: string | undefined
+    businessName: string | undefined
+    websiteUrl: string | undefined
 }
 
 
-export const changeArtistOptions = createAsyncThunk<IArtist, IArtistChange>(
+export const changeProfileInfo = createAsyncThunk<IArtist, IArtistChange>(
     '@@user/changeArtistOptions',
-    async ({ name, description, artist_genre } ) => {
+    async ({ name, description, category, subcategory, ein, businessName, websiteUrl }) => {
         const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
             method: 'PUT',
             headers:{
                 'Content-type' : 'application/json',
                 'Authorization' : `Bearer ${await getTokenForApi()}`
             },
-            body: JSON.stringify({name, description, artist_genre})
+            body: JSON.stringify({name, description, subcategory, category, ein, businessName, websiteUrl})
         })
         const data = await res.json();
         return data;
@@ -106,13 +111,10 @@ const userSlice = createSlice({
                 state.error = false;
                 state.status = 'loaded';
             })
-            .addCase(changeCurrUserName.fulfilled, (state, action) => {
+            .addCase(changeProfileInfo.fulfilled, (state, action) => {
                 state.user = action.payload;
             })
             .addCase(changeCurrUserPhoto.fulfilled, (state, action) => {
-                state.user = action.payload;
-            })
-            .addCase(changeArtistOptions.fulfilled, (state, action) => {
                 state.user = action.payload;
             })
     }

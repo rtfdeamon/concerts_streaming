@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/rtkHooks"
-import { getCurrUser, changeCurrUserName, changeCurrUserPhoto, changeArtistOptions } from "@/app/store/user/userSlice";
+import { getCurrUser, changeProfileInfo, changeCurrUserPhoto } from "@/app/store/user/userSlice";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@/shadComponents/ui/toast";
 import { Select, SelectTrigger, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectValue } from "@/shadComponents/ui/select";
@@ -13,6 +13,8 @@ import { Label } from "@/shadComponents/ui/label";
 import { Button } from "@/shadComponents/ui/button";
 import { Input } from "@/shadComponents/ui/input";
 import { Textarea } from "@/shadComponents/ui/textarea";
+
+
 import styles from './ProfileSettings.module.scss';
 
 import InstIcon from '../../../../public/instagram-icon.svg'
@@ -24,7 +26,6 @@ import TwitterIcon from '../../../../public/twitter-icon.svg'
 import YoutubeIcon from '../../../../public/youtube-icon.svg'
 import SocialMediaModal from "./SocialMediaModal";
 
-
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userInfo.user);
@@ -34,6 +35,12 @@ export default function ProfileSettings() {
   const [category, setCategory] = useState<string | undefined>(undefined);
   const { toast } = useToast();
   const [selectedSocial, setSelectedSocial] = useState<string | undefined>()
+  const [selectedRole, setSelectedRole] = useState<string | undefined>()
+  const [subCategory, setSubCategory] = useState<string | undefined>()
+  const [phoneNumber, setPhoneNumber] = useState<string | undefined>()
+  const [ein, setEin] = useState<string | undefined>()
+  const [websiteUrl, setWebsiteUrl] = useState<string | undefined>()
+  const [businessName, setBusinessName] = useState<string | undefined>()
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
@@ -70,31 +77,31 @@ export default function ProfileSettings() {
       }
     }
   }
-  const saveUserChanges = async () => {
-    if (name !== '' && typeof name !== 'undefined'){
-      const res:any = await dispatch(changeCurrUserName(name)); 
-      if (res?.payload?.id){
-        toast({
-          title: "Profile's changes",
-          description: "You have successfully changed your profile info",
-          action: (
-            <ToastAction altText="Hide">Hide</ToastAction>
-          ),
-        })
-      } else {
-        toast({
-          title: "Profile's changes",
-          description: "Something went wrong",
-          variant: "destructive",
-          action: (
-            <ToastAction altText="Hide">Hide</ToastAction>
-          ),
-        })
-      }
-    }
-  }
-  const saveArtistChanges = async () => {
-    const res:any = await dispatch(changeArtistOptions({name, description: desc, artist_genre: category})); 
+  // const saveUserChanges = async () => {
+  //   if (name !== '' && typeof name !== 'undefined'){
+  //     const res:any = await dispatch(changeCurrUserName(name)); 
+  //     if (res?.payload?.id){
+  //       toast({
+  //         title: "Profile's changes",
+  //         description: "You have successfully changed your profile info",
+  //         action: (
+  //           <ToastAction altText="Hide">Hide</ToastAction>
+  //         ),
+  //       })
+  //     } else {
+  //       toast({
+  //         title: "Profile's changes",
+  //         description: "Something went wrong",
+  //         variant: "destructive",
+  //         action: (
+  //           <ToastAction altText="Hide">Hide</ToastAction>
+  //         ),
+  //       })
+  //     }
+  //   }
+  // }
+  const changeProfile = async () => {
+    const res:any = await dispatch(changeProfileInfo({name, description: desc, artist_genre: category, category, subcategory: subCategory, websiteUrl, businessName, ein})); 
     if (res.payload.id){
       toast({
         title: "Profile's changes",
@@ -115,13 +122,7 @@ export default function ProfileSettings() {
     }
 }
   const saveChangesHandler = async () => {
-    // if res.ok 
-    // else desc: 'Something went wrong'
-    if (user?.role !== 'artist'){
-      saveUserChanges()
-    } else {
-      saveArtistChanges()
-    }
+    changeProfile()
   }
   useEffect(() => {
     dispatch(getCurrUser())
@@ -129,7 +130,6 @@ export default function ProfileSettings() {
   useEffect(() => {
     typeof user?.role !== 'undefined' && setStorageUserRole(user?.role);
   }, [user?.role])
-  console.log(selectedSocial)
   return (
     <div className={styles.menuWrapper}>
         {selectedSocial && <SocialMediaModal isOpen={Boolean(selectedSocial)} setIsOpen={setSelectedSocial} media={selectedSocial} />}
@@ -137,7 +137,6 @@ export default function ProfileSettings() {
         <div className={styles.imageWrapper}>
          {user?.avatar_url && <Image className={styles.avatar} src={user?.avatar_url as string} width={500} height={400} alt="Image" /> }
         </div>
-        {user?.role === 'viewer' && (
           <ul className={styles.socialItems}>
             <li
               className={styles.socialItem}
@@ -182,7 +181,67 @@ export default function ProfileSettings() {
               <Image src={LinkedInIcon} alt="linkedin" />
             </li>
           </ul>
-        )}
+
+        <div className={styles.profileName}>
+        <Label className={styles.span} htmlFor="Category">Category</Label>
+          <Select onValueChange={categoryChangeHandler} value={category || user?.category}>
+            <SelectTrigger>
+              <SelectValue placeholder="Category" />
+            </SelectTrigger>
+            <SelectContent>
+            <SelectItem value="sponsor">Modeling</SelectItem>
+                          <SelectItem value="culinary">Culinary</SelectItem>
+                          <SelectItem value="comedy">Comedy</SelectItem>
+                          <SelectItem value="videography">Videography</SelectItem>
+                          <SelectItem value="bloggers">Bloggers</SelectItem>
+                          <SelectItem value="authirs">Authors</SelectItem>
+                          <SelectItem value="actors">Actors</SelectItem>
+                          <SelectItem value="fashion">Fashion</SelectItem>
+                          <SelectItem value="cosmetology">Cosmetology</SelectItem>
+                          <SelectItem value="producer">Producer</SelectItem>
+                          <SelectItem value="dancer">Dancer</SelectItem>
+                          <SelectItem value="painter">Painter</SelectItem>
+                          <SelectItem value="photography">Photography</SelectItem>
+                          <SelectItem value="podcaster">Podcaster</SelectItem>
+                          <SelectItem value="writer">Writer</SelectItem>
+                          <SelectItem value="director">Director</SelectItem>
+                          <SelectItem value="design">Design</SelectItem>
+                          <SelectItem value="sound engineer">Sound Engineer</SelectItem>
+                          <SelectItem value="cheer">Cheer</SelectItem>
+                          <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
+                          <SelectItem value="artist">Music Artist</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        {
+          (category === 'artist' || user?.role === 'artist') && (
+            <div className={styles.profileName}>
+            <Select onValueChange={setSubCategory} value={subCategory || user?.subcategory}>
+              <SelectTrigger>
+                <SelectValue placeholder="Music Genre" />
+              </SelectTrigger>
+              <SelectContent>
+                  <SelectItem value="electronic">Electronic</SelectItem>
+                  <SelectItem value="country">Country</SelectItem>
+                  <SelectItem value="hiphop">Hip hop</SelectItem>
+                  <SelectItem value="funk">Funk</SelectItem>
+                  <SelectItem value="jazz">Jazz</SelectItem>
+                  <SelectItem value="latin">Latin</SelectItem>
+                  <SelectItem value="pop">Pop</SelectItem>
+                  <SelectItem value="punk">Punk</SelectItem>
+                  <SelectItem value="alternative">Alternative</SelectItem>
+                  <SelectItem value="classical">Classical</SelectItem>
+                  <SelectItem value="r&b">R&B</SelectItem>
+                  <SelectItem value="rock">Rock</SelectItem>
+                  <SelectItem value="blues">Blues</SelectItem>
+                  <SelectItem value="metal">Metal</SelectItem>
+                  <SelectItem value="indie">Indie</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          )
+        }
         <div className={styles.fileInput}>
           <Label className={styles.span} htmlFor="picture">Picture</Label>
           <Input onChange={(e) => onUploadHandler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg" />
@@ -190,31 +249,35 @@ export default function ProfileSettings() {
         <div className={styles.profileName}>
           {/* <span>Profile's name</span> <Input type="text" placeholder={User.Name} /> */}
           <span className={styles.span}>Profile's name</span>
-          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Name" />
+          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder={user?.name || "Name"} />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Phone number</span>
-          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Phone" />
+          <Input onChange={(e) => setPhoneNumber(e.target.value)} type="text" placeholder="Phone" />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Business name</span>
-          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Bussiness name" />
+          <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder="Bussiness name" />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Website url</span>
-          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="Website" />
+          <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder="Website" />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>EIN number</span>
-          <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder="EIN" />
+          <Input
+            onChange={(e) => setEin(e.target.value)}
+            type="text"
+            placeholder="EIN"
+          />
         </div>
         {user?.role === 'artist' &&
           <>
             <div className={styles.profileName}>
               <span className={styles.span}>Profile's description</span>
-              <Textarea placeholder="Type description of your profile" onChange={(e) => descHandler(e)} />
+              <Textarea placeholder={user?.name || "Type description of your profile"} onChange={(e) => descHandler(e)} />
             </div>
-            <div className={styles.profileName}>
+            {/* <div className={styles.profileName}>
               <span className={styles.span}>Change your genre</span>
                 <Select
                       onValueChange={categoryChangeHandler}
@@ -246,7 +309,7 @@ export default function ProfileSettings() {
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-            </div>
+            </div> */}
           </>
         }
         <Button onClick={saveChangesHandler} className={styles.btn}>Save changes</Button>

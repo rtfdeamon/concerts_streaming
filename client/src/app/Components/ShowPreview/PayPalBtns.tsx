@@ -26,7 +26,7 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
         location.reload();
         return;
       }
-      else{ return fetch(`${process.env.BACKEND_URL}/orders/`, {
+      else{ return fetch(`${process.env.BACKEND_URL}/orders/ticket/`, {
           method: "POST", 
           headers: {
               "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
   }
 
   const onApprove = async (data: any) => {
-    return fetch(`${process.env.BACKEND_URL}/orders/capture/`, {
+    return fetch(`${process.env.BACKEND_URL}/orders/ticket/capture/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
