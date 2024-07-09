@@ -3,7 +3,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { Dispatch, SetStateAction } from 'react'
 import TariffPaypalBtns from './TariffPaypalBtns'
-import PayPalBtns from '../ShowPreview/PayPalBtns'
 
 export default function TariffPaypalModal({isOpen, setIsOpen, variant} :
     {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, variant: string}) {

@@ -12,9 +12,41 @@ export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIs
   const [user, setUser] = useState<IUser>();
   const { toast } = useToast();
   const orderId = useRef<any>('');
+  let planId: string
+  if (variant === 'basic'){
+    planId = "00000001-8000-11ee-8000-102030405060"
+  } else if (variant === 'advanced'){
+    planId = "00000002-8000-11ee-8000-102030405060"
+  } else{
+    planId = "00000003-8000-11ee-8000-102030405060"
+  }
+
+  const setSubscription = async (plan: string) => {
+    try{
+        const res = await fetch(`${process.env.BACKEND_URL}/plan-subscriptions/`, {
+          method: 'POST',
+          headers: {
+            'Authorization' : `Bearer ${await getTokenForApi()}`,
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({plan})
+        })
+        const data: any = await res.json();
+        return data;
+      } catch(e){
+        toast({
+          title: "You already have a subscription",
+          variant: "destructive",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+      }
+    }
 
   const createOrder = async () => {
-    const data:any = await buyTicket('1', user?.id as number);
+    const data:any = await setSubscription(planId);
+    console.log(data)
       if(data.status === 'activated'){
         toast({
           title: "You already bought this plan",
@@ -81,28 +113,28 @@ export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIs
     .finally(() => setIsOpen(false))
     ;
   }
-  const buyTicket = async (concert: string, user: Number) => {
-    try{
-        const res = await fetch(`${process.env.BACKEND_URL}/tickets/`, {
-          method: 'POST',
-          headers: {
-            'Authorization' : `Bearer ${await getTokenForApi()}`,
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify({concert, user})
-        })
-        const data: any = await res.json();
-        return data;
-      } catch(e){
-        toast({
-          title: "You already bought a plan",
-          variant: "destructive",
-          action: (
-            <ToastAction altText="Hide">Hide</ToastAction>
-          ),
-        })
-      }
-    }
+  // const buyTicket = async (concert: string, user: Number) => {
+  //   try{
+  //       const res = await fetch(`${process.env.BACKEND_URL}/tickets/`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Authorization' : `Bearer ${await getTokenForApi()}`,
+  //           'Content-type': 'application/json'
+  //         },
+  //         body: JSON.stringify({concert, user})
+  //       })
+  //       const data: any = await res.json();
+  //       return data;
+  //     } catch(e){
+  //       toast({
+  //         title: "You already bought a plan",
+  //         variant: "destructive",
+  //         action: (
+  //           <ToastAction altText="Hide">Hide</ToastAction>
+  //         ),
+  //       })
+  //     }
+  //   }
 
   useEffect(() => {
     const getUser = async () => {
