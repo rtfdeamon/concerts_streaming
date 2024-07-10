@@ -43,6 +43,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
     const [perfomanceTime, setPerfomanceTime] = useState(0);
     const [posterUrl, setPosterUrl] = useState<string | undefined>(undefined);
     const [category, setCategory] = useState("");
+    const [subCategory, setSubCategory] = useState<string | undefined>()
     const [access, setAccess] = useState("");
     const [price, setPrice] = useState("");
     const [isFetching, setIsFetching] = useState(false)
@@ -71,13 +72,13 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
     }
     const onCreateHandler = async () => {
         if (name === '' || description === "" || slots < 1 || typeof date === 'undefined'
-        || perfomanceTime === 0 || typeof posterUrl === 'undefined' || category === '' || access === ""){
+        || perfomanceTime === 0 || typeof posterUrl === 'undefined' || category === '' || access === "" || category === ""){
             setErr(true);
             return;
         } else{
             const stringDate = date.toISOString();
             const res: any = await dispatch(createShow({name, description, date: stringDate, slots,
-            performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
+            performance_time: perfomanceTime, poster_url: posterUrl, category, subcategory: subCategory, access, ticket_price: price}));
             if (res.payload.id){
                 setIsOpen(false);
             } else{
@@ -143,31 +144,70 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                             >
                                 <SelectTrigger className="w-full"
                                     >
-                                    <SelectValue placeholder="Select concert genre" />
+                                    <SelectValue placeholder="Select concert category" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                    <SelectLabel>Genre</SelectLabel>
-                                        <SelectItem value="electronic">Electronic</SelectItem>
-                                        <SelectItem value="country">Country</SelectItem>
-                                        <SelectItem value="hiphop">Hip hop</SelectItem>
-                                        <SelectItem value="funk">Funk</SelectItem>
-                                        <SelectItem value="jazz">Jazz</SelectItem>
-                                        <SelectItem value="latin">Latin</SelectItem>
-                                        <SelectItem value="pop">Pop</SelectItem>
-                                        <SelectItem value="punk">Punk</SelectItem>
-                                        <SelectItem value="alternative">Alternative</SelectItem>
-                                        <SelectItem value="classical">Classical</SelectItem>
-                                        <SelectItem value="r&b">R&B</SelectItem>
-                                        <SelectItem value="rock">Rock</SelectItem>
-                                        <SelectItem value="blues">Blues</SelectItem>
-                                        <SelectItem value="metal">Metal</SelectItem>
-                                        <SelectItem value="indie">Indie</SelectItem>
-                                        <SelectItem value="other">Other</SelectItem>
+                                    <SelectLabel>Category</SelectLabel>
+                                    <SelectItem value="modeling">Modeling</SelectItem>
+                                    <SelectItem value="culinary">Culinary</SelectItem>
+                                    <SelectItem value="comedy">Comedy</SelectItem>
+                                    <SelectItem value="videography">Videography</SelectItem>
+                                    <SelectItem value="bloggers">Bloggers</SelectItem>
+                                    <SelectItem value="authirs">Authors</SelectItem>
+                                    <SelectItem value="actors">Actors</SelectItem>
+                                    <SelectItem value="fashion">Fashion</SelectItem>
+                                    <SelectItem value="cosmetology">Cosmetology</SelectItem>
+                                    <SelectItem value="producer">Producer</SelectItem>
+                                    <SelectItem value="dancer">Dancer</SelectItem>
+                                    <SelectItem value="painter">Painter</SelectItem>
+                                    <SelectItem value="photography">Photography</SelectItem>
+                                    <SelectItem value="podcaster">Podcaster</SelectItem>
+                                    <SelectItem value="writer">Writer</SelectItem>
+                                    <SelectItem value="director">Director</SelectItem>
+                                    <SelectItem value="design">Design</SelectItem>
+                                    <SelectItem value="soundEngineer">Sound Engineer</SelectItem>
+                                    <SelectItem value="cheer">Cheer</SelectItem>
+                                    <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
+                                    <SelectItem value="artist">Music Artist</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
                         </div>
+                        {category === 'artist' && (
+                            <div className="mt-4">
+                                <Select
+                                    onValueChange={(e) => setSubCategory(e)}
+                                    value={subCategory}
+                                >
+                                    <SelectTrigger className="w-full"
+                                        >
+                                        <SelectValue placeholder="Select concert genre" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                        <SelectLabel>Genre</SelectLabel>
+                                            <SelectItem value="electronic">Electronic</SelectItem>
+                                            <SelectItem value="country">Country</SelectItem>
+                                            <SelectItem value="hiphop">Hip hop</SelectItem>
+                                            <SelectItem value="funk">Funk</SelectItem>
+                                            <SelectItem value="jazz">Jazz</SelectItem>
+                                            <SelectItem value="latin">Latin</SelectItem>
+                                            <SelectItem value="pop">Pop</SelectItem>
+                                            <SelectItem value="punk">Punk</SelectItem>
+                                            <SelectItem value="alternative">Alternative</SelectItem>
+                                            <SelectItem value="classical">Classical</SelectItem>
+                                            <SelectItem value="r&b">R&B</SelectItem>
+                                            <SelectItem value="rock">Rock</SelectItem>
+                                            <SelectItem value="blues">Blues</SelectItem>
+                                            <SelectItem value="metal">Metal</SelectItem>
+                                            <SelectItem value="indie">Indie</SelectItem>
+                                            <SelectItem value="other">Other</SelectItem>
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        )}
                         <div className="mt-4">
                             <Input onChange={(e) => setSlots(parseInt(e.target.value))} type="number" min={1} placeholder="Slots number" />
                         </div>

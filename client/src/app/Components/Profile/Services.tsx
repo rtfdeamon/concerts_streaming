@@ -17,7 +17,7 @@ export default function Services() {
         {modalIsOpen && <AddServiceModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />}
         <h5 className={styles.title}>Services</h5>
         <div className={styles.wrapper}>
-            {user?.role.includes('services') && <Button className={styles.btn} onClick={openModalHandler}>Add service</Button>}
+            {user?.role.includes('service') && <Button className={styles.btn} onClick={openModalHandler}>Add service</Button>}
         </div>
         {
             //фильтровать по роли. артистам доступны все сервисы

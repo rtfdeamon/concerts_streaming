@@ -96,56 +96,59 @@ export default function Header({type, children}:{type: string, children?: React.
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Events</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                      <ul className="flex items-center justify-around w-[350px] text-center p-6">
-                        <div className='flex flex-col'>
-                        <NavigationMenuLink href="/genre/electronic" title="Introduction">
-                            Electronic
+                      <ul className="flex items-start justify-center w-[350px] text-center p-6">
+                        <div className='flex flex-col mr-4'>
+                        <NavigationMenuLink href="/category/culinary" title="Introduction">
+                            Culinary
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/genre/country" title="Installation">     
-                            Country
+                          <NavigationMenuLink href="/category/comedy" title="Installation">     
+                            Comedy
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/genre/hiphop" title="Typography">
-                            Hip hop
+                          <NavigationMenuLink href="/category/videography" title="Typography">
+                            Videography
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/genre/funk" title="Typography">
-                            Funk
+                          <NavigationMenuLink href="/category/bloggers" title="Typography">
+                            Bloggers
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/genre/jazz" title="Typography">
-                            Jazz
+                          <NavigationMenuLink href="/category/authors" title="Typography">
+                            Authors
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/genre/latin" title="Typography">
-                            Latin
+                          <NavigationMenuLink href="/category/actors" title="Typography">
+                            Actors
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/genre/pop" title="Typography">
-                            Pop
+                          <NavigationMenuLink href="/category/fashion" title="Typography">
+                            Fashion
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/genre/punk" title="Typography">
-                            Punk
+                          <NavigationMenuLink href="/category/cosmetology" title="Typography">
+                            Cosmetology
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/producer" title="Typography">
+                            Producer
                           </NavigationMenuLink>
                         </div>
                         <div className='flex flex-col'>
-                          <NavigationMenuLink href="/genre/alternative" title="Typography">
-                              Alternative
+                          <NavigationMenuLink href="/category/dancer" title="Typography">
+                              Dancer
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/classical" title="Typography">
-                              Classical
+                            <NavigationMenuLink href="/category/painter" title="Typography">
+                              Painter
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/r&b" title="Typography">
-                              R&B
+                            <NavigationMenuLink href="/category/photography" title="Typography">
+                              Photography
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/rock" title="Typography">
-                              Rock
+                            <NavigationMenuLink href="/category/podcaster" title="Typography">
+                              Podcaster
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/blues" title="Typography">
-                              Blues
+                            <NavigationMenuLink href="/category/writer" title="Typography">
+                              Writer
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/metal" title="Typography">
-                              Metal
+                            <NavigationMenuLink href="/category/cheer" title="Typography">
+                              Cheer
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/indie" title="Typography">
-                              Indie
+                            <NavigationMenuLink href="/category/hainNailSkin" title="Typography">
+                              Hair-Nail-Skin
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/all" title="Typography">
+                            <NavigationMenuLink href="/category/all" title="Typography">
                               All events
                             </NavigationMenuLink>
                         </div>

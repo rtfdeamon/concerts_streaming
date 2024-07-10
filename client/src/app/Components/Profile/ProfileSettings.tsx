@@ -32,7 +32,7 @@ export default function ProfileSettings() {
   const [storageUserRole, setStorageUserRole] = useLocalStorage('role', typeof user?.role !== 'undefined' ? user?.role : '');
   const [name, setUserName] = useState<string | undefined>(undefined);
   const [desc, setDesc] = useState<string | undefined>(undefined);
-  const [category, setCategory] = useState<string | undefined>(undefined);
+  const [category, setCategory] = useState<string | undefined>(user?.role === 'artist' ? 'artist' : undefined);
   const { toast } = useToast();
   const [selectedSocial, setSelectedSocial] = useState<string | undefined>()
   const [selectedRole, setSelectedRole] = useState<string | undefined>()
@@ -101,7 +101,10 @@ export default function ProfileSettings() {
   //   }
   // }
   const changeProfile = async () => {
-    const res:any = await dispatch(changeProfileInfo({name, description: desc, artist_genre: category, category, subcategory: subCategory, websiteUrl, businessName, ein})); 
+    const res:any = await dispatch(changeProfileInfo(
+      {name, description: desc, artist_genre: category, category,
+      subcategory: subCategory, websiteUrl, businessName, ein, phoneNumber}
+    )); 
     if (res.payload.id){
       toast({
         title: "Profile's changes",
@@ -181,7 +184,13 @@ export default function ProfileSettings() {
               <Image src={LinkedInIcon} alt="linkedin" />
             </li>
           </ul>
-
+      <div className={styles.fileInput}>
+        <Label className={styles.span} htmlFor="picture">Picture</Label>
+        <Input onChange={(e) => onUploadHandler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg" />
+      </div>
+      {user?.role !== 'service' && user?.role !== 'administrator'
+      && user?.role !== 'directory' && user?.role !== 'viewer' 
+      && user?.role !== 'sponsor' && user?.role !== 'advertiser' && (
         <div className={styles.profileName}>
         <Label className={styles.span} htmlFor="Category">Category</Label>
           <Select onValueChange={categoryChangeHandler} value={category || user?.category}>
@@ -189,33 +198,35 @@ export default function ProfileSettings() {
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
-            <SelectItem value="sponsor">Modeling</SelectItem>
-                          <SelectItem value="culinary">Culinary</SelectItem>
-                          <SelectItem value="comedy">Comedy</SelectItem>
-                          <SelectItem value="videography">Videography</SelectItem>
-                          <SelectItem value="bloggers">Bloggers</SelectItem>
-                          <SelectItem value="authirs">Authors</SelectItem>
-                          <SelectItem value="actors">Actors</SelectItem>
-                          <SelectItem value="fashion">Fashion</SelectItem>
-                          <SelectItem value="cosmetology">Cosmetology</SelectItem>
-                          <SelectItem value="producer">Producer</SelectItem>
-                          <SelectItem value="dancer">Dancer</SelectItem>
-                          <SelectItem value="painter">Painter</SelectItem>
-                          <SelectItem value="photography">Photography</SelectItem>
-                          <SelectItem value="podcaster">Podcaster</SelectItem>
-                          <SelectItem value="writer">Writer</SelectItem>
-                          <SelectItem value="director">Director</SelectItem>
-                          <SelectItem value="design">Design</SelectItem>
-                          <SelectItem value="sound engineer">Sound Engineer</SelectItem>
-                          <SelectItem value="cheer">Cheer</SelectItem>
-                          <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
-                          <SelectItem value="artist">Music Artist</SelectItem>
+              <SelectItem value="modeling">Modeling</SelectItem>
+              <SelectItem value="culinary">Culinary</SelectItem>
+              <SelectItem value="comedy">Comedy</SelectItem>
+              <SelectItem value="videography">Videography</SelectItem>
+              <SelectItem value="bloggers">Bloggers</SelectItem>
+              <SelectItem value="authirs">Authors</SelectItem>
+              <SelectItem value="actors">Actors</SelectItem>
+              <SelectItem value="fashion">Fashion</SelectItem>
+              <SelectItem value="cosmetology">Cosmetology</SelectItem>
+              <SelectItem value="producer">Producer</SelectItem>
+              <SelectItem value="dancer">Dancer</SelectItem>
+              <SelectItem value="painter">Painter</SelectItem>
+              <SelectItem value="photography">Photography</SelectItem>
+              <SelectItem value="podcaster">Podcaster</SelectItem>
+              <SelectItem value="writer">Writer</SelectItem>
+              <SelectItem value="director">Director</SelectItem>
+              <SelectItem value="design">Design</SelectItem>
+              <SelectItem value="soundEngineer">Sound Engineer</SelectItem>
+              <SelectItem value="cheer">Cheer</SelectItem>
+              <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
+              <SelectItem value="artist">Music Artist</SelectItem>
             </SelectContent>
           </Select>
         </div>
+      )}
         {
-          (category === 'artist' || user?.role === 'artist') && (
+          category === 'artist' && (
             <div className={styles.profileName}>
+            <Label className={styles.span} htmlFor="Category">Subcategory</Label>
             <Select onValueChange={setSubCategory} value={subCategory || user?.subcategory}>
               <SelectTrigger>
                 <SelectValue placeholder="Music Genre" />
@@ -242,10 +253,6 @@ export default function ProfileSettings() {
           </div>
           )
         }
-        <div className={styles.fileInput}>
-          <Label className={styles.span} htmlFor="picture">Picture</Label>
-          <Input onChange={(e) => onUploadHandler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg" />
-        </div>
         <div className={styles.profileName}>
           {/* <span>Profile's name</span> <Input type="text" placeholder={User.Name} /> */}
           <span className={styles.span}>Profile's name</span>
@@ -253,29 +260,29 @@ export default function ProfileSettings() {
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Phone number</span>
-          <Input onChange={(e) => setPhoneNumber(e.target.value)} type="text" placeholder="Phone" />
+          <Input onChange={(e) => setPhoneNumber(e.target.value)} type="text" placeholder={user?.phone || "Phone"} />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Business name</span>
-          <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder="Bussiness name" />
+          <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder={user?.business_name || "Bussiness name"} />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Website url</span>
-          <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder="Website" />
+          <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder={user?.website || "Website"} />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>EIN number</span>
           <Input
             onChange={(e) => setEin(e.target.value)}
             type="text"
-            placeholder="EIN"
+            placeholder={user?.ein || "EIN"}
           />
         </div>
-        {user?.role === 'artist' &&
+        {user?.role !== 'administrator' && user?.role !== 'service' && user?.role !== 'advertiser' && user?.role !== 'sponsor' &&
           <>
             <div className={styles.profileName}>
               <span className={styles.span}>Profile's description</span>
-              <Textarea placeholder={user?.name || "Type description of your profile"} onChange={(e) => descHandler(e)} />
+              <Textarea placeholder={user?.description || "Type description of your profile"} onChange={(e) => descHandler(e)} />
             </div>
             {/* <div className={styles.profileName}>
               <span className={styles.span}>Change your genre</span>

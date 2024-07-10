@@ -105,10 +105,8 @@ export default function SignUp() {
                           <SelectLabel>Who you are?</SelectLabel>
                           <SelectItem value="viewer">Viewer</SelectItem>
                           <SelectItem value="artist">Artist</SelectItem>
-                          <SelectItem value="sponsor">Sponsor</SelectItem>
-                          <SelectItem value="advertiser">Advertiser</SelectItem>
-                          <SelectItem value="directory">Directory</SelectItem>
-                          <SelectItem value="service">Service</SelectItem>
+                          <SelectItem value="sponsor">Advertiser</SelectItem>
+                          <SelectItem value="service">Directory/Service</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>

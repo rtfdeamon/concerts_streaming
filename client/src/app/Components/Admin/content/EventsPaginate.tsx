@@ -41,7 +41,10 @@ function Items(events:IEvents) {
               {e.poster_url && <Image className={styles.showImage} src={e.poster_url} width={400} height={250} alt='Show' />}
               <div className={styles.info}>
                 <p className={styles.paragraph}>Slots count: {e.slots}</p>
-                <p className={styles.paragraph}>Genre: {e.category}</p>
+                <p className={styles.paragraph}>Category: {e.category}</p>
+                {e.subcategory && (
+                  <p className={styles.paragraph}>Subcategory: {e.subcategory}</p>
+                )}
                 <p className={styles.paragraph}>Accessibility:  {e.access}</p>
                 {e.ticket_price &&  <p className={styles.paragraph}>Price:  {e.ticket_price} $</p>}
                 <p className={styles.paragraph}>Perfomance time: {e.performance_time}</p>

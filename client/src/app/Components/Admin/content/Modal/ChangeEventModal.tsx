@@ -57,6 +57,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
     const [perfomanceOrder, setPerfomanceOrder] = useState<any>()
     const [order, setOrder] = useState<number[] | []>([])
     const [orderOpen, setOrderOpen] = useState(false)
+    const [subCategory, setSubCategory] = useState<string | undefined>()
     const [selectIndex, setSelectIndex] = useState<number[]>()
     const [tick, setTick] = useState(false)
     const timerId = useRef<NodeJS.Timeout>()
@@ -156,7 +157,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
             order.length !== 0 && await changeOrder()
             const stringDate = date?.toISOString() as string;
             const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
-            slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price}));
+            slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price, subcategory: subCategory}));
             if (res.payload.id){
                 setIsOpen(false)
             } else{
@@ -208,9 +209,48 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                                 onValueChange={(e) => categoryChangeHandler(e)}
                                 value={category}
                             >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Select concert genre" />
+                                <SelectTrigger className="w-full"
+                                    >
+                                    <SelectValue placeholder="Select concert category" />
                                 </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                    <SelectLabel>Category</SelectLabel>
+                                    <SelectItem value="modeling">Modeling</SelectItem>
+                                    <SelectItem value="culinary">Culinary</SelectItem>
+                                    <SelectItem value="comedy">Comedy</SelectItem>
+                                    <SelectItem value="videography">Videography</SelectItem>
+                                    <SelectItem value="bloggers">Bloggers</SelectItem>
+                                    <SelectItem value="authirs">Authors</SelectItem>
+                                    <SelectItem value="actors">Actors</SelectItem>
+                                    <SelectItem value="fashion">Fashion</SelectItem>
+                                    <SelectItem value="cosmetology">Cosmetology</SelectItem>
+                                    <SelectItem value="producer">Producer</SelectItem>
+                                    <SelectItem value="dancer">Dancer</SelectItem>
+                                    <SelectItem value="painter">Painter</SelectItem>
+                                    <SelectItem value="photography">Photography</SelectItem>
+                                    <SelectItem value="podcaster">Podcaster</SelectItem>
+                                    <SelectItem value="writer">Writer</SelectItem>
+                                    <SelectItem value="director">Director</SelectItem>
+                                    <SelectItem value="design">Design</SelectItem>
+                                    <SelectItem value="soundEngineer">Sound Engineer</SelectItem>
+                                    <SelectItem value="cheer">Cheer</SelectItem>
+                                    <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
+                                    <SelectItem value="artist">Music Artist</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        {category === 'artist' && (
+                            <div className="mt-4">
+                                <Select
+                                    onValueChange={(e) => setSubCategory(e)}
+                                    value={subCategory}
+                                >
+                                    <SelectTrigger className="w-full"
+                                        >
+                                        <SelectValue placeholder="Select concert genre" />
+                                    </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
                                         <SelectLabel>Genre</SelectLabel>
@@ -232,8 +272,9 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                                             <SelectItem value="other">Other</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
-                            </Select>
-                        </div>
+                                </Select>
+                            </div>
+                        )}
                         <div className="mt-4">
                             <Input onChange={(e) => setSlots(parseInt(e.target.value))} type="number" defaultValue={1} min={1} placeholder="Slots number" />
                         </div>

@@ -49,6 +49,7 @@ export interface IShow{
   access?: string,
   subscribers?: IUser[],
   ads?: IAd[],
+  subcategory?: string,
   performances?: IPerformance[],
   ticket_price?: string
 }

@@ -9,7 +9,7 @@ import PayPalModal from "./PayPalModal";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { ITicket, IUser } from "@/app/types/interfaces";
-import { IPreviewParams } from "@/app/genre/[id]/page";
+import { IPreviewParams } from "@/app/category/[id]/page";
 import { Button } from "@/shadComponents/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -239,6 +239,9 @@ const buyHandler = () => {
                   }
                 </div>
                   <div className={styles.posterWrapper}>
+                      <p className={styles.desc}>
+                        {show?.category === 'artist' ? 'Music show' : show?.category}{show?.subcategory && `/${show.subcategory}`}
+                      </p>
                       <p className={styles.desc}>
                         {show.description}
                       </p>

@@ -46,6 +46,7 @@ export default function Profile() {
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
     setTariffIsOpen(false);
+    setServicesIsOpen(false)
   }
   const artistsHandler = () => {
     setArtistsIsOpen(true);
@@ -57,6 +58,7 @@ export default function Profile() {
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
     setTariffIsOpen(false);
+    setServicesIsOpen(false)
   }
   const showsHandler = () => {
     setShowsIsOpen(true);
@@ -68,6 +70,7 @@ export default function Profile() {
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
     setTariffIsOpen(false);
+    setServicesIsOpen(false)
   }
   const artistShowsHandler = () => {
     setArtistsShowsIsOpen(true);
@@ -79,6 +82,7 @@ export default function Profile() {
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
     setTariffIsOpen(false);
+    setServicesIsOpen(false)
   }
   const upcomingHandler = () => {
     setUpcomingIsOpen(true);
@@ -90,6 +94,7 @@ export default function Profile() {
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
     setTariffIsOpen(false);
+    setServicesIsOpen(false)
   }
   const scheduledShowsHandler = () => {
     setScheduledShowsIsOpen(true);
@@ -101,6 +106,7 @@ export default function Profile() {
     setSponsoredShowsIsOpen(false);
     setTicketsListIsOpen(false);
     setTariffIsOpen(false);
+    setServicesIsOpen(false)
   }
   const sponsoredShowsHandler = () => {
     setSponsoredShowsIsOpen(true);
@@ -112,6 +118,7 @@ export default function Profile() {
     setScheduledShowsIsOpen(false);
     setTicketsListIsOpen(false);
     setTariffIsOpen(false);
+    setServicesIsOpen(false)
   }
   const ticketsListHandler = () => {
     setTicketsListIsOpen(true);
@@ -123,6 +130,7 @@ export default function Profile() {
     setArtistsShowsIsOpen(false);
     setScheduledShowsIsOpen(false);
     setTariffIsOpen(false);
+    setServicesIsOpen(false)
   }
 
   const tariffHandler = () => {
@@ -140,15 +148,15 @@ export default function Profile() {
 
   const servicesHandler = () => {
     setServicesIsOpen(true)
-    setTariffIsOpen(false);
-    setTicketsListIsOpen(false);
-    setSponsoredShowsIsOpen(false);
-    setUpcomingIsOpen(false);
-    setProfileIsOpen(false);
-    setArtistsIsOpen(false);
-    setShowsIsOpen(false);
-    setArtistsShowsIsOpen(false);
-    setScheduledShowsIsOpen(false);
+    setTariffIsOpen(false)
+    setTicketsListIsOpen(false)
+    setSponsoredShowsIsOpen(false)
+    setUpcomingIsOpen(false)
+    setProfileIsOpen(false)
+    setArtistsIsOpen(false)
+    setShowsIsOpen(false)
+    setArtistsShowsIsOpen(false)
+    setScheduledShowsIsOpen(false)
   }
 
   useEffect(() => {
@@ -169,7 +177,8 @@ export default function Profile() {
         <HeaderWithoutBanner />
         <section className={styles.wrapper}>
           <div className={styles.content}>
-            {user?.role.includes('artist') && 
+            {!user?.role.includes('administrator') && !user?.role.includes('service') && 
+            !user?.role.includes('sponsor') &&
               <ul className={styles.nav}>
               <li
                 onClick={profileHandler}
@@ -219,7 +228,7 @@ export default function Profile() {
                   className={artistsIsOpen ? styles.active : styles.notActive}
                 >Followed Artists</li>
             </ul> }
-            {user?.role.includes('services') && 
+            {user?.role.includes('service') && 
               <ul className={styles.nav}>
               <li
                 onClick={profileHandler}

@@ -5,7 +5,7 @@ import HeaderWithoutBanner from '../Header/HeaderWithouBanner'
 import { ArtistsPaginate } from '../ArtistsPaginate/ArtistsPaginate';
 import Loading from '../Loading/Loading';
 import PaginatedItems from '../Shows/Paginate/Paginate';
-import { IPreviewParams } from '@/app/genre/[id]/page'
+import { IPreviewParams } from '@/app/category/[id]/page'
 import { IArtist, IEvent } from '@/app/types/interfaces';
 import styles from './InfoByGenre.module.scss'
 

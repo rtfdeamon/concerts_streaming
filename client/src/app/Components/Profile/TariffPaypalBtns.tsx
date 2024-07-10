@@ -64,7 +64,7 @@ export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIs
               "Content-Type": "application/json",
               'Authorization': `Bearer ${await getTokenForApi()}`
           },
-          body: JSON.stringify({plan_id:  data.id}),
+          body: JSON.stringify({subscription_id:  data.id}),
         })
         .then((response) => response.json())
         .then((order) => {

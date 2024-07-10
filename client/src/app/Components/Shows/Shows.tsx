@@ -104,22 +104,23 @@ export default function Shows() {
             calendarIsOpen && <CalendarComp />
         } */}
         <div className={styles.genres}>
-            <Link href={'/genre/country'}>Country</Link>
-            <Link href={'/genre/electronic'}>Electronic</Link>
-            <Link href={'/genre/funk'}>Funk</Link>
-            <Link href={'/genre/hiphop'}>Hip hop</Link>
-            <Link href={'/genre/jazz'}>Jazz</Link>
-            <Link href={'/genre/latin'}>Latin</Link>
-            <Link href={'/genre/pop'}>Pop</Link>
-            <Link href={'/genre/punk'}>Punk</Link>
-            <Link href={'/genre/rock'}>Rock</Link>
-            <Link href={'/genre/metal'}>Metal</Link>
-            <Link href={'/genre/r&b'}>R&B</Link>
-            <Link href={'/genre/alternative'}>Alternative</Link>
-            <Link href={'/genre/blues'}>Blues</Link>
-            <Link href={'/genre/classical'}>Classical</Link>
-            <Link href={'/genre/indie'}>Indie</Link>
-            <Link href={'/genre/all'}>All</Link>
+            <Link href={'/category/culinary'}>Culinary</Link>
+            <Link href={'/category/comedy'}>Comedy</Link>
+            <Link href={'/category/videography'}>Videography</Link>
+            <Link href={'/category/bloggers'}>Bloggers</Link>
+            <Link href={'/category/authors'}>Authors</Link>
+            <Link href={'/category/actors'}>Actors</Link>
+            <Link href={'/category/fashion'}>Fashion</Link>
+            <Link href={'/category/cosmetology'}>Cosmetology</Link>
+            <Link href={'/category/producer'}>Producer</Link>
+            <Link href={'/category/dancer'}>Dancer</Link>
+            <Link href={'/category/painter'}>Painter</Link>
+            <Link href={'/category/photography'}>Photography</Link>
+            <Link href={'/category/podcaster'}>Podcaster</Link>
+            <Link href={'/category/writer'}>Writer</Link>
+            <Link href={'/category/cheer'}>Cheer</Link>
+            <Link href={'/category/hainNailSkin'}>Hair-Nail-Skin</Link>
+            <Link href={'/category/all'}>All</Link>
         </div>
         <div className={styles.artists}>
             <Link href={'/artists/all'}>All artists</Link>

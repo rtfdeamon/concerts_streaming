@@ -27,14 +27,14 @@ export const loadAllShows = createAsyncThunk<IEvent[], void>(
 
 export const createShow = createAsyncThunk<IEvent, IShow>(
     '@@shows/createShow',
-    async ({name, description, date, slots, performance_time, poster_url, category, access, ticket_price}) => {
+    async ({name, description, date, slots, performance_time, poster_url, category, subcategory, access, ticket_price}) => {
         const res = await fetch(`${process.env.BACKEND_URL}/concerts/`, {
             method: 'POST',
             headers:{
                 'Content-type' : 'application/json',
                 'Authorization' : `Bearer ${await getTokenForApi()}`
             },
-            body: JSON.stringify({name, description, date, slots, performance_time, poster_url, category, access, ticket_price})
+            body: JSON.stringify({name, description, date, slots, performance_time, poster_url, category, subcategory, access, ticket_price})
         })
         const data = await res.json();
         return data as IEvent
@@ -57,14 +57,14 @@ export const deleteShow = createAsyncThunk<string, string>(
 
 export const changeShow = createAsyncThunk<IEvent, IChangeShow>(
     '@@shows/changeShow',
-    async ({id, name, description, date, slots, performance_time, poster_url, category, access, ticket_price}) => {
+    async ({id, name, description, date, slots, performance_time, poster_url, category, access, ticket_price, subcategory}) => {
             const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/`, {
             method: 'PATCH',
             headers: {
                 'Content-type' : 'application/json',
                 'Authorization' : `Bearer ${await getTokenForApi()}`
             },
-            body: JSON.stringify({name, description, date, slots, performance_time, poster_url, category, access, ticket_price})
+            body: JSON.stringify({name, description, date, slots, performance_time, poster_url, category, access, ticket_price, subcategory : category !== 'artist' ? null : subcategory})
         })
         const data = await res.json();
         return data as IEvent;

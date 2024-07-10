@@ -114,6 +114,11 @@ export default function Artist({params}:IArtistParams) {
                     alt="women" />
                   <div className={styles.posterWrapper}>
                         <h5 className={styles.artistTitle}>{artist?.name}</h5>
+                        <span className="text-sm text-slate-400 text-center">{artist?.category}</span>
+                        {artist?.category === 'artist' && (
+                            <span className="text-sm text-slate-400 text-center mt-2">{artist?.subcategory}</span>
+
+                        )}
                         <p className={styles.desc}>
                           {artist?.artist_genre}
                         </p>
