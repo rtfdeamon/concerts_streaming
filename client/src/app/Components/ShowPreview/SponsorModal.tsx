@@ -68,7 +68,7 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
                 ),
               })
               closeModal()
-            } else if (req.concert[0] === 'sponsor ad with this concert already exists.'){
+            } else if (req.concert[0] === 'advertiser ad with this concert already exists.'){
                 toast({
                   title: "You already send your request",
                   description: "Please, wait for admin to approve your request",
@@ -128,7 +128,7 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-center text-gray-500">
-                        Do you want to be sponsor of this show?
+                        Do you want to be an advertiser of this show?
                     </p>
                   </div>
                 <div className="mt-4 mb-4">

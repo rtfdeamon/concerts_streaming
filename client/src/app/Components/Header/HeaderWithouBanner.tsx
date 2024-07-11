@@ -24,6 +24,7 @@ export default function HeaderWithoutBanner() {
   const [isMobille, setIsMobile] = useState(false);
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const modalIsOpen = useAppSelector(state => state.modal?.isOpen);
+  const user = useAppSelector(state => state.userInfo.user)
   let authed
   if (typeof window !== "undefined") {
     authed = localStorage.getItem('authed')
@@ -83,6 +84,12 @@ export default function HeaderWithoutBanner() {
           </div>
           <div className={styles.events}>
           <Link className={styles.link} href={'/'}>Home</Link>
+          {
+            user?.role.includes('artist') && user?.plan?.is_paid && (
+              <Link className={styles.link} href={'/services'}>Services</Link>
+             )
+          }
+          <Link className={styles.link} href={'/'}>Services</Link>
           <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>

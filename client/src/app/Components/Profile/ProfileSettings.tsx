@@ -25,6 +25,7 @@ import TikTokIcon from '../../../../public/tiktok-icon.svg'
 import TwitterIcon from '../../../../public/twitter-icon.svg'
 import YoutubeIcon from '../../../../public/youtube-icon.svg'
 import SocialMediaModal from "./SocialMediaModal";
+import ServicePaypalModal from "./ServicePaypalModal";
 
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
@@ -135,8 +136,11 @@ export default function ProfileSettings() {
   }, [user?.role])
   return (
     <div className={styles.menuWrapper}>
+      {user?.role.includes('service') && !user?.plan?.is__paid && (
+                <ServicePaypalModal isOpen={true} />
+      )}
         {selectedSocial && <SocialMediaModal isOpen={Boolean(selectedSocial)} setIsOpen={setSelectedSocial} media={selectedSocial} />}
-        <h5 className={styles.title}>Profile of {user?.name}</h5>
+        <h5 className={styles.title}>Profile</h5>
         <div className={styles.imageWrapper}>
          {user?.avatar_url && <Image className={styles.avatar} src={user?.avatar_url as string} width={500} height={400} alt="Image" /> }
         </div>
@@ -275,7 +279,8 @@ export default function ProfileSettings() {
           <Input
             onChange={(e) => setEin(e.target.value)}
             type="text"
-            placeholder={user?.ein || "EIN"}
+            disabled={user?.ein}
+            placeholder={"EIN"}
           />
         </div>
         {user?.role !== 'administrator' && user?.role !== 'service' && user?.role !== 'advertiser' && user?.role !== 'sponsor' &&

@@ -77,13 +77,23 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         setIsFetching(false)
       })
       .catch(e => {
-        toast({
-          title: "Something went wrong",
-          variant: "destructive",
-          action: (
-            <ToastAction altText="Hide">Hide</ToastAction>
-          ),
-        })
+        if (e === ''){
+          toast({
+            title: "You need to pay for some tariff plan",
+            variant: "destructive",
+            action: (
+              <ToastAction altText="Hide">Hide</ToastAction>
+            ),
+          })
+        } else {
+          toast({
+            title: "Something went wrong",
+            variant: "destructive",
+            action: (
+              <ToastAction altText="Hide">Hide</ToastAction>
+            ),
+          })
+        }
       })
       .finally(() => setIsFetching(false))
     }

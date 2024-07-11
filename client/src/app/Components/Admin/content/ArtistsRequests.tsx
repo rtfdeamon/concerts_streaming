@@ -17,7 +17,7 @@ export default function ArtistsRequests() {
       <h5 className={styles.title}>Artists requests</h5>
       <ArtistsPaginate itemsPerPage={3} sessions={sessions.filter(s => s.status === 'pending')} />
       {sessions.filter(s => s.status === 'pending').length < 1  && 
-          <h6 className={styles.error}>Sorry! No sponsors requests yet 🥲</h6>
+          <h6 className={styles.error}>Sorry! No advertisers requests yet 🥲</h6>
       }
     </div>
   )

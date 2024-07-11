@@ -178,7 +178,7 @@ export default function Profile() {
         <section className={styles.wrapper}>
           <div className={styles.content}>
             {!user?.role.includes('administrator') && !user?.role.includes('service') && 
-            !user?.role.includes('sponsor') &&
+            !user?.role.includes('sponsor') && !user?.role.includes('advertiser') &&
               <ul className={styles.nav}>
               <li
                 onClick={profileHandler}
@@ -187,7 +187,7 @@ export default function Profile() {
                 <li
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}
-                >Tariff plan</li>
+                >Artist Plans</li>
                 <li
                   onClick={servicesHandler}
                   className={servicesIsOpen ? styles.active : styles.notActive}
@@ -218,7 +218,7 @@ export default function Profile() {
                 <li
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}
-                >Tariff plan</li>
+                >Advertiser Plans</li>
               <li
                 onClick={upcomingHandler}
                 className={upcomingIsOpen ? styles.active : styles.notActive}
@@ -234,6 +234,10 @@ export default function Profile() {
                 onClick={profileHandler}
                 className={profileIsOpen ? styles.active : styles.notActive}
               >My Profile</li>
+                <li
+                  onClick={tariffHandler}
+                  className={tariffIsOpen ? styles.active : styles.notActive}
+                >Services Plans</li>
                 <li
                   onClick={servicesHandler}
                   className={servicesIsOpen ? styles.active : styles.notActive}

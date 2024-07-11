@@ -27,6 +27,7 @@ export default function Header({type, children}:{type: string, children?: React.
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
   const modalIsOpen = useAppSelector(state => state.modal?.isOpen);
   const [isVisible, setVisible] = useState(false)
+  const user = useAppSelector(state => state.userInfo.user)
   let authed
   const isMobille = useRef(typeof window !== 'undefined' && window.innerWidth <= 900);
 
@@ -91,6 +92,11 @@ export default function Header({type, children}:{type: string, children?: React.
           </div>
           <div className={styles.events}>
           <Link className={styles.link} href={'/'}>Home</Link>
+          {
+            user?.role.includes('artist') && user?.plan?.is_paid && (
+              <Link className={styles.link} href={'/services'}>Services</Link>
+             )
+          }
               <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
