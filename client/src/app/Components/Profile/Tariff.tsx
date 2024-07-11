@@ -17,11 +17,18 @@ export default function Tariff() {
         setVariant(variant)
         setModalIsOpen(true)
     } 
-    console.log(user)
+    let role: string
+    if (user?.role.includes('service')){
+        role = 'Service'
+    } else if (user?.role.includes('advertiser')){
+        role = 'Advertiser'
+    } else {
+        role = 'Artist'
+    }
     return (
     <section className={styles.sectionWrapper}>
         {modalIsOpen && <TariffPaypalModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} variant={variant} />}
-        <h5 className={styles.title}>Choose your tariff plan</h5>
+        <h5 className={styles.title}>Choose your { role } plan</h5>
             {user?.plan?.is_paid && (
                 <>
                     <p className='text-xl text-center mt-6 mb-6'>Current plan: 
