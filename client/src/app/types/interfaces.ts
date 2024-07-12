@@ -83,6 +83,15 @@ export interface IUser {
   name: string,
   category: string,
   subcategory: string,
+  links: {
+    youtube: string
+    tiktok: string
+    instagram: string
+    twitter: string
+    linkedIn: string
+    spotify: string
+    snapchat: string
+  },
   avatar_url: string,
   username: number,
   artists_followed: IArtist[],

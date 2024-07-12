@@ -17,8 +17,10 @@ export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIs
     planId = "00000001-8000-11ee-8000-102030405060"
   } else if (variant === 'advanced'){
     planId = "00000002-8000-11ee-8000-102030405060"
-  } else{
+  } else if (variant === 'professional'){
     planId = "00000003-8000-11ee-8000-102030405060"
+  } else {
+    planId = "00000010-8000-11ee-8000-102030405060"
   }
 
   const setSubscription = async (plan: string) => {

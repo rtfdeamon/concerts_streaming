@@ -4,7 +4,6 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
-import { Dispatch, SetStateAction } from 'react'
 import { IUser } from "@/app/types/interfaces";
 
 
@@ -12,9 +11,8 @@ export default function ServicePaypalBtns() {
   const [user, setUser] = useState<IUser>();
   const { toast } = useToast();
   const orderId = useRef<any>('');
-  let planId: string
 
-  const setSubscription = async (plan: string) => {
+  const setSubscription = async () => {
     try{
         const res = await fetch(`${process.env.BACKEND_URL}/plan-subscriptions/`, {
           method: 'POST',
@@ -22,13 +20,13 @@ export default function ServicePaypalBtns() {
             'Authorization' : `Bearer ${await getTokenForApi()}`,
             'Content-type': 'application/json'
           },
-          body: JSON.stringify({plan})
+          body: JSON.stringify({plan: "00000010-8000-11ee-8000-102030405060"})
         })
         const data: any = await res.json();
         return data;
       } catch(e){
         toast({
-          title: "You already have a subscription",
+          title: "You already have a plan",
           variant: "destructive",
           action: (
             <ToastAction altText="Hide">Hide</ToastAction>
@@ -38,8 +36,7 @@ export default function ServicePaypalBtns() {
     }
 
   const createOrder = async () => {
-    const data:any = await setSubscription(planId);
-    console.log(data)
+    const data:any = await setSubscription();
       if(data.status === 'activated'){
         toast({
           title: "You already bought this plan",

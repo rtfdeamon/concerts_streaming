@@ -24,7 +24,7 @@ export interface IRegister {
     username: string,
     name: string,
     password: string
-
+    ein: string
 }
   
 
@@ -84,7 +84,7 @@ export default function SignUp() {
             }
           }
     )
-    
+    console.log(select)
   return (
     <>
       <div className={styles.formWrapper}>
@@ -128,6 +128,24 @@ export default function SignUp() {
                   }})} />
             {errors?.email && <p className={styles.err}>{errors.email.message}</p>}
             {/* {emailErr && <span className={styles.err}>Email is required at least 8 symbols</span>} */}
+            {select === 'service' && (
+              <>
+                <span className={styles.span}>EIN</span>
+                  <Input
+                    className={styles.input}
+                    type="text"
+                    {...register("ein", {
+                      required: "required",
+                      minLength: {
+                        value: 9,
+                        message: "min length is 9",
+                      },
+                      pattern : {
+                        value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
+                        message: "Entered value does not match ein format",
+                    }})} />
+              </>
+            )}
             <span className={styles.span}>Username</span>
             <Input
                 className={styles.input}

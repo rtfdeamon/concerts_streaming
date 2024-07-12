@@ -26,6 +26,25 @@ import TwitterIcon from '../../../../public/twitter-icon.svg'
 import YoutubeIcon from '../../../../public/youtube-icon.svg'
 import SocialMediaModal from "./SocialMediaModal";
 import ServicePaypalModal from "./ServicePaypalModal";
+import { getTokenForApi } from "@/app/utils/getTokenForApi";
+
+async function saveService({name, description, subcategory, category, email,
+  business_name, website, phone}){
+  const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
+    method: 'PUT',
+    headers:{
+        'Content-type' : 'application/json',
+        'Authorization' : `Bearer ${await getTokenForApi()}`
+    },
+    body: JSON.stringify(
+        {name, description, subcategory, category, email,
+            business_name, website, phone}
+    )
+  })
+  const data = await res.json()
+  location.reload()
+  return data;
+}
 
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
@@ -33,7 +52,7 @@ export default function ProfileSettings() {
   const [storageUserRole, setStorageUserRole] = useLocalStorage('role', typeof user?.role !== 'undefined' ? user?.role : '');
   const [name, setUserName] = useState<string | undefined>(undefined);
   const [desc, setDesc] = useState<string | undefined>(undefined);
-  const [category, setCategory] = useState<string | undefined>(user?.role === 'artist' ? 'artist' : undefined);
+  const [category, setCategory] = useState<string | undefined>(storageUserRole === 'artist' ? 'artist' : undefined);
   const { toast } = useToast();
   const [selectedSocial, setSelectedSocial] = useState<string | undefined>()
   const [selectedRole, setSelectedRole] = useState<string | undefined>()
@@ -42,6 +61,7 @@ export default function ProfileSettings() {
   const [ein, setEin] = useState<string | undefined>()
   const [websiteUrl, setWebsiteUrl] = useState<string | undefined>()
   const [businessName, setBusinessName] = useState<string | undefined>()
+  const [email, setEmail] = useState<string | undefined>()
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
@@ -104,7 +124,7 @@ export default function ProfileSettings() {
   const changeProfile = async () => {
     const res:any = await dispatch(changeProfileInfo(
       {name, description: desc, artist_genre: category, category,
-      subcategory: subCategory, websiteUrl, businessName, ein, phoneNumber}
+      subcategory: subCategory, websiteUrl, businessName, ein, phoneNumber, email}
     )); 
     if (res.payload.id){
       toast({
@@ -125,8 +145,16 @@ export default function ProfileSettings() {
       })
     }
 }
+
   const saveChangesHandler = async () => {
-    changeProfile()
+    {user?.role.includes('service') ? 
+      saveService({
+        name, description: desc, artist_genre: category, category,
+      subcategory: subCategory, websiteUrl, businessName, ein, phoneNumber, email
+      })
+      :
+      changeProfile()
+    }
   }
   useEffect(() => {
     dispatch(getCurrUser())
@@ -134,12 +162,40 @@ export default function ProfileSettings() {
   useEffect(() => {
     typeof user?.role !== 'undefined' && setStorageUserRole(user?.role);
   }, [user?.role])
+
+
+  const [instagram, setInstagram] = useState<string | undefined>(user?.links['instagram'])
+  const [snapChat, setSnapChat] = useState<string | undefined>(user?.links['snapChat'])
+  const [spotify, setSpotify] = useState<string | undefined>(user?.links['spotify'])
+  const [tiktok, setTiktok] = useState<string | undefined>(user?.links['tiktok'])
+  const [twitter, setTwitter] = useState<string | undefined>(user?.links['twitter'])
+  const [youtube, setYoutube] = useState<string | undefined>(user?.links['youtube'])
+  const [linkedIn, setLinkedIn] = useState<string | undefined>(user?.links['linkedIn'])
+
   return (
     <div className={styles.menuWrapper}>
-      {user?.role.includes('service') && !user?.plan?.is__paid && (
+      {user?.role.includes('service') && !user?.plan?.is_paid && (
                 <ServicePaypalModal isOpen={true} />
       )}
-        {selectedSocial && <SocialMediaModal isOpen={Boolean(selectedSocial)} setIsOpen={setSelectedSocial} media={selectedSocial} />}
+        {selectedSocial && <SocialMediaModal
+          isOpen={Boolean(selectedSocial)}
+          setIsOpen={setSelectedSocial}
+          media={selectedSocial}
+          instagram={instagram}
+          snapChat={snapChat}
+          spotify={spotify}
+          tiktok={tiktok}
+          twitter={twitter}
+          youtube={youtube}
+          linkedIn={linkedIn}
+          setInstagram={setInstagram}
+          setSnapChat={setSnapChat}
+          setSpotify={setSpotify}
+          setTiktok={setTiktok}
+          setTwitter={setTwitter}
+          setYoutube={setYoutube}
+          setLinkedIn={setLinkedIn}
+        />}
         <h5 className={styles.title}>Profile</h5>
         <div className={styles.imageWrapper}>
          {user?.avatar_url && <Image className={styles.avatar} src={user?.avatar_url as string} width={500} height={400} alt="Image" /> }
@@ -147,7 +203,7 @@ export default function ProfileSettings() {
           <ul className={styles.socialItems}>
             <li
               className={styles.socialItem}
-              onClick={() => setSelectedSocial('inst')}
+              onClick={() => setSelectedSocial('instagram')}
             >
               <Image src={InstIcon} alt="inst" />
             </li>
@@ -165,7 +221,7 @@ export default function ProfileSettings() {
             </li>
             <li
               className={styles.socialItem}
-              onClick={() => setSelectedSocial('inst')}
+              onClick={() => setSelectedSocial('tiktok')}
             >
               <Image src={TikTokIcon} alt="inst" />
             </li>
@@ -263,6 +319,10 @@ export default function ProfileSettings() {
           <Input onChange={(e) => onChangeHandler(e)} type="text" placeholder={user?.name || "Name"} />
         </div>
         <div className={styles.profileName}>
+          <span className={styles.span}>Email</span>
+          <Input onChange={(e) => setEmail(e.target.value)} type="text" placeholder={user?.email || "Email"} />
+        </div>
+        <div className={styles.profileName}>
           <span className={styles.span}>Phone number</span>
           <Input onChange={(e) => setPhoneNumber(e.target.value)} type="text" placeholder={user?.phone || "Phone"} />
         </div>
@@ -274,6 +334,7 @@ export default function ProfileSettings() {
           <span className={styles.span}>Website url</span>
           <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder={user?.website || "Website"} />
         </div>
+        {!user?.role.includes('service') && 
         <div className={styles.profileName}>
           <span className={styles.span}>EIN number</span>
           <Input
@@ -283,6 +344,7 @@ export default function ProfileSettings() {
             placeholder={"EIN"}
           />
         </div>
+        }
         {user?.role !== 'administrator' && user?.role !== 'service' && user?.role !== 'advertiser' && user?.role !== 'sponsor' &&
           <>
             <div className={styles.profileName}>

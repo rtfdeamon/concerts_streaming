@@ -15,6 +15,15 @@ import User from '../../../../public/user (1).svg'
 import ShowsCalendar from "./ShowsCalendar"
 import { IArtistParams } from "@/app/artist/[id]/page"
 import { IArtist, IUser } from "@/app/types/interfaces"
+
+import InstIcon from '../../../../public/instagram-icon.svg'
+import LinkedInIcon from '../../../../public/linkedin-icon.svg'
+import SnapChatIcon from '../../../../public/snapchat-icon.svg'
+import SpotifyIcon from '../../../../public/spotify-icon.svg'
+import TikTokIcon from '../../../../public/tiktok-icon.svg'
+import TwitterIcon from '../../../../public/twitter-icon.svg'
+import YoutubeIcon from '../../../../public/youtube-icon.svg'
+
 import styles from './Artist.module.scss'
 
 const followArtist = async (id: string) => {
@@ -141,6 +150,66 @@ export default function Artist({params}:IArtistParams) {
                         }
                   </div>
                    </div>
+                   {Object.values(artist?.links) > 0 && 
+                    <ul className={styles.socialItems}>
+              {
+                artist?.links['instagram'] && 
+                <li
+                  className={styles.socialItem}
+                >
+                  <Image src={InstIcon} alt="inst" />
+                </li>
+              }
+              {
+                artist?.links['snapchat'] && 
+                <li
+                  className={styles.socialItem}
+                >
+                  <Image src={SnapChatIcon} alt="snapchat" />
+                </li>
+              }
+              {
+              artist?.links['spotify'] && 
+              <li
+                className={styles.socialItem}
+              >
+                <Image src={SpotifyIcon} alt="spotify" />
+              </li>
+              }
+              {
+              artist?.links['instagram'] && 
+              <li
+                className={styles.socialItem}
+              >
+                <Image src={TikTokIcon} alt="inst" />
+              </li>
+              }
+              {
+              artist?.links['twitter'] && 
+              <li
+                className={styles.socialItem}
+              >
+                <Image src={TwitterIcon} alt="twitter" />
+              </li>
+              }
+              {
+              artist?.links['youtube'] && 
+              <li
+                className={styles.socialItem}
+              >
+                <Image src={YoutubeIcon} alt="youtube" />
+              </li>
+              }
+              {
+              artist?.links['linkedin'] && 
+              <li
+                className={styles.socialItem}
+              >
+                <Image src={LinkedInIcon} alt="linkedin" />
+              </li>
+              }
+                    </ul>
+                   }
                   <div className={styles.aboutWrapper}>
                       {artist.concerts.length > 0 &&  <ShowsCalendar concerts={artist.concerts} isAbout={artist.description ? true : false}/> }
                       {artist.description && <About id={artist?.name}  description={artist.description}

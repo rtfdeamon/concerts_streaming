@@ -38,12 +38,26 @@ export default function Tariff() {
                         user?.plan?.plan === '00000002-8000-11ee-8000-102030405060' && ' Advanced'
                             ||
                         user?.plan?.plan === '00000003-8000-11ee-8000-102030405060' && ' Professional'
+                        ||
+                        user?.plan?.plan === '00000010-8000-11ee-8000-102030405060' && ' Service'
                     }</p>
                     <span className='text-xl text-center mb-6'>Active untill: {new Date(user?.plan?.end_date).toLocaleDateString()}</span>
                 </>
             )}
             <div className={styles.tariffWrapper}>
+                {user?.role.includes('service') ? (
                 <div className={styles.tariffItem}>
+                <h6 className={styles.subtitle}>Basic</h6>
+                <Image className={styles.image} src={Smile} width={100} height={100} alt='Heart' />
+                <p className={styles.price}>29,99$</p>
+                <Button className={styles.btn}
+                    onClick={() => openModalHandler('service')}
+                >Take a plan</Button>
+            </div>
+                )
+                :
+                <>
+                        <div className={styles.tariffItem}>
                     <h6 className={styles.subtitle}>Basic</h6>
                     <Image className={styles.image} src={Smile} width={100} height={100} alt='Heart' />
                     <p className={styles.price}>9,99$</p>
@@ -70,6 +84,8 @@ export default function Tariff() {
                         onClick={() => openModalHandler('professional')}
                     >Take a plan</Button>
                 </div>
+                </>
+                }
             </div>
     </section>
   )

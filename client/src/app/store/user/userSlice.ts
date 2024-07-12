@@ -45,19 +45,23 @@ export interface IArtistChange {
     businessName: string | undefined
     websiteUrl: string | undefined
     phoneNumber: string | undefined
+    email: string | undefined
 }
 
 
 export const changeProfileInfo = createAsyncThunk<IArtist, IArtistChange>(
     '@@user/changeArtistOptions',
-    async ({ name, description, category, subcategory, ein, businessName, websiteUrl, phoneNumber }) => {
+    async ({ name, description, category, subcategory, ein, businessName, websiteUrl, phoneNumber, email }) => {
         const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
             method: 'PUT',
             headers:{
                 'Content-type' : 'application/json',
                 'Authorization' : `Bearer ${await getTokenForApi()}`
             },
-            body: JSON.stringify({name, description, subcategory, category, ein, business_name: businessName, website: websiteUrl, phone: phoneNumber})
+            body: JSON.stringify(
+                {name, description, subcategory, category, ein, email,
+                    business_name: businessName, website: websiteUrl, phone: phoneNumber}
+            )
         })
         const data = await res.json();
         return data;

@@ -17,7 +17,7 @@ function Items({shows, type, isProfile}: {shows: IEvent[], type?: string, isProf
       <div className={type ? styles.genresShows : styles.shows}>
           {shows &&
             shows.map((s, i) => (
-              <Link href={`/preview/${s.id}`} className={!type? styles.wrapper : styles.typeWrapper} key={i}>
+              <Link href={`/service/${s.id}`} className={!type? styles.wrapper : styles.typeWrapper} key={i}>
                 <span className={styles.title}>{s.name}</span>
                 {/* <span className={styles.place}>{s.description}</span> */}
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>

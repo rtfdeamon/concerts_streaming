@@ -89,7 +89,6 @@ export default function HeaderWithoutBanner() {
               <Link className={styles.link} href={'/services'}>Services</Link>
              )
           }
-          <Link className={styles.link} href={'/'}>Services</Link>
           <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>

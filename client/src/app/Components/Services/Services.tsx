@@ -4,10 +4,16 @@ import HeaderWithoutBanner from '../Header/HeaderWithouBanner'
 import Loading from '../Loading/Loading';
 import PaginatedItems from '../Shows/Paginate/Paginate';
 import styles from './Services.module.scss'
+import { getTokenForApi } from '@/app/utils/getTokenForApi';
 
 async function getData() {
     //TODO: switch url to services route
-    const res = await fetch(`${process.env.BACKEND_URL}/concerts/`);
+    const res = await fetch(`${process.env.BACKEND_URL}/services/`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${await getTokenForApi()}`
+        }
+    });
     const data = await res.json();
     return data
 }
@@ -38,8 +44,13 @@ export default function Services() {
         <HeaderWithoutBanner />
         <h5 className={styles.title}>Services</h5>
         <div className={styles.wrapper}>
-            <PaginatedItems itemsPerPage={6} items={serviceData} type='genres'/>
-            {isLoaded && <Loading />}
+            {
+                       serviceData.length > 0 ? (
+                        <PaginatedItems itemsPerPage={6} items={serviceData} type='genres'/>
+                    )
+                    :
+                    <h5 className={styles.servicesException}>No services yet</h5>
+            }
         </div>
     </section>
   )

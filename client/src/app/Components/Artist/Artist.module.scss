@@ -85,12 +85,45 @@
     @apply  w-[100%] flex justify-between
 }
 
+.socialItems{
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.socialItem{
+    &:hover{
+        transform: scale(1.05);
+    }
+    &:not(:last-child){
+        margin-right: 25px;
+    }
+    width: 50px;
+    height: 50px;
+    transition: .3s all;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1024px) {
     .upcomingDesc{
         @apply max-w-[120px] truncate
     }
     .banner{
         @apply h-[350px] mt-0
+    }
+    .socialItems{
+        flex-wrap: wrap;
+        max-width: 90%;
+
+    }
+    .socialItem{
+        width: 30px;
+        height: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 }
 @media screen and (max-width: 780px) {

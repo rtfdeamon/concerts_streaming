@@ -84,7 +84,9 @@ const serviceSlice = createSlice({
                 state.status = 'loaded';
             })
             .addCase(addService.fulfilled, (state, action) => {
-                state.services.push(action.payload)
+                state.services = [...state.services, action.payload];
+                state.error = false;
+                state.status = 'loaded';
             })
     }
 })

@@ -54,6 +54,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
           body: JSON.stringify({name: 'testtest', description: desc, artist_demo_url: artistDemoRef.current,
           user: null, concert: id})
         })
+        return res
       }
     const requestHandler = async () => {
       if (desc === ''){
@@ -66,26 +67,30 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         return
       }
         setIsFetching(true)
-        postArtistDemo().then(res => {
-        toast({
-          title: "Your request is sent",
-          action: (
-            <ToastAction altText="Hide">Hide</ToastAction>
-          ),
-        })
+        postArtistDemo()
+        .then(res => {
+          console.log(res)
+          if (res.statusText === 'Payment Required'){
+            toast({
+              title: "You need to pay for some tariff plan",
+              variant: "destructive",
+              action: (
+                <ToastAction altText="Hide">Hide</ToastAction>
+              ),
+            })
+          }
+          else {
+            toast({
+              title: "Your request is sent",
+              action: (
+                <ToastAction altText="Hide">Hide</ToastAction>
+              ),
+            })
+          }
         setIsOpen(false)
         setIsFetching(false)
       })
       .catch(e => {
-        if (e === ''){
-          toast({
-            title: "You need to pay for some tariff plan",
-            variant: "destructive",
-            action: (
-              <ToastAction altText="Hide">Hide</ToastAction>
-            ),
-          })
-        } else {
           toast({
             title: "Something went wrong",
             variant: "destructive",
@@ -93,7 +98,6 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
               <ToastAction altText="Hide">Hide</ToastAction>
             ),
           })
-        }
       })
       .finally(() => setIsFetching(false))
     }

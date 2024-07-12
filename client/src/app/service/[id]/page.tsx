@@ -1,5 +1,6 @@
 import CheckIsAuth from "@/app/utils/checkIsAuth"
 import ShowPreview from "@/app/Components/ShowPreview/ShowPreview"
+import ServicePreview from "@/app/Components/ServicePreview/ServicePreview"
 
 export interface IPreviewParams {
   params:{
@@ -10,7 +11,7 @@ export interface IPreviewParams {
 export default function page({params}:IPreviewParams) {
   return (
     <>
-      <ShowPreview params={params} />    
+      <ServicePreview params={params} />    
     </>
   )
 }

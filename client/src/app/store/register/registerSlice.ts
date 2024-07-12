@@ -5,13 +5,13 @@ import { IRegister } from "@/app/Components/SignUp/SignUp";
 
 export const signUp = createAsyncThunk<void, IRegister>(
     '@@register/userSignUp',
-    async ({email, username, name, password, select}) => {
+    async ({email, username, name, password, select, ein}) => {
         const res = await fetch(`${process.env.BACKEND_URL}/auth/signup`, {
             method: 'POST',
             headers:{
                 'Content-type' : 'application/json'
             },
-            body: JSON.stringify({username, password, name, email, role: select})
+            body: JSON.stringify({username, password, name, email, role: select, ein})
         })
         const data = await res.json();
         return data;

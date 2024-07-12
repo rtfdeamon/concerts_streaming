@@ -2,7 +2,7 @@
     @apply  mx-auto py-10 flex flex-col items-center
 }
 .title{
-    @apply text-5xl text-center mb-10
+    @apply text-5xl text-center mb-10 max-w-[250px]
 }
 .imageWrapper{
     & img{

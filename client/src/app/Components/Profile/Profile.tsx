@@ -215,10 +215,10 @@ export default function Profile() {
                   onClick={servicesHandler}
                   className={servicesIsOpen ? styles.active : styles.notActive}
                 >Services</li>
-                <li
+                {/* <li
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}
-                >Advertiser Plans</li>
+                >Advertiser Plans</li> */}
               <li
                 onClick={upcomingHandler}
                 className={upcomingIsOpen ? styles.active : styles.notActive}
@@ -238,10 +238,10 @@ export default function Profile() {
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}
                 >Services Plans</li>
-                <li
+                {/* <li
                   onClick={servicesHandler}
                   className={servicesIsOpen ? styles.active : styles.notActive}
-                >My services</li>
+                >My services</li> */}
               <li
                 onClick={upcomingHandler}
                 className={upcomingIsOpen ? styles.active : styles.notActive}
