@@ -42,7 +42,10 @@ function Items(events:IEvents) {
               <div className={styles.info}>
                 <p className={styles.paragraph}>Slots count: {e.slots}</p>
                 <p className={styles.paragraph}>Category: {e.category}</p>
-                {e.subcategory && (
+                {
+                                                //@ts-ignore
+                e.subcategory && (
+                                  //@ts-ignore
                   <p className={styles.paragraph}>Subcategory: {e.subcategory}</p>
                 )}
                 <p className={styles.paragraph}>Accessibility:  {e.access}</p>

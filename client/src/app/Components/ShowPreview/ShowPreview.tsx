@@ -240,7 +240,9 @@ const buyHandler = () => {
                 </div>
                   <div className={styles.posterWrapper}>
                       <p className={styles.desc}>
-                        {show?.category === 'artist' ? 'Music show' : show?.category}{show?.subcategory && `/${show.subcategory}`}
+                        {show?.category === 'artist' ? 'Music show' : show?.category}{
+                                                        //@ts-ignore
+                        show?.subcategory && `/${show.subcategory}`}
                       </p>
                       <p className={styles.desc}>
                         {show.description}

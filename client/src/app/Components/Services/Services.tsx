@@ -46,7 +46,9 @@ export default function Services() {
         <div className={styles.wrapper}>
             {
                        serviceData.length > 0 ? (
-                        <PaginatedItems itemsPerPage={6} items={serviceData} type='genres'/>
+                        <PaginatedItems itemsPerPage={6} 
+                                                        //@ts-ignore
+                        items={serviceData} type='genres'/>
                     )
                     :
                     <h5 className={styles.servicesException}>No services yet</h5>

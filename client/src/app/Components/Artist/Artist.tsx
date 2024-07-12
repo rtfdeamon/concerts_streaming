@@ -123,9 +123,15 @@ export default function Artist({params}:IArtistParams) {
                     alt="women" />
                   <div className={styles.posterWrapper}>
                         <h5 className={styles.artistTitle}>{artist?.name}</h5>
-                        <span className="text-sm text-slate-400 text-center">{artist?.category}</span>
-                        {artist?.category === 'artist' && (
-                            <span className="text-sm text-slate-400 text-center mt-2">{artist?.subcategory}</span>
+                        <span className="text-sm text-slate-400 text-center">{
+                                                        //@ts-ignore
+                        artist?.category}</span>
+                        {
+                                                        //@ts-ignore
+                        artist?.category === 'artist' && (
+                            <span className="text-sm text-slate-400 text-center mt-2">{
+                                                              //@ts-ignore
+                              artist?.subcategory}</span>
 
                         )}
                         <p className={styles.desc}>
@@ -150,9 +156,12 @@ export default function Artist({params}:IArtistParams) {
                         }
                   </div>
                    </div>
-                   {Object.values(artist?.links) > 0 && 
+                   {
+                                                   //@ts-ignore
+                   Object.values(artist?.links) > 0 && 
                     <ul className={styles.socialItems}>
               {
+                                                //@ts-ignore
                 artist?.links['instagram'] && 
                 <li
                   className={styles.socialItem}
@@ -161,6 +170,7 @@ export default function Artist({params}:IArtistParams) {
                 </li>
               }
               {
+                                                //@ts-ignore
                 artist?.links['snapchat'] && 
                 <li
                   className={styles.socialItem}
@@ -169,6 +179,7 @@ export default function Artist({params}:IArtistParams) {
                 </li>
               }
               {
+                                                //@ts-ignore
               artist?.links['spotify'] && 
               <li
                 className={styles.socialItem}
@@ -177,6 +188,7 @@ export default function Artist({params}:IArtistParams) {
               </li>
               }
               {
+                                                //@ts-ignore
               artist?.links['instagram'] && 
               <li
                 className={styles.socialItem}
@@ -185,6 +197,7 @@ export default function Artist({params}:IArtistParams) {
               </li>
               }
               {
+                                                //@ts-ignore
               artist?.links['twitter'] && 
               <li
                 className={styles.socialItem}
@@ -193,6 +206,7 @@ export default function Artist({params}:IArtistParams) {
               </li>
               }
               {
+                                                //@ts-ignore
               artist?.links['youtube'] && 
               <li
                 className={styles.socialItem}
@@ -201,6 +215,7 @@ export default function Artist({params}:IArtistParams) {
               </li>
               }
               {
+                                                //@ts-ignore
               artist?.links['linkedin'] && 
               <li
                 className={styles.socialItem}

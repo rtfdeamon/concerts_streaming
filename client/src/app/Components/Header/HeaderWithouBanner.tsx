@@ -85,6 +85,7 @@ export default function HeaderWithoutBanner() {
           <div className={styles.events}>
           <Link className={styles.link} href={'/'}>Home</Link>
           {
+                                            //@ts-ignore
             user?.role.includes('artist') && user?.plan?.is_paid && (
               <Link className={styles.link} href={'/services'}>Services</Link>
              )

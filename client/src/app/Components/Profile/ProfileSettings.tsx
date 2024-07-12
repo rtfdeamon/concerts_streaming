@@ -28,7 +28,10 @@ import SocialMediaModal from "./SocialMediaModal";
 import ServicePaypalModal from "./ServicePaypalModal";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 
-async function saveService({name, description, subcategory, category, email,
+async function saveService({
+                                  //@ts-ignore
+  name, description, subcategory, category, email,
+                                  //@ts-ignore
   business_name, website, phone}){
   const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
     method: 'PUT',
@@ -149,6 +152,7 @@ export default function ProfileSettings() {
   const saveChangesHandler = async () => {
     {user?.role.includes('service') ? 
       saveService({
+                                        //@ts-ignore
         name, description: desc, artist_genre: category, category,
       subcategory: subCategory, websiteUrl, businessName, ein, phoneNumber, email
       })
@@ -163,18 +167,26 @@ export default function ProfileSettings() {
     typeof user?.role !== 'undefined' && setStorageUserRole(user?.role);
   }, [user?.role])
 
-
+                                //@ts-ignore
   const [instagram, setInstagram] = useState<string | undefined>(user?.links['instagram'])
+                                  //@ts-ignore
   const [snapChat, setSnapChat] = useState<string | undefined>(user?.links['snapChat'])
+                                  //@ts-ignore
   const [spotify, setSpotify] = useState<string | undefined>(user?.links['spotify'])
+                                  //@ts-ignore
   const [tiktok, setTiktok] = useState<string | undefined>(user?.links['tiktok'])
+                                  //@ts-ignore
   const [twitter, setTwitter] = useState<string | undefined>(user?.links['twitter'])
+                                  //@ts-ignore
   const [youtube, setYoutube] = useState<string | undefined>(user?.links['youtube'])
+                                  //@ts-ignore
   const [linkedIn, setLinkedIn] = useState<string | undefined>(user?.links['linkedIn'])
 
   return (
     <div className={styles.menuWrapper}>
-      {user?.role.includes('service') && !user?.plan?.is_paid && (
+      {user?.role.includes('service') && 
+                                      //@ts-ignore
+      !user?.plan?.is_paid && (
                 <ServicePaypalModal isOpen={true} />
       )}
         {selectedSocial && <SocialMediaModal
@@ -253,7 +265,9 @@ export default function ProfileSettings() {
       && user?.role !== 'sponsor' && user?.role !== 'advertiser' && (
         <div className={styles.profileName}>
         <Label className={styles.span} htmlFor="Category">Category</Label>
-          <Select onValueChange={categoryChangeHandler} value={category || user?.category}>
+          <Select onValueChange={categoryChangeHandler} value={category || 
+                                            //@ts-ignore
+            user?.category}>
             <SelectTrigger>
               <SelectValue placeholder="Category" />
             </SelectTrigger>
@@ -287,7 +301,9 @@ export default function ProfileSettings() {
           category === 'artist' && (
             <div className={styles.profileName}>
             <Label className={styles.span} htmlFor="Category">Subcategory</Label>
-            <Select onValueChange={setSubCategory} value={subCategory || user?.subcategory}>
+            <Select onValueChange={setSubCategory} value={subCategory || 
+                                              //@ts-ignore
+              user?.subcategory}>
               <SelectTrigger>
                 <SelectValue placeholder="Music Genre" />
               </SelectTrigger>
@@ -320,19 +336,27 @@ export default function ProfileSettings() {
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Email</span>
-          <Input onChange={(e) => setEmail(e.target.value)} type="text" placeholder={user?.email || "Email"} />
+          <Input onChange={(e) => setEmail(e.target.value)} type="text" placeholder={
+                                            //@ts-ignore
+            user?.email || "Email"} />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Phone number</span>
-          <Input onChange={(e) => setPhoneNumber(e.target.value)} type="text" placeholder={user?.phone || "Phone"} />
+          <Input onChange={(e) => setPhoneNumber(e.target.value)} type="text" placeholder={
+                                            //@ts-ignore
+            user?.phone || "Phone"} />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Business name</span>
-          <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder={user?.business_name || "Bussiness name"} />
+          <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder={
+                                            //@ts-ignore
+            user?.business_name || "Bussiness name"} />
         </div>
         <div className={styles.profileName}>
           <span className={styles.span}>Website url</span>
-          <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder={user?.website || "Website"} />
+          <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder={
+                                            //@ts-ignore
+            user?.website || "Website"} />
         </div>
         {!user?.role.includes('service') && 
         <div className={styles.profileName}>
@@ -340,7 +364,9 @@ export default function ProfileSettings() {
           <Input
             onChange={(e) => setEin(e.target.value)}
             type="text"
-            disabled={user?.ein}
+            disabled={
+                                              //@ts-ignore
+              user?.ein}
             placeholder={"EIN"}
           />
         </div>
@@ -349,7 +375,9 @@ export default function ProfileSettings() {
           <>
             <div className={styles.profileName}>
               <span className={styles.span}>Profile's description</span>
-              <Textarea placeholder={user?.description || "Type description of your profile"} onChange={(e) => descHandler(e)} />
+              <Textarea placeholder={
+                                                //@ts-ignore
+                user?.description || "Type description of your profile"} onChange={(e) => descHandler(e)} />
             </div>
             {/* <div className={styles.profileName}>
               <span className={styles.span}>Change your genre</span>

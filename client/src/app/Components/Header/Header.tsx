@@ -93,7 +93,9 @@ export default function Header({type, children}:{type: string, children?: React.
           <div className={styles.events}>
           <Link className={styles.link} href={'/'}>Home</Link>
           {
-            user?.role.includes('artist') && user?.plan?.is_paid && (
+            user?.role.includes('artist') && 
+                                            //@ts-ignore
+            user?.plan?.is_paid && (
               <Link className={styles.link} href={'/services'}>Services</Link>
              )
           }
