@@ -1,14 +1,22 @@
 'use client'
 import { Button } from '@/shadComponents/ui/button'
 import styles from './Services.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddServiceModal from './AddServiceModal'
-import { useAppSelector } from '@/app/hooks/rtkHooks'
+import { useAppDispatch, useAppSelector } from '@/app/hooks/rtkHooks'
+import { getServices } from '@/app/store/service/serviceSlice'
+import { ServicesPaginate } from '../Services/ServicesPaginate/ServicesPaginate'
 
 export default function Services() {
     const user = useAppSelector(state => state.userInfo.user)
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [services, setServices] = useState([]);
+    const services = useAppSelector(state => state.services.services)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(getServices())
+    }, [])
+
     const openModalHandler = () => {
         setModalIsOpen(true)
     } 
@@ -21,8 +29,9 @@ export default function Services() {
         </div>
         {
             //фильтровать по роли. артистам доступны все сервисы
-            services.length > 0 ?
-            <span></span>
+            services.length > 0 ? (
+                <ServicesPaginate artists={services} itemsPerPage={4} />
+            )
             :
             <h5 className={styles.servicesException}>No services yet</h5>
         }
