@@ -20,7 +20,7 @@ export default function ServicePaypalBtns() {
             'Authorization' : `Bearer ${await getTokenForApi()}`,
             'Content-type': 'application/json'
           },
-          body: JSON.stringify({plan: "00000010-8000-11ee-8000-102030405060"})
+          body: JSON.stringify({plan: "00000010-8000-11ee-8000-102030405060", date: new Date().toISOString().split('T')[0]})
         })
         const data: any = await res.json();
         return data;

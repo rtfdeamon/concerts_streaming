@@ -33,7 +33,7 @@ export default function Services() {
                 <ServicesPaginate artists={services} itemsPerPage={4} />
             )
             :
-            <h5 className={styles.servicesException}>No services yet</h5>
+            <h5 className={styles.servicesException}>No services yet or you need to pay for tariff</h5>
         }
     </section>
   )
