@@ -10,6 +10,9 @@
 .artistTitle{
     @apply text-3xl text-center font-semibold mb-4
 }
+.artistSubtitle{
+    @apply text-xl text-center mb-4
+}
 .previewWrapper{
     @apply relative flex justify-center
 }

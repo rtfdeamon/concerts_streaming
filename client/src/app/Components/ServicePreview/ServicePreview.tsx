@@ -67,7 +67,6 @@ export default function ServicePreview({params}:IPreviewParams) {
         .then(res => setUser(res))
       }
   }, [token])
-
   return (
       <>
         <HeaderWithoutBanner />
@@ -80,25 +79,45 @@ export default function ServicePreview({params}:IPreviewParams) {
                   <Image className={styles.preview} src={show.image_url} width={600} height={300} alt={show.title} />
                 </div>
                 <div className={styles.posterWrapper}>
-                  {show.ein && (
-                        <h5 className={styles.artistTitle}>EIN: {show.ein}</h5>
+                  {
+                    //@ts-ignore
+                  user?.ein && (
+                        <h5 className={styles.artistSubtitle}>EIN: {
+                                     //@ts-ignore
+                          user?.ein}</h5>
                   )}
-                 {show.ein && (
-                        <h5 className={styles.artistTitle}>Email: {show.email}</h5>
+                 {
+                             //@ts-ignore
+                 user?.email && (
+                        <h5 className={styles.artistSubtitle}>Email: {
+                                     //@ts-ignore
+                          user?.email}</h5>
                   )}
-                                   {show.ein && (
-                        <h5 className={styles.artistTitle}>Phone: {show.phone}</h5>
+                                   {
+                                              //@ts-ignore
+                                   user?.phone && (
+                        <h5 className={styles.artistSubtitle}>Phone: {
+                                     //@ts-ignore
+                          user?.phone}</h5>
                   )}
-                                   {show.website && (
-                        <h5 className={styles.artistTitle}>Website: {show.website}</h5>
+                                   {
+                                              //@ts-ignore
+                                   user?.website && (
+                        <h5 className={styles.artistSubtitle}>Website: {
+                                     //@ts-ignore
+                          user?.website}</h5>
                   )}
-                                   {show.business_name && (
-                        <h5 className={styles.artistTitle}>Business name: {show.business_name}</h5>
+                                   {
+                                              //@ts-ignore
+                                   user?.business_name && (
+                        <h5 className={styles.artistSubtitle}>Business name: {
+                                     //@ts-ignore
+                          user?.business_name}</h5>
                   )}
                 </div>
                   <div className={styles.posterWrapper}>
                       <p className={styles.desc}>
-                        {show.description}
+                        Description: {show.description}
                       </p>
                   </div>
               </div>

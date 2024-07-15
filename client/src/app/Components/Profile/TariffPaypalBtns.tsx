@@ -48,7 +48,6 @@ export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIs
 
   const createOrder = async () => {
     const data:any = await setSubscription(planId);
-    console.log(data)
       if(data.status === 'activated'){
         toast({
           title: "You already bought this plan",

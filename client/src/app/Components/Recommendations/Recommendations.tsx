@@ -21,7 +21,6 @@ export default function Recommendations() {
     }
     getShows()
   }, [])
-  console.log(artists)
   return (
     <>
     {

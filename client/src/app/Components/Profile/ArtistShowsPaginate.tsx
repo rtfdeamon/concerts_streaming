@@ -85,9 +85,6 @@ export function ArtistShowsPaginate({ itemsPerPage, sessions, user }:
   // Invoke when user click to request another page.
   const handlePageClick = (event:ISelect) => {
     const newOffset = (event.selected * itemsPerPage) % filteredByUserId.current.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
     setItemOffset(newOffset);
   };
   

@@ -84,7 +84,6 @@ export default function SignUp() {
             }
           }
     )
-    console.log(select)
   return (
     <>
       <div className={styles.formWrapper}>

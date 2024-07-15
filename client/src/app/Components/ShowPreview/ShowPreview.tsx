@@ -180,7 +180,6 @@ const buyHandler = () => {
       }
     })
   }, [userTickets])
-  console.log('role', role)
   return (
       <>
         <HeaderWithoutBanner />

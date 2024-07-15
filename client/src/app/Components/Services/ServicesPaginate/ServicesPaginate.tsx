@@ -13,13 +13,14 @@ interface ISelect{
 }
 
 function Items({artists, isProfile}:{artists: IService[], isProfile?: boolean}) {
+  console.log(artists)
   return (
     <div className={styles.wrapper}>
         {artists &&  artists.map((a, i) => (
             <div key={i} className={styles.requestWrapper}>
                 <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
                   <div className={styles.request}>
-                  <Link href={`/services/${a.id}`} className={styles.imageWrapper}>
+                  <Link href={`/service/${a.id}`} className={styles.imageWrapper}>
                       <Image className={styles.image} src={typeof a.image_url !== 'object' ? a.image_url : ''} width={80} height={80} alt="artistIcon" />
                       <p>{a.title}</p>
                   </Link>

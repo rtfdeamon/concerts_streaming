@@ -5,6 +5,7 @@ import Loading from '../Loading/Loading';
 import PaginatedItems from '../Shows/Paginate/Paginate';
 import styles from './Services.module.scss'
 import { getTokenForApi } from '@/app/utils/getTokenForApi';
+import { ServicesPaginate } from './ServicesPaginate/ServicesPaginate';
 
 async function getData() {
     //TODO: switch url to services route
@@ -46,9 +47,9 @@ export default function Services() {
         <div className={styles.wrapper}>
             {
                        serviceData.length > 0 ? (
-                        <PaginatedItems itemsPerPage={6} 
+                        <ServicesPaginate itemsPerPage={6} 
                                                         //@ts-ignore
-                        items={serviceData} type='genres'/>
+                        artists={serviceData} type='genres'/>
                     )
                     :
                     <h5 className={styles.servicesException}>No services yet</h5>

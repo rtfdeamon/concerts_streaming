@@ -29,7 +29,7 @@ export default function HeaderWithoutBanner() {
   if (typeof window !== "undefined") {
     authed = localStorage.getItem('authed')
   }
-  console.log('authed', authed)
+
   const burgerHandler = () => {
     setBurgerIsOpen(!burgerIsOpen)
     if (burgerIsOpen){

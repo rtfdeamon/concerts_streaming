@@ -28,27 +28,6 @@ import SocialMediaModal from "./SocialMediaModal";
 import ServicePaypalModal from "./ServicePaypalModal";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 
-async function saveService({
-                                  //@ts-ignore
-  name, description, subcategory, category, email,
-                                  //@ts-ignore
-  business_name, website, phone}){
-  const res = await fetch(`${process.env.BACKEND_URL}/users/current/`, {
-    method: 'PUT',
-    headers:{
-        'Content-type' : 'application/json',
-        'Authorization' : `Bearer ${await getTokenForApi()}`
-    },
-    body: JSON.stringify(
-        {name, description, subcategory, category, email,
-            business_name, website, phone}
-    )
-  })
-  const data = await res.json()
-  location.reload()
-  return data;
-}
-
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userInfo.user);
@@ -65,7 +44,7 @@ export default function ProfileSettings() {
   const [websiteUrl, setWebsiteUrl] = useState<string | undefined>()
   const [businessName, setBusinessName] = useState<string | undefined>()
   const [email, setEmail] = useState<string | undefined>()
-
+  
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
   }
@@ -150,15 +129,7 @@ export default function ProfileSettings() {
 }
 
   const saveChangesHandler = async () => {
-    {user?.role.includes('service') ? 
-      saveService({
-                                        //@ts-ignore
-        name, description: desc, artist_genre: category, category,
-      subcategory: subCategory, websiteUrl, businessName, ein, phoneNumber, email
-      })
-      :
       changeProfile()
-    }
   }
   useEffect(() => {
     dispatch(getCurrUser())

@@ -69,7 +69,6 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         setIsFetching(true)
         postArtistDemo()
         .then(res => {
-          console.log(res)
           if (res.statusText === 'Payment Required'){
             toast({
               title: "You need to pay for some tariff plan",

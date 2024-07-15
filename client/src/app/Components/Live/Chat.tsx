@@ -27,7 +27,6 @@ export default memo(function Chat({id}: {id: string}) {
           const test = centrifuge.newSubscription(`concert-${id}`)
           return test
         } catch(e){
-          console.log(e)
           return null
         }
       })
@@ -41,7 +40,6 @@ export default memo(function Chat({id}: {id: string}) {
             centrifuge.connect();
             return test
           } catch(e){
-            console.log(e)
             return null
           }
         })
