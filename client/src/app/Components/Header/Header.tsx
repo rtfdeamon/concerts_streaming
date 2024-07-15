@@ -29,6 +29,9 @@ export default function Header({type, children}:{type: string, children?: React.
   const [isVisible, setVisible] = useState(false)
   const user = useAppSelector(state => state.userInfo.user)
   let authed
+  if (typeof window !== "undefined") {
+    authed = localStorage.getItem('authed')
+  }
   const isMobille = useRef(typeof window !== 'undefined' && window.innerWidth <= 900);
 
   const burgerHandler = () => {
