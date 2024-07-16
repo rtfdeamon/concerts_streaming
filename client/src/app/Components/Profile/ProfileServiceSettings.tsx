@@ -149,7 +149,7 @@ export default function ProfileServiceSettings() {
       !user?.plan?.is_paid && (
                 <ServicePaypalModal isOpen={true} />
       )}
-        <h5 className={styles.title}>Profile</h5>
+        {/* <h5 className={styles.title}>Profile</h5> */}
         <div className={styles.imageWrapper}>
          {service?.image_url && <Image className={styles.avatar} src={link || service?.image_url as string} width={500} height={400} alt="Image" /> }
         </div>

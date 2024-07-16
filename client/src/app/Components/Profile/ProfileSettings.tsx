@@ -179,7 +179,7 @@ export default function ProfileSettings() {
           setYoutube={setYoutube}
           setLinkedIn={setLinkedIn}
         />}
-        <h5 className={styles.title}>Profile</h5>
+        {/* <h5 className={styles.title}>Profile</h5> */}
         <div className={styles.imageWrapper}>
          {user?.avatar_url && <Image className={styles.avatar} src={user?.avatar_url as string} width={500} height={400} alt="Image" /> }
         </div>
