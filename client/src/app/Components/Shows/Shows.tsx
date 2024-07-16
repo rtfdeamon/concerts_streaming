@@ -104,23 +104,23 @@ export default function Shows() {
             calendarIsOpen && <CalendarComp />
         } */}
         <div className={styles.genres}>
-            <Link href={'/category/culinary'}>Culinary</Link>
-            <Link href={'/category/comedy'}>Comedy</Link>
-            <Link href={'/category/videography'}>Videography</Link>
-            <Link href={'/category/bloggers'}>Bloggers</Link>
-            <Link href={'/category/authors'}>Authors</Link>
             <Link href={'/category/actors'}>Actors</Link>
-            <Link href={'/category/fashion'}>Fashion</Link>
+            <Link href={'/category/all'}>All</Link>
+            <Link href={'/category/authors'}>Authors</Link>
+            <Link href={'/category/bloggers'}>Bloggers</Link>
+            <Link href={'/category/cheer'}>Cheer</Link>
+            <Link href={'/category/comedy'}>Comedy</Link>
             <Link href={'/category/cosmetology'}>Cosmetology</Link>
-            <Link href={'/category/producer'}>Producer</Link>
+            <Link href={'/category/culinary'}>Culinary</Link>
             <Link href={'/category/dancer'}>Dancer</Link>
+            <Link href={'/category/fashion'}>Fashion</Link>
+            <Link href={'/category/hainNailSkin'}>Hair-Nail-Skin</Link>
             <Link href={'/category/painter'}>Painter</Link>
             <Link href={'/category/photography'}>Photography</Link>
             <Link href={'/category/podcaster'}>Podcaster</Link>
+            <Link href={'/category/producer'}>Producer</Link>
+            <Link href={'/category/videography'}>Videography</Link>
             <Link href={'/category/writer'}>Writer</Link>
-            <Link href={'/category/cheer'}>Cheer</Link>
-            <Link href={'/category/hainNailSkin'}>Hair-Nail-Skin</Link>
-            <Link href={'/category/all'}>All</Link>
         </div>
         <div className={styles.artists}>
             <Link href={'/artists/all'}>All artists</Link>

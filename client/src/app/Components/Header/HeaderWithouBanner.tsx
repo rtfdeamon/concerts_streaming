@@ -97,75 +97,75 @@ export default function HeaderWithoutBanner() {
                       <NavigationMenuContent>
                       <ul className="flex items-start justify-center w-[350px] text-center p-6">
                         <div className='flex flex-col mr-4'>
-                        <NavigationMenuLink href="/category/culinary" title="Introduction">
-                            Culinary
+                        <NavigationMenuLink href="/category/actors" title="Typography">
+                            Actors
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/comedy" title="Installation">     
-                            Comedy
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/videography" title="Typography">
-                            Videography
+                          <NavigationMenuLink href="/category/all" title="Typography">
+                              All events
+                            </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/authors" title="Typography">
+                            Authors
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/category/bloggers" title="Typography">
                             Bloggers
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/authors" title="Typography">
-                            Authors
+                          <NavigationMenuLink href="/category/bloggers" title="Typography">
+                            Cheer
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/actors" title="Typography">
-                            Actors
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/fashion" title="Typography">
-                            Fashion
+                          <NavigationMenuLink href="/category/comedy" title="Installation">     
+                            Comedy
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/category/cosmetology" title="Typography">
                             Cosmetology
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/producer" title="Typography">
-                            Producer
+                          <NavigationMenuLink href="/category/culinary" title="Introduction">
+                            Culinary
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/dancer" title="Introduction">
+                            Dancer
                           </NavigationMenuLink>
                         </div>
                         <div className='flex flex-col'>
-                          <NavigationMenuLink href="/category/dancer" title="Typography">
-                              Dancer
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/category/painter" title="Typography">
-                              Painter
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/category/photography" title="Typography">
-                              Photography
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/category/podcaster" title="Typography">
-                              Podcaster
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/category/writer" title="Typography">
-                              Writer
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/category/cheer" title="Typography">
-                              Cheer
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/category/hainNailSkin" title="Typography">
-                              Hair-Nail-Skin
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/genre/all" title="Typography">
-                              All events
-                            </NavigationMenuLink>
+                        <NavigationMenuLink href="/category/fashion" title="Introduction">
+                            Fashion
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/hair-nail-skin" title="Introduction">
+                            Hair-Nail-Skin
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/painter" title="Typography">
+                            Painter
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/photography" title="Typography">
+                            Photography
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/podcaster" title="Typography">
+                            Podcaster
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/producer" title="Typography">
+                            Producer
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/videography" title="Typography">
+                            Videography
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/category/writer" title="Typography">
+                            Writer
+                          </NavigationMenuLink>
                         </div>
-                        </ul>
+                      </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Artists</NavigationMenuTrigger>
                       <NavigationMenuContent>
                       <ul className="flex flex-col items-center justify-center w-[350px] text-center p-6">
+                          <NavigationMenuLink href="/artists/all" title="Typography">
+                            All Artists
+                          </NavigationMenuLink>
                           <NavigationMenuLink href="/artists/followed" title="Introduction">
                             Followed Artists
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/artists/trending" title="Installation">
                             Trending Artists
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/all" title="Typography">
-                            All Artists
                           </NavigationMenuLink>
                         </ul>
                       </NavigationMenuContent>
@@ -175,56 +175,56 @@ export default function HeaderWithoutBanner() {
                       <NavigationMenuContent>
                       <ul className="flex items-center justify-around w-[350px] text-center p-6">
                         <div className='flex flex-col'>
-                        <NavigationMenuLink href="/artists/genre/electronic" title="Introduction">
-                            Electronic
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/country" title="Installation">     
+                        <NavigationMenuLink href="/artists/all" title="Typography">
+                              All artists
+                        </NavigationMenuLink>
+                        <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
+                              Alternative
+                        </NavigationMenuLink>
+                        <NavigationMenuLink href="/artists/genre/blues" title="Typography">
+                          Blues
+                        </NavigationMenuLink>
+                        <NavigationMenuLink href="/artists/genre/classical" title="Typography">
+                              Classical
+                        </NavigationMenuLink>
+                        <NavigationMenuLink href="/artists/genre/country" title="Installation">     
                             Country
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
-                            Hip hop
+                        <NavigationMenuLink href="/artists/genre/electronic" title="Introduction">
+                            Electronic
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/artists/genre/funk" title="Typography">
                             Funk
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/jazz" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
+                            Hip hop
+                          </NavigationMenuLink>
+                          <NavigationMenuLink href="/artists/genre/indie" title="Typography">
+                              Indie
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/jazz" title="Typography">
                             Jazz
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/artists/genre/latin" title="Typography">
                             Latin
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/pop" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/metal" title="Typography">
+                              Metal
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/pop" title="Typography">
                             Pop
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/artists/genre/punk" title="Typography">
                             Punk
                           </NavigationMenuLink>
-                        </div>
-                        <div className='flex flex-col'>
-                          <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
-                              Alternative
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/classical" title="Typography">
-                              Classical
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/r&b" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/r&b" title="Typography">
                               R&B
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/artists/genre/rock" title="Typography">
                               Rock
                             </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/blues" title="Typography">
-                              Blues
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/metal" title="Typography">
-                              Metal
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/indie" title="Typography">
-                              Indie
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/all" title="Typography">
-                              All artists
-                            </NavigationMenuLink>
+                        </div>
+                        <div className='flex flex-col'>
                         </div>
                         </ul>
                       </NavigationMenuContent>

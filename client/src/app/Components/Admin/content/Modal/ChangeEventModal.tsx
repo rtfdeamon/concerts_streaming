@@ -216,27 +216,27 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                                 <SelectContent>
                                     <SelectGroup>
                                     <SelectLabel>Category</SelectLabel>
-                                    <SelectItem value="modeling">Modeling</SelectItem>
-                                    <SelectItem value="culinary">Culinary</SelectItem>
-                                    <SelectItem value="comedy">Comedy</SelectItem>
-                                    <SelectItem value="videography">Videography</SelectItem>
-                                    <SelectItem value="bloggers">Bloggers</SelectItem>
+                                    <SelectItem value="actors">Actors</SelectItem> 
                                     <SelectItem value="authirs">Authors</SelectItem>
-                                    <SelectItem value="actors">Actors</SelectItem>
-                                    <SelectItem value="fashion">Fashion</SelectItem>
+                                    <SelectItem value="bloggers">Bloggers</SelectItem>
+                                    <SelectItem value="comedy">Comedy</SelectItem>
                                     <SelectItem value="cosmetology">Cosmetology</SelectItem>
-                                    <SelectItem value="producer">Producer</SelectItem>
+                                    <SelectItem value="culinary">Culinary</SelectItem>
+                                    <SelectItem value="cheer">Cheer</SelectItem>
                                     <SelectItem value="dancer">Dancer</SelectItem>
+                                    <SelectItem value="design">Design</SelectItem>
+                                    <SelectItem value="director">Director</SelectItem>
+                                    <SelectItem value="fashion">Fashion</SelectItem>
+                                    <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
+                                    <SelectItem value="modeling">Modeling</SelectItem>
+                                    <SelectItem value="artist">Music Artist</SelectItem>
                                     <SelectItem value="painter">Painter</SelectItem>
                                     <SelectItem value="photography">Photography</SelectItem>
                                     <SelectItem value="podcaster">Podcaster</SelectItem>
-                                    <SelectItem value="writer">Writer</SelectItem>
-                                    <SelectItem value="director">Director</SelectItem>
-                                    <SelectItem value="design">Design</SelectItem>
+                                    <SelectItem value="producer">Producer</SelectItem>
                                     <SelectItem value="sound Engineer">Sound Engineer</SelectItem>
-                                    <SelectItem value="cheer">Cheer</SelectItem>
-                                    <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
-                                    <SelectItem value="artist">Music Artist</SelectItem>
+                                    <SelectItem value="videography">Videography</SelectItem>
+                                    <SelectItem value="writer">Writer</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
@@ -254,22 +254,22 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                                     <SelectContent>
                                         <SelectGroup>
                                         <SelectLabel>Genre</SelectLabel>
-                                            <SelectItem value="electronic">Electronic</SelectItem>
+                                            <SelectItem value="alternative">Alternative</SelectItem>
+                                            <SelectItem value="blues">Blues</SelectItem>
+                                            <SelectItem value="classical">Classical</SelectItem>
                                             <SelectItem value="country">Country</SelectItem>
-                                            <SelectItem value="hiphop">Hip hop</SelectItem>
+                                            <SelectItem value="electronic">Electronic</SelectItem>
                                             <SelectItem value="funk">Funk</SelectItem>
+                                            <SelectItem value="hiphop">Hip hop</SelectItem>
+                                            <SelectItem value="indie">Indie</SelectItem>
                                             <SelectItem value="jazz">Jazz</SelectItem>
                                             <SelectItem value="latin">Latin</SelectItem>
+                                            <SelectItem value="metal">Metal</SelectItem>
+                                            <SelectItem value="other">Other</SelectItem>
                                             <SelectItem value="pop">Pop</SelectItem>
                                             <SelectItem value="punk">Punk</SelectItem>
-                                            <SelectItem value="alternative">Alternative</SelectItem>
-                                            <SelectItem value="classical">Classical</SelectItem>
                                             <SelectItem value="r&b">R&B</SelectItem>
                                             <SelectItem value="rock">Rock</SelectItem>
-                                            <SelectItem value="blues">Blues</SelectItem>
-                                            <SelectItem value="metal">Metal</SelectItem>
-                                            <SelectItem value="indie">Indie</SelectItem>
-                                            <SelectItem value="other">Other</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
