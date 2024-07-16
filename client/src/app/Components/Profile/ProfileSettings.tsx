@@ -351,7 +351,7 @@ export default function ProfileSettings() {
                                             //@ts-ignore
             user?.website || "Website"} />
         </div>
-        {!user?.role.includes('service') && 
+        {!user?.role.includes('service') && !user?.role.includes('artist') &&
         <div className={styles.profileName}>
           <span className={styles.span}>EIN number</span>
           <Input

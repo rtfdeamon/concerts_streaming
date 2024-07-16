@@ -64,7 +64,7 @@ export default function Tariff() {
                         <div className={styles.tariffItem}>
                     <h6 className={styles.subtitle}>Basic</h6>
                     <Image className={styles.image} src={Smile} width={100} height={100} alt='Heart' />
-                    <p className={styles.price}>9,99$</p>
+                    <p className={styles.price}>$9.99</p>
                     <span className={styles.concertsCount}>1 event</span>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('basic')}
@@ -73,7 +73,7 @@ export default function Tariff() {
                 <div className={styles.tariffItem}>
                     <h6 className={styles.subtitle}>Advanced</h6>
                     <Image className={styles.image} src={Flame} width={100} height={100} alt='Heart' />
-                    <p className={styles.price}>12,99$</p>
+                    <p className={styles.price}>$12.99</p>
                     <span className={styles.concertsCount}>2 events</span>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('advanced')}
@@ -82,7 +82,7 @@ export default function Tariff() {
                 <div className={styles.tariffItem}>
                     <h6 className={styles.subtitle}>Professional</h6>
                     <Image className={styles.image} src={Heart} width={100} height={100} alt='Heart' />
-                    <p className={styles.price}>15,99$</p>
+                    <p className={styles.price}>$15.99</p>
                     <span className={styles.concertsCount}>All access</span>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('professional')}
