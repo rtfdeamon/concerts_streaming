@@ -75,7 +75,7 @@ export default function Shows() {
   return (
     <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
-            Choose by your pleasures
+            Choose by your passion
         </h2>
         <span className={styles.subtitle}>Find a show by your genre, artist or date</span>
         <div className={styles.concertCategories}>

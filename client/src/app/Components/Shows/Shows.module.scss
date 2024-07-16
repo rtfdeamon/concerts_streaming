@@ -8,14 +8,14 @@ body[theme = "dark"] .section{
     @apply text-3xl m-auto
 }
 .subtitle{
-    @apply text-xl m-auto text-slate-400 py-4
+    @apply text-xl m-auto py-4
 }
 .concertCategories,
 .genres,
 .artists,
 .dates{
     & a, span{
-        @apply rounded-full cursor-pointer border-2 py-2 px-4 mr-5 border-blue-400 opacity-60 transition-all duration-500
+        @apply rounded-full cursor-pointer border-2 py-2 px-4 mr-5 border-blue-400 opacity-85 transition-all duration-500
     }
     & .spanActive{
         @apply opacity-100 

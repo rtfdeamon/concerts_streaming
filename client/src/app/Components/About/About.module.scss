@@ -30,7 +30,7 @@
     }
     & p{
         word-wrap: break-word;
-        @apply text-slate-400 max-w-[800px]
+        @apply max-w-[800px]
     }
 }
 .iconsWrapper{

@@ -30,7 +30,7 @@ body[theme = "dark"] .section{
     @apply block max-w-[250px] truncate mx-auto text-center text-2xl duration-500 transition-all my-4
 }
 .genre{
-    @apply text-slate-400 text-center
+    @apply text-center
 }
 .section button{
     & svg{

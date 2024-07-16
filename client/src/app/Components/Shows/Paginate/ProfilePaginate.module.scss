@@ -35,7 +35,7 @@
     @apply block text-center text-xl max-w-[150px] truncate mx-auto
 }
 .place{
-    @apply block text-center text-slate-400 m-1 max-w-[150px] truncate mx-auto
+    @apply block text-center m-1 max-w-[150px] truncate mx-auto
 }
 .date{
     & img{

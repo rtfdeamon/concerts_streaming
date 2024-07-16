@@ -19,9 +19,9 @@
 .name{
     @apply mt-2 max-w-[80px] truncate mx-auto
 }
-.genre{
-    @apply text-slate-500
-}
+// .genre{
+//     @apply text-slate-500
+// }
 
 @media screen and (max-width:1024px) {
     .showWrapper{

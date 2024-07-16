@@ -181,7 +181,7 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
                                     streamStatus?.status == "starting" || streamStatus?.status == 'started' ? 
                                     <div className="flex flex-col items-center justify-center">
                                     <Pause height={40} width={40} onClick={stopStream} />
-                                    <h5 className="block mx-auto text-center my-3 text-slate-400">Don't forget to start your obs stream</h5>
+                                    <h5 className="block mx-auto text-center my-3">Don't forget to start your obs stream</h5>
                                     </div>
                                     :
                                     <Play height={40} width={40} onClick={startStream} />
