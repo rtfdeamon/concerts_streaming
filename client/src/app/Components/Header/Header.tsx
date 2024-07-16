@@ -141,9 +141,6 @@ export default function Header({type, children}:{type: string, children?: React.
                         <NavigationMenuLink href="/category/fashion" title="Introduction">
                             Fashion
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/hair-nail-skin" title="Introduction">
-                            Hair-Nail-Skin
-                          </NavigationMenuLink>
                           <NavigationMenuLink href="/category/painter" title="Typography">
                             Painter
                           </NavigationMenuLink>

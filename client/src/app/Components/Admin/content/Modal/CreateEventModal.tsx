@@ -160,7 +160,6 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                                     <SelectItem value="design">Design</SelectItem>
                                     <SelectItem value="director">Director</SelectItem>
                                     <SelectItem value="fashion">Fashion</SelectItem>
-                                    <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
                                     <SelectItem value="modeling">Modeling</SelectItem>
                                     <SelectItem value="artist">Music Artist</SelectItem>
                                     <SelectItem value="painter">Painter</SelectItem>

@@ -256,7 +256,6 @@ export default function ProfileSettings() {
                   <SelectItem value="design">Design</SelectItem>
                   <SelectItem value="director">Director</SelectItem>
                   <SelectItem value="fashion">Fashion</SelectItem>
-                  <SelectItem value="nail">Hair-Nail-Skin</SelectItem>
                   <SelectItem value="modeling">Modeling</SelectItem>
                   <SelectItem value="artist">Music Artist</SelectItem>
                   <SelectItem value="painter">Painter</SelectItem>
@@ -271,6 +270,26 @@ export default function ProfileSettings() {
           </Select>
         </div>
       )}
+              {
+          category === 'cosmetology' && (
+            <div className={styles.profileName}>
+            <Label className={styles.span} htmlFor="Category">Subcategory</Label>
+            <Select onValueChange={setSubCategory} value={subCategory || 
+                                              //@ts-ignore
+              user?.subcategory}>
+              <SelectTrigger>
+                <SelectValue placeholder="Cosmetology subcategory" />
+              </SelectTrigger>
+              <SelectGroup>
+                  <SelectLabel>Cosmetology subcategory</SelectLabel>
+                      <SelectItem value="Hair">Hair</SelectItem>
+                      <SelectItem value="Hair">Nails</SelectItem>
+                      <SelectItem value="Hair">Skin</SelectItem>
+                  </SelectGroup>
+            </Select>
+          </div>
+          )
+        }
         {
           category === 'artist' && (
             <div className={styles.profileName}>
