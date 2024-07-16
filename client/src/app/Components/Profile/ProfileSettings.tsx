@@ -290,14 +290,13 @@ export default function ProfileSettings() {
                       <SelectItem value="electronic">Electronic</SelectItem>
                       <SelectItem value="funk">Funk</SelectItem>
                       <SelectItem value="hiphop">Hip hop</SelectItem>
-                      <SelectItem value="indie">Indie</SelectItem>
                       <SelectItem value="jazz">Jazz</SelectItem>
                       <SelectItem value="latin">Latin</SelectItem>
                       <SelectItem value="metal">Metal</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                       <SelectItem value="pop">Pop</SelectItem>
                       <SelectItem value="punk">Punk</SelectItem>
-                      <SelectItem value="r&b">R&B</SelectItem>
+                      <SelectItem value="hiphop">Hip-hop & R&B</SelectItem>
                       <SelectItem value="rock">Rock</SelectItem>
                   </SelectGroup>
             </Select>

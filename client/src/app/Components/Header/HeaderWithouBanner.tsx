@@ -175,9 +175,6 @@ export default function HeaderWithoutBanner() {
                       <NavigationMenuContent>
                       <ul className="flex items-center justify-around w-[350px] text-center p-6">
                         <div className='flex flex-col'>
-                        <NavigationMenuLink href="/artists/all" title="Typography">
-                              All artists
-                        </NavigationMenuLink>
                         <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
                               Alternative
                         </NavigationMenuLink>
@@ -196,16 +193,12 @@ export default function HeaderWithoutBanner() {
                           <NavigationMenuLink href="/artists/genre/funk" title="Typography">
                             Funk
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
-                            Hip hop
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/indie" title="Typography">
-                              Indie
-                            </NavigationMenuLink>
-                            <NavigationMenuLink href="/artists/genre/jazz" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/jazz" title="Typography">
                             Jazz
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/latin" title="Typography">
+                        </div>
+                        <div className='flex flex-col justify-start'>
+                        <NavigationMenuLink href="/artists/genre/latin" title="Typography">
                             Latin
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/artists/genre/metal" title="Typography">
@@ -217,14 +210,15 @@ export default function HeaderWithoutBanner() {
                           <NavigationMenuLink href="/artists/genre/punk" title="Typography">
                             Punk
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/r&b" title="Typography">
-                              R&B
+                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
+                              Hip hop & R&B
+                            </NavigationMenuLink>
+                            <NavigationMenuLink href="/artists/genre/rap" title="Typography">
+                              Rap
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/artists/genre/rock" title="Typography">
                               Rock
                             </NavigationMenuLink>
-                        </div>
-                        <div className='flex flex-col'>
                         </div>
                         </ul>
                       </NavigationMenuContent>

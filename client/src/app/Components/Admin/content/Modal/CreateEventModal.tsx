@@ -193,8 +193,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                                             <SelectItem value="country">Country</SelectItem>
                                             <SelectItem value="electronic">Electronic</SelectItem>
                                             <SelectItem value="funk">Funk</SelectItem>
-                                            <SelectItem value="hiphop">Hip hop</SelectItem>
-                                            <SelectItem value="indie">Indie</SelectItem>
+                                            <SelectItem value="hiphop">Hip hop & R&B</SelectItem>
                                             <SelectItem value="jazz">Jazz</SelectItem>
                                             <SelectItem value="latin">Latin</SelectItem>
                                             <SelectItem value="metal">Metal</SelectItem>
@@ -202,6 +201,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                                             <SelectItem value="pop">Pop</SelectItem>
                                             <SelectItem value="punk">Punk</SelectItem>
                                             <SelectItem value="r&b">R&B</SelectItem>
+                                            <SelectItem value="rap">Rap</SelectItem>
                                             <SelectItem value="rock">Rock</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
