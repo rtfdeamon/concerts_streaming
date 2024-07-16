@@ -93,7 +93,7 @@ export default function HeaderWithoutBanner() {
           <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger>Events</NavigationMenuTrigger>
+                      <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
                       <NavigationMenuContent>
                       <ul className="flex items-start justify-center w-[350px] text-center p-6">
                         <div className='flex flex-col mr-4'>
