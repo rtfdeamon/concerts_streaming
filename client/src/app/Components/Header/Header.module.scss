@@ -162,6 +162,16 @@ body[theme = "dark"] .events button{
     .profileWrapper a:first-child{
         @apply ml-8 mr-16
     }
+    .categories{
+        @apply flex items-start justify-center w-[350px] text-center p-6 max-h-[200px] overflow-y-scroll
+    }
+    .burger, .burgerClose{
+        width: 40px;
+        height: 40px;
+    }
+    .burgerClose{
+        right: 25px;
+    }
 }
 
 @media screen and (max-width: 550px){
@@ -188,8 +198,8 @@ body[theme = "dark"] .events button{
         & a{
             margin-right: 0px !important;
         }
-        & a:first-child{
-            @apply mb-2
+        & .linkSignIn{
+            margin-right: 32px !important;
         }
     }
 }

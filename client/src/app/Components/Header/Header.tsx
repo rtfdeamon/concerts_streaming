@@ -20,6 +20,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import X from '../../../../public/x.svg'
 import Menu from '../../../../public/menu.svg'
+import { cn } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
@@ -107,7 +108,7 @@ export default function Header({type, children}:{type: string, children?: React.
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                      <ul className="flex items-start justify-center w-[350px] text-center p-6">
+                      <ul className={styles.categories}>
                         <div className='flex flex-col mr-4'>
                         <NavigationMenuLink href="/category/actors" title="Typography">
                             Actors
@@ -182,7 +183,7 @@ export default function Header({type, children}:{type: string, children?: React.
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Music</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                      <ul className="flex items-center justify-around w-[350px] text-center p-6">
+                      <ul className={styles.categories}>
                         <div className='flex flex-col'>
                         <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
                               Alternative
@@ -241,7 +242,7 @@ export default function Header({type, children}:{type: string, children?: React.
                 <ProfileDropdown />
                 :
                 <>
-                  <Link className={styles.link} href={'/login'}>Login</Link>
+                  <Link className={cn(styles.link, styles.linkSignIn)} href={'/login'}>Login</Link>
                   <Link className={styles.link} href={'/signup'}>Sign up</Link>
                 </>
               }

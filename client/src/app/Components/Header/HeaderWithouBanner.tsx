@@ -95,7 +95,7 @@ export default function HeaderWithoutBanner() {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                      <ul className="flex items-start justify-center w-[350px] text-center p-6">
+                      <ul className={styles.categories}>
                         <div className='flex flex-col mr-4'>
                         <NavigationMenuLink href="/category/actors" title="Typography">
                             Actors
@@ -170,7 +170,7 @@ export default function HeaderWithoutBanner() {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Music</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                      <ul className="flex items-center justify-around w-[350px] text-center p-6">
+                      <ul className={styles.categories}>
                         <div className='flex flex-col'>
                         <NavigationMenuLink href="/artists/genre/alternative" title="Typography">
                               Alternative
