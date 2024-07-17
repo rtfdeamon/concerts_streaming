@@ -19,27 +19,27 @@ export default function About() {
                 <span className='font-bold italic'>“Because you deserve it…”</span></p>
             </div>
             <div className={styles.iconsWrapper}>
-                <Link href={'/login'} className={styles.iconWrapper}>
+                <Link href={'/signup'} className={styles.iconWrapper}>
                     <Image src={Clapperboard} width={100} height={60} alt='icon'/>
                     <span className={styles.iconText}>All things Video</span>
                 </Link>
-                <Link href={'/login'} className={styles.iconWrapper}>
+                <Link href={'/signup'} className={styles.iconWrapper}>
                     <Image src={MusicList} width={100} height={60} alt='icon'/>
                     <span className={styles.iconText}>All things Music</span>
                 </Link>
-                <Link href={'/login'} className={styles.iconWrapper}>
+                <Link href={'/signup'} className={styles.iconWrapper}>
                     <Image src={Mic} width={100} height={60} alt='icon'/>
                     <span className={styles.iconText}>All things Vocal</span>
                 </Link>
-                <Link href={'/'} className={styles.iconWrapper}>
+                <Link href={'/signup'} className={styles.iconWrapper}>
                     <Image src={Users} width={100} height={60} alt='icon'/>
                     <span className={styles.iconText}>Professional resources</span>
                 </Link>
-                <Link href={'/login'} className={styles.iconWrapper}>
+                <Link href={'/signup'} className={styles.iconWrapper}>
                     <Image src={Dollar} width={100} height={60} alt='icon'/>
                     <span className={styles.iconText}>Free for viewers</span>
                 </Link>
-                <Link href={'/login'} className={styles.iconWrapper}>
+                <Link href={'/signup'} className={styles.iconWrapper}>
                     <Image src={Idea} width={100} height={60} alt='icon'/>
                     <span className={styles.iconText}>Creative connection for all</span>
                 </Link>

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm, Resolver } from "react-hook-form"
 import { useAppDispatch } from "@/app/hooks/rtkHooks"
 import { signUp } from "@/app/store/register/registerSlice"
@@ -62,6 +62,10 @@ export default function SignUp() {
   }
     const dispatch = useAppDispatch();
     const router = useRouter();
+    let authed: string | null = null;
+    if (typeof window !== "undefined") {
+      authed = localStorage.getItem('authed')
+    }
     const [select, setSelect] = useState('');
     const [err, setErr] = useState(false);
     const {
@@ -84,6 +88,11 @@ export default function SignUp() {
             }
           }
     )
+  useEffect(() => {
+    if (authed === 'true') {
+      router.push('/profile')
+    }
+  }, [authed])
   return (
     <>
       <div className={styles.formWrapper}>
