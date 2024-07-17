@@ -321,6 +321,7 @@ export default function ProfileSettings() {
               <SelectTrigger>
                 <SelectValue placeholder="Music Genre" />
               </SelectTrigger>
+              <SelectContent>
               <SelectGroup>
                   <SelectLabel>Genre</SelectLabel>
                       <SelectItem value="alternative">Alternative</SelectItem>
@@ -339,6 +340,7 @@ export default function ProfileSettings() {
                       <SelectItem value="hiphop">Hip-hop & R&B</SelectItem>
                       <SelectItem value="rock">Rock</SelectItem>
                   </SelectGroup>
+              </SelectContent>
             </Select>
           </div>
           )
