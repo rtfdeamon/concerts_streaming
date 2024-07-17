@@ -251,7 +251,6 @@ export default function ProfileSettings() {
                   <SelectItem value="comedy">Comedy</SelectItem>
                   <SelectItem value="cosmetology">Cosmetology</SelectItem>
                   <SelectItem value="culinary">Culinary</SelectItem>
-                  <SelectItem value="cheer">Cheer</SelectItem>
                   <SelectItem value="dancer">Dancer</SelectItem>
                   <SelectItem value="design">Design</SelectItem>
                   <SelectItem value="director">Director</SelectItem>
@@ -280,13 +279,35 @@ export default function ProfileSettings() {
               <SelectTrigger>
                 <SelectValue placeholder="Cosmetology subcategory" />
               </SelectTrigger>
-              <SelectGroup>
-                  <SelectLabel>Cosmetology subcategory</SelectLabel>
-                      <SelectItem value="Hair">Hair</SelectItem>
-                      <SelectItem value="Hair">Nails</SelectItem>
-                      <SelectItem value="Hair">Skin</SelectItem>
-                  </SelectGroup>
-            </Select>
+              <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Cosmetology subcategory</SelectLabel>
+                        <SelectItem value="hair">Hair</SelectItem>
+                        <SelectItem value="nail">Nails</SelectItem>
+                        <SelectItem value="skin">Skin</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+              </Select>
+          </div>
+          )
+        }
+                      {
+          category === 'dancer' && (
+            <div className={styles.profileName}>
+            <Label className={styles.span} htmlFor="Category">Subcategory</Label>
+            <Select onValueChange={setSubCategory} value={subCategory || 
+                                              //@ts-ignore
+              user?.subcategory}>
+              <SelectTrigger>
+                <SelectValue placeholder="Dancer subcategory" />
+              </SelectTrigger>
+              <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Dancer subcategory</SelectLabel>
+                        <SelectItem value="cheer">Cheer</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+              </Select>
           </div>
           )
         }

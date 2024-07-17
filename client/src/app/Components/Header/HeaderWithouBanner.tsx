@@ -109,9 +109,6 @@ export default function HeaderWithoutBanner() {
                           <NavigationMenuLink href="/category/bloggers" title="Typography">
                             Bloggers
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/bloggers" title="Typography">
-                            Cheer
-                          </NavigationMenuLink>
                           <NavigationMenuLink href="/category/comedy" title="Installation">     
                             Comedy
                           </NavigationMenuLink>

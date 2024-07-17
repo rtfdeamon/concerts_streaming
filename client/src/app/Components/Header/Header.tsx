@@ -122,9 +122,6 @@ export default function Header({type, children}:{type: string, children?: React.
                           <NavigationMenuLink href="/category/bloggers" title="Typography">
                             Bloggers
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/bloggers" title="Typography">
-                            Cheer
-                          </NavigationMenuLink>
                           <NavigationMenuLink href="/category/comedy" title="Installation">     
                             Comedy
                           </NavigationMenuLink>

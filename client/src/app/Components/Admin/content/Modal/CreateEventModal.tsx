@@ -155,7 +155,6 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                                     <SelectItem value="comedy">Comedy</SelectItem>
                                     <SelectItem value="cosmetology">Cosmetology</SelectItem>
                                     <SelectItem value="culinary">Culinary</SelectItem>
-                                    <SelectItem value="cheer">Cheer</SelectItem>
                                     <SelectItem value="dancer">Dancer</SelectItem>
                                     <SelectItem value="design">Design</SelectItem>
                                     <SelectItem value="director">Director</SelectItem>

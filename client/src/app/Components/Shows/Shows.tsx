@@ -108,7 +108,6 @@ export default function Shows() {
             <Link href={'/category/all'}>All</Link>
             <Link href={'/category/authors'}>Authors</Link>
             <Link href={'/category/bloggers'}>Bloggers</Link>
-            <Link href={'/category/cheer'}>Cheer</Link>
             <Link href={'/category/comedy'}>Comedy</Link>
             <Link href={'/category/cosmetology'}>Cosmetology</Link>
             <Link href={'/category/culinary'}>Culinary</Link>
