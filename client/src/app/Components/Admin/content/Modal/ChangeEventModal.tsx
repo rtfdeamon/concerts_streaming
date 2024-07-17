@@ -227,7 +227,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
                                     <SelectItem value="director">Director</SelectItem>
                                     <SelectItem value="fashion">Fashion</SelectItem>
                                     <SelectItem value="modeling">Modeling</SelectItem>
-                                    <SelectItem value="artist">Music Artist</SelectItem>
+                                    <SelectItem value="artist">Music</SelectItem>
                                     <SelectItem value="painter">Painter</SelectItem>
                                     <SelectItem value="photography">Photography</SelectItem>
                                     <SelectItem value="podcaster">Podcaster</SelectItem>
