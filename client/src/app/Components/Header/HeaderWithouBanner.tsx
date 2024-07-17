@@ -121,11 +121,11 @@ export default function HeaderWithoutBanner() {
                           <NavigationMenuLink href="/category/culinary" title="Introduction">
                             Culinary
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/dancer" title="Introduction">
-                            Dancer
-                          </NavigationMenuLink>
                         </div>
                         <div className='flex flex-col'>
+                        <NavigationMenuLink href="/category/dancer" title="Introduction">
+                            Dancer
+                          </NavigationMenuLink>
                         <NavigationMenuLink href="/category/fashion" title="Introduction">
                             Fashion
                           </NavigationMenuLink>
@@ -207,7 +207,7 @@ export default function HeaderWithoutBanner() {
                           <NavigationMenuLink href="/artists/genre/punk" title="Typography">
                             Punk
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography" className='ml-4'>
                               Hip hop & R&B
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/artists/genre/rap" title="Typography">

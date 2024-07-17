@@ -66,6 +66,9 @@ body[burgerIsActive = "close"] .headerMobileWrapper{
     }
     @apply flex items-center
 }
+.categories{
+    @apply flex items-start justify-center w-[350px] text-center p-6
+}
 .events{
     &  ul button, &  ul a{
         @apply bg-transparent text-xl mr-0
@@ -163,7 +166,7 @@ body[theme = "dark"] .events button{
         @apply ml-8 mr-16
     }
     .categories{
-        @apply flex items-start justify-center w-[350px] text-center p-6 max-h-[200px] overflow-y-scroll
+        @apply max-h-[200px] overflow-y-scroll
     }
     .burger, .burgerClose{
         width: 40px;

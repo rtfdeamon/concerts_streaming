@@ -134,13 +134,10 @@ export default function Header({type, children}:{type: string, children?: React.
                           <NavigationMenuLink href="/category/culinary" title="Introduction">
                             Culinary
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/dancer" title="Introduction">
-                            Dancer
-                          </NavigationMenuLink>
                         </div>
                         <div className='flex flex-col'>
-                        <NavigationMenuLink href="/category/fashion" title="Introduction">
-                            Fashion
+                        <NavigationMenuLink href="/category/dancer" title="Introduction">
+                            Dancer
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/category/painter" title="Typography">
                             Painter
@@ -220,7 +217,7 @@ export default function Header({type, children}:{type: string, children?: React.
                           <NavigationMenuLink href="/artists/genre/punk" title="Typography">
                             Punk
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography">
+                          <NavigationMenuLink href="/artists/genre/hiphop" title="Typography" className='ml-4'>
                               Hip hop & R&B
                             </NavigationMenuLink>
                             <NavigationMenuLink href="/artists/genre/rap" title="Typography">

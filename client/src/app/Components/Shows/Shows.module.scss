@@ -1,5 +1,5 @@
 .section{
-    @apply flex-col mt-8 py-4 px-9 flex justify-between bg-white rounded-t-md
+    @apply flex-col mt-8 py-4 px-9 flex justify-between bg-white rounded-md
 }
 body[theme = "dark"] .section{
     background-color:rgba(0, 0, 0, 0.5)
