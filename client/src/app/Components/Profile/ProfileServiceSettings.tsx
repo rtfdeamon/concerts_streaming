@@ -125,7 +125,7 @@ export default function ProfileServiceSettings() {
   }
 
   const saveChangesHandler = async () => {
-    {service.hasOwnProperty('description') ||  service.hasOwnProperty('title') || service.hasOwnProperty('image_url')? 
+    {service?.hasOwnProperty('description') ||  service?.hasOwnProperty('title') || service?.hasOwnProperty('image_url') ? 
       saveService({
           //@ts-ignore
           title, description: desc, email, image_url: link,
@@ -149,7 +149,7 @@ export default function ProfileServiceSettings() {
       !user?.plan?.is_paid && (
                 <ServicePaypalModal isOpen={true} />
       )}
-        {/* <h5 className={styles.title}>Profile</h5> */}
+        <h5 className={styles.title}>Profile</h5>
         <div className={styles.imageWrapper}>
          {service?.image_url && <Image className={styles.avatar} src={link || service?.image_url as string} width={500} height={400} alt="Image" /> }
         </div>
