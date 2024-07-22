@@ -133,8 +133,8 @@ export default function Header({type, children}:{type: string, children?: React.
                           </NavigationMenuLink>
                         </div>
                         <div className='flex flex-col'>
-                        <NavigationMenuLink href="/category/dancer" title="Introduction">
-                            Dancer
+                        <NavigationMenuLink href="/category/dance" title="Introduction">
+                            Dance
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/category/painter" title="Typography">
                             Painter

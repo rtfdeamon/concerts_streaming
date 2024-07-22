@@ -120,11 +120,8 @@ export default function HeaderWithoutBanner() {
                           </NavigationMenuLink>
                         </div>
                         <div className='flex flex-col'>
-                        <NavigationMenuLink href="/category/dancer" title="Introduction">
-                            Dancer
-                          </NavigationMenuLink>
-                        <NavigationMenuLink href="/category/fashion" title="Introduction">
-                            Fashion
+                        <NavigationMenuLink href="/category/dance" title="Introduction">
+                            Dance
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/category/painter" title="Typography">
                             Painter

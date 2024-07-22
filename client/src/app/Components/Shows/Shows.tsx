@@ -111,9 +111,8 @@ export default function Shows() {
             <Link href={'/category/comedy'}>Comedy</Link>
             <Link href={'/category/cosmetology'}>Cosmetology</Link>
             <Link href={'/category/culinary'}>Culinary</Link>
-            <Link href={'/category/dancer'}>Dancer</Link>
+            <Link href={'/category/dance'}>Dance</Link>
             <Link href={'/category/fashion'}>Fashion</Link>
-            <Link href={'/category/hainNailSkin'}>Hair-Nail-Skin</Link>
             <Link href={'/category/painter'}>Painter</Link>
             <Link href={'/category/photography'}>Photography</Link>
             <Link href={'/category/podcaster'}>Podcaster</Link>

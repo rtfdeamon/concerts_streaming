@@ -251,7 +251,7 @@ export default function ProfileSettings() {
                   <SelectItem value="comedy">Comedy</SelectItem>
                   <SelectItem value="cosmetology">Cosmetology</SelectItem>
                   <SelectItem value="culinary">Culinary</SelectItem>
-                  <SelectItem value="dancer">Dancer</SelectItem>
+                  <SelectItem value="dance">Dance</SelectItem>
                   <SelectItem value="design">Design</SelectItem>
                   <SelectItem value="director">Director</SelectItem>
                   <SelectItem value="fashion">Fashion</SelectItem>
@@ -292,18 +292,18 @@ export default function ProfileSettings() {
           )
         }
                       {
-          category === 'dancer' && (
+          category === 'dance' && (
             <div className={styles.profileName}>
             <Label className={styles.span} htmlFor="Category">Subcategory</Label>
             <Select onValueChange={setSubCategory} value={subCategory || 
                                               //@ts-ignore
               user?.subcategory}>
               <SelectTrigger>
-                <SelectValue placeholder="Dancer subcategory" />
+                <SelectValue placeholder="Dance subcategory" />
               </SelectTrigger>
               <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Dancer subcategory</SelectLabel>
+                    <SelectLabel>Dance subcategory</SelectLabel>
                         <SelectItem value="cheer">Cheer</SelectItem>
                     </SelectGroup>
                   </SelectContent>
