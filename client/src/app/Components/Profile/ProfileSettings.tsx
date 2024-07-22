@@ -330,7 +330,6 @@ export default function ProfileSettings() {
                       <SelectItem value="country">Country</SelectItem>
                       <SelectItem value="electronic">Electronic</SelectItem>
                       <SelectItem value="funk">Funk</SelectItem>
-                      <SelectItem value="hiphop">Hip hop</SelectItem>
                       <SelectItem value="jazz">Jazz</SelectItem>
                       <SelectItem value="latin">Latin</SelectItem>
                       <SelectItem value="metal">Metal</SelectItem>
