@@ -115,11 +115,11 @@ export default function HeaderWithoutBanner() {
                           <NavigationMenuLink href="/category/cosmetology" title="Typography">
                             Cosmetology
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/culinary" title="Introduction">
-                            Culinary
-                          </NavigationMenuLink>
                         </div>
                         <div className='flex flex-col'>
+                        <NavigationMenuLink href="/category/culinary" title="Introduction">
+                            Culinary
+                          </NavigationMenuLink>
                         <NavigationMenuLink href="/category/dance" title="Introduction">
                             Dance
                           </NavigationMenuLink>
