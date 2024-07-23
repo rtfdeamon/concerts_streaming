@@ -263,18 +263,18 @@ export default function Profile() {
             </ul> }
             {user?.role.includes('service') && 
               <ul className={styles.nav}>
-              <li
+              {/* <li
                 onClick={profileHandler}
                 className={profileIsOpen ? styles.active : styles.notActive}
-              >My Profile</li>
+              >My Profile</li> */}
                                               <li
                   onClick={serviceSettingsHandler}
                   className={serviceSettingsIsOpen ? styles.active : styles.notActive}
                 >Services settings</li>
-                <li
+                {/* <li
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}
-                >Services Plans</li>
+                >Services Plans</li> */}
                 {/* <li
                   onClick={servicesHandler}
                   className={servicesIsOpen ? styles.active : styles.notActive}

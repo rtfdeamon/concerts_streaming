@@ -246,8 +246,8 @@ export default function ProfileSettings() {
                   <SelectGroup>
                   <SelectLabel>Category</SelectLabel>
                   <SelectItem value="actors">Actors</SelectItem> 
-                  <SelectItem value="authirs">Authors</SelectItem>
-                  <SelectItem value="bloggers">Bloggers</SelectItem>
+                  <SelectItem value="authors-and-writers">Authors & Writers</SelectItem>
+                  <SelectItem value="bloggers-and-podcasters">Bloggers & Podcasters</SelectItem>
                   <SelectItem value="comedy">Comedy</SelectItem>
                   <SelectItem value="cosmetology">Cosmetology</SelectItem>
                   <SelectItem value="culinary">Culinary</SelectItem>
@@ -258,12 +258,9 @@ export default function ProfileSettings() {
                   <SelectItem value="modeling">Modeling</SelectItem>
                   <SelectItem value="artist">Music Artist</SelectItem>
                   <SelectItem value="painter">Painter</SelectItem>
-                  <SelectItem value="photography">Photography</SelectItem>
-                  <SelectItem value="podcaster">Podcaster</SelectItem>
+                  <SelectItem value="photography-and-videography">Photography & Videography</SelectItem>
                   <SelectItem value="producer">Producer</SelectItem>
                   <SelectItem value="sound Engineer">Sound Engineer</SelectItem>
-                  <SelectItem value="videography">Videography</SelectItem>
-                  <SelectItem value="writer">Writer</SelectItem>
                   </SelectGroup>
               </SelectContent>
           </Select>

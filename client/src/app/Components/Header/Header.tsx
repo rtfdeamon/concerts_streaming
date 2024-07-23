@@ -116,11 +116,11 @@ export default function Header({type, children}:{type: string, children?: React.
                           <NavigationMenuLink href="/category/all" title="Typography">
                               All events
                             </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/authors" title="Typography">
-                            Authors
+                          <NavigationMenuLink href="/category/authors-and-writers" title="Typography">
+                            Authors & Writers
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/bloggers" title="Typography">
-                            Bloggers
+                          <NavigationMenuLink href="/category/bloggers-and-podcasters" title="Typography">
+                            Bloggers & Podcasters
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/category/comedy" title="Installation">     
                             Comedy
@@ -139,17 +139,11 @@ export default function Header({type, children}:{type: string, children?: React.
                           <NavigationMenuLink href="/category/painter" title="Typography">
                             Painter
                           </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/photography" title="Typography">
-                            Photography
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/podcaster" title="Typography">
-                            Podcaster
+                          <NavigationMenuLink href="/category/photography-and-videography" title="Typography">
+                            Photography & Videography
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/category/producer" title="Typography">
                             Producer
-                          </NavigationMenuLink>
-                          <NavigationMenuLink href="/category/videography" title="Typography">
-                            Videography
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/category/writer" title="Typography">
                             Writer

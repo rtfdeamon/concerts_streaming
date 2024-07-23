@@ -106,19 +106,16 @@ export default function Shows() {
         <div className={styles.genres}>
             <Link href={'/category/actors'}>Actors</Link>
             <Link href={'/category/all'}>All</Link>
-            <Link href={'/category/authors'}>Authors</Link>
-            <Link href={'/category/bloggers'}>Bloggers</Link>
+            <Link href={'/category/authors-and-writers'}>Authors & Writers</Link>
             <Link href={'/category/comedy'}>Comedy</Link>
             <Link href={'/category/cosmetology'}>Cosmetology</Link>
             <Link href={'/category/culinary'}>Culinary</Link>
             <Link href={'/category/dance'}>Dance</Link>
             <Link href={'/category/fashion'}>Fashion</Link>
             <Link href={'/category/painter'}>Painter</Link>
-            <Link href={'/category/photography'}>Photography</Link>
-            <Link href={'/category/podcaster'}>Podcaster</Link>
+            <Link href={'/category/photography-and-videography'}>Photography & Videography</Link>
+            <Link href={'/category/bloggers-and-podcasters'}>Bloggers & Podcasters</Link>
             <Link href={'/category/producer'}>Producer</Link>
-            <Link href={'/category/videography'}>Videography</Link>
-            <Link href={'/category/writer'}>Writer</Link>
         </div>
         <div className={styles.artists}>
             <Link href={'/artists/all'}>All artists</Link>

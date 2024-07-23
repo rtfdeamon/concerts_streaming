@@ -150,6 +150,25 @@ export default function ProfileServiceSettings() {
                 <ServicePaypalModal isOpen={true} />
       )}
         <h5 className={styles.title}>Profile</h5>
+        {
+                                            //@ts-ignore
+            user?.plan?.is_paid && (
+                <>
+                    <p className='text-xl text-center mt-6 mb-6'>Current plan: 
+                    {                                   //@ts-ignore
+                        user?.plan?.plan === '00000001-8000-11ee-8000-102030405060' && ' Basic'
+                            ||                                 //@ts-ignore
+                        user?.plan?.plan === '00000002-8000-11ee-8000-102030405060' && ' Advanced'
+                            ||                                 //@ts-ignore
+                        user?.plan?.plan === '00000003-8000-11ee-8000-102030405060' && ' Professional'
+                        ||                                 //@ts-ignore
+                        user?.plan?.plan === '00000010-8000-11ee-8000-102030405060' && ' Service'
+                    }</p>
+                    <span className='text-xl text-center mb-6'>Active untill: {
+                                                    //@ts-ignore
+                    new Date(user?.plan?.end_date).toLocaleDateString()}</span>
+                </>
+            )}
         <div className={styles.imageWrapper}>
          {service?.image_url && <Image className={styles.avatar} src={link || service?.image_url as string} width={500} height={400} alt="Image" /> }
         </div>
