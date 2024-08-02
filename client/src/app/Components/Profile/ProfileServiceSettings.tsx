@@ -131,8 +131,44 @@ export default function ProfileServiceSettings() {
           title, description: desc, email, image_url: link,
           business_name: businessName, website: websiteUrl, phone: phoneNumber
       })
+      .then(() => {
+        toast({
+          title: "Profile's changes",
+          description: "You have successfully changed your profile info",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+      })
+      .catch(() => {
+        toast({
+          title: "Something went wrong",
+          variant: 'destructive',
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+      })
       :
       createService()
+      .then(() => {
+        toast({
+          title: "Profile's changes",
+          description: "You have successfully changed your profile info",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+      })
+      .catch(() => {
+        toast({
+          title: "Something went wrong",
+          variant: 'destructive',
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+      })
     }
   }
   useEffect(() => {
