@@ -69,6 +69,9 @@ export default function Terms() {
         • (j) compile, repackage, disseminate, or otherwise use data extracted from the <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site.
             The foregoing is expressly prohibited and the right to do any of the foregoing shall require <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>’s express written consent (which may include a written agreement signed by an authorized representative of <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>). Any unauthorized use of the <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site, the Content, or any portion or derivative thereof shall terminate any license or permission granted by <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>.
         </p>
+        <p className={styles.listItem}>
+            The foregoing is expressly prohibited and the right to do any of the foregoing shall require https://dp-ent.com/’s express written consent (which may include a written agreement signed by an authorized representative of https://dp-ent.com/). Any unauthorized use of the https://dp-ent.com/ Site, the Content, or any portion or derivative thereof shall terminate any license or permission granted by https://dp-ent.com/.
+        </p>
     </div>
     <div className={styles.contentBlock}>
         <h6 className={styles.subtitle}>
@@ -197,7 +200,7 @@ We are following the requirements of COPPA (Children’s Online Privacy Protecti
             12. DISCLAIMERS AND LIMITATION OF LIABILITY
         </h6>
         <p className={styles.listItem}>
-            13.1 Disclaimers.
+            12.1 Disclaimers.
         </p>
         <ul>
             <li>
@@ -302,21 +305,14 @@ We are following the requirements of COPPA (Children’s Online Privacy Protecti
         The Terms of Use, including all documents referenced herein, represents the entire understanding between User and <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> regarding User’s relationship with <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> and supersedes any prior or contemporaneous statements or representations. Headings used in the Terms of Use are for reference only and shall not affect the meaning of any terms. As used in these Terms of Use, “including” means “including, without limitation.” 
         </p>
     </div>
-    {/* <div className={styles.contentBlock}>
+    <div className={styles.contentBlock}>
         <h6 className={styles.subtitle}>
         20. PERFORMANCE
         </h6>
         <p className={styles.listItem}>
-        The “performance” disclosure regarding “live concerts, playbacks” on our YouTube channel is provided for your entertainment.
-        However, <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site (collectively herein the “Terms of Use”)
-        identify what a user of the <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>
-        Site (“you” or “your” or “User” or “Users”) can expect from <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>,
-        its parent, subsidiaries, and affiliates (together referred to herein as “
-        <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>”, “we”, “us” or “our”),
-        and/or persons who provide products or services to <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>
-        customers either directly or through the <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>Providers” and what <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> in turn expects from Users. These Terms of Use constitute a legally binding agreement between you and <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>. Please read these Terms of Use carefully before using the <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site (collectively herein the “Terms of Use”) identify what a user of the <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site (“you” or “your” or “User” or “Users”) can expect from <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>, its parent, subsidiaries, and affiliates (together referred to herein as “<Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>”, “we”, “us” or “our”), and/or persons who provide products or services to <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> customers either directly or through the <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site (“<Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>> Providers”) and what <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> in turn expects from Users. These Terms of Use constitute a legally binding agreement between you and <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link>. Please read these Terms of Use carefully before using the <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site or <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> Site or <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> does not guarantee results, as connection speeds, location of listener, Artist, globally may vary by engaging with our “live concerts, playbacks” and system. Natural or unforeseen events that disrupt signal and/or internet connections are also not guaranteed by https://dp-ent.com. 
+        The “performance” disclosure regarding “live concerts, playbacks” on our YouTube channel is provided for your entertainment. However, <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> does not guarantee results, as connection speeds, location of listener, Artist, globally may vary by engaging with our “live concerts, playbacks” and system. Natural or unforeseen events that disrupt signal and/or internet connections are also not guaranteed by <Link className={styles.link} href={`https://dp-ent.com/`}>https://dp-ent.com/</Link> 
         </p>
-    </div> */}
+    </div>
     </section>
   )
 }

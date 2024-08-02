@@ -38,9 +38,6 @@ export default function Refund() {
         <div className={styles.contentBlock}>
             <h6 className={styles.subtitle}>**Payment failures will result in 2 auto reattempts. After 3 payment failures program access is suspended. </h6>
             <p className={styles.text}>
-            3-, 6-, or 9-month payers may cancel any time with a 30 day prior to the next *ads renewal date  written notice sent to         <Link href={'contact@dp-ent.com'}>contact@dp-ent.com</Link>
-            Any notice received less than 30 days prior to the next ads renewal date will be billed for the next ad run period previously chosen.  No refunds for cancellations as all sales are final. Advertiser member payers will lose program access up to 3 days from the date of their written cancellation notice.            </p>
-            <p className={styles.text}>
             To reactivate your account or any questions regarding your account please contact <Link href={'contact@dp-ent.com'}>contact@dp-ent.com</Link>
             </p>
         </div>
@@ -52,7 +49,7 @@ export default function Refund() {
             </p>
             <p className={styles.text}>
             Any policies for Digital Platform Entertainment are subject to change with or without notice at any time. 
-            For questions regarding your account, refunds and or cancellations please reach out to contact@dp-ent.com 
+            For questions regarding your account, refunds and or cancellations please reach out to <Link href={'contact@dp-ent.com'}>contact@dp-ent.com</Link> 
             </p>
         </div>
     </section>
