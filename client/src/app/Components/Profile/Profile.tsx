@@ -267,10 +267,10 @@ export default function Profile() {
                 onClick={profileHandler}
                 className={profileIsOpen ? styles.active : styles.notActive}
               >My Profile</li> */}
-                                              <li
+                <li
                   onClick={serviceSettingsHandler}
                   className={serviceSettingsIsOpen ? styles.active : styles.notActive}
-                >Services settings</li>
+                >My Profile</li>
                 {/* <li
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}
