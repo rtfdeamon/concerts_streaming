@@ -44,22 +44,23 @@ export default function ServicePreview({params}:IPreviewParams) {
   }, [role])
 
 
-  async function getConcert(){
-    fetch(`${process.env.BACKEND_URL}/services/${params.id}/`, {
-      method: 'GET',
-      headers: !role ?
-      {}
-      :
-      {
-        'Authorization':`Bearer ${await getTokenForApi()}`
-      }
-    })
-    .then(res => res.json())
-    .then(res => setShow(res))
-  }
   useEffect(() => {
-    getConcert()
-  }, [])
+    if (!token) return
+    (async function getService(){
+      try{
+          const res = await fetch(`${process.env.BACKEND_URL}/services/${params.id}/`, {
+            method: 'GET',
+            headers: {
+              'Authorization' : `Bearer ${token}`
+            }
+          })
+          const data = await res.json()
+          setShow(data)
+        } catch(err){
+         console.log(err)
+      }
+    })().catch((err) => console.log(err))
+  }, [token])
   useEffect(() => { 
     getTokenForApi()
       .then(res => setToken(res))
@@ -130,8 +131,8 @@ export default function ServicePreview({params}:IPreviewParams) {
                   </div>
                 }
                   {
-                                                   //@ts-ignore
-                   Object.values(show?.links) > 0 && 
+                    //@ts-ignore
+                    show?.links && Object.values(show?.links) > 0 && 
                     <ul className={styles.socialItems}>
               {
                                                 //@ts-ignore

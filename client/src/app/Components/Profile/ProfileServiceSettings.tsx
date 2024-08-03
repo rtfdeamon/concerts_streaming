@@ -31,7 +31,7 @@ import SocialMediaServiceModal from "./SocialMediaServiceModal";
 
 async function saveService({
   //@ts-ignore
-  title, description, image_url}){
+  title, description, image_url, email, business_name, website, phone }){
   try{
     const res = await fetch(`${process.env.BACKEND_URL}/services/current/`, {
       method: 'PATCH',
@@ -39,8 +39,10 @@ async function saveService({
           'Content-type' : 'application/json',
           'Authorization' : `Bearer ${await getTokenForApi()}`
       },
+
       body: JSON.stringify({
-        title, description, image_url
+        title, description, email, image_url,
+        business_name, website, phone
       })
     })
     const data = await res.json()
@@ -82,7 +84,7 @@ export default function ProfileServiceSettings() {
 
   useEffect(() => {
     async function getService() {
-      const res = await fetch(`https://concertplatform.mmvs.video/operations/services/current`, {
+      const res = await fetch(`https://concertplatform.mmvs.video/operations/services/current/`, {
         method: 'GET',
         headers: {
                   'Authorization' : `Bearer ${await getTokenForApi()}`
