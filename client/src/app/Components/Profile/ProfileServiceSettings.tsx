@@ -110,7 +110,27 @@ export default function ProfileServiceSettings() {
         })
       })
       const data = await res.json()
-      location.reload()
+      //@ts-ignore
+      if (Object.values(data)[0][0] === "This field is required."){
+        console.log('fdsfs')
+        toast({
+          title: "Please, fill all required fields",
+          variant: 'destructive',
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+        throw new Error()
+      }
+      else {
+        toast({
+          title: "Profile's changes",
+          description: "You have successfully changed your profile info",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
+      }
       return data
     } catch(err){
       toast({
@@ -183,15 +203,6 @@ export default function ProfileServiceSettings() {
       })
       :
       createService()
-      .then(() => {
-        toast({
-          title: "Profile's changes",
-          description: "You have successfully changed your profile info",
-          action: (
-            <ToastAction altText="Hide">Hide</ToastAction>
-          ),
-        })
-      })
     }
   }
   useEffect(() => {
