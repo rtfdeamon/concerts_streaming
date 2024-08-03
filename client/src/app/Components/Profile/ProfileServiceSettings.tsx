@@ -82,7 +82,7 @@ export default function ProfileServiceSettings() {
 
   useEffect(() => {
     async function getService() {
-      const res = await fetch(`${process.env.BACKEND_URL}/operations/services/current`, {
+      const res = await fetch(`${process.env.BACKEND_URL}/services/current`, {
         method: 'GET',
         headers: {
                   'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -108,9 +108,16 @@ export default function ProfileServiceSettings() {
         })
       })
       const data = await res.json()
+      location.reload()
       return data
     } catch(err){
-      throw err
+      toast({
+        title: "Please, fill all required fields",
+        variant: 'destructive',
+        action: (
+          <ToastAction altText="Hide">Hide</ToastAction>
+        ),
+      })
     }
   }
 
@@ -183,15 +190,6 @@ export default function ProfileServiceSettings() {
           ),
         })
       })
-      .catch(() => {
-        toast({
-          title: "Please, fill all required fields",
-          variant: 'destructive',
-          action: (
-            <ToastAction altText="Hide">Hide</ToastAction>
-          ),
-        })
-      })
     }
   }
   useEffect(() => {
@@ -231,31 +229,7 @@ export default function ProfileServiceSettings() {
         <div className={styles.imageWrapper}>
          {service?.image_url && <Image className={styles.avatar} src={link || service?.image_url as string} width={500} height={400} alt="Image" /> }
         </div>
-      <div className={styles.fileInput}>
-        <Label className={styles.span} htmlFor="picture">Picture</Label>
-        <Input onChange={(e) => onUploadHandler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg" />
-      </div>
-        {selectedSocial && <SocialMediaServiceModal
-          isOpen={Boolean(selectedSocial)}
-          setIsOpen={setSelectedSocial}
-          media={selectedSocial}
-          instagram={instagram}
-          snapChat={snapChat}
-          spotify={spotify}
-          tiktok={tiktok}
-          twitter={twitter}
-          youtube={youtube}
-          linkedIn={linkedIn}
-          setInstagram={setInstagram}
-          setSnapChat={setSnapChat}
-          setSpotify={setSpotify}
-          setTiktok={setTiktok}
-          setTwitter={setTwitter}
-          setYoutube={setYoutube}
-          setLinkedIn={setLinkedIn}
-          />
-        }
-          <ul className={styles.socialItems}>
+        <ul className={styles.socialItems}>
             <li
               className={styles.socialItem}
               onClick={() => setSelectedSocial('instagram')}
@@ -299,6 +273,30 @@ export default function ProfileServiceSettings() {
               <Image src={LinkedInIcon} alt="linkedin" />
             </li>
           </ul>
+      <div className={styles.fileInput}>
+        <Label className={styles.span} htmlFor="picture">Picture</Label>
+        <Input onChange={(e) => onUploadHandler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg" />
+      </div>
+        {selectedSocial && <SocialMediaServiceModal
+          isOpen={Boolean(selectedSocial)}
+          setIsOpen={setSelectedSocial}
+          media={selectedSocial}
+          instagram={instagram}
+          snapChat={snapChat}
+          spotify={spotify}
+          tiktok={tiktok}
+          twitter={twitter}
+          youtube={youtube}
+          linkedIn={linkedIn}
+          setInstagram={setInstagram}
+          setSnapChat={setSnapChat}
+          setSpotify={setSpotify}
+          setTiktok={setTiktok}
+          setTwitter={setTwitter}
+          setYoutube={setYoutube}
+          setLinkedIn={setLinkedIn}
+          />
+        }
         <div className={styles.profileName}>
           {/* <span>Profile's name</span> <Input type="text" placeholder={User.Name} /> */}
           <span className={styles.span}>Service title</span>
@@ -383,7 +381,6 @@ export default function ProfileServiceSettings() {
           </>
         }
         <Button onClick={saveChangesHandler} className={styles.btn}>
-          Save changes
           {service?.hasOwnProperty('description') ||  service?.hasOwnProperty('title') || service?.hasOwnProperty('image_url') ?
           "Save changes" : "Create"}
         </Button>
