@@ -47,7 +47,7 @@ export default function Services() {
         <div className={styles.wrapper}>
             {
                        serviceData.length > 0 ? (
-                        <ServicesPaginate itemsPerPage={6} 
+                        <ServicesPaginate itemsPerPage={15} 
                                                         //@ts-ignore
                         artists={serviceData} type='genres'/>
                     )

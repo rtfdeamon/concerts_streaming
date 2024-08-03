@@ -32,19 +32,22 @@ import SocialMediaServiceModal from "./SocialMediaServiceModal";
 async function saveService({
   //@ts-ignore
   title, description, image_url}){
-  const res = await fetch(`${process.env.BACKEND_URL}/services/current/`, {
-    method: 'PATCH',
-    headers:{
-        'Content-type' : 'application/json',
-        'Authorization' : `Bearer ${await getTokenForApi()}`
-    },
-    body: JSON.stringify({
-      title, description, image_url
+  try{
+    const res = await fetch(`${process.env.BACKEND_URL}/services/current/`, {
+      method: 'PATCH',
+      headers:{
+          'Content-type' : 'application/json',
+          'Authorization' : `Bearer ${await getTokenForApi()}`
+      },
+      body: JSON.stringify({
+        title, description, image_url
+      })
     })
-  })
-  const data = await res.json()
-  console.log('data', data)
-  return data;
+    const data = await res.json()
+    return data;
+  } catch(err){
+    throw err
+  }
 }
 
 export default function ProfileServiceSettings() {
@@ -79,7 +82,7 @@ export default function ProfileServiceSettings() {
 
   useEffect(() => {
     async function getService() {
-      const res = await fetch(`${process.env.BACKEND_URL}/services/current`, {
+      const res = await fetch(`${process.env.BACKEND_URL}/operations/services/current`, {
         method: 'GET',
         headers: {
                   'Authorization' : `Bearer ${await getTokenForApi()}`
@@ -92,6 +95,7 @@ export default function ProfileServiceSettings() {
   }, [])
 
   const createService = async () => {
+    try{
       const res = await fetch(`${process.env.BACKEND_URL}/services/`, {
         method: 'POST',
         headers: {
@@ -105,6 +109,9 @@ export default function ProfileServiceSettings() {
       })
       const data = await res.json()
       return data
+    } catch(err){
+      throw err
+    }
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -178,7 +185,7 @@ export default function ProfileServiceSettings() {
       })
       .catch(() => {
         toast({
-          title: "Something went wrong",
+          title: "Please, fill all required fields",
           variant: 'destructive',
           action: (
             <ToastAction altText="Hide">Hide</ToastAction>
@@ -375,7 +382,11 @@ export default function ProfileServiceSettings() {
             </div> */}
           </>
         }
-        <Button onClick={saveChangesHandler} className={styles.btn}>Save changes</Button>
+        <Button onClick={saveChangesHandler} className={styles.btn}>
+          Save changes
+          {service?.hasOwnProperty('description') ||  service?.hasOwnProperty('title') || service?.hasOwnProperty('image_url') ?
+          "Save changes" : "Create"}
+        </Button>
     </div>
   )
 }

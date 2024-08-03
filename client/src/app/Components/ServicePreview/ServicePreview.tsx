@@ -122,11 +122,13 @@ export default function ServicePreview({params}:IPreviewParams) {
                                      show?.business_name}</h5>
                   )}
                 </div>
+                {show.description && 
                   <div className={styles.posterWrapper}>
                       <p className={styles.desc}>
                         Description: {show.description}
                       </p>
                   </div>
+                }
                   {
                                                    //@ts-ignore
                    Object.values(show?.links) > 0 && 
@@ -134,65 +136,72 @@ export default function ServicePreview({params}:IPreviewParams) {
               {
                                                 //@ts-ignore
                 show?.links['instagram'] && 
-                <li
+                //@ts-ignore
+                <Link href={show?.links['instagram']}
                   className={styles.socialItem}
                 >
                   <Image src={InstIcon} alt="inst" />
-                </li>
+                </Link>
               }
               {
                                                 //@ts-ignore
                                                 show?.links['snapchat'] && 
-                <li
+                                                //@ts-ignore
+                <Link href={show?.links['snapchat']}
                   className={styles.socialItem}
                 >
                   <Image src={SnapChatIcon} alt="snapchat" />
-                </li>
+                </Link>
               }
               {
                                                 //@ts-ignore
                                                 show?.links['spotify'] && 
-              <li
+                                                //@ts-ignore
+              <Link href={show?.links['spotify']}
                 className={styles.socialItem}
               >
                 <Image src={SpotifyIcon} alt="spotify" />
-              </li>
+              </Link>
               }
               {
                                                 //@ts-ignore
                                                 show?.links['instagram'] && 
-              <li
+                                                //@ts-ignore
+              <Link href={show?.links['instagram']}
                 className={styles.socialItem}
               >
                 <Image src={TikTokIcon} alt="inst" />
-              </li>
+              </Link>
               }
               {
                                                 //@ts-ignore
                                                 show?.links['twitter'] && 
-              <li
+                                                //@ts-ignore
+              <Link href={show?.links['twitter']}
                 className={styles.socialItem}
               >
                 <Image src={TwitterIcon} alt="twitter" />
-              </li>
+              </Link>
               }
               {
                                                 //@ts-ignore
                                                 show?.links['youtube'] && 
-              <li
+                                                //@ts-ignore
+              <Link href={show?.links['youtube']}
                 className={styles.socialItem}
               >
                 <Image src={YoutubeIcon} alt="youtube" />
-              </li>
+              </Link>
               }
               {
                                                 //@ts-ignore
                                                 show?.links['linkedin'] && 
-              <li
+                                                //@ts-ignore
+              <Link href={show?.links['linkedin']}
                 className={styles.socialItem}
               >
                 <Image src={LinkedInIcon} alt="linkedin" />
-              </li>
+              </Link>
               }
                     </ul>
                    }
