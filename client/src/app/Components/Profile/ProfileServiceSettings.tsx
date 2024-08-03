@@ -130,6 +130,7 @@ export default function ProfileServiceSettings() {
             <ToastAction altText="Hide">Hide</ToastAction>
           ),
         })
+        location.reload()
       }
       return data
     } catch(err){
