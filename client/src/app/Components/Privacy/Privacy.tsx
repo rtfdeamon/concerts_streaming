@@ -7,10 +7,9 @@ export default function Privacy() {
         <h5 className={styles.title}>Digital Platform Entertainment, LLC Privacy Policy</h5>
         <div className={styles.contentBlock}>
             <p className={styles.text}>
-              Welcome to Digital Platform Entertainment, LLC, a service provided by Digital Platform Entertainment, LLC and its affiliates, including Digital Platform Entertainment, LLC. (hereinafter “Digital Platform Entertainment, LLC”). Capitalized terms used in this Privacy Policy that are not specifically defined shall have the meanings given to the applicable capitalized terms in the Digital Platform Entertainment, LLC Terms of Use.
-              Your privacy is important to us. This Privacy Policy explains how we collect, store, use, disclose and otherwise process your personal data when you use Digital Platform Entertainment, LLC.com and Digital Platform Entertainment, LLC.com (together, the “Website”), our mobile and desktop apps (the “Apps”) and all related sites, players, widgets, tools, data, software, APIs, and other services provided by Digital Platform Entertainment, LLC (the “Services”). This Privacy Policy applies to any Website, Apps, or Services by Digital Platform Entertainment, LLC that refers to this Privacy Policy, i.e. by linking to it.
-              For employees with California residency, our privacy notice applicable to past, current, and prospective employees, and similar individuals, as well as their beneficiaries and emergency contacts. 
-              This Privacy Policy explains the following, amongst other things:
+            Welcome to Digital Platform Entertainment, LLC, a service provided by Digital Platform Entertainment, LLC and its affiliates, including Digital Platform Entertainment, LLC. (hereinafter “Digital Platform Entertainment, LLC”). Capitalized terms used in this Privacy Policy that are not specifically defined shall have the meanings given to the applicable capitalized terms in the Digital Platform Entertainment, LLC Terms of Use.
+            Your privacy is important to us. This Privacy Policy explains how we collect, store, use, disclose and otherwise process your personal data when you use Digital Platform Entertainment, LLC.com and Digital Platform Entertainment, LLC.com (together, the “Website”), our mobile and desktop apps (the “Apps”) and all related sites, players, widgets, tools, data, software, APIs, and other services provided by Digital Platform Entertainment, LLC (the “Services”). This Privacy Policy applies to any Website, Apps, or Services by Digital Platform Entertainment, LLC that refers to this Privacy Policy, i.e. by linking to it.
+            For employees with California residency, our privacy notice applicable to past, current, and prospective employees, and similar individuals, as well as their beneficiaries and emergency contacts. 
             </p>
             <h6 className={styles.subtitle}>
                 Who Controls Your Data
@@ -30,10 +29,6 @@ export default function Privacy() {
               </li>
               <li className={styles.listItem}>
               ● Personal Data We Obtain From Third Parties
-
-              </li>
-              <li className={styles.listItem}>
-              ● How We Use Your Personal Data
 
               </li>
               <li className={styles.listItem}>
@@ -138,7 +133,9 @@ export default function Privacy() {
         </div>
         <div className={styles.contentBlock}>
           <h6 className={styles.subtitle}>Personal Data You Provide</h6>
-          <p className={styles.text}>We ask for and collect the below personal data when you use the Platform. This personal data is necessary for the adequate performance of the platform, to meet the requirements of the contract present between you and us and to comply with our obligations thereunder.</p>
+          <p className={styles.text}>
+            We ask for and collect the below personal data when you use the Platform. This personal data is necessary for the adequate performance of the platform, 
+            to meet the requirements of the contract present between you and us and to comply with our obligations thereunder.</p>
           <p className={styles.text}>You don’t need to register for a Digital Platform Entertainment, LLC account in order to visit or use our Platform. However, certain Services require that you register for an account and, by doing so, you will need to provide us with certain personal data:</p>
           <ul className={styles.list}>
             <li className={styles.listItem}>Account Information - When you register with any kind of Digital Platform Entertainment, LLC account, you will need to provide your email address (except when you sign-up with Facebook, Google or Apple and don’t give your permission to share it with Digital Platform Entertainment, LLC), your age, a username (which may be your real name or a pseudonym) and a password.</li>
@@ -154,7 +151,13 @@ export default function Privacy() {
               <li className={styles.listItem}>● any personally identifiable data from your Tracks or respective meta-data will be published on your profile page in accordance with our Terms of Use. This personal data will be publicly accessible and may be viewed by anyone accessing the Website or using our API or other Services. Please be aware that a profile picture is mandatory when you request profile verification via your Settings in the “Account” tab.</li>
             </ul>
             <li className={styles.listItem}>Subscriptions - If you purchase a Subscription, you must provide your real name, billing address, and payment verification information. Please be aware that we only get payment verification information and no further details of your payment, as outlined in the respective section of this Privacy Policy. Any use of such personal data is for contractual purposes.</li>
+            <li className={styles.listItem}>
+              Subscriptions - If you purchase a Subscription, you must provide your real name, billing address, and payment verification information. Please be aware that we only get payment verification information and no further details of your payment, as outlined in the respective section of this Privacy Policy. Any use of such personal data is for contractual purposes.
+            </li>
             <li className={styles.listItem}>Digital Platform Entertainment, LLC, - In the event you use the services of Digital Platform Entertainment, LLC, you must provide your real name, payment information and personal data necessary to operate and maintain your monetization and/or distribution with Digital Platform Entertainment, LLC (e.g. content identification information such ISRC codes).</li>
+            <li className={styles.listItem}>
+              Music Publishing - In the event you use the services of music publishing administration, you must provide your real name, payment information and personal data necessary to operate and maintain your music publishing administration (e.g. publisher, sub-publisher information as well as performance rights and or mechanical rights organization information and content identification data, such as interested party Information (IPI) numbers, ISWC numbers).
+            </li>
             <li className={styles.listItem}>Communications - When you communicate with Digital Platform Entertainment, LLC, by email or through the Platform, or use the Platform to communicate with other users, we collect personal data about your communication and any personal data you choose to provide based on contractual purposes.</li>
             <li className={styles.listItem}>Survey Information - If you participate in any survey, you may provide certain personal data as part of your response, unless you respond anonymously. The personal data you provided is only processed based on your consent.</li>
             <li className={styles.listItem}>Information You Post - You may provide personal data when you upload Tracks to the Platform, when you post comments, or when you contribute to community discussions. This is based on your own choice, and in accordance with our Terms of Use, we may use such data for contractual purposes.</li>
@@ -177,7 +180,6 @@ export default function Privacy() {
             <li className={styles.listItem}>● Device Information – We collect personal data from and about the devices you use, including how you interact with the Platform and information about the device itself, such as the hardware model, operating system, IP addresses, cookie information, device settings, mobile carrier information, mobile device and advertising identifiers, apps installed, browser type, language, battery level and time zone. This information allows us to recognize and associate your activity, and provide personalized content and advertising, consistently across all your devices. Such use of personal data is based on your consent given either within our Platform or within your device.</li>
             <li className={styles.listItem}>● Software Development Kits (“SDK”) - We may use third parties including our business partners and service providers who use mobile SDKs to collect personal data and information related to how mobile devices interact with the Platform. An SDK is computer code that app developers can include in their apps to enable ads to be shown, personal data to be collected and related services and functionality to be implemented. We may use this technology, for instance, to analyze how you interact with Materials and advertisements and to enable analytics or other features through mobile devices. However, such use will be based on your consent.</li>
             <li className={styles.listItem}>● Digital Platform Entertainment, LLC Widget - Other websites may integrate Digital Platform Entertainment, LLC widgets; when you visit a website with a Digital Platform Entertainment, LLC widget embedded, we may receive certain personal data, including personal data about the website you visited. Digital Platform Entertainment, LLC and the widget may be able to recognize you to retrieve your library of content, and in some cases the widget may be used to show personalized content. We know when you interact with a widget, and websites containing the widgets may receive this information as well. Such use is subject to the privacy policy of the third-party website or app that has integrated a Digital Platform Entertainment, LLC widget.</li>
-
           </ul>
         </div>
         <div className={styles.contentBlock}>

@@ -27,6 +27,7 @@ import YoutubeIcon from '../../../../public/youtube-icon.svg'
 import SocialMediaModal from "./SocialMediaModal";
 import ServicePaypalModal from "./ServicePaypalModal";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
+import SocialMediaServiceModal from "./SocialMediaServiceModal";
 
 async function saveService({
   //@ts-ignore
@@ -60,6 +61,21 @@ export default function ProfileServiceSettings() {
   const [email, setEmail] = useState<string | undefined>()
   const [link, setLink] = useState<string | undefined>()
   const [service, setService] = useState<any>()
+  const [selectedSocial, setSelectedSocial] = useState<string | undefined>()
+  //@ts-ignore
+  const [instagram, setInstagram] = useState<string | undefined>(user?.links['instagram'])
+                                  //@ts-ignore
+  const [snapChat, setSnapChat] = useState<string | undefined>(user?.links['snapChat'])
+                                  //@ts-ignore
+  const [spotify, setSpotify] = useState<string | undefined>(user?.links['spotify'])
+                                  //@ts-ignore
+  const [tiktok, setTiktok] = useState<string | undefined>(user?.links['tiktok'])
+                                  //@ts-ignore
+  const [twitter, setTwitter] = useState<string | undefined>(user?.links['twitter'])
+                                  //@ts-ignore
+  const [youtube, setYoutube] = useState<string | undefined>(user?.links['youtube'])
+                                  //@ts-ignore
+  const [linkedIn, setLinkedIn] = useState<string | undefined>(user?.links['linkedIn'])
 
   useEffect(() => {
     async function getService() {
@@ -212,6 +228,70 @@ export default function ProfileServiceSettings() {
         <Label className={styles.span} htmlFor="picture">Picture</Label>
         <Input onChange={(e) => onUploadHandler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg" />
       </div>
+        {selectedSocial && <SocialMediaServiceModal
+          isOpen={Boolean(selectedSocial)}
+          setIsOpen={setSelectedSocial}
+          media={selectedSocial}
+          instagram={instagram}
+          snapChat={snapChat}
+          spotify={spotify}
+          tiktok={tiktok}
+          twitter={twitter}
+          youtube={youtube}
+          linkedIn={linkedIn}
+          setInstagram={setInstagram}
+          setSnapChat={setSnapChat}
+          setSpotify={setSpotify}
+          setTiktok={setTiktok}
+          setTwitter={setTwitter}
+          setYoutube={setYoutube}
+          setLinkedIn={setLinkedIn}
+          />
+        }
+          <ul className={styles.socialItems}>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('instagram')}
+            >
+              <Image src={InstIcon} alt="inst" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('snapchat')}
+            >
+              <Image src={SnapChatIcon} alt="snapchat" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('spotify')}
+            >
+              <Image src={SpotifyIcon} alt="spotify" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('tiktok')}
+            >
+              <Image src={TikTokIcon} alt="inst" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('twitter')}
+            >
+              <Image src={TwitterIcon} alt="twitter" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('youtube')}
+            >
+              <Image src={YoutubeIcon} alt="youtube" />
+            </li>
+            <li
+              className={styles.socialItem}
+              onClick={() => setSelectedSocial('linkedin')}
+            >
+              <Image src={LinkedInIcon} alt="linkedin" />
+            </li>
+          </ul>
         <div className={styles.profileName}>
           {/* <span>Profile's name</span> <Input type="text" placeholder={User.Name} /> */}
           <span className={styles.span}>Service title</span>
@@ -228,30 +308,30 @@ export default function ProfileServiceSettings() {
             placeholder={service?.ein || "EIN"}
           />
         </div> */}
-        {/* <div className={styles.profileName}>
+        <div className={styles.profileName}>
           <span className={styles.span}>Email</span>
           <Input onChange={(e) => setEmail(e.target.value)} type="text" placeholder={
                                             //@ts-ignore
             service?.email || "Email"} />
-        </div> */}
-        {/* <div className={styles.profileName}>
+        </div>
+        <div className={styles.profileName}>
           <span className={styles.span}>Phone number</span>
           <Input onChange={(e) => setPhoneNumber(e.target.value)} type="text" placeholder={
               //@ts-ignore
              service?.phone || "Phone"} />
-        </div> */}
-        {/* <div className={styles.profileName}>
+        </div>
+        <div className={styles.profileName}>
           <span className={styles.span}>Business name</span>
           <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder={
                                             //@ts-ignore
             service?.business_name || "Bussiness name"} />
-        </div> */}
-        {/* <div className={styles.profileName}>
+        </div>
+        <div className={styles.profileName}>
           <span className={styles.span}>Website url</span>
           <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder={
                                             //@ts-ignore
             service?.website || "Website"} />
-        </div> */}
+        </div>
         {
           <>
             <div className={styles.profileName}>

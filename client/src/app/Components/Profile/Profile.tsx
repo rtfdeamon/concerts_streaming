@@ -37,6 +37,13 @@ export default function Profile() {
 
   const router = useRouter();
 
+  useEffect(() => {
+    if (user?.role.includes('service')){
+      setProfileIsOpen(false);
+      setServiceSettingsIsOpen(true)
+    }
+  }, [user])
+
   const profileHandler = () => {
     setProfileIsOpen(true);
     setArtistsIsOpen(false);
