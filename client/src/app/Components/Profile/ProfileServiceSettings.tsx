@@ -82,7 +82,7 @@ export default function ProfileServiceSettings() {
 
   useEffect(() => {
     async function getService() {
-      const res = await fetch(`${process.env.BACKEND_URL}/services/current`, {
+      const res = await fetch(`https://concertplatform.mmvs.video/operations/services/current`, {
         method: 'GET',
         headers: {
                   'Authorization' : `Bearer ${await getTokenForApi()}`
