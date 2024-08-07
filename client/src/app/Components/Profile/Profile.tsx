@@ -218,7 +218,7 @@ export default function Profile() {
         <section className={styles.wrapper}>
           <div className={styles.content}>
             {!user?.role.includes('administrator') && !user?.role.includes('service') && 
-            !user?.role.includes('sponsor') && !user?.role.includes('advertiser') &&
+            !user?.role.includes('sponsor') && !user?.role.includes('advertiser') && !user?.role.includes('viewer') &&
               <ul className={styles.nav}>
               <li
                 onClick={profileHandler}
