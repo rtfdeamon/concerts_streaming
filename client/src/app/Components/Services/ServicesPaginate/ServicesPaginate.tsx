@@ -13,7 +13,6 @@ interface ISelect{
 }
 
 function Items({artists, isProfile}:{artists: IService[], isProfile?: boolean}) {
-  console.log(artists)
   return (
     <div className={styles.wrapper}>
         {artists &&  artists.map((a, i) => (

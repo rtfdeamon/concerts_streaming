@@ -37,12 +37,12 @@ export default function Profile() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (user?.role.includes('service')){
-      setProfileIsOpen(false);
-      setServiceSettingsIsOpen(true)
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user?.role.includes('service')){
+  //     setProfileIsOpen(false);
+  //     setServiceSettingsIsOpen(true)
+  //   }
+  // }, [user])
 
   const profileHandler = () => {
     setProfileIsOpen(true);
@@ -270,14 +270,14 @@ export default function Profile() {
             </ul> }
             {user?.role.includes('service') && 
               <ul className={styles.nav}>
-              {/* <li
-                onClick={profileHandler}
-                className={profileIsOpen ? styles.active : styles.notActive}
-              >My Profile</li> */}
+                <li
+                  onClick={profileHandler}
+                  className={profileIsOpen ? styles.active : styles.notActive}
+                >My Profile</li>
                 <li
                   onClick={serviceSettingsHandler}
                   className={serviceSettingsIsOpen ? styles.active : styles.notActive}
-                >My Profile</li>
+                >Service Profile</li>
                 {/* <li
                   onClick={tariffHandler}
                   className={tariffIsOpen ? styles.active : styles.notActive}

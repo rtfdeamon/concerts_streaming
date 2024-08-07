@@ -61,6 +61,7 @@ export default function ServicePreview({params}:IPreviewParams) {
       }
     })().catch((err) => console.log(err))
   }, [token])
+
   useEffect(() => { 
     getTokenForApi()
       .then(res => setToken(res))
@@ -75,6 +76,7 @@ export default function ServicePreview({params}:IPreviewParams) {
         .then(res => setUser(res))
       }
   }, [token])
+  console.log('show', show)
   return (
       <>
         <HeaderWithoutBanner />
@@ -86,6 +88,82 @@ export default function ServicePreview({params}:IPreviewParams) {
                 <div className={styles.previewWrapper}>
                   <Image className={styles.preview} src={show.image_url} width={600} height={300} alt={show.title} />
                 </div>
+                {
+                    //@ts-ignore
+                    show?.user?.links && Object.values(show?.user?.links).length > 0 && 
+                    <ul className={styles.socialItems}>
+              {
+                                                //@ts-ignore
+                                                show?.user?.links['instagram'] && 
+                //@ts-ignore
+                <Link href={show?.user?.links['instagram']}
+                  className={styles.socialItem}
+                >
+                  <Image src={InstIcon} alt="inst" />
+                </Link>
+              }
+              {
+                                                //@ts-ignore
+                                                show?.user?.links['snapChat'] && 
+                                                //@ts-ignore
+                <Link href={show?.user?.links['snapChat']}
+                  className={styles.socialItem}
+                >
+                  <Image src={SnapChatIcon} alt="snapchat" />
+                </Link>
+              }
+              {
+                                                //@ts-ignore
+                                                show?.user?.links['spotify'] && 
+                                                //@ts-ignore
+              <Link href={show?.user?.links['spotify']}
+                className={styles.socialItem}
+              >
+                <Image src={SpotifyIcon} alt="spotify" />
+              </Link>
+              }
+              {
+                //@ts-ignore
+                show?.user?.links['instagram'] && 
+                //@ts-ignore
+              <Link href={show?.user?.links['instagram']}
+                className={styles.socialItem}
+              >
+                <Image src={TikTokIcon} alt="inst" />
+              </Link>
+              }
+              {
+              //@ts-ignore
+              show?.user?.links['twitter'] && 
+              //@ts-ignore
+              <Link href={show?.user?.links['twitter']}
+                className={styles.socialItem}
+              >
+                <Image src={TwitterIcon} alt="twitter" />
+              </Link>
+              }
+              {
+              //@ts-ignore
+              show?.user?.links['youtube'] && 
+              //@ts-ignore
+              <Link href={show?.user?.links['youtube']}
+                className={styles.socialItem}
+              >
+                <Image src={YoutubeIcon} alt="youtube" />
+              </Link>
+              }
+              {
+                                                //@ts-ignore
+                                                show?.user?.links['linkedin'] && 
+                                                //@ts-ignore
+              <Link href={show?.user?.links['linkedin']}
+                className={styles.socialItem}
+              >
+                <Image src={LinkedInIcon} alt="linkedin" />
+              </Link>
+              }
+                    </ul>
+                   }
                 <div className={styles.posterWrapper}>
                   {/* {
                     //@ts-ignore
@@ -96,31 +174,31 @@ export default function ServicePreview({params}:IPreviewParams) {
                   )} */}
                  {
                              //@ts-ignore
-                             show?.email && (
+                             show?.user?.email && (
                         <h5 className={styles.artistSubtitle}>Email: {
                                      //@ts-ignore
-                          show?.email}</h5>
+                          show?.user?.email}</h5>
                   )}
                                    {
                                               //@ts-ignore
-                                              show?.phone && (
+                                              show?.user?.phone && (
                         <h5 className={styles.artistSubtitle}>Phone: {
                                      //@ts-ignore
-                                     show?.phone}</h5>
+                                     show?.user?.phone}</h5>
                   )}
                                    {
                                               //@ts-ignore
-                                              show?.website && (
+                                              show?.user?.website && (
                         <h5 className={styles.artistSubtitle}>Website: {
                                      //@ts-ignore
-                                     show?.website}</h5>
+                                     show?.user?.website}</h5>
                   )}
                                    {
                                               //@ts-ignore
-                                              show?.business_name && (
+                                              show?.user?.business_name && (
                         <h5 className={styles.artistSubtitle}>Business name: {
                                      //@ts-ignore
-                                     show?.business_name}</h5>
+                                     show?.user?.business_name}</h5>
                   )}
                 </div>
                 {show.description && 
@@ -130,82 +208,6 @@ export default function ServicePreview({params}:IPreviewParams) {
                       </p>
                   </div>
                 }
-                  {
-                    //@ts-ignore
-                    show?.links && Object.values(show?.links) > 0 && 
-                    <ul className={styles.socialItems}>
-              {
-                                                //@ts-ignore
-                show?.links['instagram'] && 
-                //@ts-ignore
-                <Link href={show?.links['instagram']}
-                  className={styles.socialItem}
-                >
-                  <Image src={InstIcon} alt="inst" />
-                </Link>
-              }
-              {
-                                                //@ts-ignore
-                                                show?.links['snapchat'] && 
-                                                //@ts-ignore
-                <Link href={show?.links['snapchat']}
-                  className={styles.socialItem}
-                >
-                  <Image src={SnapChatIcon} alt="snapchat" />
-                </Link>
-              }
-              {
-                                                //@ts-ignore
-                                                show?.links['spotify'] && 
-                                                //@ts-ignore
-              <Link href={show?.links['spotify']}
-                className={styles.socialItem}
-              >
-                <Image src={SpotifyIcon} alt="spotify" />
-              </Link>
-              }
-              {
-                                                //@ts-ignore
-                                                show?.links['instagram'] && 
-                                                //@ts-ignore
-              <Link href={show?.links['instagram']}
-                className={styles.socialItem}
-              >
-                <Image src={TikTokIcon} alt="inst" />
-              </Link>
-              }
-              {
-                                                //@ts-ignore
-                                                show?.links['twitter'] && 
-                                                //@ts-ignore
-              <Link href={show?.links['twitter']}
-                className={styles.socialItem}
-              >
-                <Image src={TwitterIcon} alt="twitter" />
-              </Link>
-              }
-              {
-                                                //@ts-ignore
-                                                show?.links['youtube'] && 
-                                                //@ts-ignore
-              <Link href={show?.links['youtube']}
-                className={styles.socialItem}
-              >
-                <Image src={YoutubeIcon} alt="youtube" />
-              </Link>
-              }
-              {
-                                                //@ts-ignore
-                                                show?.links['linkedin'] && 
-                                                //@ts-ignore
-              <Link href={show?.links['linkedin']}
-                className={styles.socialItem}
-              >
-                <Image src={LinkedInIcon} alt="linkedin" />
-              </Link>
-              }
-                    </ul>
-                   }
               </div>
               <div className={styles.banner}>
                   <Link href={`${process.env.FRONTEND_URL}/events/month`} className={styles.btnWrapper}>

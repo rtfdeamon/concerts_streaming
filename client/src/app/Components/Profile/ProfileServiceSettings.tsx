@@ -243,7 +243,7 @@ export default function ProfileServiceSettings() {
         <div className={styles.imageWrapper}>
          {service?.image_url && <Image className={styles.avatar} src={link || service?.image_url as string} width={500} height={400} alt="Image" /> }
         </div>
-        <ul className={styles.socialItems}>
+        {/* <ul className={styles.socialItems}>
             <li
               className={styles.socialItem}
               onClick={() => setSelectedSocial('instagram')}
@@ -286,7 +286,7 @@ export default function ProfileServiceSettings() {
             >
               <Image src={LinkedInIcon} alt="linkedin" />
             </li>
-          </ul>
+          </ul> */}
       <div className={styles.fileInput}>
         <Label className={styles.span} htmlFor="picture">Picture</Label>
         <Input onChange={(e) => onUploadHandler(e)} id="picture" type="file" accept="image/png, image/gif, image/jpeg" />
@@ -327,30 +327,30 @@ export default function ProfileServiceSettings() {
             placeholder={service?.ein || "EIN"}
           />
         </div> */}
-        <div className={styles.profileName}>
+        {/* <div className={styles.profileName}>
           <span className={styles.span}>Email</span>
           <Input onChange={(e) => setEmail(e.target.value)} type="text" placeholder={
                                             //@ts-ignore
             service?.email || "Email"} />
-        </div>
-        <div className={styles.profileName}>
+        </div> */}
+        {/* <div className={styles.profileName}>
           <span className={styles.span}>Phone number</span>
           <Input onChange={(e) => setPhoneNumber(e.target.value)} type="text" placeholder={
               //@ts-ignore
              service?.phone || "Phone"} />
-        </div>
-        <div className={styles.profileName}>
+        </div> */}
+        {/* <div className={styles.profileName}>
           <span className={styles.span}>Business name</span>
           <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder={
                                             //@ts-ignore
             service?.business_name || "Bussiness name"} />
-        </div>
-        <div className={styles.profileName}>
+        </div> */}
+        {/* <div className={styles.profileName}>
           <span className={styles.span}>Website url</span>
           <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder={
                                             //@ts-ignore
             service?.website || "Website"} />
-        </div>
+        </div> */}
         {
           <>
             <div className={styles.profileName}>
