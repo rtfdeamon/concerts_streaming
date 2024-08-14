@@ -19,6 +19,7 @@ import Tariff from "./Tariff"
 import styles from './Profile.module.scss'
 import Services from "./Services"
 import ProfileServiceSettings from "./ProfileServiceSettings"
+import TariffAdvertiser from "./TariffAdvertiser"
 
 export default function Profile() {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ export default function Profile() {
   const [tariffIsOpen, setTariffIsOpen] = useState(false);
   const [servicesIsOpen, setServicesIsOpen] = useState(false);
   const [serviceSettingsIsOpen, setServiceSettingsIsOpen] = useState(false);
+  const [advertiserTariffIsOpen, setAdvertiserTariffIsOpen] = useState(false)
 
   const router = useRouter();
 
@@ -46,6 +48,7 @@ export default function Profile() {
 
   const profileHandler = () => {
     setProfileIsOpen(true);
+    setAdvertiserTariffIsOpen(false);
     setArtistsIsOpen(false);
     setShowsIsOpen(false);
     setUpcomingIsOpen(false);
@@ -60,6 +63,7 @@ export default function Profile() {
   }
   const artistsHandler = () => {
     setArtistsIsOpen(true);
+    setAdvertiserTariffIsOpen(false);
     setProfileIsOpen(false);
     setShowsIsOpen(false);
     setUpcomingIsOpen(false);
@@ -74,6 +78,7 @@ export default function Profile() {
   }
   const showsHandler = () => {
     setShowsIsOpen(true);
+    setAdvertiserTariffIsOpen(false);
     setProfileIsOpen(false);
     setArtistsIsOpen(false);
     setUpcomingIsOpen(false);
@@ -88,6 +93,7 @@ export default function Profile() {
   }
   const artistShowsHandler = () => {
     setArtistsShowsIsOpen(true);
+    setAdvertiserTariffIsOpen(false)
     setShowsIsOpen(false);
     setProfileIsOpen(false);
     setArtistsIsOpen(false);
@@ -102,6 +108,7 @@ export default function Profile() {
   }
   const upcomingHandler = () => {
     setUpcomingIsOpen(true);
+    setAdvertiserTariffIsOpen(false)
     setProfileIsOpen(false);
     setArtistsIsOpen(false);
     setShowsIsOpen(false);
@@ -116,6 +123,7 @@ export default function Profile() {
   }
   const scheduledShowsHandler = () => {
     setScheduledShowsIsOpen(true);
+    setAdvertiserTariffIsOpen(false)
     setUpcomingIsOpen(false);
     setProfileIsOpen(false);
     setArtistsIsOpen(false);
@@ -130,6 +138,7 @@ export default function Profile() {
   }
   const sponsoredShowsHandler = () => {
     setSponsoredShowsIsOpen(true);
+    setAdvertiserTariffIsOpen(false)
     setUpcomingIsOpen(false);
     setProfileIsOpen(false);
     setArtistsIsOpen(false);
@@ -144,6 +153,7 @@ export default function Profile() {
   }
   const ticketsListHandler = () => {
     setTicketsListIsOpen(true);
+    setAdvertiserTariffIsOpen(false)
     setSponsoredShowsIsOpen(false);
     setUpcomingIsOpen(false);
     setProfileIsOpen(false);
@@ -159,6 +169,7 @@ export default function Profile() {
 
   const tariffHandler = () => {
     setServicesIsOpen(false)
+    setAdvertiserTariffIsOpen(false)
     setTariffIsOpen(true)
     setTicketsListIsOpen(false)
     setSponsoredShowsIsOpen(false)
@@ -172,8 +183,24 @@ export default function Profile() {
 
   }
 
+  const advertiserTariffHandler = () => {
+    setAdvertiserTariffIsOpen(true)
+    setServicesIsOpen(false)
+    setTariffIsOpen(false)
+    setTicketsListIsOpen(false)
+    setSponsoredShowsIsOpen(false)
+    setUpcomingIsOpen(false)
+    setProfileIsOpen(false)
+    setArtistsIsOpen(false)
+    setShowsIsOpen(false)
+    setArtistsShowsIsOpen(false)
+    setScheduledShowsIsOpen(false)
+    setServiceSettingsIsOpen(false)
+  }
+
   const servicesHandler = () => {
     setServicesIsOpen(true)
+    setAdvertiserTariffIsOpen(false)
     setTariffIsOpen(false)
     setTicketsListIsOpen(false)
     setSponsoredShowsIsOpen(false)
@@ -188,6 +215,7 @@ export default function Profile() {
 
   const serviceSettingsHandler = () => {
     setServiceSettingsIsOpen(true)
+    setAdvertiserTariffIsOpen(false)
     setServicesIsOpen(false)
     setTariffIsOpen(false)
     setTicketsListIsOpen(false)
@@ -217,8 +245,7 @@ export default function Profile() {
         <HeaderWithoutBanner />
         <section className={styles.wrapper}>
           <div className={styles.content}>
-            {!user?.role.includes('administrator') && !user?.role.includes('service') && 
-            !user?.role.includes('sponsor') && !user?.role.includes('advertiser') &&
+            {!user?.role.includes('administrator') && !user?.role.includes('service') && !user?.role.includes('sponsor') &&
               <ul className={styles.nav}>
               <li
                 onClick={profileHandler}
@@ -236,29 +263,6 @@ export default function Profile() {
                 onClick={artistShowsHandler}
                 className={artistShowsIsOpen ? styles.active : styles.notActive}
               >My shows</li>
-              <li
-                onClick={upcomingHandler}
-                className={upcomingIsOpen ? styles.active : styles.notActive}
-              >Upcoming shows</li>
-                <li
-                  onClick={artistsHandler}
-                  className={artistsIsOpen ? styles.active : styles.notActive}
-                >Followed Artists</li>
-            </ul> }
-            {user?.role.includes('advertiser') && 
-              <ul className={styles.nav}>
-              <li
-                onClick={profileHandler}
-                className={profileIsOpen ? styles.active : styles.notActive}
-              >My Profile</li>
-                <li
-                  onClick={servicesHandler}
-                  className={servicesIsOpen ? styles.active : styles.notActive}
-                >Services</li>
-                {/* <li
-                  onClick={tariffHandler}
-                  className={tariffIsOpen ? styles.active : styles.notActive}
-                >Advertiser Plans</li> */}
               <li
                 onClick={upcomingHandler}
                 className={upcomingIsOpen ? styles.active : styles.notActive}
@@ -330,13 +334,17 @@ export default function Profile() {
                   className={profileIsOpen ? styles.active : styles.notActive}
                 >My Profile</li>
                 <li
+                  onClick={advertiserTariffHandler}
+                  className={tariffIsOpen ? styles.active : styles.notActive}
+                >Advertiser Plans</li>
+                <li
                   onClick={scheduledShowsHandler}
                   className={scheduledShowsIsOpen ? styles.active : styles.notActive}
                 >Scheduled shows</li>
                 <li
                   onClick={sponsoredShowsHandler}
                   className={sponsoredShowsIsOpen ? styles.active : styles.notActive}
-                >Shows sponsored by you</li>
+                >Shows with your adds</li>
               </ul>
             }
             {profileIsOpen && 
@@ -383,6 +391,11 @@ export default function Profile() {
             {tariffIsOpen && 
               <Suspense fallback={<Loading />}>
                 <Tariff />
+              </Suspense>
+            }
+            {advertiserTariffIsOpen && 
+              <Suspense fallback={<Loading />}>
+                <TariffAdvertiser />
               </Suspense>
             }
             {servicesIsOpen && 

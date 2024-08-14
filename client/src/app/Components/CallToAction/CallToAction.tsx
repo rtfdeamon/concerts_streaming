@@ -1,7 +1,7 @@
 import { Button } from '@/shadComponents/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
-import Circular from '../../../../public/Circular.svg'
+import Circular from '../../../../public/CircularWithLogo.svg'
 import styles from './CallToAction.module.scss'
 
 export default function CallToAction() {

@@ -77,6 +77,14 @@ export default function ProfileSettings() {
             <ToastAction altText="Hide">Hide</ToastAction>
           ),
         })
+      } else {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+          action: (
+            <ToastAction altText="Hide">Hide</ToastAction>
+          ),
+        })
       }
     }
   }
@@ -427,6 +435,16 @@ export default function ProfileSettings() {
           </>
         }
         <Button onClick={saveChangesHandler} className={styles.btn}>Save changes</Button>
+        {
+          user?.role == 'sponsor' && (
+            <div className="flex flex-col justify-center items-center mt-6">
+              <h6>“Disallowed Businesses for Advertising”</h6>
+              <p className="mt-6 max-w-[80%] ">
+                Tobacco & related of age products (including vape), Firearms and related of age products, Alcohol, Adult Products (Sexual, toys, lubricants, condoms, gels, clothing and any of age related products), Pharmaceuticals - drugs of any type requiring age buyer for prescribed or OTC.
+              </p>
+            </div>
+          )
+        }
     </div>
   )
 }

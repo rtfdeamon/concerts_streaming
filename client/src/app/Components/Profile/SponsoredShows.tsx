@@ -36,7 +36,7 @@ export default function SponsoredShows() {
                 }
                 {isLoaded && <Loading />}
                 {!isLoaded && ads?.length === 0 && 
-                <h6 className={styles.showsException}>Sorry! No shows sponsored by you yet 🥲</h6>
+                <h6 className={styles.showsException}>To advertise your wares on the show, you need to go to the show page and submit an entry request. The administrator will review your request and accept or reject it</h6>
                 }
             </div>
         </section>
