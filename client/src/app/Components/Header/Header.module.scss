@@ -15,7 +15,7 @@
                 opacity: 1; /* Firefox */
               }
         }
-        @apply flex flex-col h-[100vh] w-[100vw] text-white relative
+        @apply flex flex-col min-h-[100vh] w-[100vw] text-white relative
         
 }
 .headerWithoutBanner{

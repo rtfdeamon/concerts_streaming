@@ -91,7 +91,7 @@ export default function ServicePreview({params}:IPreviewParams) {
                 {show.description && 
                   <div className={styles.posterWrapper}>
                       <p className={styles.desc}>
-                        Description: {show.description}
+                        {show.description}
                       </p>
                   </div>
                 }
@@ -123,7 +123,7 @@ export default function ServicePreview({params}:IPreviewParams) {
                           //@ts-ignore
                           show?.user?.website && (
                             //@ts-ignore
-                        <Link target="_blank" href={`//${show?.user?.website}`} className={styles.artistSubtitle}>{
+                        <Link target="_blank" href={`//${show?.user?.website}`} className={styles.artistSubtitle} style={{color: 'blue'}}>{
                                      //@ts-ignore
                                      show?.user?.website}</Link>
                   )}
