@@ -220,7 +220,7 @@ export default function ProfileServiceSettings() {
       !user?.plan?.is_paid && (
                 <ServicePaypalModal isOpen={true} />
       )}
-        <h5 className={styles.title}>Profile</h5>
+        <h5 className={styles.title}>Settings</h5>
         {
                 //@ts-ignore
                 user?.plan?.plan !== '00000010-8000-11ee-8000-102030405060' && user?.plan?.is_paid && (
@@ -233,6 +233,15 @@ export default function ProfileServiceSettings() {
                             ||                                 //@ts-ignore
                         user?.plan?.plan === '00000003-8000-11ee-8000-102030405060' && ' Professional'
                     }</p>
+                    <span className='text-xl text-center mb-6'>Active untill: {
+                                                    //@ts-ignore
+                    new Date(user?.plan?.end_date).toLocaleDateString()}</span>
+                </>
+            )}
+                    {
+                //@ts-ignore
+                user?.plan?.plan !== '00000010-8000-11ee-8000-102030405060' && user?.plan?.is_paid && (
+                <>
                     <span className='text-xl text-center mb-6'>Active untill: {
                                                     //@ts-ignore
                     new Date(user?.plan?.end_date).toLocaleDateString()}</span>
@@ -392,6 +401,13 @@ export default function ProfileServiceSettings() {
             </div> */}
           </>
         }
+          {
+              <div className="flex flex-col justify-center items-center mt-4 mb-2">
+                <p className="max-w-[60%] ">
+                  *By saving your changes, your service will automatically appear in the list of services for paid artists
+                </p>
+              </div>
+          }
         <Button onClick={saveChangesHandler} className={styles.btn}>
           {service?.hasOwnProperty('description') ||  service?.hasOwnProperty('title') || service?.hasOwnProperty('image_url') ?
           "Save changes" : "Create"}

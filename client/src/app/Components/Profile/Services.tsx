@@ -28,9 +28,8 @@ export default function Services() {
             {user?.role.includes('service') && <Button className={styles.btn} onClick={openModalHandler}>Add service</Button>}
         </div>
         {
-            //фильтровать по роли. артистам доступны все сервисы
             services.length > 0 ? (
-                <ServicesPaginate artists={services} itemsPerPage={4} />
+                <ServicesPaginate artists={services} itemsPerPage={6} />
             )
             :
             <h5 className={styles.servicesException}>No services yet or you need to pay for tariff</h5>

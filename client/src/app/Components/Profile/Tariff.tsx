@@ -30,8 +30,8 @@ export default function Tariff() {
         {modalIsOpen && <TariffPaypalModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} variant={variant} />}
         <h5 className={styles.title}>Choose your { role } plan</h5>
             {
-                                            //@ts-ignore
-            user?.plan?.is_paid && (
+            //@ts-ignore
+            user?.plan?.plan !== '00000010-8000-11ee-8000-102030405060' && user?.plan?.is_paid && (
                 <>
                     <p className='text-xl text-center mt-6 mb-6'>Current plan: 
                     {                                   //@ts-ignore
@@ -40,8 +40,6 @@ export default function Tariff() {
                         user?.plan?.plan === '00000002-8000-11ee-8000-102030405060' && ' Advanced'
                             ||                                 //@ts-ignore
                         user?.plan?.plan === '00000003-8000-11ee-8000-102030405060' && ' Professional'
-                        ||                                 //@ts-ignore
-                        user?.plan?.plan === '00000010-8000-11ee-8000-102030405060' && ' Service'
                     }</p>
                     <span className='text-xl text-center mb-6'>Active untill: {
                                                     //@ts-ignore
@@ -50,7 +48,7 @@ export default function Tariff() {
             )}
             <div className={styles.tariffWrapper}>
                 {user?.role.includes('service') ? (
-                <div className={styles.tariffItem}>
+                <div className={styles.tariffItem} style={{height: '350px'}}>
                 <h6 className={styles.subtitle}>Basic</h6>
                 <Image className={styles.image} src={Smile} width={100} height={100} alt='Heart' />
                 <p className={styles.price}>29,99$</p>
