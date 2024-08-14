@@ -34,14 +34,17 @@ export default function ServicePaypalModal({isOpen}:{isOpen: boolean}) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full text-center max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full text-center max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     Payment
                   </Dialog.Title>
-                  <div className="mt-4">
+                  <div className='mt-4'>
+                    By purchasing a subscription for $29.99 per month, you can showcase your professional and/or licensed business services offered to paid artists
+                  </div>
+                  <div className="mt-6">
                       <div>
                           <ServicePaypalBtns />          
                           {/* This feature is in progress */}

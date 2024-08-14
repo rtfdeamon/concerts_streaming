@@ -39,12 +39,12 @@ export default function Profile() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (user?.role.includes('service')){
-      setProfileIsOpen(false);
-      setServiceSettingsIsOpen(true)
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user?.role.includes('service')){
+  //     setProfileIsOpen(false);
+  //     setServiceSettingsIsOpen(true)
+  //   }
+  // }, [user])
 
   const profileHandler = () => {
     setProfileIsOpen(true);
@@ -245,7 +245,7 @@ export default function Profile() {
         <HeaderWithoutBanner />
         <section className={styles.wrapper}>
           <div className={styles.content}>
-            {!user?.role.includes('administrator') && !user?.role.includes('service') && !user?.role.includes('sponsor') &&
+            {user?.role.includes('artist') &&
               <ul className={styles.nav}>
               <li
                 onClick={profileHandler}
@@ -274,22 +274,14 @@ export default function Profile() {
             </ul> }
             {user?.role.includes('service') && 
               <ul className={styles.nav}>
-              {/* <li
+              <li
                 onClick={profileHandler}
                 className={profileIsOpen ? styles.active : styles.notActive}
-              >My Profile</li> */}
+              >Profile</li>
                 <li
                   onClick={serviceSettingsHandler}
                   className={serviceSettingsIsOpen ? styles.active : styles.notActive}
                 >My Profile</li>
-                {/* <li
-                  onClick={tariffHandler}
-                  className={tariffIsOpen ? styles.active : styles.notActive}
-                >Services Plans</li> */}
-                {/* <li
-                  onClick={servicesHandler}
-                  className={servicesIsOpen ? styles.active : styles.notActive}
-                >My services</li> */}
               <li
                 onClick={upcomingHandler}
                 className={upcomingIsOpen ? styles.active : styles.notActive}
