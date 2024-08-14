@@ -26,7 +26,8 @@ const nextConfig = {
       'ads.test.local',
       'concertplatform.mmvs.video',
       'example.com',
-      'dp-ent.com'
+      'dp-ent.com',
+      '208.109.234.119'
     ]
     }
 };

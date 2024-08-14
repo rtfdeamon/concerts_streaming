@@ -12,7 +12,7 @@ export default function Services() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const services = useAppSelector(state => state.services.services)
     const dispatch = useAppDispatch()
-
+    
     useEffect(() => {
         dispatch(getServices())
     }, [])
