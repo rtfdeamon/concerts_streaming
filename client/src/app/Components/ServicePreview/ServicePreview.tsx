@@ -88,6 +88,46 @@ export default function ServicePreview({params}:IPreviewParams) {
                 <div className={styles.previewWrapper}>
                   <Image className={styles.preview} src={show.image_url} width={600} height={300} alt={show.title} />
                 </div>
+                {show.description && 
+                  <div className={styles.posterWrapper}>
+                      <p className={styles.desc}>
+                        Description: {show.description}
+                      </p>
+                  </div>
+                }
+                                <div className={styles.posterWrapper}>
+                <div className="flex justify-center">
+                        {
+                              //@ts-ignore
+                              show?.user?.business_name && (
+                            <h5 className={styles.artistSubtitle}>{
+                              //@ts-ignore
+                              show?.user?.business_name}</h5>
+                        )}
+                        {
+                                //@ts-ignore
+                                show?.user?.email && (
+                                <h5 className={styles.artistSubtitle} style={{marginLeft: '10px'}}>{
+                                            //@ts-ignore
+                                  show?.user?.email}</h5>
+                          )}
+                          {
+                                //@ts-ignore
+                                show?.user?.phone && (
+                                <h5 className={styles.artistSubtitle} style={{marginLeft: '10px'}}>{
+                                            //@ts-ignore
+                                            show?.user?.phone}</h5>
+                          )}
+                        </div>
+                        {
+                          //@ts-ignore
+                          show?.user?.website && (
+                            //@ts-ignore
+                        <Link target="_blank" href={`//${show?.user?.website}`} className={styles.artistSubtitle}>{
+                                     //@ts-ignore
+                                     show?.user?.website}</Link>
+                  )}
+                </div>
                 {
                     //@ts-ignore
                     show?.user?.links && Object.values(show?.user?.links).length > 0 && 
@@ -164,50 +204,6 @@ export default function ServicePreview({params}:IPreviewParams) {
               }
                     </ul>
                    }
-                <div className={styles.posterWrapper}>
-                  {/* {
-                    //@ts-ignore
-                  user?.ein && (
-                        <h5 className={styles.artistSubtitle}>EIN: {
-                                     //@ts-ignore
-                          user?.ein}</h5>
-                  )} */}
-                 {
-                             //@ts-ignore
-                             show?.user?.email && (
-                        <h5 className={styles.artistSubtitle}>Email: {
-                                     //@ts-ignore
-                          show?.user?.email}</h5>
-                  )}
-                                   {
-                                              //@ts-ignore
-                                              show?.user?.phone && (
-                        <h5 className={styles.artistSubtitle}>Phone: {
-                                     //@ts-ignore
-                                     show?.user?.phone}</h5>
-                  )}
-                                   {
-                                              //@ts-ignore
-                                              show?.user?.website && (
-                        <h5 className={styles.artistSubtitle}>Website: {
-                                     //@ts-ignore
-                                     show?.user?.website}</h5>
-                  )}
-                                   {
-                                              //@ts-ignore
-                                              show?.user?.business_name && (
-                        <h5 className={styles.artistSubtitle}>Business name: {
-                                     //@ts-ignore
-                                     show?.user?.business_name}</h5>
-                  )}
-                </div>
-                {show.description && 
-                  <div className={styles.posterWrapper}>
-                      <p className={styles.desc}>
-                        Description: {show.description}
-                      </p>
-                  </div>
-                }
               </div>
               <div className={styles.banner}>
                   <Link href={`${process.env.FRONTEND_URL}/events/month`} className={styles.btnWrapper}>
