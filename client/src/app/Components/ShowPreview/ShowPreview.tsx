@@ -216,7 +216,8 @@ const buyHandler = () => {
                       }}
                       disabled={!role}
                       className={styles.buyBtn}>
-                      Buy a ticket</Button>
+                        Buy a ticket*
+                      </Button>
                     :
                     <Button
                     onClick={() => {
@@ -238,6 +239,9 @@ const buyHandler = () => {
                   }
                 </div>
                   <div className={styles.posterWrapper}>
+                      <p className="mb-3 text-xl">
+                          *<span className="uppercase">{show.name}</span> concert ticket
+                      </p>
                       <p className={styles.desc}>
                         {show?.category === 'artist' ? 'Music show' : show?.category}{
                                                         //@ts-ignore

@@ -67,6 +67,9 @@ export default function Tariff() {
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('basic')}
                     >Take a plan</Button>
+                    <p className={styles.payInfo}>
+                        Monthly subscription to the basic plan
+                    </p>
                 </div>
                 <div className={styles.tariffItem}>
                     <h6 className={styles.subtitle}>Advanced</h6>
@@ -76,6 +79,9 @@ export default function Tariff() {
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('advanced')}
                     >Take a plan</Button>
+                    <p className={styles.payInfo}>
+                        Monthly subscription to the advanced plan
+                    </p>
                 </div>
                 <div className={styles.tariffItem}>
                     <h6 className={styles.subtitle}>Professional</h6>
@@ -85,6 +91,9 @@ export default function Tariff() {
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('professional')}
                     >Take a plan</Button>
+                    <p className={styles.payInfo}>
+                        Monthly subscription to the professional plan
+                    </p>
                 </div>
                 </>
                 }

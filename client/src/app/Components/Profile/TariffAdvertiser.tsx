@@ -49,29 +49,38 @@ export default function TariffAdvertiser() {
                 </>
             )}
             <div className={styles.tariffWrapper}>
-                <div className={styles.tariffItem} style={{height: '350px'}}>
+                <div className={styles.tariffItem} style={{height: '370px'}}>
                     <h6 className={styles.subtitle}>3 month</h6>
                     <Image className={styles.image} src={Smile} width={100} height={100} alt='Heart' />
                     <p className={styles.price}>$599</p>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('3 month')}
                     >Take a plan</Button>
+                    <p className={styles.payInfo}>
+                        *3-month access to promote your advertisement
+                    </p>
                 </div>
-                <div className={styles.tariffItem} style={{height: '350px'}}>
+                <div className={styles.tariffItem} style={{height: '370px'}}>
                     <h6 className={styles.subtitle}>6 months</h6>
                     <Image className={styles.image} src={Flame} width={100} height={100} alt='Heart' />
                     <p className={styles.price}>$799</p>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('6 months')}
                     >Take a plan</Button>
+                    <p className={styles.payInfo}>
+                        *6-month access to promote your advertisement
+                    </p>
                 </div>
-                <div className={styles.tariffItem} style={{height: '350px'}}>
+                <div className={styles.tariffItem} style={{height: '370px'}}>
                     <h6 className={styles.subtitle}>9 months</h6>
                     <Image className={styles.image} src={Heart} width={100} height={100} alt='Heart' />
                     <p className={styles.price}>$999</p>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('9 months')}
                     >Take a plan</Button>
+                    <p className={styles.payInfo}>
+                        *9-month access to promote your advertisement
+                    </p>
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center mt-[-35px]">

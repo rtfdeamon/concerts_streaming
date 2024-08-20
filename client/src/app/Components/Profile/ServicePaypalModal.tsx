@@ -51,6 +51,9 @@ export default function ServicePaypalModal({isOpen}:{isOpen: boolean}) {
                           {/* <PayPalBtns /> */}
                       </div>
                   </div>
+                  <div className="mt-6 text-slate-400 text-xl">
+                    *Monthly subscription to professional and/or licensed business services offered for paid artists
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
