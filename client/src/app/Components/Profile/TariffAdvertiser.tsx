@@ -59,7 +59,7 @@ export default function TariffAdvertiser() {
                     >Take a plan</Button>
                     <p className={styles.payInfo}>
                         *3-month access to promote your advertisement
-                    </p>
+                    </p> 
                 </div>
                 <div className={styles.tariffItem} style={{height: '370px'}}>
                     <h6 className={styles.subtitle}>6 months</h6>

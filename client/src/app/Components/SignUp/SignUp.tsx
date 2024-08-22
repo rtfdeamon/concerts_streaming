@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from "react"
+import React, { ChangeEvent, useEffect, useState } from "react"
 import { useForm, Resolver } from "react-hook-form"
 import { useAppDispatch } from "@/app/hooks/rtkHooks"
 import { signUp } from "@/app/store/register/registerSlice"
@@ -14,9 +14,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shadComponents/ui/select"
+import { Label } from "@/shadComponents/ui/label";
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import styles from './Register.module.scss'
+import { ToastAction } from "@radix-ui/react-toast"
+import { useToast } from "@/shadComponents/ui/use-toast"
+import { generateUploadLink } from "@/app/utils/generateUploadLink"
+import { changeCurrUserPhoto } from "@/app/store/user/userSlice"
 
 export interface IRegister {
     select: string,
@@ -32,14 +38,9 @@ export interface IRegister {
 export default function SignUp() {
   const resolver: Resolver<IRegister> = async (values) => {
     return {
-      values: values.email? values : {} || values.username ? values : {} || values.password ? values : {} ||
-      values.select? values: {} || values.name? values : {},
-      errors: !values.username || !values.password || select === '' || !values.name || !values.email
+      values: values.password ? values : {} || values.select? values: {} || values.password? values : {},
+      errors: !values.username || !values.password || select === ''
         ? {
-          email: {
-            type: "required",
-            message: "Email is required at least 8 symbols",
-          },
             username: {
               type: "required",
               message: "Username is required at least 5 symbols",
@@ -51,10 +52,6 @@ export default function SignUp() {
               select: {
                 type: "required",
                 message: "Select your role",
-              },
-              name: {
-                type: "required",
-                message: "Displayed name is required at least 5 symbols",
               },
           }
         : {},
@@ -74,7 +71,7 @@ export default function SignUp() {
         formState: { errors },
         clearErrors,
         } = useForm<IRegister>({ resolver })
-
+    const [file, setFile] = useState<File | undefined>(undefined)
         
     const onSubmit = handleSubmit(
         async (data: IRegister) => {
@@ -84,15 +81,53 @@ export default function SignUp() {
                 setErr(true);
             } 
             else {
-                router.push('/login');
+                console.log('res', res)
+                const accessToken = res.payload['access_token']
+                localStorage.setItem('accessToken', JSON.stringify(accessToken))
+                onUploadHandler()
+                .then(() => {
+                  router.push('/login');
+                })
+                .finally(() => {
+                  router.push('/login');
+                })
             }
           }
     )
+
+    const { toast } = useToast();
+
+    const onUploadHandler = async () => {
+      if (file){
+        const uploadType = 'avatar'
+        const link:any = await generateUploadLink(uploadType);
+        const res = await fetch(`${link.url}`, {
+          method: 'PUT',
+          headers: {
+            'Content-type' : 'image/png'
+          },
+          body: file
+        })
+        if (res.ok){
+          dispatch(changeCurrUserPhoto(link.url.split('?')[0]))
+        } else {
+          toast({
+            title: "Something went wrong with saving your photo",
+            variant: "destructive",
+            action: (
+              <ToastAction altText="Hide">Hide</ToastAction>
+            ),
+          })
+        }
+      }
+    }
+
   useEffect(() => {
     if (authed === 'true') {
       router.push('/profile')
     }
   }, [authed])
+
   return (
     <>
       <div className={styles.formWrapper}>
@@ -120,7 +155,7 @@ export default function SignUp() {
                 </Select>
                 {errors?.select && <span className={styles.err}>You need to specify your role</span>}
               </div>
-                <span className={styles.span}>Email</span>
+                {/* <span className={styles.span}>Email</span>
                 <Input
                   className={styles.input}
                   type="text"
@@ -134,7 +169,7 @@ export default function SignUp() {
                       value: /\S+@\S+\.\S+/,
                       message: "Entered value does not match email format",
                   }})} />
-            {errors?.email && <p className={styles.err}>{errors.email.message}</p>}
+            {errors?.email && <p className={styles.err}>{errors.email.message}</p>} */}
             {/* {emailErr && <span className={styles.err}>Email is required at least 8 symbols</span>} */}
             {select === 'service' && (
               <>
@@ -169,8 +204,21 @@ export default function SignUp() {
                     message: "Entered value does not match username format",
                 }})} />
             {errors?.username && <p className={styles.err}>{errors.username.message}</p>}
+            <div className={styles.fileInput}>
+            <Label className={styles.span} htmlFor="picture">Picture</Label>
+            <Input
+              onChange={(e) => {
+                if (e.target.files){
+                  setFile(e.target.files[0])
+                }
+              }}
+              id="picture"
+              type="file"
+              accept="image/png, image/gif, image/jpeg"
+            />
+            </div>
             {/* {usernameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>} */}
-            <span className={styles.span}>Displayed name</span>
+            {/* <span className={styles.span}>Displayed name</span>
             <Input
                 className={styles.input}
                 type="text"
@@ -183,8 +231,8 @@ export default function SignUp() {
                   pattern : {
                     value: /^[a-z]+([-_]?[a-z0-9]+){0,2}$/i,
                     message: "Entered value does not match username format",
-                }})} />
-            {errors?.name && <p className={styles.err}>{errors.name.message}</p>}
+                }})} /> */}
+            {/* {errors?.name && <p className={styles.err}>{errors.name.message}</p>} */}
             {/* {diplsayedNameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>} */}
             <span className={styles.span}>Password</span>
             <Input

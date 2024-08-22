@@ -11,7 +11,7 @@ export const signUp = createAsyncThunk<void, IRegister>(
             headers:{
                 'Content-type' : 'application/json'
             },
-            body: JSON.stringify({username, password, name, email, role: select, ein})
+            body: JSON.stringify({username, password, name: username, email: `${username}@gmail.com`, role: select, ein})
         })
         const data = await res.json();
         return data;
