@@ -8,6 +8,7 @@ import Flame from '../../../../public/flame.svg'
 import styles from './Tariff.module.scss'
 import { useState } from 'react'
 import { useAppSelector } from '@/app/hooks/rtkHooks'
+import TariffAdvertiserPaypalModal from './TariffAdvertiserPaypalModal'
 
 export default function TariffAdvertiser() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -27,7 +28,7 @@ export default function TariffAdvertiser() {
     }
     return (
     <section className={styles.sectionWrapper}>
-        {modalIsOpen && <TariffPaypalModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} variant={variant} />}
+        {modalIsOpen && <TariffAdvertiserPaypalModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} variant={variant} />}
         <h5 className={styles.title}>Choose your { role } plan</h5>
             {
                                             //@ts-ignore
@@ -35,13 +36,11 @@ export default function TariffAdvertiser() {
                 <>
                     <p className='text-xl text-center mt-6 mb-6'>Current plan: 
                     {                                   //@ts-ignore
-                        user?.plan?.plan === '00000001-8000-11ee-8000-102030405060' && ' Basic'
+                        user?.plan?.plan === '00000020-8000-11ee-8000-102030405060' && ' 3 month'
                             ||                                 //@ts-ignore
-                        user?.plan?.plan === '00000002-8000-11ee-8000-102030405060' && ' Advanced'
+                        user?.plan?.plan === '00000021-8000-11ee-8000-102030405060' && ' 6 month'
                             ||                                 //@ts-ignore
-                        user?.plan?.plan === '00000003-8000-11ee-8000-102030405060' && ' Professional'
-                        ||                                 //@ts-ignore
-                        user?.plan?.plan === '00000010-8000-11ee-8000-102030405060' && ' Service'
+                        user?.plan?.plan === '00000022-8000-11ee-8000-102030405060' && ' 9 month'
                     }</p>
                     <span className='text-xl text-center mb-6'>Active untill: {
                                                     //@ts-ignore
@@ -55,6 +54,8 @@ export default function TariffAdvertiser() {
                     <p className={styles.price}>$599</p>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('3 month')}
+                        //@ts-ignore
+                        disabled={user?.plan?.is_paid}
                     >Take a plan</Button>
                     <p className={styles.payInfo}>
                         *3-month access to promote your advertisement
@@ -66,6 +67,8 @@ export default function TariffAdvertiser() {
                     <p className={styles.price}>$799</p>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('6 months')}
+                        //@ts-ignore
+                        disabled={user?.plan?.is_paid}
                     >Take a plan</Button>
                     <p className={styles.payInfo}>
                         *6-month access to promote your advertisement
@@ -77,6 +80,8 @@ export default function TariffAdvertiser() {
                     <p className={styles.price}>$999</p>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('9 months')}
+                        //@ts-ignore
+                        disabled={user?.plan?.is_paid}
                     >Take a plan</Button>
                     <p className={styles.payInfo}>
                         *9-month access to promote your advertisement

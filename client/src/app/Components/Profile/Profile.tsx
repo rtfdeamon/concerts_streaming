@@ -331,7 +331,7 @@ export default function Profile() {
                 >My Profile</li>
                 <li
                   onClick={advertiserTariffHandler}
-                  className={tariffIsOpen ? styles.active : styles.notActive}
+                  className={advertiserTariffIsOpen ? styles.active : styles.notActive}
                 >Advertiser Plans</li>
                 <li
                   onClick={scheduledShowsHandler}
