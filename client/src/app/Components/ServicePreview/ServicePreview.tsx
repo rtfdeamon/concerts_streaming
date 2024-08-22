@@ -136,7 +136,7 @@ export default function ServicePreview({params}:IPreviewParams) {
                                                 //@ts-ignore
                                                 show?.user?.links['instagram'] && 
                 //@ts-ignore
-                <Link href={show?.user?.links['instagram']}
+                <Link href={`//${show?.user?.links['instagram']}`}
                   className={styles.socialItem}
                 >
                   <Image src={InstIcon} alt="inst" />
@@ -146,7 +146,7 @@ export default function ServicePreview({params}:IPreviewParams) {
                                                 //@ts-ignore
                                                 show?.user?.links['snapChat'] && 
                                                 //@ts-ignore
-                <Link href={show?.user?.links['snapChat']}
+                <Link href={`//${show?.user?.links['snapChat']}`}
                   className={styles.socialItem}
                 >
                   <Image src={SnapChatIcon} alt="snapchat" />
@@ -156,7 +156,7 @@ export default function ServicePreview({params}:IPreviewParams) {
                                                 //@ts-ignore
                                                 show?.user?.links['spotify'] && 
                                                 //@ts-ignore
-              <Link href={show?.user?.links['spotify']}
+              <Link href={`//${show?.user?.links['spotify']}`}
                 className={styles.socialItem}
               >
                 <Image src={SpotifyIcon} alt="spotify" />
@@ -164,9 +164,9 @@ export default function ServicePreview({params}:IPreviewParams) {
               }
               {
                 //@ts-ignore
-                show?.user?.links['instagram'] && 
+                show?.user?.links['tiktok'] && 
                 //@ts-ignore
-              <Link href={show?.user?.links['instagram']}
+              <Link href={`//${show?.user?.links['tiktok']}`}
                 className={styles.socialItem}
               >
                 <Image src={TikTokIcon} alt="inst" />
@@ -176,7 +176,7 @@ export default function ServicePreview({params}:IPreviewParams) {
               //@ts-ignore
               show?.user?.links['twitter'] && 
               //@ts-ignore
-              <Link href={show?.user?.links['twitter']}
+              <Link href={`//${show?.user?.links['twitter']}`}
                 className={styles.socialItem}
               >
                 <Image src={TwitterIcon} alt="twitter" />
@@ -186,7 +186,7 @@ export default function ServicePreview({params}:IPreviewParams) {
               //@ts-ignore
               show?.user?.links['youtube'] && 
               //@ts-ignore
-              <Link href={show?.user?.links['youtube']}
+              <Link href={`//${show?.user?.links['youtube']}`}
                 className={styles.socialItem}
               >
                 <Image src={YoutubeIcon} alt="youtube" />
@@ -196,7 +196,7 @@ export default function ServicePreview({params}:IPreviewParams) {
                                                 //@ts-ignore
                                                 show?.user?.links['linkedin'] && 
                                                 //@ts-ignore
-              <Link href={show?.user?.links['linkedin']}
+              <Link href={`//${show?.user?.links['linkedin']}`}
                 className={styles.socialItem}
               >
                 <Image src={LinkedInIcon} alt="linkedin" />
