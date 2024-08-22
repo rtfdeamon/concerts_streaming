@@ -205,8 +205,9 @@ export default function SignUp() {
                 }})} />
             {errors?.username && <p className={styles.err}>{errors.username.message}</p>}
             <div className={styles.fileInput}>
-            <Label className={styles.span} htmlFor="picture">Picture</Label>
+            <span className={styles.span}>Picture</span>
             <Input
+              style={{marginTop: '10px'}}
               onChange={(e) => {
                 if (e.target.files){
                   setFile(e.target.files[0])
@@ -234,7 +235,7 @@ export default function SignUp() {
                 }})} /> */}
             {/* {errors?.name && <p className={styles.err}>{errors.name.message}</p>} */}
             {/* {diplsayedNameErr && <span className={styles.err}>Displayed name is required at least 5 symbols</span>} */}
-            <span className={styles.span}>Password</span>
+            <span className={styles.span} style={{marginTop: '10px'}}>Password</span>
             <Input
                 className={styles.input}
                 type="password"
