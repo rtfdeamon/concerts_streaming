@@ -203,8 +203,13 @@ const buyHandler = () => {
                   {role && role === 'sponsor' && !isSponsored &&
                       <Button
                       onClick={modalHandler}
-                      className={styles.buyBtn}>
-                      Become a sponsor</Button>
+                      className={styles.buyBtn}
+                      //@ts-ignore
+                      disabled={!user?.plan?.is_paid}
+                      >
+                      {
+                      //@ts-ignore
+                      !user?.plan?.is_paid ? 'Buy a plan to become a sponsor' : 'Become a sponsor'}</Button>
                   }
                   {role === 'viewer' &&
                     <>

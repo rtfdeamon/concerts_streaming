@@ -20,7 +20,7 @@
     &:hover{
         @apply bg-blue-700
     }
-    @apply flex absolute w-[300px] h-[64px] text-3xl mx-auto bg-blue-500 duration-500 transition-all top-1/2
+    @apply flex absolute w-auto h-[64px] text-3xl mx-auto bg-blue-500 duration-500 transition-all top-1/2
 }
 .paypalWrapper{
     @apply block h-[230px] mt-4 mx-auto p-8 text-3xl
