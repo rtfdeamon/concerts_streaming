@@ -31,7 +31,8 @@ export default function Tariff() {
         <h5 className={styles.title}>Choose your { role } plan</h5>
             {
             //@ts-ignore
-            user?.plan?.plan !== '00000010-8000-11ee-8000-102030405060' && user?.plan?.is_paid && (
+            // user?.plan?.plan !== '00000010-8000-11ee-8000-102030405060' && 
+            user?.plan?.is_paid && (
                 <>
                     <p className='text-xl text-center mt-6 mb-6'>Current plan: 
                     {                                   //@ts-ignore
@@ -54,6 +55,8 @@ export default function Tariff() {
                 <p className={styles.price}>29,99$</p>
                 <Button className={styles.btn}
                     onClick={() => openModalHandler('service')}
+                    //@ts-ignore
+                    disabled={user?.plan?.is_paid}
                 >Take a plan</Button>
             </div>
                 )
@@ -66,6 +69,8 @@ export default function Tariff() {
                     <span className={styles.concertsCount}>1 event</span>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('basic')}
+                                            //@ts-ignore
+                        disabled={user?.plan?.is_paid}
                     >Take a plan</Button>
                     <p className={styles.payInfo}>
                         Monthly subscription to the basic plan
@@ -78,6 +83,8 @@ export default function Tariff() {
                     <span className={styles.concertsCount}>2 events</span>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('advanced')}
+                                            //@ts-ignore
+                        disabled={user?.plan?.is_paid}
                     >Take a plan</Button>
                     <p className={styles.payInfo}>
                         Monthly subscription to the advanced plan
@@ -90,6 +97,8 @@ export default function Tariff() {
                     <span className={styles.concertsCount}>All access</span>
                     <Button className={styles.btn}
                         onClick={() => openModalHandler('professional')}
+                                            //@ts-ignore
+                        disabled={user?.plan?.is_paid}
                     >Take a plan</Button>
                     <p className={styles.payInfo}>
                         Monthly subscription to the professional plan

@@ -1,5 +1,5 @@
 .section{
-    @apply flex justify-center items-center rounded-md min-h-[600px] py-10
+    @apply flex justify-center items-center rounded-md min-h-[300px] pt-2 pb-20
 }
 .spinner{
     animation: spin 12s ease-in-out infinite;
