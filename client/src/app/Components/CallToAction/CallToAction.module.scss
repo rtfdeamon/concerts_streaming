@@ -5,6 +5,14 @@
     animation: spin 12s ease-in-out infinite;
     -webkit-animation: spin 12s ease-in-out infinite;
 }
+.spinnerWrapper{
+    position: relative;
+}
+.logo{
+    position: absolute;
+    left: 35px;
+    top: 80px;
+}
 @keyframes spin {
     to { -webkit-transform: rotate(360deg); }
   }

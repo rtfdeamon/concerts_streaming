@@ -15,7 +15,7 @@ export default function About() {
             <div className={styles.infoWrapper}>
                 <h6>About our service</h6>
                 <h5>Digital Platform Entertainment</h5>
-                <p>Bringing the newest digital live stream platform to live stream for aspiring creators of all genres. So, take a look or book a show, or perform at a show, and advertise in our shows… All for one cause, personal growth in the community! !  Welcome to DPE – 
+                <p>Bringing the newest digital live stream platform to life for aspiring artists of all genres. So, take a look, book a show, or perform at a show, and advertise in a show.  All for one cause, personal growth in the community for creators!  Welcome to DPE – 
                 <span className='font-bold italic'>“Because you deserve it…”</span></p>
             </div>
             <div className={styles.iconsWrapper}>
