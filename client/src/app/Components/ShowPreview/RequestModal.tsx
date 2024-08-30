@@ -71,7 +71,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         .then(res => {
           if (res.statusText === 'Payment Required'){
             toast({
-              title: "You need to pay for some tariff plan",
+              title: "You need to pay for some plan",
               variant: "destructive",
               action: (
                 <ToastAction altText="Hide">Hide</ToastAction>

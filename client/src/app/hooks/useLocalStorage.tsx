@@ -8,7 +8,7 @@ const decode = (value: any) => {
 }
 
 const encode = (value: any) => {
-  if (typeof value !== 'undefined'){
+  if (typeof value !== 'undefined' && value !== "undefined"){
     return JSON.parse(value)
   }
 }

@@ -93,12 +93,14 @@ export default function AdvertiserPayPalBtns({variant, setIsOpen}: {variant: str
   })
     .then(res => {
       toast({
-        title: "You`re successfully buy a plan!",
+        title: "Payement successful",
         action: (
           <ToastAction altText="Hide">Hide</ToastAction>
         ),
       })
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 1000)
     })
     .catch(e => {
       toast({

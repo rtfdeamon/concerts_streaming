@@ -244,9 +244,13 @@ const buyHandler = () => {
                   }
                 </div>
                   <div className={styles.posterWrapper}>
-                      <p className="mb-3 text-xl">
-                          *<span className="uppercase">{show.name}</span> concert ticket
-                      </p>
+                    {
+                      role === 'viewer' && (
+                        <p className="mb-3 text-xl">
+                            *<span className="uppercase">{show.name}</span> concert ticket
+                        </p>
+                      )
+                    }
                       <p className={styles.desc}>
                         {show?.category === 'artist' ? 'Music show' : show?.category}{
                                                         //@ts-ignore

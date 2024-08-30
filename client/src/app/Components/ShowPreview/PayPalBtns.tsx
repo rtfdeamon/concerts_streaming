@@ -60,15 +60,16 @@ export default function PayPalBtns({showId, setIsOpen}: {showId: string, setIsOp
       },
       body: JSON.stringify({order_id:  orderId.current})
   })
-    .then(res => {
-      toast({
-        title: "You`re successfully buy a ticket!",
-        action: (
-          <ToastAction altText="Hide">Hide</ToastAction>
-        ),
-      })
-      location.reload();
+  .then(res => {
+    toast({
+      title: "Payement successful",
+      action: (
+        <ToastAction altText="Hide">Hide</ToastAction>
+      ),
     })
+    setTimeout(() => {
+      location.reload();
+    }, 1000)})
     .catch(e => {
       toast({
         title: "You already bought a ticket",

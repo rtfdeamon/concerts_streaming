@@ -16,7 +16,6 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
   function closeModal() {
     setIsOpen(false)
   }
-
   const adReq = async (poster: string) => {
     const res = await fetch(`${process.env.BACKEND_URL}/sponsor-images/`, {
       method: 'POST',
