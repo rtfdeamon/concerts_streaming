@@ -18,7 +18,7 @@ export default function SponsorsRequests() {
     }, [])
     return (
     <div className={styles.wrapper}>
-    <h5 className={styles.title}>Sponsors request</h5>
+    <h5 className={styles.title}>Advertisers requests</h5>
     {!isLoaded && ads?.length === 0 && 
           <h6 className={styles.error}>Sorry! No advertisers requests yet 🥲</h6>
         }

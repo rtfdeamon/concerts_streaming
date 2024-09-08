@@ -366,19 +366,27 @@ export default function ProfileSettings() {
                                             //@ts-ignore
             user?.phone || "Phone"} />
         </div>
-        <div className={styles.profileName}>
-          <span className={styles.span}>Business name</span>
-          <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder={
-                                            //@ts-ignore
-            user?.business_name || "Bussiness name"} />
-        </div>
-        <div className={styles.profileName}>
-          <span className={styles.span}>Website url</span>
-          <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder={
-                                            //@ts-ignore
-            user?.website || "Website"} />
-        </div>
-        {!user?.role.includes('service') && !user?.role.includes('artist') &&
+        {
+          !user?.role.includes('viewer') && (
+          <div className={styles.profileName}>
+            <span className={styles.span}>Business name</span>
+            <Input onChange={(e) => setBusinessName(e.target.value)} type="text" placeholder={
+                                              //@ts-ignore
+              user?.business_name || "Bussiness name"} />
+          </div>
+          )
+        }
+        {
+          !user?.role.includes('viewer') && (
+          <div className={styles.profileName}>
+            <span className={styles.span}>Website url</span>
+            <Input onChange={(e) => setWebsiteUrl(e.target.value)} type="text" placeholder={
+                                              //@ts-ignore
+              user?.website || "Website"} />
+          </div>
+          )
+        }
+        {!user?.role.includes('service') && !user?.role.includes('artist') && !user?.role.includes('viewer') &&
         <div className={styles.profileName}>
           <span className={styles.span}>EIN number</span>
           <Input
