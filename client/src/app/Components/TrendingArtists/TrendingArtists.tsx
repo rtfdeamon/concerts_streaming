@@ -29,7 +29,14 @@ export default function TrendingArtists() {
           <div className={styles.requestWrapper}>
               {artists.map((a, i) => (
                       <Link key={i}  className={styles.showWrapper} href={`/artist/${a.id}`}>
-                          <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                          <Image
+                            className={styles.image}
+                            src={typeof a.avatar_url !== 'object' ? a.avatar_url : User}
+                            width={80}
+                            height={80}
+                            alt="artistIcon"
+                            priority
+                          />
                           <p className={styles.name}>{a.name}</p>
                       </Link>
               ))}

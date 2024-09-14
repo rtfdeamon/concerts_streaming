@@ -86,7 +86,7 @@ export default function ServicePreview({params}:IPreviewParams) {
               <h5 className={styles.artistTitle}>{show.title}</h5>
               <div className={styles.poster} style={{  backgroundImage: "url(" + { Women } + ")", backgroundSize: 'auto' }}>
                 <div className={styles.previewWrapper}>
-                  <Image className={styles.preview} src={show.image_url} width={600} height={300} alt={show.title} />
+                  <Image className={styles.preview} src={show.image_url} width={600} height={300} alt={show.title} priority />
                 </div>
                 {show.description && 
                   <div className={styles.posterWrapper}>

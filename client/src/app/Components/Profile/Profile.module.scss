@@ -12,7 +12,7 @@
         @apply mt-14
     }
     @apply sticky top-0 right-0 bottom-0 flex
-    flex-col items-center justify-center h-[100vh] w-[20vw] bg-[#f9f9f9] p-5 text-2xl text-center text-white
+    flex-col items-center justify-center h-[100vh] w-[20vw] bg-[#000] p-5 text-2xl text-center text-white
 }
 .active{
     @apply border-blue-500 opacity-100

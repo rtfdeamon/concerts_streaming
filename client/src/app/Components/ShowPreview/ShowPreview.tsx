@@ -196,7 +196,7 @@ const buyHandler = () => {
               <h5 className={styles.artistTitle}>{show.name}</h5>
               <div className={styles.poster} style={{  backgroundImage: "url(" + { Women } + ")", backgroundSize: 'auto' }}>
                 <div className={styles.previewWrapper}>
-                  <Image className={styles.preview} src={show.poster_url} width={600} height={300} alt={show.name} />
+                  <Image className={styles.preview} src={show.poster_url} width={600} height={300} alt={show.name} priority />
                   {role === 'artist' &&
                           <RequestButton id={params.id} />
                   }
