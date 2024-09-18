@@ -32,8 +32,23 @@
           }
     }
     border-bottom: 1px solid #3b82f6;
-    background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5));
     @apply flex flex-col items-center justify-center h-[15vh] w-[100vw] text-black
+}
+.headerWithoutBannerBlackBg{
+    & a{
+        @apply mr-16 transition-all duration-500
+    }
+    & a:hover{
+        @apply text-blue-500
+    }
+    & input{
+        &::placeholder {
+            color: white;
+            opacity: 1; /* Firefox */
+          }
+    }
+    border-bottom: 1px solid #000000;
+    @apply flex flex-col items-center justify-center h-[15vh] w-[100vw] text-black bg-gray-500
 }
 body[theme = "dark"] .header{
     background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../../public/banner.jpg');

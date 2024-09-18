@@ -49,8 +49,12 @@ export default function HeaderWithoutBanner() {
       setIsMobile(true);
     }
   }, [])
+  let isProfilePage
+  if (typeof window !== "undefined"){
+    isProfilePage = window.location.href.includes('profile')
+  }
   return (
-    <header className={styles.headerWithoutBanner}>
+    <header className={isProfilePage ? styles.headerWithoutBannerBlackBg : styles.headerWithoutBanner}>
       {
         isMobille && 
         <div

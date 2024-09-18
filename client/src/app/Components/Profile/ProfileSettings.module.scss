@@ -1,6 +1,5 @@
 .menuWrapper{
-    background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5));
-    @apply mx-auto py-10 w-[80vw] flex flex-col items-center
+    @apply mx-auto py-10 w-[80vw] flex flex-col items-center bg-gray-500
 }
 .title{
     @apply text-5xl text-center mb-10 max-w-[250px]
