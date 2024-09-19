@@ -48,7 +48,7 @@
           }
     }
     border-bottom: 1px solid #000000;
-    @apply flex flex-col items-center justify-center h-[15vh] w-[100vw] text-black bg-gray-500
+    @apply flex flex-col items-center justify-center h-[15vh] w-[100vw] text-white bg-gray-500
 }
 body[theme = "dark"] .header{
     background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../../public/banner.jpg');
@@ -143,6 +143,7 @@ body[theme = "dark"] .events button{
         }
 }
 }
+
 @media screen and (max-width:900px) {
     .events{
         @apply mb-6

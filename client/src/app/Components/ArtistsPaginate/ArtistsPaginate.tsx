@@ -66,7 +66,7 @@ export function ArtistsPaginate(
               renderOnZeroPageCount={null}
           />
       }
-      {typeof all === 'undefined' && artists.length > 4 &&
+      {typeof all === 'undefined' && artists.length > 0 &&
         <ReactPaginate
           className={isArtistList ? styles.listPaginate : styles.paginate}
           breakLabel="..."

@@ -22,7 +22,7 @@ async function getData(id:string, isArtists?: boolean) {
         return data
     }
     if (isArtists){
-        res = await fetch(`${process.env.BACKEND_URL}/artists/?category=${id}`);
+        res = await fetch(`${process.env.BACKEND_URL}/artists/?subcategory=${id}`);
         const data = await res.json();
         return data
     }
