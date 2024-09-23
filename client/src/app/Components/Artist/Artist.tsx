@@ -11,7 +11,7 @@ import Loading from "../Loading/Loading"
 import Link from "next/link"
 import Image from "next/image"
 import About from "./About"
-import User from '../../../../public/women.jpg'
+import User from '../../../../public/user (1).svg'
 import ShowsCalendar from "./ShowsCalendar"
 import { IArtistParams } from "@/app/artist/[id]/page"
 import { IArtist, IUser } from "@/app/types/interfaces"
