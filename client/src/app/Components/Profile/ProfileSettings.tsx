@@ -342,6 +342,7 @@ export default function ProfileSettings() {
                       <SelectItem value="pop">Pop</SelectItem>
                       <SelectItem value="punk">Punk</SelectItem>
                       <SelectItem value="hiphop">Hip-hop & R&B</SelectItem>
+                      <SelectItem value="rap">Rap</SelectItem>
                       <SelectItem value="rock">Rock</SelectItem>
                   </SelectGroup>
               </SelectContent>
