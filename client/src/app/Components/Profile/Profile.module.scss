@@ -6,7 +6,7 @@
 }
 .nav{
     & li{
-        @apply cursor-pointer transition-all duration-500 pb-2 border-b-2 opacity-70 text-white
+        @apply cursor-pointer transition-all duration-500 pb-2 border-b-2 text-white
     }
     & li:not(:first-child){
         @apply mt-14

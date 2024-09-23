@@ -1,6 +1,6 @@
 
 'use client'
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useAppSelector } from "@/app/hooks/rtkHooks"
 import { getTokenForApi } from "@/app/utils/getTokenForApi"
 import { Button } from "@/shadComponents/ui/button"
@@ -11,7 +11,7 @@ import Loading from "../Loading/Loading"
 import Link from "next/link"
 import Image from "next/image"
 import About from "./About"
-import User from '../../../../public/user (1).svg'
+import User from '../../../../public/women.jpg'
 import ShowsCalendar from "./ShowsCalendar"
 import { IArtistParams } from "@/app/artist/[id]/page"
 import { IArtist, IUser } from "@/app/types/interfaces"
@@ -109,6 +109,7 @@ export default function Artist({params}:IArtistParams) {
       setIsSubscribed(true)
     }
   }, [user])
+  const imageRef = useRef(null);
   return (
     <>
         <HeaderWithoutBanner />
