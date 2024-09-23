@@ -19,7 +19,7 @@ function Items({artists, isProfile}:{artists: IArtist[], isProfile?: boolean}) {
                 <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
                   <div className={styles.request}>
                   <Link href={`/artist/${a.id}`} className={styles.imageWrapper}>
-                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={80} height={80} alt="artistIcon" />
+                      <Image className={styles.image} src={typeof a.avatar_url !== 'object' ? `https://${location.host}${a?.avatar_url}` : User} width={80} height={80} alt="artistIcon" />
                       <p>{a.name}</p>
                   </Link>
                   </div>

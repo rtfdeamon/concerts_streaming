@@ -117,7 +117,7 @@ export default function Artist({params}:IArtistParams) {
             {artist ?
               <>
                   <div className={styles.poster}>
-                    <Image src={typeof artist?.avatar_url === 'object' ? User : artist?.avatar_url}
+                    <Image src={typeof artist?.avatar_url === 'object' ? User : `https://${location.host}${artist?.avatar_url}`}
                     width={200}
                     height={200}
                     className={styles.artistAvatar}

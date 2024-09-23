@@ -31,7 +31,7 @@ export default function Recommendations() {
               {artists.map((a, i) => (
                   <div className={styles.artistWrapper} key={i}>
                       <Link className={styles.linkWrapper} href={`/artist/${a.id}`}>
-                          <Image src={typeof a.avatar_url !== 'object' ? a.avatar_url : User} width={120} height={120} alt={''} />
+                          <Image src={typeof a.avatar_url !== 'object' ? `https://${location.host}${a.avatar_url}` : User} width={120} height={120} alt={''} />
                           <div className={styles.artistInfo}>
                             <p className={styles.artistName}>{a.name}</p>
                             {/* <span className={styles.genre}>{a.}</span> */}

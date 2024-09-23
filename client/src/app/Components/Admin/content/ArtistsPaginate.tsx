@@ -29,7 +29,7 @@ function Items({sessions}: {sessions:IArtistRequest[]}) {
                     </div>}
                   <div className={styles.request}>
                   <Link href={`/artist/${a.user?.id}`} className={styles.imageWrapper}>
-                      <Image src={typeof a.user?.avatar_url !== 'object' ? a.user?.avatar_url : User} className={styles.image} width={80} height={80} alt="artistIcon" />
+                      <Image src={typeof a.user?.avatar_url !== 'object' ? `https://${location.host}${a?.user?.avatar_url}` : User} className={styles.image} width={80} height={80} alt="artistIcon" />
                       <p className={styles.artistName}>{a.user?.name}</p>
                   </Link>
                   <div className={styles.fileWrapper}>

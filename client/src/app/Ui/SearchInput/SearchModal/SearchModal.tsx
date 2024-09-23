@@ -101,7 +101,7 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching, se
                 <div className={styles.artistsWrapper}>
                     {results?.artists.map((a) => (
                         <Link href={`/artist/${a.id}`} key={a.id} className={styles.artist}>
-                            <Image className={styles.Image} src={typeof a.avatar_url === 'object' ? User : a.avatar_url} width={300} height={300} alt={a.name} />
+                            <Image className={styles.Image} src={typeof a.avatar_url === 'object' ? User : `https://${location.host}${a?.avatar_url}`} width={300} height={300} alt={a.name} />
                             <span className={styles.artistName}>{a.name}</span>
                         </Link>
                     ))}

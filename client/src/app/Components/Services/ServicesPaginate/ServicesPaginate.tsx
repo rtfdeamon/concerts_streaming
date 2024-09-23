@@ -20,7 +20,7 @@ function Items({artists, isProfile}:{artists: IService[], isProfile?: boolean}) 
                 <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
                   <div className={styles.request}>
                   <Link href={`/service/${a.id}`} className={styles.imageWrapper}>
-                      <Image className={styles.image} src={typeof a.image_url !== 'object' ? a.image_url : ''} width={80} height={80} alt="artistIcon" />
+                      <Image className={styles.image} src={typeof a.image_url !== 'object' ? `https://${location.host}${a?.image_url}` : ''} width={80} height={80} alt="artistIcon" />
                       <p>{a.title}</p>
                   </Link>
                   </div>

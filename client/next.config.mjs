@@ -27,7 +27,8 @@ const nextConfig = {
       'concertplatform.mmvs.video',
       'example.com',
       'dp-ent.com',
-      '208.109.234.119'
+      '208.109.234.119',
+      'localhost'
     ]
     }
 };

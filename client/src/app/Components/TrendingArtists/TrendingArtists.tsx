@@ -31,7 +31,7 @@ export default function TrendingArtists() {
                       <Link key={i}  className={styles.showWrapper} href={`/artist/${a.id}`}>
                           <Image
                             className={styles.image}
-                            src={typeof a.avatar_url !== 'object' ? a.avatar_url : User}
+                            src={typeof a.avatar_url !== 'object' ? `https://${location.host}${a?.avatar_url}` : User}
                             width={80}
                             height={80}
                             alt="artistIcon"
