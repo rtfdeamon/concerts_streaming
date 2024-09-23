@@ -65,7 +65,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                 body: e.target.files[0]
               })
             if (res.ok){
-                setPosterUrl((`${location.host}${link.url.split('?')[0]}`))
+                setPosterUrl((`https://${location.host}${link.url.split('?')[0]}`))
             }
             setIsFetching(false)
         }
