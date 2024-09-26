@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import User from '../../../../public/user (1).svg'
 import styles from './FollowedArtists.module.scss'
+import { getHostName } from '@/app/utils/getHostName';
 
 interface ISelect{
     selected: number;
@@ -17,7 +18,7 @@ function Items(artists:{artists: IArtist[]}) {
         {artists &&  artists.artists.map((a, i) => (
             <div className={styles.artistWrapper} key={i}>
                 <Link className={styles.linkWrapper} href={`/artist/${a.id}`}>
-                    <Image src={typeof a.avatar_url !== 'object' ? `https://${location.host}${a?.avatar_url}` : User} width={100} height={100} alt={''} />
+                    <Image src={typeof a.avatar_url !== 'object' ? `${getHostName(a?.avatar_url)}` : User} width={100} height={100} alt={''} />
                     <div className={styles.artistInfo}>
                     <p className={styles.artistName}>{a.name}</p>
                     <span className={styles.genre}>{a?.artist_genre}</span>

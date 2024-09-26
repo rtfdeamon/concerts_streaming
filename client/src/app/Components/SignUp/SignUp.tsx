@@ -38,8 +38,8 @@ export interface IRegister {
 export default function SignUp() {
   const resolver: Resolver<IRegister> = async (values) => {
     return {
-      values: values.password ? values : {} || values.select? values: {} || values.password? values : {},
-      errors: !values.username || !values.password || select === ''
+      values: values.password ? values : {} || values.select? values: {} || values.password? values : {} || values.email ? values : {},
+      errors: !values.username || !values.password || select === '' || !values.email
         ? {
             username: {
               type: "required",
@@ -171,6 +171,19 @@ export default function SignUp() {
                   }})} />
             {errors?.email && <p className={styles.err}>{errors.email.message}</p>} */}
             {/* {emailErr && <span className={styles.err}>Email is required at least 8 symbols</span>} */}
+            <span className={styles.span}>Email</span>
+              <Input
+                className={styles.input}
+                type="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: "Entered value does not match email format",
+                  }
+                })} />
+              {errors?.email && <p className={styles.err}>{errors.email.message}</p>}
+
             {select === 'service' && (
               <>
                 <span className={styles.span}>EIN</span>

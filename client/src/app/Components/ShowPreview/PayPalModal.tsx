@@ -47,7 +47,7 @@ export default function PayPalModal({isOpen, setIsOpen, showId, showTitle, price
                   </Dialog.Title>
                   {typeof price !== "object" &&
                     <div className="mt-4">
-                      <p>Cost: {price}$</p>
+                      <p>Cost: ${price}</p>
                     </div>
                   }
                   <div className="mt-4">

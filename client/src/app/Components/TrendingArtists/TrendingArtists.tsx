@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import User from '../../../../public/user (1).svg';
 import styles from './TrendingArtists.module.scss';
+import { getHostName } from '@/app/utils/getHostName';
 
 
 
@@ -31,7 +32,7 @@ export default function TrendingArtists() {
                       <Link key={i}  className={styles.showWrapper} href={`/artist/${a.id}`}>
                           <Image
                             className={styles.image}
-                            src={typeof a.avatar_url !== 'object' ? `https://${location.host}${a?.avatar_url}` : User}
+                            src={typeof a.avatar_url !== 'object' ? `${getHostName(a?.avatar_url)}` : User}
                             width={80}
                             height={80}
                             alt="artistIcon"

@@ -52,7 +52,7 @@ export default function Tariff() {
                 <div className={styles.tariffItem} style={{height: '350px'}}>
                 <h6 className={styles.subtitle}>Basic</h6>
                 <Image className={styles.image} src={Smile} width={100} height={100} alt='Heart' />
-                <p className={styles.price}>29,99$</p>
+                <p className={styles.price}>$29,99</p>
                 <Button className={styles.btn}
                     onClick={() => openModalHandler('service')}
                     //@ts-ignore

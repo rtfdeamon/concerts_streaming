@@ -7,6 +7,7 @@ import Image from 'next/image';
 import User from '../../../../public/user (1).svg'
 import styles from './ServicesPaginate.module.scss'
 import { IService } from '@/app/store/service/serviceSlice';
+import { getHostName } from '@/app/utils/getHostName';
 
 interface ISelect{
     selected: number;
@@ -20,7 +21,7 @@ function Items({artists, isProfile}:{artists: IService[], isProfile?: boolean}) 
                 <div className={!isProfile ? styles.showWrapper : styles.showProfileWrapper}>
                   <div className={styles.request}>
                   <Link href={`/service/${a.id}`} className={styles.imageWrapper}>
-                      <Image className={styles.image} src={typeof a.image_url !== 'object' ? `https://${location.host}${a?.image_url}` : ''} width={80} height={80} alt="artistIcon" />
+                      <Image className={styles.image} src={typeof a.image_url !== 'object' ? `${getHostName(a?.image_url)}` : ''} width={80} height={80} alt="artistIcon" />
                       <p>{a.title}</p>
                   </Link>
                   </div>

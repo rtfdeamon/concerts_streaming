@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Recommendations.module.scss'
 import { useEffect, useState } from 'react'
+import { getHostName } from '@/app/utils/getHostName'
 
 
 
@@ -31,7 +32,7 @@ export default function Recommendations() {
               {artists.map((a, i) => (
                   <div className={styles.artistWrapper} key={i}>
                       <Link className={styles.linkWrapper} href={`/artist/${a.id}`}>
-                          <Image src={typeof a.avatar_url !== 'object' ? `https://${location.host}${a.avatar_url}` : User} width={120} height={120} alt={''} />
+                          <Image src={typeof a.avatar_url !== 'object' ? `${getHostName(a.avatar_url)}` : User} width={120} height={120} alt={''} />
                           <div className={styles.artistInfo}>
                             <p className={styles.artistName}>{a.name}</p>
                             {/* <span className={styles.genre}>{a.}</span> */}
