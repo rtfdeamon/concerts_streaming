@@ -32,7 +32,8 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
         const image = new Image()
         image.src = URL.createObjectURL(e.target.files[0])
         await new Promise((res, rej) => { image.onload = () => {
-          if (image.width > 1200 || image.height > 320){
+          console.log('image', image.width, image.height)
+          if (image.width !== 1200 || image.height !== 320){
             toast({
               title: "Banner loading",
               description: "Please, upload a banner in 1200 x 320 resolution",

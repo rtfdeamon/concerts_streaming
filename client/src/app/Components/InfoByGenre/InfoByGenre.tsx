@@ -46,7 +46,8 @@ export default function InfoByGenre({params, isArtists}:{params: IPreviewParams,
                 ? 
                     setArtistData(res)
                 :
-                    setEventData(res)
+                    //@ts-ignore
+                    setEventData(res.filter(show => new Date(show.date) > new Date(Date.now())))
             })
             .catch(() => {
                 setIsLoaded(false)   

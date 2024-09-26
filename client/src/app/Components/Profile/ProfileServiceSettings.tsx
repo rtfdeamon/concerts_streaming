@@ -112,7 +112,6 @@ export default function ProfileServiceSettings() {
       const data = await res.json()
       //@ts-ignore
       if (Object.values(data)[0][0] === "This field is required."){
-        console.log('fdsfs')
         toast({
           title: "Please, fill all required fields",
           variant: 'destructive',

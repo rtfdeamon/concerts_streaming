@@ -81,7 +81,6 @@ export default function SignUp() {
                 setErr(true);
             } 
             else {
-                console.log('res', res)
                 const accessToken = res.payload['access_token']
                 localStorage.setItem('accessToken', JSON.stringify(accessToken))
                 onUploadHandler()

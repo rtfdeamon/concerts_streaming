@@ -14,7 +14,8 @@ export default function ScheduledConcerts() {
     async function getShows(){
       const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=scheduled`)
       const data = await res.json();
-      setShows(data);
+      //@ts-ignore
+      setShows(data.filter(show => new Date(show.date) > new Date(Date.now())));
       setIsLoaded(false);
   }
     getShows()

@@ -7,7 +7,7 @@ import styles from './view-shows.module.scss'
 
 export default function ViewShows({title, type}:{title: string, type: string}) {
     const dispatch = useAppDispatch();
-    const shows = useAppSelector(state => state.shows.events)
+    const shows = useAppSelector(state => state.shows.events).filter(show => new Date(show.date) > new Date(Date.now()))
 
     useEffect(() => {
       type == 'week' && weekHandler()

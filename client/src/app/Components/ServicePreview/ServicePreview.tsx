@@ -76,7 +76,6 @@ export default function ServicePreview({params}:IPreviewParams) {
         .then(res => setUser(res))
       }
   }, [token])
-  console.log('show', show)
   return (
       <>
         <HeaderWithoutBanner />

@@ -6,7 +6,7 @@ import HeaderWithoutBanner from "@/app/Components/Header/HeaderWithouBanner"
 import ShowsByDate from "@/app/Components/Shows/ShowsByDate/ShowsByDate"
 
 export default function page() {
-  const shows = useAppSelector(state => state.shows.events);
+  const shows = useAppSelector(state => state.shows.events).filter(show => new Date(show.date) > new Date(Date.now()));
   useEffect(() => {
     const today = new Date().toISOString();
     const lastDayOfPrevMonth = new Date(new Date().setDate(0)).toISOString();
