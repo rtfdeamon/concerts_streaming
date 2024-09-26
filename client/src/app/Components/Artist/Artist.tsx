@@ -25,6 +25,7 @@ import TwitterIcon from '../../../../public/twitter-icon.svg'
 import YoutubeIcon from '../../../../public/youtube-icon.svg'
 
 import styles from './Artist.module.scss'
+import { getHostName } from "@/app/utils/getHostName"
 
 const followArtist = async (id: string) => {
   const res = await fetch(`${process.env.BACKEND_URL}/artists/${id}/subscribe/`, {
@@ -117,7 +118,7 @@ export default function Artist({params}:IArtistParams) {
             {artist ?
               <>
                   <div className={styles.poster}>
-                    <Image src={typeof artist?.avatar_url === 'object' ? User : `${artist?.avatar_url}`}
+                    <Image src={typeof artist?.avatar_url === 'object' ? User : `${getHostName(artist?.avatar_url)}`}
                     width={200}
                     height={200}
                     className={styles.artistAvatar}

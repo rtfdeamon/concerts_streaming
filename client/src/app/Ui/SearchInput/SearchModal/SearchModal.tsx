@@ -17,6 +17,7 @@ import { IResult } from '@/app/types/interfaces'
 import { ChangeEvent } from 'react'
 import styles from './SearchModal.module.scss'
 import { A } from '@vidstack/react/dist/types/vidstack.js'
+import { getHostName } from '@/app/utils/getHostName'
 
 export default function SearchModal({isOpen, setIsOpen, results, isSearching, setResults, setIsSearching}:
     {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>,
@@ -101,7 +102,7 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching, se
                 <div className={styles.artistsWrapper}>
                     {results?.artists.map((a) => (
                         <Link href={`/artist/${a.id}`} key={a.id} className={styles.artist}>
-                            <Image className={styles.Image} src={typeof a.avatar_url === 'object' ? User : `${a?.avatar_url}`} width={300} height={300} alt={a.name} />
+                            <Image className={styles.Image} src={typeof a.avatar_url === 'object' ? User : `${getHostName(a?.avatar_url)}`} width={300} height={300} alt={a.name} />
                             <span className={styles.artistName}>{a.name}</span>
                         </Link>
                     ))}
@@ -114,7 +115,7 @@ export default function SearchModal({isOpen, setIsOpen, results, isSearching, se
                 <div className={styles.artistsWrapper}>
                     {results?.shows.map((s) => (
                         <Link href={`/preview/${s.id}`} key={s.id} className={styles.artist}>
-                            <Image className={styles.showImage} src={typeof s.poster_url === 'object' ? User : s.poster_url} width={300} height={300} alt={s.name} />
+                            <Image className={styles.showImage} src={typeof s.poster_url === 'object' ? User : getHostName(s.poster_url)} width={300} height={300} alt={s.name} />
                             <span className={styles.artistName}>{s.name}</span>
                         </Link>
                     ))}
