@@ -29,6 +29,7 @@ import CalendarIcon from '../../../../public/calendar-range.svg'
 import Image from "next/image"
 import { Dispatch, SetStateAction } from "react"
 import styles from './OptionsModal.module.scss'
+import { CSTTimeZoneOptions } from "@/app/utils/constants"
 
 export default function OptionsModal({isOpen, setIsOpen, id, posterUrl}:{isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, id: string, posterUrl: string}) {
     const dispatch = useAppDispatch();
@@ -42,7 +43,7 @@ export default function OptionsModal({isOpen, setIsOpen, id, posterUrl}:{isOpen:
             setErr(true);
             return
         }
-        const stringDate = date.toISOString();
+        const stringDate = date.toLocaleString('en-US', CSTTimeZoneOptions);
         const res = await dispatch(changeShow({id, name, description, date: stringDate, slots}));
         // if (res.payload.ok) setIsOpen(false) : setErr (true)
     }

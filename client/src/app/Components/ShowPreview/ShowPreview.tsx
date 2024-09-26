@@ -20,6 +20,7 @@ import styles from './ShowPreview.module.scss'
 import { IEvent } from "@/app/types/interfaces";
 import Loading from "../Loading/Loading";
 import { useRouter } from "next/navigation";
+import { CSTTimeZoneOptions } from "@/app/utils/constants";
 
 const followShow = async (id: string) => {
   const res = await fetch(`${process.env.BACKEND_URL}/concerts/${id}/subscribe/`, {
@@ -275,7 +276,7 @@ const buyHandler = () => {
                           <div className={styles.date}>
                               <Image className={styles.CalendarIcon} src={CalendarIcon} height={50} width={50} alt="calendar" />
                               <div className={styles.wrapper}>
-                                <p className={styles.text}>{new Date(show.date).toLocaleString()}</p>
+                                <p className={styles.text}>{new Date(show.date).toLocaleString('en-US', CSTTimeZoneOptions)}</p>
                                 {/* <span className={styles.span}>09:00 AM, GMT+3</span> */}
                               </div>
                           </div>

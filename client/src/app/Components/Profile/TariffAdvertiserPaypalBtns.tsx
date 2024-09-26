@@ -6,6 +6,7 @@ import { useToast } from "@/shadComponents/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { Dispatch, SetStateAction } from 'react'
 import { IUser } from "@/app/types/interfaces";
+import { CSTTimeZoneOptions } from "@/app/utils/constants";
 
 
 export default function AdvertiserPayPalBtns({variant, setIsOpen}: {variant: string, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
@@ -29,7 +30,7 @@ export default function AdvertiserPayPalBtns({variant, setIsOpen}: {variant: str
             'Authorization' : `Bearer ${await getTokenForApi()}`,
             'Content-type': 'application/json'
           },
-          body: JSON.stringify({plan, date: new Date().toISOString().split('T')[0]})
+          body: JSON.stringify({plan, date: new Date().toLocaleString('en-US', CSTTimeZoneOptions).split('T')[0]})
         })
         const data: any = await res.json();
         return data;

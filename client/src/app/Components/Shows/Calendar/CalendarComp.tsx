@@ -6,6 +6,7 @@ import { getShowByFilter } from "@/app/store/shows/showsSlice"
 import { Calendar } from "@/shadComponents/ui/calendar"
 import ShowsByDate from "../ShowsByDate/ShowsByDate"
 import styles from './Calendar.module.scss'
+import { CSTTimeZoneOptions } from "@/app/utils/constants"
 
 export default function CalendarComp() {
   const dispatch = useAppDispatch();
@@ -17,8 +18,8 @@ export default function CalendarComp() {
     let tomorrow: Date | number | string = Date.parse(String(e)) + 86399000
     tomorrow =  new Date(tomorrow);
     today =  new Date(today);
-    tomorrow = tomorrow.toISOString();
-    today = today.toISOString();
+    tomorrow = tomorrow.toLocaleString('en-US', CSTTimeZoneOptions);
+    today = today.toLocaleString('en-US', CSTTimeZoneOptions);
     if (date) dispatch(getShowByFilter({to: tomorrow, from: today}))
   }
 

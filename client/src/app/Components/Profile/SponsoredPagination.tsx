@@ -11,6 +11,7 @@ import { IAd } from '@/app/types/interfaces';
 import X from '../../../../public/xBlack.svg';
 import Accept from '../../../../public/plus.svg';
 import styles from './SponsoredPagination.module.scss';
+import { CSTTimeZoneOptions } from '@/app/utils/constants';
 
 interface ISelect{
         selected: number;
@@ -32,7 +33,7 @@ function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
                         {/* <Image className={styles.img} src={s.concert.poster_url} width={300} height={200}  alt={s.concert.name}/> */}
                         <span className={styles.date}>
                         <Image src={CalendarIcon} width={30} height={20} alt={s.concert.name}/>
-                        {new Date(s.concert.date).toLocaleString()}
+                        {new Date(s.concert.date).toLocaleString('en-US', CSTTimeZoneOptions)}
                     </span>
                 </Link>
             </>
@@ -50,7 +51,7 @@ function Items({items, isAdmin}: {items: IAd[], isAdmin?: boolean}) {
                       <Image className={styles.img} src={s.banner_url} width={300} height={150} alt='banner'/>
                       <span className={styles.date}>
                       <Image src={CalendarIcon} width={30} height={20} alt={s.concert.name}/>
-                      {new Date(s.concert.date).toLocaleString()}
+                      {new Date(s.concert.date).toLocaleString('en-US', CSTTimeZoneOptions)}
                     </span>
               </Link>
                 <div className={styles.controls}>

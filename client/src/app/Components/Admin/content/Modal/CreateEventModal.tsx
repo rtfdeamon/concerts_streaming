@@ -32,6 +32,7 @@ import { Dispatch, SetStateAction } from "react"
 import { ChangeEvent } from "react"
 import styles from './modal.module.scss'
 import { generateUploadLink } from "@/app/utils/generateUploadLink"
+import { CSTTimeZoneOptions } from "@/app/utils/constants"
 
 export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
     const dispatch = useAppDispatch();
@@ -76,7 +77,7 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
             setErr(true);
             return;
         } else{
-            const stringDate = date.toISOString();
+            const stringDate = date.toLocaleString('en-US', CSTTimeZoneOptions);
             const res: any = await dispatch(createShow({name, description, date: stringDate, slots,
             performance_time: perfomanceTime, poster_url: posterUrl, category, subcategory: subCategory, access, ticket_price: price}));
             if (res.payload.id){

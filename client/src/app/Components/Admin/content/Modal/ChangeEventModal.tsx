@@ -38,6 +38,7 @@ import { ToastAction } from "@radix-ui/react-toast"
 import { useToast } from "@/shadComponents/ui/use-toast"
 import { C } from "@vidstack/react/dist/types/vidstack.js"
 import { useRef } from "react"
+import { CSTTimeZoneOptions } from "@/app/utils/constants"
 
 export const dynamic = 'force-dynamic'
 
@@ -155,7 +156,7 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
     const onChangeHandler = async () => {
             order.length !== 0 && await changeOrder()
-            const stringDate = date?.toISOString() as string;
+            const stringDate = date?.toLocaleString('en-US', CSTTimeZoneOptions) as string;
             const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
             slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price, subcategory: subCategory}));
             if (res.payload.id){

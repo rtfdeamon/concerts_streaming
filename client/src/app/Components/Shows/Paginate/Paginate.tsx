@@ -6,6 +6,7 @@ import Image from 'next/image';
 import CalendarIcon from '../../../../../public/../public/calendar-range.svg'
 import { IEvent } from '@/app/types/interfaces';
 import styles from '..//ShowsByDate/ShowsByDate.module.scss'
+import { CSTTimeZoneOptions } from '@/app/utils/constants';
 
 interface ISelect{
         selected: number;
@@ -23,7 +24,7 @@ function Items({shows, type, isProfile}: {shows: IEvent[], type?: string, isProf
                   <Image className={styles.img} src={s.poster_url} width={300} height={200}  alt={s.name}/>
                 <span className={styles.date}>
                   {/* <Image src={CalendarIcon} width={30} height={20} alt={s.name}/> */}
-                  {new Date(s.date).toLocaleString()}
+                  {new Date(s.date).toLocaleString('en-US', CSTTimeZoneOptions)}
                 </span>
             </Link>
             ))}

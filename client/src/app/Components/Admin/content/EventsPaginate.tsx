@@ -14,6 +14,7 @@ import Show from '../../../../../public/show.jpg';
 import Pen from '../../../../../public/pen.svg';
 import X from '../../../../../public/x.svg';
 import styles from './EventsPaginate.module.scss';
+import { CSTTimeZoneOptions } from '@/app/utils/constants';
 
 interface ISelect{
     selected: number;
@@ -35,7 +36,7 @@ function Items(events:IEvents) {
           <Link href={`/preview/${e.id}`} className={styles.title} >{e.name}</Link>
           <span className={styles.date}>
               <Image src={CalendarIcon} width={30} height={20} alt={e.name}/>
-              {new Date(e.date).toLocaleString()}</span>
+              {new Date(e.date).toLocaleString('en-US', CSTTimeZoneOptions)}</span>
               <p className={styles.desc}>{e.description}</p>
           <div className={styles.infoWrapper}>
               {e.poster_url && <Image className={styles.showImage} src={e.poster_url} width={400} height={250} alt='Show' />}

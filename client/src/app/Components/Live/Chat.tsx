@@ -5,6 +5,7 @@ import InputEmojiWithRef from "react-input-emoji";
 import { IMessage, IUser } from "@/app/types/interfaces";
 import styles from './Chat.module.scss';
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
+import { CSTTimeZoneOptions } from "@/app/utils/constants";
 
 const centrifuge = new Centrifuge('wss://dp-ent.com:8443/connection/websocket')
 export default memo(function Chat({id}: {id: string}) {
@@ -137,7 +138,7 @@ export default memo(function Chat({id}: {id: string}) {
                   >{msg?.sender?.name}</span>
                   <span
                   className={styles.chatDate}
-              >{typeof msg.date !== 'undefined' && new Date(Math.round(msg.date)*1000).toLocaleString().split(',')[1]}</span>
+              >{typeof msg.date !== 'undefined' && new Date(Math.round(msg.date)*1000).toLocaleString('en-US', CSTTimeZoneOptions).split(',')[1]}</span>
               </div>
               <p className={styles.messageText}
               >{msg.text}</p>
