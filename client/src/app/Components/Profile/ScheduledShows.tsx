@@ -6,6 +6,7 @@ import Loading from '../Loading/Loading';
 import Image from 'next/image';
 import CalendarIcon from '../../../../public/calendar-range.svg'
 import styles from './ScheduledShows.module.scss'
+import { filterPassedShows } from '@/app/utils/filterPassedShows';
 
 async function getShows(){
     const res = await fetch(`${process.env.BACKEND_URL}/concerts/?status=scheduled`)
@@ -18,7 +19,10 @@ export default function ScheduledConcerts() {
   const [isLoaded, setIsLoaded] = useState(true);
   useEffect(() => {
     getShows()
-      .then(res => setShows(res))
+      .then(res => {
+        const filteredRes = filterPassedShows(res)
+        setShows(filteredRes)
+      })
       .finally(() => setIsLoaded(false))
     }, [])
     return (

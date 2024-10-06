@@ -28,6 +28,7 @@ import SocialMediaModal from "./SocialMediaModal";
 import ServicePaypalModal from "./ServicePaypalModal";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
 import SocialMediaServiceModal from "./SocialMediaServiceModal";
+import { getHostName } from "@/app/utils/getHostName";
 
 async function saveService({
   //@ts-ignore
@@ -247,7 +248,7 @@ export default function ProfileServiceSettings() {
                 </>
             )}
         <div className={styles.imageWrapper}>
-         {service?.image_url && <Image className={styles.avatar} src={link || service?.image_url as string} width={500} height={400} alt="Image" /> }
+         {service?.image_url && <Image className={styles.avatar} src={link || getHostName(service?.image_url as string)} width={500} height={400} alt="Image" /> }
         </div>
         {/* <ul className={styles.socialItems}>
             <li

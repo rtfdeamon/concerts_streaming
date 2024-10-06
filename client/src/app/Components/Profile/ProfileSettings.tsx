@@ -27,6 +27,7 @@ import YoutubeIcon from '../../../../public/youtube-icon.svg'
 import SocialMediaModal from "./SocialMediaModal";
 import ServicePaypalModal from "./ServicePaypalModal";
 import { getTokenForApi } from "@/app/utils/getTokenForApi";
+import { getHostName } from "@/app/utils/getHostName";
 
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
@@ -189,7 +190,7 @@ export default function ProfileSettings() {
         />}
         {/* <h5 className={styles.title}>Profile</h5> */}
         <div className={styles.imageWrapper}>
-         {user?.avatar_url && <Image className={styles.avatar} src={user?.avatar_url as string} width={500} height={400} alt="Image" /> }
+         {user?.avatar_url && <Image className={styles.avatar} src={getHostName(user?.avatar_url as string)} width={500} height={400} alt="Image" /> }
         </div>
           <ul className={styles.socialItems}>
             <li

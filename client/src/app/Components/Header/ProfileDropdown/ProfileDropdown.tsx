@@ -17,6 +17,7 @@ import { Button } from "@/shadComponents/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import styles from './ProfileDropdown.module.scss'
+import { getHostName } from "@/app/utils/getHostName";
 
 export default function ProfileDropdown() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function ProfileDropdown() {
   }, [])  
   return (
     <div className={styles.profileImage}>
-        {user?.avatar_url && <Image src={user?.avatar_url as string} className={styles.userIcon} width={40} height={40} alt='user avatar'></Image> }
+        {user?.avatar_url && <Image src={getHostName(user?.avatar_url as string)} className={styles.userIcon} width={40} height={40} alt='user avatar'></Image> }
         <DropdownMenu>
           <DropdownMenuTrigger>
                 <Button className={styles.btn}>Profile</Button>

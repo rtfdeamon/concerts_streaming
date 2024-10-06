@@ -6,6 +6,7 @@ import PaginatedItems from '../Shows/Paginate/Paginate'
 import { IEvent, IUser } from '@/app/types/interfaces'
 import styles from './FollowedShows.module.scss'
 import ProfilePaginatedItems from '../Shows/Paginate/ProfilePaginate'
+import { filterPassedShows } from '@/app/utils/filterPassedShows'
 
 
 export default function FollowedShows() {
@@ -28,7 +29,8 @@ export default function FollowedShows() {
         .finally(() => setIsLoaded(false))
     }, [token])
     useEffect(() => {
-      setShows(user?.concerts_followed)
+      const filteredShows = filterPassedShows(user?.concerts_followed)
+      setShows(filteredShows)
     }, [user?.concerts_followed])
     return (
     <div className={styles.menuWrapper}>

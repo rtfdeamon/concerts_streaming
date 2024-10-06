@@ -32,7 +32,7 @@ export default function PayPalBtns({variant, setIsOpen}: {variant: string, setIs
             'Authorization' : `Bearer ${await getTokenForApi()}`,
             'Content-type': 'application/json'
           },
-          body: JSON.stringify({plan, date: new Date().toLocaleString('en-US', CSTTimeZoneOptions).split('T')[0]})
+          body: JSON.stringify({plan, date: new Date().toISOString().split('T')[0]})
         })
         const data: any = await res.json();
         return data;
