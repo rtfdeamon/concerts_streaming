@@ -7,6 +7,7 @@ import CalendarComp from './Calendar/CalendarComp';
 import Link from 'next/link'
 import styles from './Shows.module.scss'
 import { CSTTimeZoneOptions } from '@/app/utils/constants';
+import { getIsoStringDate } from '@/app/utils/getIsoStringDate';
 
 
 
@@ -70,7 +71,10 @@ export default function Shows() {
         let tomorrow: number | Date  = today + 86399000
         today = new Date(today)
         tomorrow = new Date(tomorrow)
-        dispatch(getShowByFilter({to: tomorrow.toLocaleString('en-US', CSTTimeZoneOptions), from: today.toLocaleString('en-US', CSTTimeZoneOptions)}))
+        dispatch(getShowByFilter({to: 
+            getIsoStringDate(tomorrow
+                .toLocaleString('en-US', CSTTimeZoneOptions)),
+            from: getIsoStringDate(today.toLocaleString('en-US', CSTTimeZoneOptions))}))
     }, [])
 
   return (
