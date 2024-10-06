@@ -39,6 +39,7 @@ import { useToast } from "@/shadComponents/ui/use-toast"
 import { C } from "@vidstack/react/dist/types/vidstack.js"
 import { useRef } from "react"
 import { CSTTimeZoneOptions } from "@/app/utils/constants"
+import { getIsoStringDate } from "@/app/utils/getIsoStringDate"
 
 export const dynamic = 'force-dynamic'
 
@@ -156,8 +157,8 @@ export default function ChangeEventModal({isOpen, setIsOpen, eventId}:{isOpen: b
 
     const onChangeHandler = async () => {
             order.length !== 0 && await changeOrder()
-            const stringDate = date?.toLocaleString('en-US', CSTTimeZoneOptions) as string;
-            const res: any = await dispatch(changeShow({id: eventId, name, description, date: stringDate,
+            // const stringDate = getIsoStringDate(date?.toLocaleString('en-US', CSTTimeZoneOptions));
+            const res: any = await dispatch(changeShow({id: eventId, name, description, date,
             slots, performance_time: perfomanceTime, poster_url: posterUrl, category, access, ticket_price: price, subcategory: subCategory}));
             if (res.payload.id){
                 setIsOpen(false)

@@ -33,6 +33,7 @@ import { ChangeEvent } from "react"
 import styles from './modal.module.scss'
 import { generateUploadLink } from "@/app/utils/generateUploadLink"
 import { CSTTimeZoneOptions } from "@/app/utils/constants"
+import { getIsoStringDate } from "@/app/utils/getIsoStringDate"
 
 export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>}) {
     const dispatch = useAppDispatch();
@@ -58,7 +59,8 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
         setIsFetching(true)
         if (e.target.files){
             const link:any = await generateUploadLink('poster');
-            const res = await fetch(`${link.url}`, {
+            console.log('link', link.url)
+            const res = await fetch(`https://dp-ent.com${link.url}`, {
                 method: 'PUT',
                 headers: {
                   'Content-type' : 'image/png'
@@ -66,19 +68,21 @@ export default function CreateEventModal({isOpen, setIsOpen}:{isOpen: boolean, s
                 body: e.target.files[0]
               })
             if (res.ok){
-                setPosterUrl((`${link.url.split('?')[0]}`))
+                setPosterUrl((`https://dp-ent.com${link.url.split('?')[0]}`))
             }
             setIsFetching(false)
         }
     }
+
     const onCreateHandler = async () => {
         if (name === '' || description === "" || slots < 1 || typeof date === 'undefined'
-        || perfomanceTime === 0 || typeof posterUrl === 'undefined' || category === '' || access === "" || category === ""){
+        || perfomanceTime === 0 || typeof posterUrl === 'undefined' || access === "" || category === ""){
+            console.log(posterUrl, typeof posterUrl)
             setErr(true);
             return;
         } else{
-            const stringDate = date.toLocaleString('en-US', CSTTimeZoneOptions);
-            const res: any = await dispatch(createShow({name, description, date: stringDate, slots,
+            // const stringDate = getIsoStringDate(date.toLocaleString('en-US', CSTTimeZoneOptions));
+            const res: any = await dispatch(createShow({name, description, date: date as unknown as string, slots,
             performance_time: perfomanceTime, poster_url: posterUrl, category, subcategory: subCategory, access, ticket_price: price}));
             if (res.payload.id){
                 setIsOpen(false);
