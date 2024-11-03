@@ -26,6 +26,7 @@ import YoutubeIcon from '../../../../public/youtube-icon.svg'
 
 import styles from './Artist.module.scss'
 import { getHostName } from "@/app/utils/getHostName"
+import { link } from "fs"
 
 const followArtist = async (id: string) => {
   const res = await fetch(`${process.env.BACKEND_URL}/artists/${id}/subscribe/`, {
@@ -56,11 +57,13 @@ export default function Artist({params}:IArtistParams) {
   const [artist, setArtist] = useState<IArtist | null>();
   const [user, setUser] = useState<IUser | null>();
   const [token, setToken] = useState<string | undefined | null>();
+  const [links, setLinks] = useState<Record<string, string>>({})
   const userStatus = useAppSelector(state => state.userInfo.user?.role)
   const { toast } = useToast();
 
-  //@ts-ignore
-  console.log(artist)
+  useEffect(() => {
+    setLinks(user?.links || {})
+  }, [user?.links])
 
   const onSubscribeHandler = async (id: string) => {
     const res: any = await followArtist(id);
@@ -114,6 +117,7 @@ export default function Artist({params}:IArtistParams) {
     }
   }, [user])
   const imageRef = useRef(null);
+
   return (
     <>
         <HeaderWithoutBanner />
@@ -163,70 +167,70 @@ export default function Artist({params}:IArtistParams) {
                    </div>
                    {
                                                    //@ts-ignore
-                   Object.values(artist?.links) > 0 && 
+                   links && 
                     <ul className={styles.socialItems}>
               {
                                                 //@ts-ignore
-                artist?.links['instagram'] && 
-                <li
+                links['instagram'] && 
+                <Link href={links['instagram']} target="_blank" 
                   className={styles.socialItem}
                 >
                   <Image src={InstIcon} alt="inst" />
-                </li>
+                </Link>
               }
               {
                                                 //@ts-ignore
-                artist?.links['snapchat'] && 
-                <li
+                links['snapChat'] && 
+                <Link href={links['snapChat']} target="_blank" 
                   className={styles.socialItem}
                 >
                   <Image src={SnapChatIcon} alt="snapchat" />
-                </li>
+                </Link>
               }
               {
                                                 //@ts-ignore
-              artist?.links['spotify'] && 
-              <li
+              links['spotify'] && 
+              <Link href={links['spotify']} target="_blank" 
                 className={styles.socialItem}
               >
                 <Image src={SpotifyIcon} alt="spotify" />
-              </li>
+              </Link>
               }
               {
                                                 //@ts-ignore
-              artist?.links['instagram'] && 
-              <li
+              links['instagram'] && 
+              <Link href={links['instagram']} target="_blank" 
                 className={styles.socialItem}
               >
                 <Image src={TikTokIcon} alt="inst" />
-              </li>
+              </Link>
               }
               {
                                                 //@ts-ignore
-              artist?.links['twitter'] && 
-              <li
+              links['twitter'] && 
+              <Link href={links['twitter']} target="_blank" 
                 className={styles.socialItem}
               >
                 <Image src={TwitterIcon} alt="twitter" />
-              </li>
+              </Link>
               }
               {
                                                 //@ts-ignore
-              artist?.links['youtube'] && 
-              <li
+              links['youtube'] && 
+              <Link href={links['youtube']} target="_blank" 
                 className={styles.socialItem}
               >
                 <Image src={YoutubeIcon} alt="youtube" />
-              </li>
+              </Link>
               }
               {
                                                 //@ts-ignore
-              artist?.links['linkedin'] && 
-              <li
+              links['linkedIn'] && 
+              <Link href={links['linkedIn']} target="_blank" 
                 className={styles.socialItem}
               >
                 <Image src={LinkedInIcon} alt="linkedin" />
-              </li>
+              </Link>
               }
                     </ul>
                    }
