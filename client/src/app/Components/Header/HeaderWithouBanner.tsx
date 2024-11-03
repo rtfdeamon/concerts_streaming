@@ -213,7 +213,7 @@ export default function HeaderWithoutBanner() {
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                   </NavigationMenuList>
-              </NavigationMenu>
+          </NavigationMenu>
           </div>
           <div className={styles.profileWrapper}>
             {

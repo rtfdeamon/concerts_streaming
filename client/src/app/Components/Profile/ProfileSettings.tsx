@@ -162,6 +162,24 @@ export default function ProfileSettings() {
                                   //@ts-ignore
   const [linkedIn, setLinkedIn] = useState<string | undefined>(user?.links['linkedIn'])
 
+  useEffect(() => {
+    //@ts-ignore
+    setInstagram(user?.links['instagram'])
+        //@ts-ignore
+    setSnapChat(user?.links['snapChat'])
+        //@ts-ignore
+    setSpotify(user?.links['spotify'])
+        //@ts-ignore
+    setTiktok(user?.links['tiktok'])
+        //@ts-ignore
+    setTwitter(user?.links['twitter'])
+        //@ts-ignore
+    setYoutube(user?.links['youtube'])
+        //@ts-ignore
+    setLinkedIn(user?.links['linkedIn'])
+    //@ts-ignore
+  }, [user?.links])
+
   return (
     <div className={styles.menuWrapper}>
       {user?.role.includes('service') && 

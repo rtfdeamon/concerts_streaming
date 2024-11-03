@@ -116,6 +116,7 @@ body[theme = "dark"] .events button{
         @apply ml-4
     }
 }
+
 @media screen and (max-width:1280px) {
     .header, .headerWithoutBanner{
         & a:first-child{
@@ -139,7 +140,7 @@ body[theme = "dark"] .events button{
             @apply w-[350px]
         }
         &  ul button, &  ul a{
-            @apply mr-0
+            margin-right: 0px !important;
         }
 }
 }

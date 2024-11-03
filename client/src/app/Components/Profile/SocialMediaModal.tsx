@@ -19,6 +19,7 @@ export default function SocialMediaModal({isOpen, setIsOpen, media, instagram, s
       setYoutube: Dispatch<SetStateAction<string | undefined>>, setLinkedIn: Dispatch<SetStateAction<string | undefined>>,
       setTiktok: Dispatch<SetStateAction<string | undefined>>
     }) {
+
     const closeModal = () => {
       setIsOpen(undefined)
     }
@@ -58,7 +59,6 @@ export default function SocialMediaModal({isOpen, setIsOpen, media, instagram, s
         setTiktok(e.target.value)
      }
    }
-
   return (
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>

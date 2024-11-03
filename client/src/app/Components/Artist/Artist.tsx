@@ -59,6 +59,9 @@ export default function Artist({params}:IArtistParams) {
   const userStatus = useAppSelector(state => state.userInfo.user?.role)
   const { toast } = useToast();
 
+  //@ts-ignore
+  console.log(artist)
+
   const onSubscribeHandler = async (id: string) => {
     const res: any = await followArtist(id);
     if (res.user){

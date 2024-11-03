@@ -103,7 +103,7 @@ export default function Header({type, children}:{type: string, children?: React.
               <Link className={styles.link} href={'/services'}>Services</Link>
              )
           }
-              <NavigationMenu>
+          <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
@@ -222,7 +222,7 @@ export default function Header({type, children}:{type: string, children?: React.
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                   </NavigationMenuList>
-              </NavigationMenu>
+          </NavigationMenu>
           </div>
           <div className={styles.profileWrapper}>
                 {
