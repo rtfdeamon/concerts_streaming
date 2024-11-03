@@ -163,7 +163,7 @@ export default function Header({type, children}:{type: string, children?: React.
                             Followed Artists
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/artists/trending" title="Installation">
-                            Trending Artists
+                            New Member Artists
                           </NavigationMenuLink>
                         </ul>
                       </NavigationMenuContent>

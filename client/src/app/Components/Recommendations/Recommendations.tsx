@@ -27,7 +27,7 @@ export default function Recommendations() {
     {
       artists.length > 0 &&
         <section className={styles.section}>
-            <h5 className={styles.title}>Trending artists</h5>
+            <h5 className={styles.title}>New Member Artists</h5>
             <div className={styles.artistsWrapper}>
               {artists.map((a, i) => (
                   <div className={styles.artistWrapper} key={i}>

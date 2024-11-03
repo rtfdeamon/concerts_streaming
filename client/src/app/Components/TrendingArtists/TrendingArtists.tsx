@@ -24,7 +24,7 @@ export default function TrendingArtists() {
   }, [])
   return (
     <section>
-    <h5 className={styles.title}>Trending artists</h5>
+    <h5 className={styles.title}>New Member Artists</h5>
     <div className={styles.wrapper}>
     {artists && artists.length >0 &&
           <div className={styles.requestWrapper}>
@@ -46,7 +46,7 @@ export default function TrendingArtists() {
     </div>
       {isLoaded && <Loading />}
       {!isLoaded && artists?.length === 0 && 
-        <h6 className={styles.showsException}>Sorry! No trending artists yet 🥲</h6>
+        <h6 className={styles.showsException}>Sorry! No new member artists yet 🥲</h6>
       }
 </section>
   )

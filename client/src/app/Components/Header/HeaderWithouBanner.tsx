@@ -154,7 +154,7 @@ export default function HeaderWithoutBanner() {
                             Followed Artists
                           </NavigationMenuLink>
                           <NavigationMenuLink href="/artists/trending" title="Installation">
-                            Trending Artists
+                            New Member Artists
                           </NavigationMenuLink>
                         </ul>
                       </NavigationMenuContent>
