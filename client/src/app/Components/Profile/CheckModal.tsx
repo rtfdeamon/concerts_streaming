@@ -105,7 +105,7 @@ export default function CheckModal({concertId, id, isOpen, setIsOpen}:{concertId
                                 }
                             })
                             const data = await res.json()
-                            const filteredData = data.filter((d: {
+                            const filteredData = data?.filter((d: {
                                 id: string | undefined | undefined 
                                 }) => d.id === id)
                             startDate.current = filteredData[0].start_date

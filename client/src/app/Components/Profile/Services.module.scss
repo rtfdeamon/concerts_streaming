@@ -29,3 +29,12 @@
 .servicesException{
     @apply block mt-14 text-3xl text-center 
 }
+
+@media screen and (max-width: 1280px) {
+    .title{
+        @apply text-3xl
+    }
+    .servicesException{
+        @apply text-xl
+    }
+}
