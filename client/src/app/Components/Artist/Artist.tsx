@@ -62,8 +62,10 @@ export default function Artist({params}:IArtistParams) {
   const { toast } = useToast();
 
   useEffect(() => {
-    setLinks(user?.links || {})
-  }, [user?.links])
+    //@ts-ignore
+    setLinks(artist?.links || {})
+    //@ts-ignore
+  }, [artist?.links])
 
   const onSubscribeHandler = async (id: string) => {
     const res: any = await followArtist(id);
@@ -167,7 +169,7 @@ export default function Artist({params}:IArtistParams) {
                    </div>
                    {
                                                    //@ts-ignore
-                   links && 
+                   links &&
                     <ul className={styles.socialItems}>
               {
                                                 //@ts-ignore
@@ -198,8 +200,8 @@ export default function Artist({params}:IArtistParams) {
               }
               {
                                                 //@ts-ignore
-              links['instagram'] && 
-              <Link href={links['instagram']} target="_blank" 
+              links['tiktok'] && 
+              <Link href={links['tiktok']} target="_blank" 
                 className={styles.socialItem}
               >
                 <Image src={TikTokIcon} alt="inst" />
