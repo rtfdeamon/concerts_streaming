@@ -30,7 +30,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
       const uploadFile = async (file: File) => {
         setIsFetching(true)
         const link:any = await generateUploadLink('artist_demo');
-        const res = await fetch(`${link.url}`, {
+        const res = await fetch(`https://dp-ent.com${link.url}`, {
             method: 'PUT',
             headers: {
               'Content-type' : 'audio/mpeg'
@@ -69,6 +69,7 @@ export default function RequestModal({isOpen, setIsOpen, id}: {isOpen: boolean, 
         setIsFetching(true)
         postArtistDemo()
         .then(res => {
+          console.log('res', res)
           if (res.statusText === 'Payment Required'){
             toast({
               title: "You need to pay for some plan",

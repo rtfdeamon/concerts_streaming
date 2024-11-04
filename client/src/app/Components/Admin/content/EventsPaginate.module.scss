@@ -50,3 +50,30 @@
 .deleteBtn{
     @apply bg-red-700
 }
+
+@media screen and (max-width: 1200px){
+    .infoWrapper{
+        @apply flex-col items-center
+    }
+}
+
+@media screen and (max-width: 920px){
+    .controls{
+        @apply flex flex-col items-center
+    }
+    .changeBtn{
+        @apply mr-0 mb-3
+    }
+}
+
+@media screen and (max-width: 768px){
+    .infoWrapper{
+        @apply text-sm
+    }
+    .date, .title{
+        @apply text-sm
+    }
+    .date img {
+        @apply hidden
+    }
+}

@@ -32,7 +32,6 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
         const image = new Image()
         image.src = URL.createObjectURL(e.target.files[0])
         await new Promise((res, rej) => { image.onload = () => {
-          console.log('image', image.width, image.height)
           if (image.width !== 1200 || image.height !== 320){
             toast({
               title: "Banner loading",
@@ -48,7 +47,7 @@ export default function SponsorModal({isOpen, setIsOpen, showId, showTitle} :
         }
       });
         const link:any = await generateUploadLink('poster');
-        const res = await fetch(`${link.url}`, {
+        const res = await fetch(`https://dp-ent.com${link.url}`, {
             method: 'PUT',
             headers: {
               'Content-type' : 'image/png'

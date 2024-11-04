@@ -52,6 +52,9 @@
     .tariffWrapper{
         @apply flex-col h-[80vh] flex-nowrap items-center overflow-y-scroll
     }
+    .notify{
+        @apply mt-12 text-sm
+    }
 }
 
 @media screen and (max-width: 780px) {

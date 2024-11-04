@@ -26,7 +26,7 @@ export default function SponsorsRequests() {
       <div className={styles.items}>
         {
             ads && ads.length > 0 &&
-            <SponsoredPagination itemsPerPage={6} items={ads} isAdmin={true}/>
+            <SponsoredPagination itemsPerPage={2} items={ads} isAdmin={true}/>
         }
         {isLoaded && <Loading />}
       </div>

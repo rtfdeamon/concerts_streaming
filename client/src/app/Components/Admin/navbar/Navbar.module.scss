@@ -25,3 +25,23 @@
     }
     @apply flex items-center justify-center transition-all cursor-pointer duration-500 opacity-70
 }
+
+@media screen and (max-width: 900px) {
+    .logoWrapper{
+        & a{
+            @apply block w-[80px]
+        }
+    }
+    .Navbar{
+        @apply w-[30vw];
+    }
+    .prevImage{
+        @apply w-5
+    }
+    .prevBtn{
+        @apply text-base
+    }
+    .navEl{
+        @apply text-sm
+    }
+}

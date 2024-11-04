@@ -69,3 +69,27 @@
 .error{
     @apply block text-3xl text-center mt-20
  }
+
+ @media screen and (max-width: 1200px){
+    .showWrapper{
+        @apply w-auto
+    }
+ }
+
+ @media screen and (max-width: 900px){
+    .showWrapper{
+        @apply w-[400px]
+    }
+    .image{
+        @apply my-4
+    }
+    .request{
+        @apply flex-col
+    }
+ }
+
+ @media screen and (max-width: 700px){
+    .showWrapper{
+        @apply w-auto text-base
+    }
+ }

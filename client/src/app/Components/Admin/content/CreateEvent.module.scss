@@ -32,3 +32,22 @@
 .sortSpan{
     @apply block mr-5
 }
+
+
+@media screen and (max-width: 1200px) {
+    .creationWrapper{
+        @apply flex-col items-center w-auto
+    }
+    .btn{
+        @apply mb-5
+    }
+}
+
+@media screen and (max-width:768px) {
+    .sort{
+        & button{
+            @apply ml-0 mt-3
+        }
+        @apply flex flex-col items-center
+    }
+}

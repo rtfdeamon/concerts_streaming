@@ -13,3 +13,12 @@
 .showsException{
     @apply block mt-14 text-2xl text-center px-4
 }
+
+@media screen and (max-width: 720px) {
+    .title{
+        @apply text-2xl
+    }
+    .showsException{
+        @apply text-base
+    }
+}

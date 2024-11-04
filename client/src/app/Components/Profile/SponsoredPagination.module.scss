@@ -44,3 +44,39 @@
         }
     }
 }
+
+@media screen and (max-width: 900px) {
+    .title{
+        @apply mb-3
+    }
+    .shows{
+        @apply mt-10
+    }
+    .wrapper{
+        @apply w-[350px] text-base
+    }
+    .img{
+        @apply w-[270px] h-[170px]
+    }
+    .paginate {
+        & ul {
+            & li{
+                &:first-child{
+                    @apply absolute left-[-25px]
+                }
+                &:last-child{
+                    @apply absolute right-[-25px]
+                }
+            }
+        }
+    } 
+}
+
+@media screen and (max-width: 580px) {
+    .wrapper{
+        @apply w-[270px] text-sm
+    }
+    .img{
+        @apply w-[220px]
+    }
+}
