@@ -330,6 +330,9 @@
     .img{
         @apply w-[215px] h-[190px]
     }
+    .date{
+        @apply text-center
+    }
 }
 
 @media screen and (max-width: 520px) {
@@ -388,7 +391,8 @@
         @apply w-[180px]
     }
     .img{
-        @apply w-[160px] h-[140px]
+        width: 160px !important;
+        height: 140px !important;
     }
     .date{
         @apply text-sm

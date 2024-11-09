@@ -53,3 +53,12 @@
             }
     @apply flex justify-center items-center pb-7 text-center
 }
+
+@media screen and (max-width: 768px) {
+    .title{
+        @apply text-3xl
+    }
+    .showsException{
+        @apply text-xl
+    }
+}

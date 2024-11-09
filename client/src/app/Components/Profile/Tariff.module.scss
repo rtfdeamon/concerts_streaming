@@ -43,6 +43,9 @@
     .image{
         @apply hidden
     }
+    .imageService{
+        display: block !important;
+    }
 }
 
 @media screen and (max-width: 980px) {

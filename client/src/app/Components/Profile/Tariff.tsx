@@ -8,6 +8,7 @@ import Flame from '../../../../public/flame.svg'
 import styles from './Tariff.module.scss'
 import { useState } from 'react'
 import { useAppSelector } from '@/app/hooks/rtkHooks'
+import { cn } from '@/lib/utils'
 
 export default function Tariff() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -49,9 +50,9 @@ export default function Tariff() {
             )}
             <div className={styles.tariffWrapper}>
                 {user?.role.includes('service') ? (
-                <div className={styles.tariffItem} style={{height: '350px'}}>
+                <div className={styles.tariffItem} style={{height: 'auto'}}>
                 <h6 className={styles.subtitle}>Basic</h6>
-                <Image className={styles.image} src={Smile} width={100} height={100} alt='Heart' />
+                <Image className={cn(styles.image, styles.imageService)} src={Smile} width={100} height={100} alt='Heart' />
                 <p className={styles.price}>$29,99</p>
                 <Button className={styles.btn}
                     onClick={() => openModalHandler('service')}

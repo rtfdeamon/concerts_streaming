@@ -93,3 +93,12 @@
         @apply w-auto text-base
     }
  }
+
+ @media screen and (max-width: 540px){
+    .showWrapper{
+        @apply w-[75%]
+    }
+    .fileWrapper audio{
+        width: 175px;
+    }
+ }

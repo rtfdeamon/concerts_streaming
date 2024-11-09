@@ -19,7 +19,7 @@ export default function AllArtists() {
     getShows();
   }, [])
   return (
-    <section>
+    <section className='relative'>
         <h5 className={styles.title}>All artists</h5>
         {artists && artists.length >0 &&
           <ArtistsPaginate itemsPerPage={15} artists={artists} all />

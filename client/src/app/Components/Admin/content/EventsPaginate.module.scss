@@ -67,7 +67,7 @@
 }
 
 @media screen and (max-width: 768px){
-    .infoWrapper{
+    .infoWrapper, .desc{
         @apply text-sm
     }
     .date, .title{
@@ -75,5 +75,19 @@
     }
     .date img {
         @apply hidden
+    }
+
+    .showImage{
+        height: 50%;
+    }
+    .changeBtn, .deleteBtn{
+        width: 100% !important;
+        @apply text-sm
+    }
+    .btnImage{
+        width: 15px;
+        height: 15px;
+        margin-left: 5px;
+        margin-top: 1px;
     }
 }

@@ -215,6 +215,11 @@ body[theme = "dark"] .events button{
     .profileWrapper a:first-child{
         @apply ml-0 mr-4
     }
+    .headerWithoutBannerBlackBg{
+        & a{
+            @apply mr-0
+        }
+    }   
     .header, .headerWithoutBanner{
         & a{
             margin-right: 0px !important;

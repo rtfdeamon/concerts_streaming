@@ -1,8 +1,8 @@
 .wrapper{
-    @apply flex justify-center flex-wrap w-[100%]
+    @apply flex justify-center flex-wrap w-[100%] relative
  }
  .requestWrapper{
-     @apply flex items-center justify-center relative mr-6
+     @apply flex items-center justify-center mr-6
  }
  .request{
      @apply flex items-center justify-center
@@ -35,7 +35,7 @@
              & li{
                  @apply block mr-5
              }
-     @apply w-[100%] absolute bottom-0 flex justify-center items-center pb-7 text-center
+     @apply w-[100%] absolute bottom-[-20px] flex justify-center items-center pb-7 text-center
  }
 .listPaginate{
     & li{
@@ -63,6 +63,9 @@
     .showWrapper{
         @apply w-[130px] mb-3
     }
+    .imageWrapper{
+        @apply max-w-[120px] truncate
+    }
 }
 
 @media screen and (max-width: 520px) {
@@ -74,6 +77,9 @@
     }
     .showWrapper{
         @apply w-[80px]
+    }
+    .imageWrapper{
+        @apply max-w-[70px] truncate
     }
 }
 @media screen and (max-width: 440px) {
