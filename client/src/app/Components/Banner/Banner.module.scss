@@ -1,0 +1,86 @@
+
+.section{
+    background-image: url('../../../../public/banner.jpg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @apply flex justify-between bg-white
+}
+.promo{
+    & h1{
+        word-wrap: break-word;
+       @apply text-5xl font-bold text-white
+    }
+    & span{
+        @apply mt-5 block text-center text-3xl mr-[30px]
+    }
+    & a {
+        margin-right: 0 !important;
+    }
+    & .btn{
+        &:hover{
+            @apply bg-blue-700
+        }
+        @apply right-2 text-xl mt-8 h-[64px] bg-blue-500 duration-500 transition-all
+    }
+    @apply absolute top-[50%] right-[5vw] flex-col items-center justify-center text-center pl-16 flex
+}
+body[theme = "dark"] .promo{
+    & h1{
+        @apply opacity-80
+    }
+    & .btn{
+        &:hover{
+            @apply bg-slate-400
+        }
+        @apply  bg-slate-600
+    }
+}
+@media screen and (max-width: 1280px){
+ .promo{
+    display: block;
+    margin: auto;
+    top: 50%;
+    width: 90vw;
+ }
+}
+@media screen and (max-width: 1024px){
+    .promo{
+        width: 95vw;
+        & h1{
+           @apply text-4xl
+        }
+        & span{
+            @apply text-2xl
+         }
+    }
+   }
+   @media screen and (max-width: 768px){
+    .promo{
+        & h1{
+           @apply text-3xl
+        }
+        & .btn{
+            @apply right-0
+        }
+        @apply mx-auto w-[100vw] right-[0] left-0 pl-0
+    }
+
+   }
+   @media screen and (max-width: 550px){
+    .promo{
+        & span{
+            @apply mr-[0px]
+         }
+    }
+   }
+   @media screen and (max-width: 460px){
+    .promo{
+        & h1{
+           @apply text-2xl
+        }
+        & span{
+            @apply text-xl
+         }
+    }
+   }

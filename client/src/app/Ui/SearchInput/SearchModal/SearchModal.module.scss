@@ -1,0 +1,87 @@
+.title{
+    @apply text-3xl mb-10 text-center font-medium leading-6 text-gray-900
+}
+.searchInput{
+    @apply  bg-transparent w-[400px] flex mx-auto mb-12 placeholder-black
+}
+.searching{
+    @apply text-xl my-3
+}
+.artistsWrapper{
+    @apply flex flex-row overflow-x-auto overflow-y-hidden items-center text-center mb-8 z-[99]
+}
+.Title{
+    @apply text-2xl text-center my-3
+}
+.artist{
+    &:hover {
+        @apply bg-slate-200
+    }
+    @apply block p-4 mx-auto transition-all duration-500 cursor-pointer min-h-[200px] min-w-[200px]
+}
+.Image{
+    @apply block rounded-full mb-2 w-[150px] h-[150px] mx-auto
+}
+.showImage{
+    @apply block mb-2 w-[250px] h-[250px] object-contain
+
+}
+.artistName{
+    @apply mt-2
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply block mx-auto my-auto right-2 text-xl w-[200px] h-[50px] bg-blue-500 duration-500 transition-all
+}
+
+@media screen and (max-width:768px) {
+    .artist{
+        @apply block p-4 transition-all duration-500 cursor-pointer min-h-[120px] min-w-[120px]
+    }
+    .Image{
+        @apply block w-[120px] h-[120px]
+    }
+    .searchInput{
+        @apply  w-[300px]
+    }
+    .Title{
+        @apply text-xl
+    }
+    .title{
+        @apply text-2xl
+    }
+}
+
+@media screen and (max-width: 650px){
+    .artist{
+        @apply min-h-[120px] min-w-[150px]
+    }
+    .Image{
+        @apply w-[100px] h-[100px]
+    }
+    .showImage{
+        @apply w-[180px] h-[150px]
+    }
+}
+
+@media screen and (max-width:576px) {
+    .artist{
+        @apply min-h-[100px] min-w-[120px]
+    }
+    .Image{
+        @apply w-[80px] h-[80px]
+    }
+    .showImage{
+        @apply w-[150px] h-[120px]
+    }
+}
+@media screen and (max-width:440px) {
+    .Image{
+        @apply w-[80px] h-[80px]
+    }
+    .showImage{
+        @apply w-[130px] h-[100px]
+    }
+}

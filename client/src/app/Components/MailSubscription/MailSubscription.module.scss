@@ -1,0 +1,49 @@
+.form{
+    & h5{
+        @apply text-3xl text-center mb-12
+    }
+    @apply flex-col items-center mx-auto my-24 min-h-[200px]
+}
+.formWrapper{
+    @apply flex items-center mx-auto max-w-[50vw]
+}
+.input{
+    @apply h-[63px]
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex mx-auto my-auto right-2 text-xl h-[64px] bg-blue-500 duration-500 transition-all items-center
+}
+.error{
+    @apply block text-center text-red-600 mt-4
+}
+@media screen and (max-width: 1280px) {
+    .formWrapper{
+        @apply max-w-[70vw]
+    }
+}
+@media screen and (max-width: 820px) {
+    .formWrapper{
+        @apply max-w-[85vw]
+    }
+    .form {
+        & h5{
+            @apply text-2xl
+        }
+    }
+    .btn{
+        @apply text-sm
+    }
+}
+@media screen and (max-width: 580px) {
+    .formWrapper{
+        @apply max-w-[80vw]
+    }
+    .form{
+        & h5{
+            @apply text-xl
+        }
+    }
+}

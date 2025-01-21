@@ -1,0 +1,24 @@
+ .content{
+     @apply flex flex-col items-center justify-center relative h-[80vh] w-[70vw]
+ }
+ .title{
+     @apply text-3xl my-5 text-center
+ }
+ .error{
+    @apply block mt-14 text-3xl text-center
+}
+ .items{
+    & a{
+        @apply w-[350px]
+    }
+    @apply flex flex-wrap justify-center
+ }
+
+ @media screen and (max-width: 720px) {
+    .title{
+        @apply text-2xl
+    }
+    .error{
+       @apply text-xl
+   }
+ }

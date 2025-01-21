@@ -1,0 +1,76 @@
+.sectionWrapper{
+    @apply w-2/3 mx-auto py-10 flex flex-col items-center
+}
+.titleWrapper{
+    & img{
+        @apply block mb-4
+    }
+    @apply flex justify-center text-5xl w-[85vw]
+}
+.title{
+    @apply block text-center text-5xl
+}
+.shows{
+    @apply mt-16
+}
+.showsException{
+    @apply block mt-14 ml-24 text-3xl text-center 
+}
+.ticketInfos{
+    @apply  flex flex-wrap h-auto justify-evenly text-center
+}
+.link{
+    &:hover{
+        @apply text-blue-500
+    }
+    @apply duration-500 transition-all mb-6 mx-2
+}
+.poster{
+    @apply block mb-3 rounded-md
+}
+.concTitle{
+    @apply text-xl mb-2
+}
+.poster{
+    @apply h-[200px]
+}
+// .genre{
+//     @apply text-slate-400
+// }
+
+@media screen and (max-width: 1024px) {
+    .poster{
+            @apply w-[180px] h-[120px]
+        }
+}
+@media screen and (max-width: 800px) {
+    .poster{
+            @apply w-[160px]
+        }
+        .concTitle{
+            @apply text-[16px]
+        }
+}
+
+@media screen and (max-width: 720px){
+    .title{
+        @apply text-2xl
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .poster{
+            @apply w-[140px] h-[115px] object-cover
+        }
+}
+
+@media screen and (max-width: 480px) {
+    .poster{
+            @apply w-[120px] h-[100px]
+        }
+}
+@media screen and (max-width: 440px) {
+    .poster{
+            @apply w-[100px] h-[80px]
+        }
+}

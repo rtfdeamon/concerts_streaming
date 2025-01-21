@@ -1,0 +1,13 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: client
+      args:
+        - BACKEND_URL=https://concertplatform.mmvs.video/operations #http://mmvsds-test.ddns.net:8180
+        - FRONTEND_URL=https://concertplatform.mmvs.video # http://mmvsds-test.ddns.net:8188
+    environment:
+      BACKEND_URL: "https://concertplatform.mmvs.video/operations" # "http://mmvsds-test.ddns.net:8180"
+      FRONTEND_URL: "https://concertplatform.mmvs.video" # "http://mmvsds-test.ddns.net:8188"
+    ports:
+      - "8188:3000"

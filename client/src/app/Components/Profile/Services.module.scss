@@ -1,0 +1,40 @@
+.sectionWrapper{
+    @apply w-2/3 mx-auto py-10 flex flex-col items-center
+}
+.title{
+    @apply text-5xl text-center mb-6
+}
+.wrapper{
+    @apply w-[70vw] flex justify-evenly items-center text-center
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex mx-auto my-auto right-2 text-xl h-[64px] bg-blue-500 duration-500 transition-all items-center
+}
+.image{
+    @apply block mx-auto
+}
+.subtitle{
+    @apply text-3xl mb-5
+}
+.btn{
+    &:hover{ 
+        @apply bg-blue-700
+    }
+    @apply block mx-auto mt-5 text-xl h-[60px] bg-blue-500 duration-500 transition-all w-[200px]
+}
+
+.servicesException{
+    @apply block mt-14 text-3xl text-center 
+}
+
+@media screen and (max-width: 1280px) {
+    .title{
+        @apply text-3xl
+    }
+    .servicesException{
+        @apply text-xl
+    }
+}

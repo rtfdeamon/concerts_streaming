@@ -1,0 +1,18 @@
+.profileImage{
+    & button{
+        @apply w-[150px]
+    }
+    @apply flex items-center h-fit mr-12
+}
+.userIcon{
+    @apply block rounded-full bg-slate-600 w-[40px] h-[40px] mr-10
+}
+.btn{
+    @apply bg-blue-500
+}
+
+@media screen and (max-width:800px) {
+    .profileImage{
+        @apply mr-0 mt-2
+    }
+}

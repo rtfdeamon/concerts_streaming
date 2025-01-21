@@ -1,0 +1,26 @@
+.menuWrapper{
+    @apply w-2/3 mx-auto py-10 flex flex-col items-center relative
+}
+.title{
+    @apply text-5xl text-center mb-10
+}
+.shows{
+    @apply flex flex-wrap items-center justify-center relative text-xl my-0
+}
+.error{
+    @apply block mt-14 text-3xl text-center
+}
+
+@media screen and (max-width: 1024px) {
+    .title{
+        @apply text-3xl
+    }
+}
+@media screen and (max-width: 720px){
+    .title{
+        @apply text-2xl
+    }
+    .error{
+        @apply text-xl
+    }
+}

@@ -1,0 +1,13 @@
+services:
+
+  frontend:
+    build:
+      context: .
+      args:
+        - BACKEND_URL=https://dp-ent.com/operations #http://mmvsds-test.ddns.net:8180
+        - FRONTEND_URL=https://dp-ent.com/ # http://mmvsds-test.ddns.net:8188
+    environment:
+      BACKEND_URL: "https://dp-ent.com/operations" # "http://mmvsds-test.ddns.net:8180"
+      FRONTEND_URL: "https://dp-ent.com/" # "http://mmvsds-test.ddns.net:8188"
+    ports:
+      - "8188:3000"

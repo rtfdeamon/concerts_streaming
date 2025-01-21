@@ -1,0 +1,47 @@
+.Navbar{
+    @apply min-h-[100vh] w-[20vw] bg-[#1b232b] text-white text-xl p-7
+}
+.logoWrapper{
+    & a{
+        @apply block w-[150px] h-[20vh] mx-auto
+    }
+    @apply block mx-auto
+}
+.nav{
+    @apply flex flex-col w-full h-[50vh] items-center justify-evenly
+}
+.navEl{
+    &:hover{
+        @apply opacity-100
+    }
+    @apply cursor-pointer transition-all duration-500 opacity-80
+}
+.prevImage{
+    @apply mr-2
+}
+.prevBtn{
+    &:hover{
+        @apply opacity-100
+    }
+    @apply flex items-center justify-center transition-all cursor-pointer duration-500 opacity-70
+}
+
+@media screen and (max-width: 900px) {
+    .logoWrapper{
+        & a{
+            @apply block w-[80px]
+        }
+    }
+    .Navbar{
+        @apply w-[30vw];
+    }
+    .prevImage{
+        @apply w-5
+    }
+    .prevBtn{
+        @apply text-base
+    }
+    .navEl{
+        @apply text-sm
+    }
+}

@@ -1,0 +1,189 @@
+.section{
+    background-image: url('../../../../public/audio-lines.svg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: 500px 400px;
+    background-position: 20% 80%;
+    @apply px-14 py-20 bg-white rounded-md
+}
+.sectionWrapper{
+    @apply flex mx-auto justify-center 
+}
+.infoWrapper{
+    & h5{
+        &::before{
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            width: 85%;
+            height: 4px;
+            background: #3182EC;
+        }
+        @apply relative text-5xl mb-8
+    }
+    & h6{
+        @apply text-3xl mb-4
+    }
+    & h5, h6{
+        @apply  text-left
+    }
+    & p{
+        word-wrap: break-word;
+        @apply max-w-[800px]
+    }
+}
+.iconsWrapper{
+    @apply flex flex-wrap w-[800px] justify-end cursor-pointer
+}
+.iconWrapper{
+    &:nth-child(1), &:nth-child(2),
+    &:nth-child(3), &:nth-child(4){
+        @apply mb-16   
+    };
+    &:nth-child(1), &:nth-child(3), , &:nth-child(5){
+        @apply mr-16   
+    }
+    &:last-child{
+        @apply mb-24
+    }
+    & img{
+        @apply mb-5 mx-auto
+    }
+    @apply w-[350px]
+}
+.iconText{
+    & {
+        word-wrap: break-word;
+    }
+    @apply block max-w-[230px] mx-auto text-center
+}
+@media screen and (max-width: 1650px){
+    .iconWrapper{
+        &:nth-child(1), &:nth-child(3), &:nth-child(5){
+            @apply mr-8   
+        }
+        @apply w-[290px]
+    }
+}
+@media screen and (max-width: 1350px){
+    .section{
+        background-size: 300px 200px;
+        background-position: 15% 80%;
+    }
+    .iconWrapper{
+        &:nth-child(1), &:nth-child(3), &:nth-child(5){
+            @apply mr-4   
+        }
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width: 1150px){
+    .iconWrapper{
+        @apply w-[200px]
+    }
+    .iconText{
+        @apply text-base
+    }
+}
+@media screen and (max-width: 1024px){
+    .iconWrapper{
+        @apply w-[150px]
+    }
+}
+@media screen and (max-width: 950px){
+    .section{
+        background-image: none;
+    }
+    .sectionWrapper{
+        @apply flex-col items-center justify-center px-4
+    }
+    .infoWrapper{
+        & h5{
+            &::before{
+                width: 85vw;
+            }
+        }
+    }
+    .iconsWrapper{
+        @apply justify-around mt-10
+    }
+    .iconWrapper{
+            &:nth-child(1), &:nth-child(3), &:nth-child(5){
+        @apply mr-0   
+    }
+        @apply w-[250px]
+    }
+    
+    
+}
+@media screen and (max-width: 820px){
+    .infoWrapper{
+        & h5{
+            &::before{
+                width: 75vw;
+            }
+            @apply text-3xl
+        }
+    }
+    .iconsWrapper{
+        @apply w-auto
+    }
+    .iconWrapper{
+         & img{
+            @apply w-[80px] h-[80px]
+         }
+        @apply w-[220px]
+    } 
+}
+@media screen and (max-width: 620px){
+    .section{
+        @apply py-12
+    }
+    .infoWrapper{
+        & h5{
+            @apply text-2xl
+        }
+        & h6{
+            @apply text-xl
+        }
+    }
+    .iconWrapper{
+        &:nth-child(2n){
+            @apply ml-2
+        }
+        &:nth-child(5n), &:nth-child(6n){
+            @apply mb-5
+        }
+        @apply w-[160px]
+    }
+    .iconText{
+        @apply text-sm
+    } 
+    
+}
+@media screen and (max-width: 480px){
+    .iconWrapper{
+        @apply w-[100px]
+    }
+    .infoWrapper{
+        & h5{
+            &::before{
+                width: 65vw;
+            }
+        }
+    }
+}
+@media screen and (max-width: 376px){
+    .iconWrapper{
+        & img{
+            @apply w-[60px] h-[60px]
+        }
+        @apply w-[80px]
+    }
+}
+@media screen and (max-width: 320px){
+    .iconWrapper{
+        @apply w-[60px] text-sm
+    }
+}

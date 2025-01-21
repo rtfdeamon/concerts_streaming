@@ -1,0 +1,98 @@
+.wrapper{
+    @apply flex justify-center flex-wrap w-[100%] relative
+ }
+ .requestWrapper{
+     @apply flex items-center justify-center mr-6
+ }
+ .request{
+     @apply flex items-center justify-center
+ }
+ .showWrapper, .showProfileWrapper{
+     @apply w-[350px] bg-white rounded-md p-6 mb-8 mr-2 ml-2
+ }
+ .showLink{
+     &:hover{
+         @apply text-blue-500
+     }
+     @apply block text-center text-base text-blue-400 transition-all duration-500
+ }
+ .imageWrapper{
+     & p:hover{
+         @apply text-blue-500
+     }
+     & p{
+         @apply text-base text-center truncate transition-all duration-500 mt-3
+     }
+     & img{
+         @apply rounded-full block mx-auto
+     }
+     @apply block mx-auto
+ }
+ .image{
+    @apply rounded-full w-[80px] h-[80px]
+ }
+ .paginate{
+             & li{
+                 @apply block mr-5
+             }
+     @apply w-[100%] absolute bottom-[-20px] flex justify-center items-center pb-7 text-center
+ }
+.listPaginate{
+    & li{
+        @apply block mr-5
+    }
+@apply w-full bottom-0 flex justify-center items-center pb-7 text-center
+}
+
+@media screen and (max-width: 1280px){
+    .showProfileWrapper{
+        @apply w-[170px]
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .showWrapper{
+        @apply w-[200px]
+    }
+}
+
+@media screen and (max-width:700px) {
+    .showProfileWrapper{
+        @apply w-[130px]
+    }
+    .showWrapper{
+        @apply w-[130px] mb-3
+    }
+    .imageWrapper{
+        @apply max-w-[120px] truncate
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .wrapper{
+        @apply justify-around
+    }
+    .requestWrapper{
+        @apply mr-0
+    }
+    .showWrapper{
+        @apply w-[80px]
+    }
+    .imageWrapper{
+        @apply max-w-[70px] truncate
+    }
+}
+@media screen and (max-width: 440px) {
+    .showWrapper{
+        & img{
+            @apply w-[50px] h-[50px]
+        }
+        @apply w-[80px]
+    }
+    .showProfileWrapper{
+        & img{
+            @apply w-[50px] h-[50px]
+        }
+        @apply w-[100px]
+    }
+}

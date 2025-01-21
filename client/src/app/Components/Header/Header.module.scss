@@ -1,0 +1,231 @@
+.header{
+        background-image: url('../../../../public/banner.jpg');
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: cover;
+        & a{
+            @apply mr-16 transition-all duration-500
+        }
+        & a:hover{
+            @apply text-blue-500
+        }
+        & input{
+            &::placeholder {
+                color: white;
+                opacity: 1; /* Firefox */
+              }
+        }
+        @apply flex flex-col min-h-[100vh] w-[100vw] text-white relative
+        
+}
+.headerWithoutBanner{
+    & a{
+        @apply mr-16 transition-all duration-500
+    }
+    & a:hover{
+        @apply text-blue-500
+    }
+    & input{
+        &::placeholder {
+            color: white;
+            opacity: 1; /* Firefox */
+          }
+    }
+    border-bottom: 1px solid #3b82f6;
+    @apply flex flex-col items-center justify-center h-[15vh] w-[100vw] text-black
+}
+.headerWithoutBannerBlackBg{
+    & a{
+        @apply mr-16 transition-all duration-500
+    }
+    & a:hover{
+        @apply text-blue-500
+    }
+    & input{
+        &::placeholder {
+            color: white;
+            opacity: 1; /* Firefox */
+          }
+    }
+    border-bottom: 1px solid #000000;
+    @apply flex flex-col items-center justify-center h-[15vh] w-[100vw] text-white bg-gray-500
+}
+body[theme = "dark"] .header{
+    background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../../../../public/banner.jpg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+.headerWrapper{
+    @apply flex justify-between items-center w-[95vw] mx-auto text-xl py-5 px-10 bg-transparent
+}
+.burger, .burgerClose{
+        position: absolute;
+        right: 40px;
+        top: 20px;
+        z-index: 100;
+}
+.burgerClose{
+    position: fixed;
+}
+.headerMobileWrapper{
+    @apply fixed top-[-300vh] py-32 flex flex-col justify-start items-center right-0 left-0 transition-all duration-200 z-[1] text-white
+}
+body[burgerIsActive = "close"] .headerMobileWrapper{
+    background: rgba(0,0,0, 0.85);
+    @apply top-[0px] z-[50] h-full
+}
+.wrapper{
+    & img{
+        @apply mr-10
+    }
+    @apply flex items-center
+}
+.categories{
+    @apply flex items-start justify-center w-[350px] text-center p-6
+}
+.events{
+    &  ul button, &  ul a{
+        @apply bg-transparent text-xl mr-0
+    }
+    &  ul a:not(:first-child){
+        @apply mt-3
+    }
+    @apply flex justify-between items-center
+}
+body[theme = "dark"] .link {
+    opacity: 0.8;
+}
+body[theme = "dark"] .events button{
+    opacity: 0.8;
+}
+.profileWrapper{
+    @apply flex items-center
+}
+.error{
+    @apply block mt-[40vh] text-5xl font-bold text-center
+}
+@media screen and (max-width:1550px) {
+    .header, .headerWithoutBanner{
+        & a:first-child{
+            @apply mr-2
+        }
+    }
+    .events div{
+        @apply ml-4
+    }
+}
+
+@media screen and (max-width:1280px) {
+    .header, .headerWithoutBanner{
+        & a:first-child{
+            @apply mr-10
+        }
+    }
+    .headerWrapper{
+        @apply w-[100vw] flex-wrap justify-center
+    }
+    .wrapper{
+        @apply w-[90vw] justify-center mb-5
+    }
+    .events{
+        & div{
+            @apply ml-0
+        }
+        @apply mr-24
+    }
+    .events{
+        & ul{
+            @apply w-[350px]
+        }
+        &  ul button, &  ul a{
+            margin-right: 0px !important;
+        }
+}
+}
+
+@media screen and (max-width:900px) {
+    .events{
+        @apply mb-6
+    }
+    .headerWithoutBanner a{
+        @apply mr-4
+    }
+    .header, .headerWithoutBanner{
+        & a:first-child{
+            @apply mr-8
+        }
+    }
+}
+@media screen and (max-width:850px) {
+    .events{
+        @apply mr-12
+    }
+}
+@media screen and (max-width: 800px) {
+}
+@media screen and (max-width:768px) {
+    .header, .headerWithoutBanner{
+        & a:first-child{
+            @apply mr-4
+        }
+    }
+    .wrapper{
+        & img{
+            @apply mr-0
+        }
+        @apply flex-col items-center justify-center
+    }
+    .events{
+        @apply mb-10 w-[90vw] mr-0 justify-center
+    }
+    .profileWrapper a:first-child{
+        @apply ml-8 mr-16
+    }
+    .categories{
+        @apply max-h-[200px] overflow-y-scroll
+    }
+    .burger, .burgerClose{
+        width: 40px;
+        height: 40px;
+    }
+    .burgerClose{
+        right: 25px;
+    }
+}
+
+@media screen and (max-width: 550px){
+    .header{
+        & a{
+            @apply mr-0
+        }
+    }
+}
+
+@media screen and (max-width:480px) {
+    .events{
+        @apply flex flex-col justify-center items-center
+    }
+    .events{
+        & ul button{
+            @apply mt-8
+        }
+    }
+    .profileWrapper a:first-child{
+        @apply ml-0 mr-4
+    }
+    .headerWithoutBannerBlackBg{
+        & a{
+            @apply mr-0
+        }
+    }   
+    .header, .headerWithoutBanner{
+        & a{
+            margin-right: 0px !important;
+        }
+        & .linkSignIn{
+            margin-right: 32px !important;
+        }
+    }
+}

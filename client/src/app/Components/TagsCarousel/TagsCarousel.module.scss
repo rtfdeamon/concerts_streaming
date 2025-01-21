@@ -1,0 +1,18 @@
+.carousel{
+    @apply flex justify-center items-center h-[120px] w-full bg-white py-6 px-2
+}
+.carouselBlock{
+    @apply w-[90%]
+}
+.carouselItem{
+    @apply flex justify-center pl-1
+}
+.carouselTagItem{
+    @apply p-3
+}
+.cardLink{
+    &:hover{
+        @apply bg-blue-400
+    }
+    @apply flex w-[150px] h-[60px] items-center justify-center p-6 rounded-lg transition-all duration-500
+}

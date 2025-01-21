@@ -1,0 +1,93 @@
+.showWrapper{
+    @apply relative flex flex-col items-center w-[50vw] bg-white p-5 mb-5 rounded-md overflow-hidden mx-auto
+}
+.show{
+    @apply flex items-center justify-evenly
+}
+.title{
+    &:hover{
+        @apply text-blue-500
+    }
+    @apply block text-xl text-center duration-500 transition-all
+}
+.date{
+    & img{
+        @apply mr-3
+    }
+    @apply flex justify-center text-center my-4
+}
+.showImage{
+    @apply rounded-md h-[300px] object-fill
+}
+.desc{
+    @apply my-2 mb-8 indent-4
+}
+.infoWrapper{
+    @apply flex justify-evenly w-[80%]
+}
+.info{
+    @apply flex flex-col justify-around mt-4
+}
+.paragraph{
+    @apply mb-3 capitalize
+}
+.paginate{
+    & li{
+        @apply mr-4
+    }
+    @apply flex justify-center absolute bottom-0 right-[47%]
+}
+
+.controls{
+    & button{
+        @apply w-[200px] h-[50px]
+    }
+    @apply mt-10
+}
+.changeBtn{
+    @apply bg-slate-400 mr-5
+}
+.deleteBtn{
+    @apply bg-red-700
+}
+
+@media screen and (max-width: 1200px){
+    .infoWrapper{
+        @apply flex-col items-center
+    }
+}
+
+@media screen and (max-width: 920px){
+    .controls{
+        @apply flex flex-col items-center
+    }
+    .changeBtn{
+        @apply mr-0 mb-3
+    }
+}
+
+@media screen and (max-width: 768px){
+    .infoWrapper, .desc{
+        @apply text-sm
+    }
+    .date, .title{
+        @apply text-sm
+    }
+    .date img {
+        @apply hidden
+    }
+
+    .showImage{
+        height: 50%;
+    }
+    .changeBtn, .deleteBtn{
+        width: 100% !important;
+        @apply text-sm
+    }
+    .btnImage{
+        width: 15px;
+        height: 15px;
+        margin-left: 5px;
+        margin-top: 1px;
+    }
+}

@@ -1,0 +1,21 @@
+.titleWrapper{
+    @apply flex justify-center my-10 text-5xl
+}
+.span{
+    @apply block w-8 h-8 mr-5 mt-2 bg-red-500 rounded-full
+}
+.showsException{
+    @apply block mt-14 text-3xl text-center 
+}
+
+@media screen and (max-width: 720px){
+    .title{
+        @apply text-2xl
+    }
+    .span{
+        @apply w-4 h-4 mt-2
+    }
+    .showsException{
+        @apply text-xl
+    }
+}

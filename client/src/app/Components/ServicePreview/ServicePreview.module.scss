@@ -1,0 +1,168 @@
+.section{
+    @apply max-w-[1280px] mx-auto p-5
+}
+.poster{
+    @apply bg-white px-5 py-10 rounded-lg
+}
+.posterWrapper{
+    @apply flex flex-col items-center justify-center
+}
+.artistTitle{
+    @apply text-3xl text-center font-semibold mb-4
+}
+.artistSubtitle{
+    @apply text-xl text-center mb-4
+}
+.previewWrapper{
+    @apply relative flex justify-center
+}
+.preview{
+    @apply block mx-auto mb-8 rounded-md w-full h-[500px] object-contain relative
+}
+.buyBtn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex absolute w-[300px] h-[64px] text-3xl mx-auto bg-blue-500 duration-500 transition-all top-1/2
+}
+.paypalWrapper{
+    @apply block h-[230px] mt-4 mx-auto p-8 text-3xl
+}
+.link{
+    &:hover{
+        @apply text-blue-500
+    }
+    @apply ml-3 transition-all duration-500
+}
+.desc{
+    word-wrap: break-word;
+    @apply block max-w-[800px] mb-4 text-[#94A3B8] text-xl
+}
+.btn{
+    &:hover{
+        @apply bg-blue-500 text-white
+    }
+    @apply flex mx-auto text-black right-2 text-xl h-[64px] bg-transparent border-2 border-blue-500 duration-500 transition-all
+}
+.btnBanner{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply flex mx-auto right-2 text-xl h-[64px] bg-blue-500 duration-500 transition-all
+}
+.aboutWrapper{
+    @apply flex
+}
+.calendar{
+    @apply flex justify-evenly w-full
+}
+.live, .date{
+    & img{
+        @apply mr-10 rounded-none
+    }
+    @apply flex items-center my-10
+}
+.wrapper{
+    @apply flex flex-col items-center justify-center text-center
+}
+.text{
+    @apply text-center w-[100px]
+}
+.aboutWrapper{
+    @apply flex flex-col text-center my-5 bg-white rounded-md p-5
+}
+.aboutTitle{
+    @apply text-2xl mb-5
+}
+.aboutDesc{
+    word-wrap: break-word;
+    @apply block text-[#94A3B8] leading-loose min-h-[200px]
+}
+.banner{
+    height: 500px;
+    background-image: url('../../../../public/banner2.jpg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 200% 15%;
+    @apply relative px-14 py-20 bg-white rounded-md
+}
+.btnWrapper{
+    @apply absolute right-0 left-0 top-[50%]
+}
+
+.socialItems{
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.socialItem{
+    &:hover{
+        transform: scale(1.05);
+    }
+    &:not(:last-child){
+        margin-right: 25px;
+    }
+    width: 50px;
+    height: 50px;
+    transition: .3s all;
+    cursor: pointer;
+}
+
+@media screen and (max-width:1280px) {
+    .buyBtn{
+        @apply text-2xl
+    }
+}
+@media screen and (max-width:1024px) {
+    .preview{
+        @apply h-[350px]
+    }
+    .buyBtn{
+        top: calc(40%);
+        @apply w-auto
+    }
+    .btn{
+        @apply w-[175px] text-sm
+    }
+    .btnBanner{
+        @apply text-[16px]
+    }
+    .socialItems{
+        flex-wrap: wrap;
+        max-width: 90%;
+
+    }
+    .socialItem{
+        width: 30px;
+        height: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .banner{
+        background-position: unset;
+        @apply h-[350px]
+    }
+    .live, .date{
+        & img{
+            margin-right: 0;
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+        @apply w-[50px] h-[50px] text-sm flex-col text-center
+    }
+    .calendar{
+        @apply mb-[20px]
+    }
+    .aboutDesc{
+        min-height: unset;
+    }
+}

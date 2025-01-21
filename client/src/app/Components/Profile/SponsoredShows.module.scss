@@ -1,0 +1,24 @@
+.sectionWrapper{
+    @apply w-[80vw]
+}
+.titleWrapper{
+    & img{
+        @apply block mb-4
+    }
+    @apply flex justify-center mt-10 mb-14 text-5xl w-[85vw]
+}
+.title{
+    @apply block text-center
+}
+.showsException{
+    @apply block mt-14 text-2xl text-center px-4
+}
+
+@media screen and (max-width: 720px) {
+    .title{
+        @apply text-2xl
+    }
+    .showsException{
+        @apply text-base
+    }
+}

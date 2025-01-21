@@ -1,0 +1,58 @@
+.footer{
+    @apply flex flex-col justify-center items-center py-12 bg-white
+
+}
+.links{
+    @apply mb-4
+}
+.link{
+    &:hover{
+        @apply text-blue-500
+    }
+    @apply text-lg mr-16 duration-500 transition-all
+}
+.copyright{
+    @apply mr-14 ml-5
+}
+.logoWrapper{
+    @apply flex items-center
+}
+
+@media screen and (max-width:800px) {
+    .link:not(:last-child){
+        @apply mr-8
+    }
+    .link:last-child{
+        @apply mr-0
+    }
+    .logoWrapper{
+        & a{
+            @apply mb-4
+        }
+        @apply flex-col items-center justify-center
+    }
+    .copyright{
+        @apply mx-0
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .footer, .link{
+        @apply text-sm text-center
+    }
+}
+
+@media screen and (max-width:420px) {
+    .link:not(:last-child){
+        @apply mr-8
+    }
+    .link:last-child{
+        @apply mr-0
+    }
+    .logoWrapper{
+        @apply flex-col items-center justify-center
+    }
+    .copyright{
+        @apply mx-0 max-w-[300px]
+    }
+}

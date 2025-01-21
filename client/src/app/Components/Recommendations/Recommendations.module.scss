@@ -1,0 +1,170 @@
+.section{
+    @apply bg-white py-6 px-8 min-h-[450px] rounded-b-md
+}
+body[theme = "dark"] .section{
+    background-color:rgba(0, 0, 0, 0.5)
+}
+.title{
+    @apply text-3xl text-center mb-24
+}
+.artistsWrapper{
+    @apply flex flex-wrap justify-center my-24 mb-10
+}
+.artistWrapper{
+    @apply w-[450px] mb-[40px] flex flex-col
+}
+.linkWrapper{
+    &:hover{
+        @apply text-blue-500
+    }
+    & img{
+        @apply rounded-full w-[160px] h-[160px]
+    }
+    @apply flex justify-evenly text-center rounded-lg
+}
+.artistInfo{
+    @apply flex flex-col items-center justify-center w-[250px]
+}
+.artistName{
+    word-wrap: break-word;
+    @apply block max-w-[250px] truncate mx-auto text-center text-2xl duration-500 transition-all my-4
+}
+.genre{
+    @apply text-center
+}
+.section button{
+    & svg{
+        @apply w-[200px] h-[200px]
+    }
+    @apply border-0
+}
+.btn{
+    &:hover{
+        @apply bg-blue-700
+    }
+    @apply right-2 text-xl p-8 bg-blue-500 duration-500 transition-all
+}
+@media screen and (max-width:1500px) {
+    .artistWrapper{
+        @apply w-[350px]
+    }
+    .artistInfo{
+        @apply w-[200px]
+    }
+}
+@media screen and (max-width:1280px) {
+    .artistWrapper{
+        @apply w-[300px]
+    }
+    .linkWrapper img{
+        @apply w-[130px] h-[130px]
+    }
+}
+@media screen and (max-width:1024px) {
+    .artistsWrapper{
+        @apply justify-center
+    }
+    .artistWrapper{
+        @apply w-[400px]
+    }
+    .section{
+        min-height: unset;
+    }
+}
+@media screen and (max-width:950px) {
+    .artistWrapper{
+        @apply w-[350px]
+    }
+    .artistName{
+        @apply max-w-[150px]
+    }
+}
+@media screen and (max-width:850px) {
+    .artistWrapper{
+        @apply w-[320px]
+    }
+    .artistInfo{
+        @apply w-[100px]
+    }
+}
+@media screen and (max-width:780px) {
+    .artistWrapper{
+        @apply w-[280px]
+    }
+    .linkWrapper img{
+        @apply w-[100px] h-[100px]
+    }
+}
+@media screen and (max-width:720px) {
+    .artistWrapper{
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width:650px) {
+    .artistWrapper{
+        @apply w-[150px] text-center
+    }
+    .artistName{
+        @apply max-w-[90px]
+    }
+    .linkWrapper{
+        @apply flex flex-col items-center justify-center
+    }
+}
+@media screen and (max-width:580px) {
+    .title{
+        @apply mb-16
+    }
+    .artistsWrapper{
+        @apply mt-4 mb-5
+    }
+    .artistName{
+        @apply text-xl mb-2
+    }
+    .artistWrapper{
+        @apply w-[180px]
+    }
+    .genre{
+        @apply text-base
+    }
+}
+@media screen and (max-width:520px) {
+    .artistWrapper{
+        @apply w-[160px]
+    }
+}
+@media screen and (max-width:460px) {
+    .artistWrapper{
+        @apply w-[130px]
+    }
+}
+@media screen and (max-width:420px) {
+    .linkWrapper img{
+        @apply w-[80px] h-[80px]
+    }
+    .artistName{
+        @apply text-base mb-2
+    }
+    .artistWrapper{
+        @apply w-[110px]
+    }
+}
+@media screen and (max-width:376px) {
+    .section{
+        @apply px-4
+    }
+    .linkWrapper img{
+        @apply w-[80px] h-[80px]
+    }
+    .artistName{
+        @apply text-base mb-2
+    }
+    .artistWrapper{
+        @apply w-[110px]
+    }
+}
+@media screen and (max-width:330px) {
+    .artistWrapper{
+        @apply w-[100px]
+    }
+}

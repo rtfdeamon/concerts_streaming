@@ -1,0 +1,42 @@
+
+body[theme = "dark"] .inputHeader, .inputDefault{
+        @apply opacity-80
+}
+.inputHeader{
+    & input{
+        @apply  placeholder-white bg-transparent
+    }
+    @apply w-[300px] flex 
+}
+.inputDefault{
+    & input{
+        @apply  font-bold bg-blue-600 border-none
+    }
+    @apply w-[300px] flex  
+}
+@media screen and (max-width: 1366px){
+    .inputHeader, .inputDefault{
+        & input{
+            &::placeholder{
+                @apply truncate
+            }
+           @apply truncate
+        }   
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width: 1280px){
+    .inputHeader, .inputDefault{
+        @apply w-[300px]
+    }
+}
+@media screen and (max-width: 850px){
+    .inputHeader, .inputDefault{
+        @apply w-[250px]
+    }
+}
+@media screen and (max-width: 768px){
+    .inputHeader, .inputDefault{
+        @apply w-[300px] my-5
+    }
+}
